@@ -7,6 +7,7 @@ import { renderPage } from "./pages";
 import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { initCommunity } from "./community";
+import { initChatbot } from "./chatbot/widget";
 import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, CHAMPIONS, COACHS, VALUES } from "./data";
 
 function renderHomeGrids() {
@@ -165,6 +166,7 @@ function bootOnce() {
   initThemeSwitch();
   initScroll();
   initFxOnce();
+  initChatbot();
   if (hasWebGL) import("./three/world").then((m) => m.initWorld()).catch(() => {});
 }
 
