@@ -121,13 +121,13 @@ function initPortal(section: HTMLElement): Handle | null {
   const eg = new THREE.BufferGeometry();
   eg.setAttribute("position", new THREE.BufferAttribute(ep, 3));
   const emat = new THREE.PointsMaterial({
-    color: C(cols.energy), size: 0.06, transparent: true, opacity: 0.7,
+    color: C(cols.accent), size: 0.06, transparent: true, opacity: 0.7,
     blending: THREE.AdditiveBlending, depthWrite: false,
   });
   const embers = new THREE.Points(eg, emat);
   scene.add(embers);
 
-  const key = new THREE.PointLight(C(cols.energy), 30, 70);
+  const key = new THREE.PointLight(C(cols.accent), 30, 70);
   key.position.set(0, 0, 4);
   const amb = new THREE.AmbientLight(0xffffff, 0.55);
   scene.add(key, amb);
@@ -136,7 +136,7 @@ function initPortal(section: HTMLElement): Handle | null {
   const onTheme = () => {
     cols = themeColors();
     ropeMat.color.set(cols.accent); ropeMat.emissive.set(cols.accent);
-    emat.color.set(cols.energy); key.color.set(cols.energy);
+    emat.color.set(cols.accent); key.color.set(cols.accent);
   };
   window.addEventListener("themechange", onTheme);
   const resize = () => {

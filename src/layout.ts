@@ -24,6 +24,9 @@ function navMarkup(path: string) {
       <div class="nav__right">
         <a class="nav__ext" href="${GROUP}" target="_blank" rel="noopener" title="Site du groupe Boxing Center">Le groupe ${svgExt}</a>
         <a class="nav__ext" href="${SHOP}" target="_blank" rel="noopener" title="Boutique Boxing Center">Boutique ${svgExt}</a>
+        <button class="icon-btn mode-toggle" id="mode-toggle" type="button" aria-label="Passer en mode clair" aria-pressed="false" title="Thème clair / sombre">
+          <svg class="mode-toggle__icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>

@@ -10,6 +10,12 @@ export default defineConfig({
     target: "es2020",
     cssMinify: true,
     rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ["three"],
+          gsap: ["gsap"],
+        },
+      },
       input: {
         main: page("index.html"),
         activites: page("activites/index.html"),

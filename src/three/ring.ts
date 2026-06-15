@@ -6,7 +6,6 @@ const NAVY_DARK = "#081428";
 const WHITE = "#eef1f6";
 const SILVER = "#a8b4c4";
 
-/** Crop a region from an image into a CanvasTexture. */
 function cropTex(img: HTMLImageElement, x: number, y: number, w: number, h: number) {
   const c = document.createElement("canvas");
   const W = img.naturalWidth;
@@ -17,7 +16,7 @@ function cropTex(img: HTMLImageElement, x: number, y: number, w: number, h: numb
   ctx.drawImage(img, W * x, H * y, W * w, H * h, 0, 0, c.width, c.height);
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 8;
+  tex.anisotropy = 4;
   return tex;
 }
 
@@ -32,19 +31,22 @@ function loadImg(src: string): Promise<HTMLImageElement> {
 }
 
 /**
- * 3D Boxing Center ring — faithful to the official ring design.
- * Navy canvas, white aprons with BOXING CENTER branding, silver posts,
- * alternating navy/white ropes, corner pads, stairs. Scroll-driven fly-through.
+ * 3D Boxing Center ring — official design, scroll fly-through.
  */
 export async function initRing(section: HTMLElement, host: HTMLElement) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mobile = window.innerWidth < 768;
   let renderer: THREE.WebGLRenderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer = new THREE.WebGLRenderer({
+      antialias: !mobile,
+      alpha: true,
+      powerPreference: mobile ? "low-power" : "high-performance",
+    });
   } catch {
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.25 : 1.75));
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 
@@ -67,7 +69,6 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     new THREE.Vector3(-S, 0, S),
   ];
 
-  // ---- textures from reference sheet ----
   let canvasTex: THREE.Texture;
   let apronTex: THREE.Texture;
   try {
@@ -79,16 +80,14 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     apronTex = new THREE.CanvasTexture(solidCanvas(WHITE));
   }
 
-  // canvas mat
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(S * 2, S * 2),
-    new THREE.MeshStandardMaterial({ map: canvasTex, roughness: 0.9, metalness: 0.05, color: C("#ffffff") })
+    new THREE.MeshStandardMaterial({ map: canvasTex, roughness: 0.9, metalness: 0.05 })
   );
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = 0.02;
   ring.add(floor);
 
-  // platform under canvas
   const platform = new THREE.Mesh(
     new THREE.BoxGeometry(S * 2.1, 0.12, S * 2.1),
     new THREE.MeshStandardMaterial({ color: C(NAVY_DARK), roughness: 0.85 })
@@ -96,36 +95,27 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   platform.position.y = -0.04;
   ring.add(platform);
 
-  // aprons (4 sides)
   const apronH = 0.55;
-  const apronMat = new THREE.MeshStandardMaterial({ map: apronTex, roughness: 0.75, metalness: 0.02 });
-  const apronSides: [number, number, number, number][] = [
-    [0, 0, S + 0.06, 0],
-    [0, Math.PI, -S - 0.06, 0],
-    [S + 0.06, Math.PI / 2, 0, 0],
-    [-S - 0.06, -Math.PI / 2, 0, 0],
-  ];
-  apronSides.forEach(([x, ry, z, rx]) => {
+  const apronMat = new THREE.MeshStandardMaterial({ map: apronTex, roughness: 0.75, side: THREE.DoubleSide });
+  [
+    [0, 0, S + 0.06],
+    [0, Math.PI, -S - 0.06],
+    [S + 0.06, Math.PI / 2, 0],
+    [-S - 0.06, -Math.PI / 2, 0],
+  ].forEach(([x, ry, z]) => {
     const apron = new THREE.Mesh(new THREE.PlaneGeometry(S * 2, apronH), apronMat);
-    apron.position.set(x, apronH / 2, z);
-    apron.rotation.y = ry;
-    apron.rotation.x = rx;
+    apron.position.set(x as number, apronH / 2, z as number);
+    apron.rotation.y = ry as number;
     ring.add(apron);
   });
 
-  // corner posts — silver metal
   const postMat = new THREE.MeshStandardMaterial({ color: C(SILVER), roughness: 0.25, metalness: 0.85 });
   corners.forEach((c) => {
-    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.09, POST_H, 20), postMat);
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.09, POST_H, mobile ? 12 : 16), postMat);
     post.position.set(c.x, POST_H / 2, c.z);
     ring.add(post);
-    // cap
-    const cap = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 12), postMat);
-    cap.position.set(c.x, POST_H, c.z);
-    ring.add(cap);
   });
 
-  // corner pads
   const padNavy = new THREE.MeshStandardMaterial({ color: C(NAVY), roughness: 0.7 });
   const padWhite = new THREE.MeshStandardMaterial({ color: C(WHITE), roughness: 0.75 });
   corners.forEach((c, i) => {
@@ -137,16 +127,15 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     ring.add(pad);
   });
 
-  // ropes — 4 levels, alternating navy / white
   const ropeColors = [NAVY, WHITE, NAVY, WHITE];
   const up = new THREE.Vector3(0, 1, 0);
-  const ropeMeshes: THREE.Mesh[] = [];
+  const ropeBaseY: number[] = [];
   ropeYs.forEach((y, ri) => {
     const mat = new THREE.MeshStandardMaterial({
       color: C(ropeColors[ri]),
       roughness: 0.45,
       emissive: C(ropeColors[ri]),
-      emissiveIntensity: ri % 2 === 0 ? 0.15 : 0.05,
+      emissiveIntensity: ri % 2 === 0 ? 0.1 : 0.03,
     });
     for (let i = 0; i < 4; i++) {
       const a = corners[i];
@@ -154,15 +143,14 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
       const va = a.clone().setY(y);
       const vb = b.clone().setY(y);
       const len = va.distanceTo(vb);
-      const m = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, len, 10), mat);
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, len, 8), mat);
       m.position.copy(va).add(vb).multiplyScalar(0.5);
       m.quaternion.setFromUnitVectors(up, vb.clone().sub(va).normalize());
       ring.add(m);
-      ropeMeshes.push(m);
+      ropeBaseY.push(y);
     }
   });
 
-  // stairs (one side)
   const stairMat = new THREE.MeshStandardMaterial({ color: C(NAVY), roughness: 0.8 });
   for (let s = 0; s < 3; s++) {
     const step = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.12, 0.35), stairMat);
@@ -170,8 +158,7 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     ring.add(step);
   }
 
-  // ambient particles (silver dust)
-  const E = 400;
+  const E = mobile ? 120 : 200;
   const ep = new Float32Array(E * 3);
   for (let i = 0; i < E; i++) {
     ep[i * 3] = (Math.random() - 0.5) * 10;
@@ -182,37 +169,19 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   eg.setAttribute("position", new THREE.BufferAttribute(ep, 3));
   const embers = new THREE.Points(
     eg,
-    new THREE.PointsMaterial({ color: C(cols.accent2), size: 0.035, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false })
+    new THREE.PointsMaterial({ color: C(cols.accent2), size: 0.03, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false })
   );
   scene.add(embers);
 
-  // lights — arena spotlight
-  const key = new THREE.SpotLight(C(cols.accent), 140, 32, 0.55, 0.45, 1.0);
+  const key = new THREE.SpotLight(C(cols.accent), mobile ? 100 : 130, 32, 0.55, 0.45, 1.0);
   key.position.set(0, 10, 0);
   key.target.position.set(0, 0, 0);
-  const rim = new THREE.PointLight(C(cols.accent2), 22, 28);
-  rim.position.set(-5, 4, -5);
-  const fill = new THREE.PointLight(C("#4a8fe8"), 18, 26);
-  fill.position.set(6, 3, 6);
-  scene.add(key, key.target, rim, fill, new THREE.AmbientLight(0x8899bb, 0.12));
-
-  let composer: any = null;
-  try {
-    const { EffectComposer } = await import("three/addons/postprocessing/EffectComposer.js");
-    const { RenderPass } = await import("three/addons/postprocessing/RenderPass.js");
-    const { UnrealBloomPass } = await import("three/addons/postprocessing/UnrealBloomPass.js");
-    composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-    composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), 0.55, 0.6, 0.18));
-  } catch {
-    composer = null;
-  }
+  scene.add(key, key.target, new THREE.AmbientLight(0x8899bb, 0.14));
 
   const resize = () => {
     const w = host.clientWidth || window.innerWidth;
     const h = host.clientHeight || window.innerHeight;
     renderer.setSize(w, h, false);
-    composer?.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   };
@@ -222,12 +191,9 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   window.addEventListener("themechange", () => {
     cols = themeColors();
     key.color.set(cols.accent);
-    rim.color.set(cols.accent2);
-    fill.color.set(cols.accent);
     (embers.material as THREE.PointsMaterial).color.set(cols.accent2);
   });
 
-  // camera path: approach stairs → through ropes → centre → rise out
   const A = { p: new THREE.Vector3(8, 4.5, 10), t: new THREE.Vector3(0, 1, 0) };
   const B = { p: new THREE.Vector3(3.5, 2.2, 5), t: new THREE.Vector3(0, 1.1, 0) };
   const Cc = { p: new THREE.Vector3(0, 1.2, 0.3), t: new THREE.Vector3(0, 1.5, -S) };
@@ -246,15 +212,24 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     (p) => fade(p, 0.66, 0.72) * (1 - fade(p, 0.93, 0.99)),
   ];
 
-  let visible = true;
-  new IntersectionObserver((es) => (visible = es[0].isIntersecting), { threshold: 0 }).observe(section);
+  let visible = false;
+  const io = new IntersectionObserver((es) => (visible = es[0].isIntersecting), { threshold: 0 });
+  io.observe(section);
 
   const epArr = eg.getAttribute("position").array as Float32Array;
   const clock = new THREE.Clock();
+  let raf = 0;
+
   function frame() {
-    if (!section.isConnected) { renderer.dispose(); return; }
-    requestAnimationFrame(frame);
+    if (!section.isConnected) {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      renderer.dispose();
+      return;
+    }
+    raf = requestAnimationFrame(frame);
     if (!visible || document.hidden) return;
+
     const total = section.offsetHeight - window.innerHeight;
     let p = total > 0 ? -section.getBoundingClientRect().top / total : 0;
     p = Math.min(1, Math.max(0, p));
@@ -288,19 +263,14 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
 
     if (!reduced) {
       const t = clock.getElapsedTime();
-      ring.rotation.y = p * 0.35 + Math.sin(t * 0.15) * 0.02;
-      ropeMeshes.forEach((m, i) => {
-        m.position.y += Math.sin(t * 2 + i * 0.4) * 0.0003;
-      });
+      ring.rotation.y = p * 0.35;
       for (let i = 0; i < E; i++) {
         epArr[i * 3 + 1] += 0.005;
         if (epArr[i * 3 + 1] > 5) epArr[i * 3 + 1] = 0;
       }
       eg.getAttribute("position").needsUpdate = true;
-      embers.rotation.y = t * 0.015;
     }
-    if (composer) composer.render();
-    else renderer.render(scene, camera);
+    renderer.render(scene, camera);
   }
   frame();
 }
