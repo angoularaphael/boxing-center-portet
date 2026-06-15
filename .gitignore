@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.test
+.env.production
+
+# Dev screenshots & tooling artifacts
+shot_*.png
+s_*.png
+v_*.png
+mb_*.png
+wm_*.png
+vm_*.jpg
+sweep*.jpg
+contact_*.jpg
+_posters/
+_*.py

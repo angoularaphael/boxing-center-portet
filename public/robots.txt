@@ -1,0 +1,41 @@
+# https://boxingcenterportet.fr/llms.txt
+
+User-agent: *
+Allow: /
+
+# Crawlers IA — accès autorisé au contenu public
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Bloquer les bots agressifs connus
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+Sitemap: https://boxingcenterportet.fr/sitemap.xml
