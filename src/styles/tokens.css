@@ -1,0 +1,123 @@
+/* ============================================================
+   THEME ENGINE — Boxing Center identity (navy blue + silver gray)
+   <html data-theme="arena|heritage|raw">
+   - heritage : signature club — navy canvas, silver gray, electric blue
+   - arena    : cinematic dark arena, blue spotlight + gray steel
+   - raw      : gritty gym floor — concrete gray, navy mats, blue accents
+   Palette aligned with the official ring & crest (navy / white / silver).
+   ============================================================ */
+
+:root {
+  --maxw: 1320px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --nav-h: 80px;
+  --hero-bg: #0a1020;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 0.25s;
+  --t-med: 0.5s;
+  --t-slow: 0.9s;
+
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-cond: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --display-transform: uppercase;
+
+  /* brand constants — ring & logo */
+  --c-navy: #0c1f5c;
+  --c-navy-deep: #081428;
+  --c-blue: #2b6fd4;
+  --c-blue-bright: #4a8fe8;
+  --c-silver: #9aa8bc;
+  --c-gray: #6b7a92;
+  --c-paper: #eef1f6;
+  --c-red: #d42b2b;
+}
+
+/* ---------- HÉRITAGE — signature navy + silver (default) ---------- */
+[data-theme="heritage"] {
+  color-scheme: dark;
+  --bg: #0a1020;
+  --bg-1: #0e1628;
+  --bg-2: #141f38;
+  --bg-glass: rgba(10, 16, 32, 0.72);
+  --fg: #eef1f6;
+  --fg-soft: #b8c4d8;
+  --muted: #7a8aa4;
+  --line: rgba(238, 241, 246, 0.1);
+  --line-strong: rgba(154, 168, 188, 0.35);
+
+  --accent: #4a8fe8;
+  --accent-ink: #0a1020;
+  --accent-2: #9aa8bc;
+  --energy: #2b6fd4;
+  --glow: rgba(74, 143, 232, 0.45);
+
+  --radius: 12px;
+  --radius-lg: 20px;
+  --display-tracking: -0.005em;
+  --display-transform: uppercase;
+  --section-pad: clamp(90px, 12vw, 175px);
+}
+
+/* ---------- ARÈNE — cinematic spotlight arena ---------- */
+[data-theme="arena"] {
+  color-scheme: dark;
+  --bg: #060a14;
+  --bg-1: #0a1020;
+  --bg-2: #101a30;
+  --bg-glass: rgba(6, 10, 20, 0.65);
+  --fg: #eef1f6;
+  --fg-soft: #c0cad8;
+  --muted: #6e7d96;
+  --line: rgba(238, 241, 246, 0.1);
+  --line-strong: rgba(154, 168, 188, 0.28);
+
+  --accent: #3d7fd6;
+  --accent-ink: #060a14;
+  --accent-2: #8b9bb0;
+  --energy: #5a9ef0;
+  --glow: rgba(61, 127, 214, 0.5);
+
+  --radius: 14px;
+  --radius-lg: 22px;
+  --display-tracking: -0.01em;
+  --display-transform: uppercase;
+  --section-pad: clamp(90px, 12vw, 180px);
+}
+
+/* ---------- BRUT — concrete gym, navy mats ---------- */
+[data-theme="raw"] {
+  color-scheme: dark;
+  --bg: #0c0e12;
+  --bg-1: #12151c;
+  --bg-2: #1a1e28;
+  --bg-glass: rgba(12, 14, 18, 0.82);
+  --fg: #eef1f6;
+  --fg-soft: #b0b8c6;
+  --muted: #7a8494;
+  --line: rgba(238, 241, 246, 0.12);
+  --line-strong: rgba(154, 168, 188, 0.32);
+
+  --accent: #2b6fd4;
+  --accent-ink: #eef1f6;
+  --accent-2: #9aa8bc;
+  --energy: #4a8fe8;
+  --glow: rgba(43, 111, 212, 0.45);
+
+  --radius: 0px;
+  --radius-lg: 0px;
+  --display-tracking: 0.005em;
+  --display-transform: uppercase;
+  --section-pad: clamp(90px, 12vw, 170px);
+}
+
+html.theme-anim,
+html.theme-anim body,
+html.theme-anim *:not(canvas) {
+  transition: background-color var(--t-med) var(--ease-io),
+    color var(--t-med) var(--ease-io), border-color var(--t-med) var(--ease-io),
+    fill var(--t-med) var(--ease-io);
+}

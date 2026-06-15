@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="g" cx="30%" cy="0%" r="100%">
+      <stop offset="0%" stop-color="#13203f"/>
+      <stop offset="60%" stop-color="#06080d"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="980" cy="150" r="220" fill="none" stroke="#2d6bff" stroke-width="2" opacity="0.4"/>
+  <text x="80" y="300" font-family="Arial Black, sans-serif" font-size="120" fill="#f4f6fb" font-weight="900">BOXING</text>
+  <text x="80" y="420" font-family="Arial Black, sans-serif" font-size="120" fill="#2d6bff" font-weight="900">CENTER</text>
+  <text x="86" y="490" font-family="Arial, sans-serif" font-size="34" fill="#8a93a6" letter-spacing="6">PORTET-SUR-GARONNE · 800 M² DE COMBAT</text>
+  <circle cx="92" cy="150" r="10" fill="#e8001c"/>
+  <text x="120" y="160" font-family="Arial, sans-serif" font-size="28" fill="#8a93a6" letter-spacing="4">LA SALLE PHARE</text>
+</svg>
