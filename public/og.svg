@@ -1,15 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
   <defs>
-    <radialGradient id="g" cx="30%" cy="0%" r="100%">
-      <stop offset="0%" stop-color="#13203f"/>
-      <stop offset="60%" stop-color="#06080d"/>
+    <radialGradient id="g" cx="28%" cy="0%" r="110%">
+      <stop offset="0%" stop-color="#1a3a6e"/>
+      <stop offset="55%" stop-color="#0e1628"/>
+      <stop offset="100%" stop-color="#081428"/>
     </radialGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2b6fd4"/>
+      <stop offset="100%" stop-color="#4a8fe8"/>
+    </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#g)"/>
-  <circle cx="980" cy="150" r="220" fill="none" stroke="#2d6bff" stroke-width="2" opacity="0.4"/>
-  <text x="80" y="300" font-family="Arial Black, sans-serif" font-size="120" fill="#f4f6fb" font-weight="900">BOXING</text>
-  <text x="80" y="420" font-family="Arial Black, sans-serif" font-size="120" fill="#2d6bff" font-weight="900">CENTER</text>
-  <text x="86" y="490" font-family="Arial, sans-serif" font-size="34" fill="#8a93a6" letter-spacing="6">PORTET-SUR-GARONNE · 800 M² DE COMBAT</text>
-  <circle cx="92" cy="150" r="10" fill="#e8001c"/>
-  <text x="120" y="160" font-family="Arial, sans-serif" font-size="28" fill="#8a93a6" letter-spacing="4">LA SALLE PHARE</text>
+  <circle cx="1020" cy="120" r="200" fill="none" stroke="url(#accent)" stroke-width="2" opacity="0.35"/>
+  <circle cx="1020" cy="120" r="260" fill="none" stroke="#9aa8bc" stroke-width="1" opacity="0.15"/>
+  <rect x="72" y="88" width="56" height="56" rx="12" fill="#141f38" stroke="#4a8fe8" stroke-width="1.5" opacity="0.9"/>
+  <text x="100" y="128" text-anchor="middle" font-family="'Arial Narrow', sans-serif" font-size="28" font-weight="700" fill="#eef1f6" letter-spacing="-1">BC</text>
+  <text x="150" y="132" font-family="'Arial Narrow', 'Helvetica Neue Condensed', sans-serif" font-size="26" fill="#9aa8bc" letter-spacing="5" font-weight="600">LA SALLE PHARE</text>
+  <text x="80" y="300" font-family="'Arial Narrow', 'Helvetica Neue Condensed', sans-serif" font-size="118" fill="#eef1f6" font-weight="700" letter-spacing="-2">BOXING</text>
+  <text x="80" y="420" font-family="'Arial Narrow', 'Helvetica Neue Condensed', sans-serif" font-size="118" fill="url(#accent)" font-weight="700" letter-spacing="-2">CENTER</text>
+  <line x1="80" y1="448" x2="340" y2="448" stroke="#9aa8bc" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <text x="86" y="500" font-family="Inter, Arial, sans-serif" font-size="32" fill="#9aa8bc" letter-spacing="5">PORTET-SUR-GARONNE · 800 M² DE COMBAT</text>
 </svg>
