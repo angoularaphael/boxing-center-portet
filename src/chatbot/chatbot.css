@@ -1,0 +1,273 @@
+/* ============================================================
+   CHATBOT — Boxing Center Portet
+   ============================================================ */
+
+.bcp-chat {
+  --bcp-chat-navy: #0c1f5c;
+  --bcp-chat-blue: #2b6fd4;
+  --bcp-chat-blue-hi: #4a8fe8;
+  --bcp-chat-bg: #0a1020;
+  --bcp-chat-panel: #0e1628;
+  --bcp-chat-line: rgba(238, 241, 246, 0.12);
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 9000;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+}
+
+.bcp-chat__launcher {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--bcp-chat-navy), var(--bcp-chat-blue));
+  box-shadow: 0 12px 40px rgba(43, 111, 212, 0.45);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s;
+}
+
+.bcp-chat__launcher:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 16px 48px rgba(74, 143, 232, 0.5);
+}
+
+.bcp-chat__launcher-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(74, 143, 232, 0.5);
+  animation: bcp-chat-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+.bcp-chat--open .bcp-chat__launcher-pulse {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes bcp-chat-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.25); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.bcp-chat__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  width: min(380px, calc(100vw - 32px));
+  height: min(560px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bcp-chat-panel);
+  border: 1px solid var(--bcp-chat-line);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  transform-origin: bottom right;
+  animation: bcp-chat-panel-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bcp-chat-panel-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.bcp-chat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--bcp-chat-navy), #142a52);
+  color: #eef1f6;
+}
+
+.bcp-chat__head strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.bcp-chat__status {
+  font-size: 0.72rem;
+  color: #7dd3a8;
+}
+
+.bcp-chat__status::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+}
+
+.bcp-chat__close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bcp-chat__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bcp-chat-bg);
+}
+
+.bcp-chat__msg {
+  display: flex;
+  animation: bcp-chat-msg-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bcp-chat-msg-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bcp-chat__msg--user { justify-content: flex-end; }
+
+.bcp-chat__bubble {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #eef1f6;
+}
+
+.bcp-chat__msg--bot .bcp-chat__bubble {
+  background: rgba(43, 111, 212, 0.18);
+  border: 1px solid rgba(74, 143, 232, 0.25);
+  border-bottom-left-radius: 4px;
+}
+
+.bcp-chat__msg--user .bcp-chat__bubble {
+  background: linear-gradient(135deg, var(--bcp-chat-blue), var(--bcp-chat-blue-hi));
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.bcp-chat__dots {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  height: 14px;
+}
+
+.bcp-chat__dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bcp-chat-blue-hi);
+  animation: bcp-chat-dot 1.2s ease-in-out infinite;
+}
+
+.bcp-chat__dots i:nth-child(2) { animation-delay: 0.15s; }
+.bcp-chat__dots i:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bcp-chat-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.45; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+.bcp-chat__suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 8px;
+  background: var(--bcp-chat-bg);
+}
+
+.bcp-chat__suggestions button {
+  border: 1px solid var(--bcp-chat-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: #b8c4d8;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bcp-chat__suggestions button:hover {
+  background: rgba(74, 143, 232, 0.2);
+  color: #fff;
+}
+
+.bcp-chat__form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--bcp-chat-line);
+  background: var(--bcp-chat-panel);
+}
+
+.bcp-chat__input {
+  flex: 1;
+  border: 1px solid var(--bcp-chat-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: #eef1f6;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.bcp-chat__input:focus {
+  border-color: rgba(74, 143, 232, 0.6);
+  box-shadow: 0 0 0 3px rgba(74, 143, 232, 0.15);
+}
+
+.bcp-chat__send {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--bcp-chat-blue), var(--bcp-chat-blue-hi));
+}
+
+.bcp-chat__recontact {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.bcp-chat__recontact input {
+  margin-top: 3px;
+}
+
+@media (max-width: 480px) {
+  .bcp-chat__panel {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: min(100dvh - 72px, 620px);
+    border-radius: 18px 18px 0 0;
+  }
+
+  .bcp-chat--open .bcp-chat__launcher {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+}
