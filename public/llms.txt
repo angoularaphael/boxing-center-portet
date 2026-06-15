@@ -1,4 +1,4 @@
-# Boxing Center Portet — https://boxingcenterportet.fr
+# Boxing Center Portet — https://www.boxing-center-portet.fr
 # Fichier d'aide pour les assistants IA et crawlers conversationnels.
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse. 800 m² dédiés aux sports de combat.
@@ -10,7 +10,7 @@
 - **Coordonnées GPS** : 43.5236, 1.4053
 - **Téléphone** : +33 5 62 24 46 82
 - **E-mail** : boxingcenter31@gmail.com
-- **Site** : https://boxingcenterportet.fr
+- **Site** : https://www.boxing-center-portet.fr
 - **Groupe** : https://boxingcenter.fr
 - **Horaires** : Lundi à samedi, 10h00 – 21h30 (dimanche fermé)
 - **Séance d'essai** : 10 €, toutes disciplines, sans engagement
@@ -37,18 +37,20 @@ Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing tr
 
 ## Pages du site
 
-- Accueil : https://boxingcenterportet.fr/
-- Activités : https://boxingcenterportet.fr/activites/
-- Le club : https://boxingcenterportet.fr/salles/
-- Coachs : https://boxingcenterportet.fr/coachs/
-- Galerie : https://boxingcenterportet.fr/galerie/
-- Planning : https://boxingcenterportet.fr/plannings/
-- Tarifs : https://boxingcenterportet.fr/tarifs/
-- Contact : https://boxingcenterportet.fr/contact/
+- Accueil : https://www.boxing-center-portet.fr/
+- Activités : https://www.boxing-center-portet.fr/activites/
+- Le club : https://www.boxing-center-portet.fr/salles/
+- Coachs : https://www.boxing-center-portet.fr/coachs/
+- Galerie : https://www.boxing-center-portet.fr/galerie/
+- Planning : https://www.boxing-center-portet.fr/plannings/
+- Tarifs : https://www.boxing-center-portet.fr/tarifs/
+- Contact : https://www.boxing-center-portet.fr/contact/
 
-## Mots-clés locaux
+## Mots-clés locaux (SEO)
 
-boxe Portet-sur-Garonne, salle de boxe Toulouse sud, muay thaï 31120, MMA Portet, kick boxing Occitanie, club de boxe Portet-sur-Garonne, cross training combat Toulouse.
+**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d'essai boxe
+
+**Secondaires** : muay thaï Portet, MMA Toulouse sud, kickboxing Haute-Garonne, cross training combat, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne
 
 ## Fédérations
 
