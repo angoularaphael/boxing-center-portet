@@ -1,4 +1,4 @@
-# https://boxingcenterportet.fr/llms.txt
+# https://www.boxing-center-portet.fr/llms.txt
 
 User-agent: *
 Allow: /
@@ -38,4 +38,4 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-Sitemap: https://boxingcenterportet.fr/sitemap.xml
+Sitemap: https://www.boxing-center-portet.fr/sitemap.xml
