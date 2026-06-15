@@ -49,8 +49,8 @@ const frag = /* glsl */ `
 
     float lum = dot(col, vec3(0.299, 0.587, 0.114));
     vec3 shadow = vec3(0.08, 0.10, 0.16);    // lifted shadow (keeps detail readable)
-    vec3 mid = vec3(0.80, 0.18, 0.14);       // combat red midtone
-    vec3 hi = vec3(0.98, 0.88, 0.80);        // warm highlight
+    vec3 mid = vec3(0.18, 0.35, 0.62);       // navy blue midtone
+    vec3 hi = vec3(0.75, 0.85, 0.98);        // cool highlight
     vec3 duo = mix(shadow, mid, smoothstep(0.1, 0.55, lum));
     duo = mix(duo, hi, smoothstep(0.62, 0.97, lum));
     col = mix(col, duo, 0.32);               // lighter grade so the photo stays legible

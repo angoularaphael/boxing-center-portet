@@ -25,7 +25,7 @@ export async function initHero(container: HTMLElement) {
   scene.fog = new THREE.FogExp2(C("#08090c"), 0.04);
 
   // ---------- sample the crest into target points ----------
-  const targets = await sampleLogo("/logo.png", 6000, 6.2);
+  const targets = await sampleLogo("/logo.png", 3200, 6.2);
   const N = targets.length / 3;
 
   const pos = new Float32Array(N * 3);
@@ -58,7 +58,7 @@ export async function initHero(container: HTMLElement) {
   scene.add(crest);
 
   // ---------- embers (spread across the full-bleed hero canvas) ----------
-  const E = 600;
+  const E = 280;
   const ePos = new Float32Array(E * 3);
   const eVel = new Float32Array(E);
   for (let i = 0; i < E; i++) {
@@ -70,15 +70,17 @@ export async function initHero(container: HTMLElement) {
   const eGeo = new THREE.BufferGeometry();
   eGeo.setAttribute("position", new THREE.BufferAttribute(ePos, 3));
   const eMat = new THREE.PointsMaterial({
-    color: C(cols.energy), size: 0.05, transparent: true, opacity: 0.55,
+    color: C(cols.accent2), size: 0.04, transparent: true, opacity: 0.45,
     blending: THREE.AdditiveBlending, depthWrite: false,
   });
   const embers = new THREE.Points(eGeo, eMat);
   scene.add(embers);
 
   // ---------- bloom ----------
+  const mobile = window.innerWidth < 760;
   let composer: any = null;
-  try {
+  if (!mobile) {
+    try {
     const { EffectComposer } = await import("three/addons/postprocessing/EffectComposer.js");
     const { RenderPass } = await import("three/addons/postprocessing/RenderPass.js");
     const { UnrealBloomPass } = await import("three/addons/postprocessing/UnrealBloomPass.js");
@@ -87,7 +89,8 @@ export async function initHero(container: HTMLElement) {
     // softer bloom on phones so the wordmark stays crisp (not a glow blob)
     const bloomStrength = window.innerWidth < 760 ? 0.5 : 1.25;
     composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), bloomStrength, 0.75, 0.08));
-  } catch { composer = null; }
+    } catch { composer = null; }
+  }
 
   function resize() {
     const w = container.clientWidth || window.innerWidth;
@@ -129,7 +132,7 @@ export async function initHero(container: HTMLElement) {
   window.addEventListener("themechange", () => {
     cols = themeColors();
     crestMat.color.set(cols.accent);
-    eMat.color.set(cols.energy);
+    eMat.color.set(cols.accent2);
   });
 
   let visible = true;

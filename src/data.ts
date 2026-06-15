@@ -139,9 +139,8 @@ export const CLIPS = [
 ];
 
 export const THEMES = [
-  { id: "heritage", label: "Club", hint: "Navy · argent" },
-  { id: "arena", label: "Arène", hint: "Spotlight · cinéma" },
-  { id: "raw", label: "Brut", hint: "Béton · gris" },
+  { id: "dark", label: "Sombre", hint: "Navy · arène" },
+  { id: "light", label: "Clair", hint: "Papier · bleu" },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]["id"];

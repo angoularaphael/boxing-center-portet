@@ -54,13 +54,15 @@ export function initPageScroll() {
   initRounds();
   initReel();
   initBgVideos();
-  initColorJourney();
+  /* accent stays on theme tokens — no per-page colour override */
   ScrollTrigger.refresh();
   if ((document as any).fonts?.ready) (document as any).fonts.ready.then(() => ScrollTrigger.refresh());
 }
 
 /** Tear down everything bound to the outgoing page before a soft swap. */
 export function teardownPageScroll() {
+  document.documentElement.style.removeProperty("--accent");
+  document.documentElement.style.removeProperty("--glow");
   ScrollTrigger.getAll().forEach((t) => t.kill());
   pageScrollCbs.length = 0;
   pageObservers.forEach((io) => io.disconnect());
@@ -240,44 +242,6 @@ function initMediaReveal() {
     { threshold: 0.08, rootMargin: "0px 0px -4% 0px" }
   ));
   items.forEach((el) => io.observe(el));
-}
-
-/** Progressive colour journey — the accent travels bronze → gold → red as you
- *  descend (the three theme accents used sequentially). bg/typography stay; only
- *  the accent shifts, so it's stylish, not jarring. WebGL picks it up via a
- *  throttled themechange. Home only — subpages use a single waypoint. */
-function initColorJourney() {
-  const root = document.documentElement;
-  if (document.body.dataset.page !== "home") {
-    // subpages use the theme's own (red) accent — clear any home override
-    root.style.removeProperty("--accent");
-    root.style.removeProperty("--glow");
-    window.dispatchEvent(new Event("themechange"));
-    return;
-  }
-  const stops = [
-    [226, 35, 26], // red — start (le combat)
-    [176, 121, 63], // bronze — a brief warm dip
-    [226, 35, 26], // red — end + final CTA
-  ];
-  let last = 0;
-  const apply = (y: number) => {
-    const max = root.scrollHeight - window.innerHeight;
-    const p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
-    const seg = p * (stops.length - 1);
-    const i = Math.min(stops.length - 2, Math.floor(seg));
-    const t = seg - i;
-    const c = [0, 1, 2].map((k) => Math.round(stops[i][k] + (stops[i + 1][k] - stops[i][k]) * t));
-    root.style.setProperty("--accent", `rgb(${c[0]},${c[1]},${c[2]})`);
-    root.style.setProperty("--glow", `rgba(${c[0]},${c[1]},${c[2]},0.5)`);
-    const now = performance.now();
-    if (now - last > 140) {
-      last = now;
-      window.dispatchEvent(new Event("themechange"));
-    }
-  };
-  onScroll(apply);
-  apply(scrollY());
 }
 
 /** Ambient background videos: only play while on screen (perf + battery). */

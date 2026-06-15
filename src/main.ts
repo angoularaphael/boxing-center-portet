@@ -15,7 +15,7 @@ function renderHomeGrids() {
     reel.innerHTML = DISCIPLINES.map(
       (d) => `
       <article class="reel__frame">
-        <img src="${d.img}" alt="${d.name} — Boxing Center Portet" loading="lazy" />
+        <img src="${d.img}" alt="${d.name} — Boxing Center Portet" loading="lazy" decoding="async" />
         <span class="reel__num">${d.key} / 08</span>
         <span class="reel__tag">${d.tag}</span>
         <div class="reel__body">
@@ -85,20 +85,39 @@ function renderMedia() {
   if (gal) {
     gal.innerHTML = GALLERY.map((g) => {
       const cls = g.span === "wide" ? "shot--wide" : g.span === "tall" ? "shot--tall" : "";
-      return `<figure class="shot ${cls}"><img src="${g.src}" alt="${g.label}" loading="lazy" />
+      return `<figure class="shot ${cls}"><img src="${g.src}" alt="${g.label}" loading="lazy" decoding="async" />
         <figcaption class="shot__label">${g.label}</figcaption></figure>`;
     }).join("");
   }
   const clips = document.getElementById("clips");
   if (clips) {
     clips.innerHTML = CLIPS.map(
-      (c) => `<div class="clip"><video src="${c.src}" autoplay muted loop playsinline preload="metadata"></video>
+      (c) => `<div class="clip"><video src="${c.src}" muted loop playsinline preload="none"></video>
         <span class="clip__label">${c.label}</span></div>`
     ).join("");
   }
 }
 
 const hasWebGL = "WebGLRenderingContext" in window;
+
+function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void) {
+  if (!el) return;
+  const run = () => loader().then(init).catch(() => {});
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          io.disconnect();
+          run();
+        }
+      },
+      { rootMargin: "240px" }
+    );
+    io.observe(el);
+  } else {
+    run();
+  }
+}
 
 /** Everything bound to the current page's DOM. Re-run after a soft swap. */
 function bootPage() {
@@ -112,20 +131,27 @@ function bootPage() {
 
   if (hasWebGL) {
     if (page === "home") {
-      const host = document.getElementById("hero-canvas");
-      if (host) import("./three/hero").then((m) => m.initHero(host)).catch(() => {});
-      const showcase = document.querySelector<HTMLElement>(".showcase__frame");
-      if (showcase) import("./three/showcase").then((m) => m.initShowcaseGL(showcase)).catch(() => {});
+      const heroHost = document.getElementById("hero-canvas");
+      if (heroHost) import("./three/hero").then((m) => m.initHero(heroHost)).catch(() => {});
+
+      lazy3D(document.querySelector(".showcase__frame"), () => import("./three/showcase"), (m) => {
+        const el = document.querySelector<HTMLElement>(".showcase__frame");
+        if (el) m.initShowcaseGL(el);
+      });
+
       const ringSec = document.querySelector<HTMLElement>(".ring");
       const ringHost = document.getElementById("ring-canvas");
-      if (ringSec && ringHost) import("./three/ring").then((m) => m.initRing(ringSec, ringHost)).catch(() => {});
+      if (ringSec && ringHost) {
+        lazy3D(ringSec, () => import("./three/ring"), (m) => m.initRing(ringSec, ringHost));
+      }
     }
-    // portals + forge sequences exist on home (champions) and the coachs page (coaches)
-    if (document.querySelector(".portal")) import("./three/portal").then((m) => m.initPortals()).catch(() => {});
+    if (document.querySelector(".portal")) {
+      lazy3D(document.querySelector(".portal"), () => import("./three/portal"), (m) => m.initPortals());
+    }
     document.querySelectorAll<HTMLElement>(".forge").forEach((el) => {
       const crop = el.dataset.crop === "face" ? "face" : "body";
       const members = el.id === "forge-coachs" ? COACHS : CHAMPIONS;
-      import("./three/forge").then((m) => m.mountForge(el, members, crop as "face" | "body")).catch(() => {});
+      lazy3D(el, () => import("./three/forge"), (m) => m.mountForge(el, members, crop as "face" | "body"));
     });
   }
 
