@@ -210,6 +210,14 @@ export function initChatbot() {
     setPlaceholder("Votre question…");
   }
 
+  function showStartSuggestions() {
+    suggestionsEl.hidden = false;
+    suggestionsEl.innerHTML = `
+      <button type="button" data-action="ask_faq">Poser une question (FAQ)</button>
+      <button type="button" data-action="start_lead">Être rappelé par un coach</button>
+    `;
+  }
+
   async function openPanel() {
     if (opened) {
       panel.hidden = false;
@@ -237,6 +245,7 @@ export function initChatbot() {
       900
     );
     phase = "name";
+    showStartSuggestions();
     setPlaceholder("Votre prénom");
     input.focus();
   }
@@ -274,11 +283,14 @@ export function initChatbot() {
     }
 
     if (phase === "email") {
-      if (!EMAIL_RE.test(v)) {
-        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ?");
+      if (SKIP_RE.test(v)) {
+        profile.email = "";
+      } else if (!EMAIL_RE.test(v)) {
+        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ? (Ou tapez « passer » pour ignorer)");
         return;
+      } else {
+        profile.email = v;
       }
-      profile.email = v;
       phase = "phone";
       await botSay(
         "Et un numéro pour qu'un coach vous rappelle si vous voulez tester un cours ?\n\n(Sinon tapez « passer ».)"
@@ -393,6 +405,26 @@ export function initChatbot() {
   });
 
   suggestionsEl.addEventListener("click", async (e) => {
+    const askFaqBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-action='ask_faq']");
+    if (askFaqBtn) {
+      userSay("Poser une question (FAQ)");
+      hideSuggestions();
+      phase = "faq";
+      await botSay("Entendu ! Posez-moi vos questions sur le club (tarifs, horaires, disciplines, etc.) :");
+      showSuggestions(faq);
+      setPlaceholder("Votre question…");
+      return;
+    }
+
+    const startLeadBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-action='start_lead']");
+    if (startLeadBtn && phase === "name") {
+      userSay("Être rappelé par un coach");
+      hideSuggestions();
+      await botSay("Super ! Comment puis-je vous appeler ?");
+      setPlaceholder("Votre prénom");
+      return;
+    }
+
     const esc = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-escalation]");
     if (esc && phase === "faq") {
       await startEscalation();

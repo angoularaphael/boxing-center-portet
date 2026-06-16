@@ -9,7 +9,13 @@ import { themeColors } from "../theme";
  * Pauses when off-screen / tab hidden; static under reduced-motion.
  */
 export async function initHero(container: HTMLElement) {
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const force = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.search.includes("motion=force") ||
+    localStorage.getItem("bcp-motion") === "force"
+  );
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches && !force;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -44,14 +50,16 @@ export async function initHero(container: HTMLElement) {
     pos[i * 3 + 2] = origin[i * 3 + 2];
     delay[i] = Math.random() * 0.35;
   }
+  const theme = document.documentElement.getAttribute("data-theme") || "dark";
+  const isLight = theme === "light";
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
   const crestMat = new THREE.PointsMaterial({
     color: C(cols.accent),
     size: 0.05,
     transparent: true,
-    opacity: 1,
-    blending: THREE.AdditiveBlending,
+    opacity: isLight ? 0.95 : 1,
+    blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
     depthWrite: false,
   });
   const crest = new THREE.Points(geo, crestMat);
@@ -70,8 +78,8 @@ export async function initHero(container: HTMLElement) {
   const eGeo = new THREE.BufferGeometry();
   eGeo.setAttribute("position", new THREE.BufferAttribute(ePos, 3));
   const eMat = new THREE.PointsMaterial({
-    color: C(cols.accent2), size: 0.04, transparent: true, opacity: 0.45,
-    blending: THREE.AdditiveBlending, depthWrite: false,
+    color: C(cols.accent2), size: 0.04, transparent: true, opacity: isLight ? 0.4 : 0.45,
+    blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending, depthWrite: false,
   });
   const embers = new THREE.Points(eGeo, eMat);
   scene.add(embers);
@@ -124,16 +132,32 @@ export async function initHero(container: HTMLElement) {
   window.addEventListener("resize", resize);
 
   const tgt = { x: 0, y: 0 };
-  window.addEventListener("pointermove", (e) => {
+  const onPointerMove = (e: PointerEvent) => {
     tgt.x = (e.clientX / window.innerWidth - 0.5) * 2;
     tgt.y = (e.clientY / window.innerHeight - 0.5) * 2;
-  });
+  };
+  window.addEventListener("pointermove", onPointerMove);
 
-  window.addEventListener("themechange", () => {
+  const onThemeChange = () => {
     cols = themeColors();
     crestMat.color.set(cols.accent);
     eMat.color.set(cols.accent2);
-  });
+    const theme = document.documentElement.getAttribute("data-theme") || "dark";
+    if (theme === "light") {
+      crestMat.blending = THREE.NormalBlending;
+      crestMat.opacity = 0.95;
+      eMat.blending = THREE.NormalBlending;
+      eMat.opacity = 0.4;
+    } else {
+      crestMat.blending = THREE.AdditiveBlending;
+      crestMat.opacity = 1.0;
+      eMat.blending = THREE.AdditiveBlending;
+      eMat.opacity = 0.45;
+    }
+    crestMat.needsUpdate = true;
+    eMat.needsUpdate = true;
+  };
+  window.addEventListener("themechange", onThemeChange);
 
   let visible = true;
   new IntersectionObserver((es) => (visible = es[0].isIntersecting), { threshold: 0 }).observe(container);
@@ -142,10 +166,18 @@ export async function initHero(container: HTMLElement) {
   const clock = new THREE.Clock();
   const FORM = reduced ? 0.001 : 2.6; // seconds to assemble the crest
   const posAttr = geo.getAttribute("position") as THREE.BufferAttribute;
+  let raf = 0;
 
   function frame() {
-    if (!container.isConnected) { renderer.dispose(); return; } // stop after a soft-nav swap
-    requestAnimationFrame(frame);
+    if (!container.isConnected) {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("themechange", onThemeChange);
+      renderer.dispose();
+      return;
+    }
+    raf = requestAnimationFrame(frame);
     if (!visible || document.hidden) return;
     const t = clock.getElapsedTime();
 
