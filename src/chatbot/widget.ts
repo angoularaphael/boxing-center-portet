@@ -5,9 +5,9 @@ import "./chatbot.css";
 type Phase =
   | "greeting"
   | "name"
+  | "interest"
   | "email"
   | "phone"
-  | "metier"
   | "ready"
   | "faq"
   | "escalation"
@@ -15,7 +15,9 @@ type Phase =
 
 type Msg = { role: "bot" | "user"; text: string; html?: boolean };
 
+const ICON = "/favicon-192.png";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SKIP_RE = /^(non|pas maintenant|passer|skip|—|-)$/i;
 
 function sessionId(): string {
   const key = "bcp-chat-session";
@@ -50,16 +52,21 @@ export function initChatbot() {
   root.className = "bcp-chat";
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l'assistant Boxing Center">
-      <img class="bcp-chat__launcher-logo" src="/favicon-192.png" alt="" width="34" height="34" decoding="async" />
+      <img class="bcp-chat__launcher-logo" src="${ICON}" alt="" width="56" height="56" decoding="async" />
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
     <section class="bcp-chat__panel" id="bcp-chat-panel" aria-label="Assistant Boxing Center" hidden>
       <header class="bcp-chat__head">
-        <div>
+        <img class="bcp-chat__head-avatar" src="${ICON}" alt="" width="40" height="40" decoding="async" />
+        <div class="bcp-chat__head-text">
           <strong>Boxing Center Portet</strong>
-          <span class="bcp-chat__status">En ligne</span>
+          <span class="bcp-chat__status">Assistant du club</span>
         </div>
-        <button type="button" class="bcp-chat__close" id="bcp-chat-close" aria-label="Fermer">×</button>
+        <button type="button" class="bcp-chat__close" id="bcp-chat-close" aria-label="Fermer">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
       </header>
       <div class="bcp-chat__messages" id="bcp-chat-messages" role="log" aria-live="polite"></div>
       <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden></div>
@@ -84,17 +91,23 @@ export function initChatbot() {
 
   function renderMessages() {
     messagesEl.innerHTML = messages
-      .map(
-        (m) =>
-          `<div class="bcp-chat__msg bcp-chat__msg--${m.role}"><div class="bcp-chat__bubble">${
-            m.html ? m.text : escapeHtml(m.text)
-          }</div></div>`
-      )
+      .map((m) => {
+        const avatar =
+          m.role === "bot"
+            ? `<img class="bcp-chat__msg-avatar" src="${ICON}" alt="" width="26" height="26" decoding="async" />`
+            : "";
+        return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__bubble">${
+          m.html ? m.text : escapeHtml(m.text)
+        }</div></div>`;
+      })
       .join("");
     if (typing) {
       messagesEl.insertAdjacentHTML(
         "beforeend",
-        `<div class="bcp-chat__msg bcp-chat__msg--bot bcp-chat__msg--typing"><div class="bcp-chat__bubble"><span class="bcp-chat__dots"><i></i><i></i><i></i></span></div></div>`
+        `<div class="bcp-chat__msg bcp-chat__msg--bot bcp-chat__msg--typing">
+          <img class="bcp-chat__msg-avatar" src="${ICON}" alt="" width="26" height="26" decoding="async" />
+          <div class="bcp-chat__bubble"><span class="bcp-chat__dots"><i></i><i></i><i></i></span></div>
+        </div>`
       );
     }
     messagesEl.scrollTop = messagesEl.scrollHeight;
@@ -142,6 +155,21 @@ export function initChatbot() {
     return s.replace(/"/g, "&quot;");
   }
 
+  async function finishOnboarding() {
+    phase = "ready";
+    await submitLead({
+      event: "lead_collected",
+      sessionId: sid,
+      ...profile,
+    });
+    await botSay(
+      `Parfait ${profile.name} ! Posez-moi vos questions sur le club — horaires, tarifs, disciplines, tout ce qui vous intéresse.`
+    );
+    phase = "faq";
+    showSuggestions(faq);
+    setPlaceholder("Votre question…");
+  }
+
   async function openPanel() {
     if (opened) {
       panel.hidden = false;
@@ -164,9 +192,12 @@ export function initChatbot() {
     } catch {
       faq = [];
     }
-    await botSay("Bonjour… Comment je vous appelle ?", 900);
+    await botSay(
+      "Salut ! Je suis l'assistant du club de Portet. Je peux vous renseigner sur les cours, les horaires ou les tarifs.\n\nComment je vous appelle ?",
+      900
+    );
     phase = "name";
-    setPlaceholder("Votre prénom ou nom");
+    setPlaceholder("Votre prénom");
     input.focus();
   }
 
@@ -184,49 +215,41 @@ export function initChatbot() {
 
     if (phase === "name") {
       profile.name = v;
+      phase = "interest";
+      await botSay(
+        `Enchanté ${profile.name} ! Vous venez plutôt pour découvrir la boxe, reprendre le sport, ou vous entraînez déjà ?`
+      );
+      setPlaceholder("Ex. débuter, reprendre, me muscler…");
+      return;
+    }
+
+    if (phase === "interest") {
+      profile.metier = v;
       phase = "email";
-      await botSay(`Enchanté ${profile.name} ! Quelle est votre adresse e-mail ?`);
-      setPlaceholder("exemple@email.com");
+      await botSay(
+        "Top ! Si vous voulez, je peux faire suivre le planning de la semaine par l'équipe — une adresse mail ?"
+      );
+      setPlaceholder("votre@email.com");
       return;
     }
 
     if (phase === "email") {
       if (!EMAIL_RE.test(v)) {
-        await botSay("Cette adresse ne semble pas valide. Pouvez-vous la vérifier ?");
+        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ?");
         return;
       }
       profile.email = v;
       phase = "phone";
-      await botSay("Merci ! Et votre numéro de téléphone ?");
-      setPlaceholder("06 12 34 56 78");
+      await botSay(
+        "Et un numéro pour qu'un coach vous rappelle si vous voulez tester un cours ?\n\n(Sinon tapez « passer ».)"
+      );
+      setPlaceholder("06 12 34 56 78 ou passer");
       return;
     }
 
     if (phase === "phone") {
-      profile.phone = v;
-      phase = "metier";
-      await botSay(
-        "Aidez-nous à personnaliser votre expérience avec le bot — quel est votre métier ou votre activité ?"
-      );
-      setPlaceholder("Ex. étudiant, entrepreneur, sportif…");
-      return;
-    }
-
-    if (phase === "metier") {
-      profile.metier = v;
-      phase = "ready";
-      await submitLead({
-        event: "lead_collected",
-        sessionId: sid,
-        ...profile,
-      });
-      await botSay(
-        `Parfait ${profile.name} ! Je suis prêt à répondre à vos questions sur Boxing Center Portet.`
-      );
-      phase = "faq";
-      showSuggestions(faq);
-      setPlaceholder("Posez votre question…");
-      return;
+      if (!SKIP_RE.test(v)) profile.phone = v;
+      await finishOnboarding();
     }
   }
 
@@ -240,11 +263,11 @@ export function initChatbot() {
       } else {
         phase = "escalation";
         await botSay(
-          "Je n'ai pas trouvé de réponse précise à votre question. Souhaitez-vous nous laisser un message ? L'équipe pourra vous recontacter par e-mail."
+          "Je n'ai pas la réponse sous la main. Vous pouvez laisser un message ici — l'équipe vous répondra dès que possible."
         );
         messages.push({
           role: "bot",
-          text: `<label class="bcp-chat__recontact"><input type="checkbox" id="bcp-chat-recontact" checked /> Oui, je souhaite être recontacté(e) par e-mail</label>`,
+          text: `<label class="bcp-chat__recontact"><input type="checkbox" id="bcp-chat-recontact" checked /> Me tenir au courant par e-mail</label>`,
           html: true,
         });
         renderMessages();
@@ -252,7 +275,7 @@ export function initChatbot() {
       }
     } catch {
       phase = "escalation";
-      await botSay("Un souci technique est survenu. Laissez-nous votre message, nous vous répondrons par e-mail.");
+      await botSay("Petit souci de connexion… Laissez votre message, on vous répondra vite.");
       setPlaceholder("Votre message…");
     }
     if (phase === "faq") showSuggestions(faq);
@@ -269,12 +292,12 @@ export function initChatbot() {
         message: text,
         recontactRequested: recontact,
       });
-      await botSay("Merci ! Votre message a bien été transmis à l'équipe Boxing Center.");
+      await botSay("C'est noté, merci ! L'équipe revient vers vous très vite.");
       phase = "done";
-      setPlaceholder("Conversation terminée");
+      setPlaceholder("À bientôt au club");
       input.disabled = true;
     } catch {
-      await botSay("L'envoi a échoué. Réessayez dans un instant ou contactez-nous à boxingcenter31@gmail.com");
+      await botSay("L'envoi a échoué — écrivez-nous à boxingcenter31@gmail.com");
     }
   }
 
@@ -286,7 +309,7 @@ export function initChatbot() {
 
     if (phase === "done") return;
 
-    if (["greeting", "name", "email", "phone", "metier"].includes(phase)) {
+    if (["greeting", "name", "interest", "email", "phone"].includes(phase)) {
       userSay(text);
       await runOnboardingAnswer(text);
       return;
