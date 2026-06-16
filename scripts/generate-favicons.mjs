@@ -5,17 +5,16 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, "..", "public");
-/** Source dédié favicon onglet — ne touche pas logo.png du site */
 const logoPath = join(publicDir, "favicon-brand.png");
 const bg = { r: 255, g: 255, b: 255, alpha: 1 };
 
 async function circularIcon(size) {
-  const pad = Math.round(size * 0.14);
+  const pad = Math.round(size * 0.06);
   const inner = size - pad * 2;
-  const logoW = Math.round(inner * 0.92);
+  const logoW = Math.round(inner * 0.96);
 
   const logo = await sharp(logoPath)
-    .resize(logoW, Math.round(logoW * 0.55), { fit: "inside", withoutEnlargement: true })
+    .resize(logoW, Math.round(logoW * 0.58), { fit: "inside", withoutEnlargement: false })
     .png()
     .toBuffer();
 
