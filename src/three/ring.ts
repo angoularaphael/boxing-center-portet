@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { themeColors } from "../theme";
 
-const NAVY = "#0c1f5c";
-const NAVY_DARK = "#081428";
+const NAVY = "#182848";
+const NAVY_DARK = "#0a1020";
 const WHITE = "#eef1f6";
 const SILVER = "#a8b4c4";
 

@@ -73,7 +73,7 @@ export function initGateRing(host: HTMLElement) {
     }
   });
 
-  const spot = new THREE.SpotLight(C("#4a8fe8"), 80, 20, 0.5, 0.5);
+  const spot = new THREE.SpotLight(C("#cdd6e2"), 80, 20, 0.5, 0.5);
   spot.position.set(0, 6, 0);
   spot.target.position.set(0, 0, 0);
   scene.add(spot, spot.target, new THREE.AmbientLight(0x8899bb, 0.15));

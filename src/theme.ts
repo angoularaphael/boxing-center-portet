@@ -50,9 +50,9 @@ export function themeColors() {
   const cs = getComputedStyle(document.documentElement);
   const get = (v: string) => cs.getPropertyValue(v).trim();
   return {
-    accent: get("--accent") || "#4a8fe8",
-    accent2: get("--accent-2") || "#9aa8bc",
-    energy: get("--energy") || "#4a8fe8",
+    accent: get("--accent") || "#aebccf",
+    accent2: get("--accent-2") || "#7f8ca3",
+    energy: get("--energy") || "#c3cdda",
     bg: get("--bg") || "#0a1020",
   };
 }

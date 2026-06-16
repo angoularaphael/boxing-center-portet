@@ -11,8 +11,8 @@ import { punch, tick, soundOn } from "./audio";
 // (relative /api). Set VITE_COMMUNITY_API (even empty = same origin) to enable;
 // leave it unset to disable the wall gracefully (no network, clean console).
 const RAW = (import.meta as any).env?.VITE_COMMUNITY_API;
-const ENABLED = RAW !== undefined;
-const API = RAW || ""; // "" → relative same-origin requests (/api/..., /community/...)
+const ENABLED = RAW !== "off"; // on by default (the /api functions ship with the app on Vercel)
+const API = RAW && RAW !== "off" ? RAW : ""; // "" → relative same-origin requests (/api/...)
 
 let limits = { maxUploadMb: 80, maxDurationSec: 30 };
 
@@ -44,14 +44,8 @@ export function initCommunity() {
     return;
   }
 
-  fetch(`${API}/api/health`)
-    .then((r) => r.json())
-    .then((h) => {
-      if (h?.maxUploadMb) limits = { maxUploadMb: h.maxUploadMb, maxDurationSec: h.maxDurationSec };
-      const hint = form.querySelector<HTMLElement>(".community__hint");
-      if (hint) hint.textContent = `Vidéo (mp4/mov) · ${limits.maxUploadMb} Mo max · ${limits.maxDurationSec}s max · validée avant publication`;
-    })
-    .catch(() => {});
+  const hint = form.querySelector<HTMLElement>(".community__hint");
+  if (hint) hint.textContent = `Vidéo (mp4/mov) · ${limits.maxUploadMb} Mo max · ${limits.maxDurationSec}s max · validée avant publication`;
 
   loadItems(grid);
 }
@@ -111,37 +105,55 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
     if (dur && dur > limits.maxDurationSec + 1)
       return setStatus(status, `Trop longue (max ${limits.maxDurationSec}s) — elle sera coupée à l'envoi.`, "warn");
 
-    const fd = new FormData(form);
     submit.disabled = true;
-    setStatus(status, "Envoi en cours…", "info");
+    setStatus(status, "Préparation…", "info");
+    try {
+      // 1) ask our function to validate + sign (file bytes never pass through Vercel)
+      const signRes = await fetch(`${API}/api/community/sign`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, author }),
+      });
+      const sign = await signRes.json().catch(() => ({}));
+      if (!signRes.ok) { submit.disabled = false; return setStatus(status, sign.error || "Envoi refusé.", "err"); }
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${API}/api/community/upload`);
-    xhr.upload.onprogress = (ev) => {
-      if (bar && ev.lengthComputable) bar.style.width = `${Math.round((ev.loaded / ev.total) * 100)}%`;
-    };
-    xhr.onload = () => {
+      // 2) upload the video DIRECTLY to Cloudinary with the signed params
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("api_key", sign.apiKey);
+      fd.append("timestamp", String(sign.timestamp));
+      fd.append("folder", sign.folder);
+      fd.append("tags", sign.tags);
+      fd.append("context", sign.context);
+      fd.append("signature", sign.signature);
+
+      setStatus(status, "Envoi en cours…", "info");
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `https://api.cloudinary.com/v1_1/${sign.cloudName}/video/upload`);
+      xhr.upload.onprogress = (ev) => {
+        if (bar && ev.lengthComputable) bar.style.width = `${Math.round((ev.loaded / ev.total) * 100)}%`;
+      };
+      xhr.onload = () => {
+        submit.disabled = false;
+        if (bar) bar.style.width = "0%";
+        if (xhr.status >= 200 && xhr.status < 300) {
+          setStatus(status, "Merci ! Ta vidéo sera publiée après validation.", "ok");
+          form.reset();
+          if (soundOn()) punch();
+        } else {
+          setStatus(status, "Échec de l'envoi. Réessaie.", "err");
+        }
+      };
+      xhr.onerror = () => {
+        submit.disabled = false;
+        if (bar) bar.style.width = "0%";
+        setStatus(status, "Service indisponible pour le moment.", "err");
+      };
+      if (soundOn()) tick();
+      xhr.send(fd);
+    } catch {
       submit.disabled = false;
-      if (bar) bar.style.width = "0%";
-      let body: any = {};
-      try { body = JSON.parse(xhr.responseText); } catch {}
-      if (xhr.status === 202) {
-        setStatus(status, body.message || "Merci ! Ta vidéo sera publiée après validation.", "ok");
-        form.reset();
-        if (soundOn()) punch();
-      } else if (xhr.status === 429) {
-        setStatus(status, body.error || "Trop d'envois — réessaie plus tard.", "err");
-      } else {
-        setStatus(status, body.error || "Échec de l'envoi. Réessaie.", "err");
-      }
-    };
-    xhr.onerror = () => {
-      submit.disabled = false;
-      if (bar) bar.style.width = "0%";
       setStatus(status, "Service indisponible pour le moment.", "err");
-    };
-    if (soundOn()) tick();
-    xhr.send(fd);
+    }
   });
 }
 

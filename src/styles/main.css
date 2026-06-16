@@ -97,8 +97,8 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   position: relative; opacity: 0.6; transition: opacity var(--t-fast); }
 .theme-switch button span { width: 13px; height: 13px; border-radius: 50%;
   border: 1.5px solid currentColor; }
-.theme-switch button[data-th="dark"] { color: #4a8fe8; }
-.theme-switch button[data-th="light"] { color: #2b6fd4; }
+.theme-switch button[data-th="dark"] { color: #aebccf; }
+.theme-switch button[data-th="light"] { color: #182848; }
 .theme-switch button[aria-pressed="true"] { opacity: 1; }
 .theme-switch button[aria-pressed="true"] span { background: currentColor; box-shadow: 0 0 10px currentColor; }
 
@@ -499,9 +499,9 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   /* heavy mono grade hides source compression and reads as film */
   filter: grayscale(1) contrast(1.32) brightness(0.62);
   transform: scale(calc(1.05 + var(--p, 0) * 0.16)); will-change: transform; }
-/* duotone wash (navy shadows → bronze highlights) over the mono footage */
+/* duotone wash (navy shadows → silver highlights) over the mono footage */
 .scrub__grade { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: color;
-  opacity: 0.55; background: linear-gradient(145deg, var(--c-navy) 5%, #3a2a1a 55%, var(--c-bronze) 100%); }
+  opacity: 0.55; background: linear-gradient(145deg, var(--c-navy-deep) 5%, var(--grade-mid) 55%, var(--grade-hi) 100%); }
 .scrub__sticky::after { content: ""; position: absolute; inset: 0;
   background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(0,0,0,0.65) 100%),
     linear-gradient(to top, var(--hero-bg), transparent 55%); }
@@ -554,7 +554,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 
 .gate__flash {
   position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0;
-  background: radial-gradient(circle at 50% 42%, rgba(238, 241, 246, 0.95) 0%, rgba(74, 143, 232, 0.4) 35%, transparent 70%);
+  background: radial-gradient(circle at 50% 42%, rgba(238, 241, 246, 0.95) 0%, rgba(174, 188, 207, 0.4) 35%, transparent 70%);
 }
 @keyframes gateFlashBurst {
   0% { opacity: 0; transform: scale(0.6); }

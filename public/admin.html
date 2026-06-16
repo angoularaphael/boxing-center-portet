@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Modération — Boxing Center Portet</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #0a1020; color: #eef1f6; font: 15px/1.5 system-ui, sans-serif; }
+    header { padding: 1rem 1.3rem; border-bottom: 1px solid #1b2942; display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
+    h1 { font-size: 1.05rem; margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+    input { background: #11182b; border: 1px solid #26344f; color: #fff; padding: .5rem .7rem; border-radius: 8px; }
+    button { cursor: pointer; border: 0; border-radius: 8px; padding: .5rem .9rem; font-weight: 600; }
+    .load { background: #aebccf; color: #0a1020; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; padding: 1.3rem; }
+    .card { background: #11182b; border: 1px solid #1b2942; border-radius: 12px; overflow: hidden; }
+    .card video { width: 100%; display: block; background: #000; aspect-ratio: 16/10; object-fit: cover; }
+    .meta { padding: .7rem .8rem; } .meta small { color: #7a8aa4; }
+    .row { display: flex; gap: .5rem; padding: 0 .8rem .8rem; }
+    .ok { background: #1f9d55; color: #fff; flex: 1; } .no { background: #26344f; color: #fff; flex: 1; }
+    .empty { padding: 2rem 1.3rem; color: #7a8aa4; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modération — le mur de la communauté</h1>
+    <input id="token" type="password" placeholder="Admin token" />
+    <button class="load" id="load">Charger la file d'attente</button>
+    <span id="count"></span>
+  </header>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">Saisis le token puis charge la file d'attente.</p>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const tokenEl = $("#token"), grid = $("#grid"), empty = $("#empty"), count = $("#count");
+    tokenEl.value = sessionStorage.getItem("bcp-admin") || "";
+    async function api(path, opts = {}) {
+      const token = tokenEl.value.trim(); sessionStorage.setItem("bcp-admin", token);
+      const r = await fetch(path, { ...opts, headers: { "x-admin-token": token, "Content-Type": "application/json", ...(opts.headers || {}) } });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.status); return r.json();
+    }
+    async function load() {
+      grid.innerHTML = ""; empty.style.display = "block"; empty.textContent = "Chargement…";
+      try {
+        const { items } = await api("/api/community/pending");
+        count.textContent = items.length + " en attente";
+        empty.style.display = items.length ? "none" : "block";
+        empty.textContent = items.length ? "" : "Rien à valider. 🥊";
+        for (const it of items) grid.appendChild(card(it));
+      } catch (e) { empty.style.display = "block"; empty.textContent = "Erreur : " + e.message; }
+    }
+    function card(it) {
+      const el = document.createElement("div"); el.className = "card";
+      el.innerHTML = `<video src="${it.src}" poster="${it.poster}" controls muted preload="none"></video>
+        <div class="meta"><strong>${it.title || "(sans titre)"}</strong><br><small>${it.author || "anonyme"} · ${new Date(it.createdAt).toLocaleString("fr-FR")}</small></div>
+        <div class="row"><button class="ok">Publier</button><button class="no">Refuser</button></div>`;
+      el.querySelector(".ok").onclick = () => moderate(it.id, "approve", el);
+      el.querySelector(".no").onclick = () => moderate(it.id, "reject", el);
+      return el;
+    }
+    async function moderate(id, action, el) {
+      try { await api("/api/community/moderate", { method: "POST", body: JSON.stringify({ id, action }) }); el.remove(); }
+      catch (e) { alert("Erreur : " + e.message); }
+    }
+    $("#load").onclick = load;
+  </script>
+</body>
+</html>
