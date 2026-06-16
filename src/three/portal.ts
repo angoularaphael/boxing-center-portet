@@ -22,7 +22,13 @@ function initPortal(section: HTMLElement): Handle | null {
   const host = section.querySelector<HTMLElement>(".portal__canvas");
   const lineEl = section.querySelector<HTMLElement>(".portal__line");
   if (!host) return null;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const force = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.search.includes("motion=force") ||
+    localStorage.getItem("bcp-motion") === "force"
+  );
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches && !force;
 
   let renderer: THREE.WebGLRenderer;
   try {

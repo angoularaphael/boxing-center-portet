@@ -159,6 +159,11 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .reel__head .display, .ring__overlay .display, .ring__overlay .lead, .showcase__cap .display {
   text-shadow: 0 2px 26px rgba(6, 8, 13, 0.7), 0 1px 4px rgba(6, 8, 13, 0.5);
 }
+[data-theme="light"] .hero .eyebrow,
+[data-theme="light"] .hero__hook,
+[data-theme="light"] .hero__portet {
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 255, 255, 0.5);
+}
 .stats-band { background: var(--bg); border-bottom: 1px solid var(--line); }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 .hero__scroll { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em;

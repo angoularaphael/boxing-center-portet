@@ -34,7 +34,13 @@ function loadImg(src: string): Promise<HTMLImageElement> {
  * 3D Boxing Center ring — official design, scroll fly-through.
  */
 export async function initRing(section: HTMLElement, host: HTMLElement) {
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const force = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.search.includes("motion=force") ||
+    localStorage.getItem("bcp-motion") === "force"
+  );
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches && !force;
   const mobile = window.innerWidth < 768;
   let renderer: THREE.WebGLRenderer;
   try {
@@ -196,7 +202,14 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
 
   const A = { p: new THREE.Vector3(8, 4.5, 10), t: new THREE.Vector3(0, 1, 0) };
   const B = { p: new THREE.Vector3(3.5, 2.2, 5), t: new THREE.Vector3(0, 1.1, 0) };
-  const Cc = { p: new THREE.Vector3(0, 1.2, 0.3), t: new THREE.Vector3(0, 1.5, -S) };
+  const Cc1 = {
+    p: new THREE.Vector3(Math.sin(-Math.PI * 0.3) * 0.45, 1.2, Math.cos(-Math.PI * 0.3) * 0.45),
+    t: new THREE.Vector3(Math.sin(0.7 * Math.PI) * S, 1.5, Math.cos(0.7 * Math.PI) * S)
+  };
+  const Cc2 = {
+    p: new THREE.Vector3(Math.sin(0.8 * Math.PI) * 0.45, 1.2, Math.cos(0.8 * Math.PI) * 0.45),
+    t: new THREE.Vector3(Math.sin(1.8 * Math.PI) * S, 1.5, Math.cos(1.8 * Math.PI) * S)
+  };
   const D = { p: new THREE.Vector3(0, 9.5, 0.2), t: new THREE.Vector3(0, 0, 0) };
   const ss = (t: number) => t * t * (3 - 2 * t);
   const lerpV = (a: THREE.Vector3, b: THREE.Vector3, t: number, o: THREE.Vector3) => o.copy(a).lerp(b, t);
@@ -220,10 +233,19 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   const clock = new THREE.Clock();
   let raf = 0;
 
+  const onThemeChange = () => {
+    cols = themeColors();
+    key.color.set(cols.accent);
+    (embers.material as THREE.PointsMaterial).color.set(cols.accent2);
+  };
+  window.addEventListener("themechange", onThemeChange);
+
   function frame() {
     if (!section.isConnected) {
       cancelAnimationFrame(raf);
       io.disconnect();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("themechange", onThemeChange);
       renderer.dispose();
       return;
     }
@@ -241,18 +263,18 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
         lerpV(A.p, B.p, k * 2, camP);
         lerpV(A.t, B.t, k * 2, camT);
       } else {
-        lerpV(B.p, Cc.p, (k - 0.5) * 2, camP);
-        lerpV(B.t, Cc.t, (k - 0.5) * 2, camT);
+        lerpV(B.p, Cc1.p, (k - 0.5) * 2, camP);
+        lerpV(B.t, Cc1.t, (k - 0.5) * 2, camT);
       }
     } else if (p < 0.72) {
       const k = (p - 0.28) / 0.44;
       const ang = -Math.PI * 0.3 + k * Math.PI * 1.1;
       camP.set(Math.sin(ang) * 0.45, 1.2 + Math.sin(k * Math.PI) * 0.15, Math.cos(ang) * 0.45);
-      camT.set(Math.sin(ang + Math.PI) * S, 1.45, Math.cos(ang + Math.PI) * S);
+      camT.set(Math.sin(ang + Math.PI) * S, 1.5 - Math.sin(k * Math.PI) * 0.05, Math.cos(ang + Math.PI) * S);
     } else {
       const k = ss((p - 0.72) / 0.28);
-      lerpV(Cc.p, D.p, k, camP);
-      lerpV(Cc.t, D.t, k, camT);
+      lerpV(Cc2.p, D.p, k, camP);
+      lerpV(Cc2.t, D.t, k, camT);
     }
     camera.position.copy(camP);
     camera.lookAt(camT);

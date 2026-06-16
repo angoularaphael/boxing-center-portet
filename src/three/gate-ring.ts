@@ -5,7 +5,13 @@ import * as THREE from "three";
  * Lightweight preview of the official Boxing Center ring design.
  */
 export function initGateRing(host: HTMLElement) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  const force = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.search.includes("motion=force") ||
+    localStorage.getItem("bcp-motion") === "force"
+  );
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && !force) return () => {};
 
   let renderer: THREE.WebGLRenderer;
   try {
