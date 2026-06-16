@@ -1,17 +1,21 @@
 import sharp from "sharp";
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, "..", "public");
-const logoPath = join(publicDir, "brand-logo.png");
-const bg = { r: 15, g: 23, b: 42, alpha: 1 };
+/** Source dédié favicon onglet — ne touche pas logo.png du site */
+const logoPath = join(publicDir, "favicon-brand.png");
+const bg = { r: 255, g: 255, b: 255, alpha: 1 };
 
 async function circularIcon(size) {
-  const logoW = Math.round(size * 0.72);
+  const pad = Math.round(size * 0.14);
+  const inner = size - pad * 2;
+  const logoW = Math.round(inner * 0.92);
+
   const logo = await sharp(logoPath)
-    .resize(logoW, Math.round(logoW * 0.47), { fit: "inside", withoutEnlargement: true })
+    .resize(logoW, Math.round(logoW * 0.55), { fit: "inside", withoutEnlargement: true })
     .png()
     .toBuffer();
 
@@ -33,12 +37,6 @@ async function circularIcon(size) {
     .png()
     .toBuffer();
 }
-
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Boxing Center">
-  <circle cx="32" cy="32" r="32" fill="#0f172a"/>
-</svg>`;
-
-writeFileSync(join(publicDir, "favicon.svg"), svg);
 
 const sizes = [
   { name: "favicon.png", size: 32 },

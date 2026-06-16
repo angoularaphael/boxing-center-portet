@@ -29,6 +29,7 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="/favicon.png" />
   <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -48,7 +49,12 @@
         "name": "Boxing Center Portet",
         "description": "Club de boxe, muay thaï, MMA et kickboxing à Portet-sur-Garonne — Toulouse sud, 31120. Salle phare Boxing Center, 800 m², ring olympique, 10+ disciplines.",
         "inLanguage": "fr-FR",
-        "publisher": { "@id": "https://www.boxing-center-portet.fr/#organization" }
+        "publisher": { "@id": "https://www.boxing-center-portet.fr/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.boxing-center-portet.fr/activites/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "Organization",
@@ -102,6 +108,27 @@
         "sport": ["Boxing","Muay Thai","Kickboxing","Mixed Martial Arts","Cross Training"],
         "description": "Club de boxe et salle de sports de combat à Portet-sur-Garonne (31120), Toulouse sud. La plus grande salle du groupe Boxing Center : 800 m², ring olympique, cage MMA, 24 sacs lourds. Boxe anglaise, muay thaï, kickboxing, MMA, cross training. Séance d'essai 10€.",
         "keywords": "boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe, muay thaï, MMA, kickboxing, séance d'essai"
+      },
+      {
+        "@type": "Offer",
+        "@id": "https://www.boxing-center-portet.fr/#essai-10e",
+        "name": "Séance d'essai Boxing Center Portet",
+        "description": "Première séance de boxe ou sports de combat à 10€, toutes disciplines, sans engagement.",
+        "price": "10",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.boxing-center-portet.fr/contact/",
+        "seller": { "@id": "https://www.boxing-center-portet.fr/#organization" },
+        "eligibleRegion": { "@type": "Place", "name": "Portet-sur-Garonne, Toulouse sud, Haute-Garonne" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://www.boxing-center-portet.fr/#cours-boxe",
+        "name": "Cours de boxe et sports de combat",
+        "provider": { "@id": "https://www.boxing-center-portet.fr/#localbusiness" },
+        "areaServed": "Portet-sur-Garonne, Toulouse, Haute-Garonne, Occitanie",
+        "serviceType": ["Boxe anglaise", "Muay thaï", "Kickboxing", "MMA", "Cross training"],
+        "offers": { "@id": "https://www.boxing-center-portet.fr/#essai-10e" }
       }
     ]
   }
@@ -115,7 +142,10 @@
       { "@type": "Question", "name": "Combien coûte une séance d'essai ?", "acceptedAnswer": { "@type": "Answer", "text": "La séance d'essai est à 10€, toutes disciplines, sans engagement." } },
       { "@type": "Question", "name": "Quelles disciplines sont proposées ?", "acceptedAnswer": { "@type": "Answer", "text": "Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training, Lady Punch et boxe éducative (dès 7 ans)." } },
       { "@type": "Question", "name": "Quels sont les horaires d'ouverture ?", "acceptedAnswer": { "@type": "Answer", "text": "Du lundi au samedi, de 10h00 à 21h30. Accès illimité 7j/7 pour les abonnés." } },
-      { "@type": "Question", "name": "Faut-il de l'expérience pour commencer la boxe ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Tous les niveaux sont accueillis, avec des créneaux débutants et des coachs diplômés FFBoxe, FFKMDA et FMMAF." } }
+      { "@type": "Question", "name": "Faut-il de l'expérience pour commencer la boxe ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Tous les niveaux sont accueillis, avec des créneaux débutants et des coachs diplômés FFBoxe, FFKMDA et FMMAF." } },
+      { "@type": "Question", "name": "Boxing Center Portet est-il accessible depuis Toulouse ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. La salle est à Portet-sur-Garonne (31120), à environ 10 minutes de Toulouse sud via la route d'Espagne." } },
+      { "@type": "Question", "name": "Peut-on faire du MMA ou du muay thaï à Portet-sur-Garonne ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Boxing Center Portet propose muay thaï, kickboxing, MMA & grappling, boxe anglaise, cross training et Lady Punch dans une salle de 800 m² avec ring olympique et cage MMA." } },
+      { "@type": "Question", "name": "Y a-t-il des cours de boxe pour enfants ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. La boxe éducative est ouverte dès 7 ans, avec un encadrement adapté et des tarifs enfants à partir de 280 € par an." } }
     ]
   }
   </script>
@@ -218,6 +248,7 @@
   </div>
   <section class="ring" id="ring" aria-label="Le ring">
     <div class="ring__sticky">
+      <div class="ring__photo" aria-hidden="true"></div>
       <div class="ring__canvas" id="ring-canvas" aria-hidden="true"></div>
       <div class="ring__overlay">
         <div class="ring__txt wrap" data-r="0">
@@ -237,7 +268,7 @@
         </div>
         <div class="ring__txt wrap" data-r="3" style="opacity:0">
           <span class="eyebrow">03 · Ta place</span>
-          <h2 class="display" style="max-width:15ch">10€. <span class="tint">Sans engagement.</span></h2>
+          <h2 class="display promo-blast" style="max-width:15ch">10€. <span class="tint promo-blast__accent">Sans engagement.</span></h2>
           <p class="lead" style="max-width:42ch;color:#cdd3df">Une séance d'essai, toutes disciplines. La seule chose que tu risques, c'est d'y prendre goût.</p>
           <a class="btn btn--primary" href="/contact/" style="pointer-events:auto;align-self:flex-start;margin-top:.5rem">Réserver ma 1<sup>re</sup> séance</a>
         </div>
@@ -359,6 +390,15 @@
         <a class="btn btn--ghost" href="/tarifs/">Détail des formules</a>
       </div>
       <div class="tarifs" id="tarifs-grid" data-reveal-group></div>
+    </div>
+  </section>
+
+  <!-- ===================== RÉFÉRENCEMENT LOCAL ===================== -->
+  <section class="section local-ref" aria-labelledby="local-ref-title">
+    <div class="wrap" style="max-width:72ch">
+      <h2 id="local-ref-title" class="display" style="font-size:clamp(1.9rem,4.5vw,3.2rem);margin-bottom:1rem">Salle de boxe à Portet-sur-Garonne — référence combat à Toulouse sud</h2>
+      <p class="lead">Boxing Center Portet est le <strong>club de boxe</strong> phare du réseau Boxing Center en Haute-Garonne (31120). À 10 minutes de <strong>Toulouse sud</strong>, nous accueillons débutants et confirmés pour la <strong>boxe anglaise</strong>, le <strong>muay thaï</strong>, le <strong>kickboxing</strong>, le <strong>MMA</strong> et le cross training — sur 800 m² avec ring olympique, cage MMA et 24 sacs lourds.</p>
+      <p class="lead" style="margin-top:1rem">Première visite ? Réserve ta <strong>séance d'essai à 10€</strong> : toutes disciplines, sans engagement. 61 route d'Espagne, Portet-sur-Garonne — ouvert du lundi au samedi, 10h–21h30.</p>
     </div>
   </section>
 

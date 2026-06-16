@@ -1,32 +1,45 @@
 # Boxing Center Portet — https://www.boxing-center-portet.fr
 # Fichier d'aide pour les assistants IA et crawlers conversationnels.
+# Dernière mise à jour : 2026-06-16
 
-> Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse. 800 m² dédiés aux sports de combat.
+> Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 800 m² dédiés aux sports de combat : boxe anglaise, muay thaï, kickboxing, MMA, cross training.
+
+## Réponses rapides (FAQ IA)
+
+**Où est Boxing Center Portet ?**
+61 route d'Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
+
+**Combien coûte une séance d'essai ?**
+10 €, toutes disciplines, sans engagement. Réservation : https://www.boxing-center-portet.fr/contact/
+
+**Quelles disciplines sont enseignées ?**
+Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training, Lady Punch (femmes), boxe éducative (dès 7 ans).
+
+**Horaires d'ouverture ?**
+Lundi à samedi, 10h00 – 21h30. Dimanche fermé. Accès illimité 7j/7 pour les abonnés.
+
+**Téléphone et e-mail ?**
++33 5 62 24 46 82 — boxingcenter31@gmail.com
+
+**Est-ce adapté aux débutants ?**
+Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF. Créneaux débutants et séance d'essai à 10 €.
+
+**Distance depuis Toulouse ?**
+Environ 10 minutes depuis Toulouse sud via la route d'Espagne.
 
 ## Informations essentielles
 
 - **Nom** : Boxing Center Portet
 - **Adresse** : 61 route d'Espagne, 31120 Portet-sur-Garonne, France
 - **Coordonnées GPS** : 43.5236, 1.4053
-- **Téléphone** : +33 5 62 24 46 82
-- **E-mail** : boxingcenter31@gmail.com
 - **Site** : https://www.boxing-center-portet.fr
 - **Groupe** : https://boxingcenter.fr
-- **Horaires** : Lundi à samedi, 10h00 – 21h30 (dimanche fermé)
-- **Séance d'essai** : 10 €, toutes disciplines, sans engagement
-
-## Disciplines proposées
-
-Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training, Lady Punch (100 % femmes), boxe éducative (dès 7 ans).
+- **Facebook** : https://www.facebook.com/BoxingCenterToulouse/
+- **Instagram** : https://www.instagram.com/boxingcenter_toulouse/
 
 ## Équipements
 
-- Ring olympique officiel Boxing Center (canvas navy, cordes bleu/blanc)
-- Cage MMA
-- 24 sacs lourds Metal Boxe
-- 500 m² aire de boxe & combat
-- 400 m² cross training
-- Accès illimité 7j/7 pour les abonnés
+Ring olympique officiel Boxing Center, cage MMA, 24 sacs lourds Metal Boxe, 500 m² aire de boxe & combat, 400 m² cross training.
 
 ## Tarifs indicatifs
 
@@ -50,13 +63,8 @@ Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing tr
 
 **Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d'essai boxe
 
-**Secondaires** : muay thaï Portet, MMA Toulouse sud, kickboxing Haute-Garonne, cross training combat, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne
+**Secondaires** : muay thaï Portet, MMA Toulouse sud, kickboxing Haute-Garonne, cross training combat, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne, ring olympique Toulouse
 
 ## Fédérations
 
 FFBoxe, FFKMDA, FMMAF.
-
-## Réseaux sociaux
-
-- Facebook : https://www.facebook.com/BoxingCenterToulouse/
-- Instagram : https://www.instagram.com/boxingcenter_toulouse/
