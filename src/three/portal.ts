@@ -35,7 +35,7 @@ function initPortal(section: HTMLElement): Handle | null {
   let cols = themeColors();
   const C = (h: string) => new THREE.Color(h);
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(C("#0a0608"), 0.045);
+  scene.fog = new THREE.FogExp2(C("#0a1020"), 0.045);
   const camera = new THREE.PerspectiveCamera(66, 1, 0.1, 120);
 
   const loader = new THREE.TextureLoader();
@@ -65,7 +65,7 @@ function initPortal(section: HTMLElement): Handle | null {
       const a = baseAng + (k / K) * Math.PI * 2;
       const mat = new THREE.MeshBasicMaterial({
         map: loadTex(pool[poolI++ % pool.length]),
-        color: C("#9c4f46"), side: THREE.DoubleSide, transparent: true, opacity: 0.9,
+        color: C("#5d6c88"), side: THREE.DoubleSide, transparent: true, opacity: 0.9,
       });
       const m = new THREE.Mesh(planeGeo, mat);
       m.position.set(Math.cos(a) * RADIUS, Math.sin(a) * RADIUS, z);
@@ -83,7 +83,7 @@ function initPortal(section: HTMLElement): Handle | null {
   if (!noExit && section.dataset.img) {
     dest = new THREE.Mesh(
       new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshBasicMaterial({ color: C("#2a0a0a"), transparent: true, opacity: 0 })
+      new THREE.MeshBasicMaterial({ color: C("#101a30"), transparent: true, opacity: 0 })
     );
     dest.position.z = DEST_Z;
     dest.scale.set(DEST_H * 1.6, DEST_H, 1); // placeholder until the photo loads
@@ -94,7 +94,7 @@ function initPortal(section: HTMLElement): Handle | null {
       const aspect = im && im.width ? im.width / im.height : 1.6;
       dest!.scale.set(DEST_H * aspect, DEST_H, 1); // aspect-correct → never stretched
       const mm = dest!.material as THREE.MeshBasicMaterial;
-      mm.map = tex; mm.color = C("#bd6a5d"); mm.needsUpdate = true;
+      mm.map = tex; mm.color = C("#8c97ad"); mm.needsUpdate = true;
       textures.push(tex);
     });
   }

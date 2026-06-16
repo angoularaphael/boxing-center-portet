@@ -23,11 +23,11 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --display-transform: uppercase;
 
-  --c-navy: #0c1f5c;
-  --c-navy-deep: #081428;
-  --c-blue: #2b6fd4;
-  --c-blue-bright: #4a8fe8;
-  --c-silver: #9aa8bc;
+  --c-navy: #182848;        /* the official ring navy */
+  --c-navy-deep: #0a1020;
+  --c-blue: #182848;
+  --c-blue-bright: #aebccf; /* silver (no second blue) */
+  --c-silver: #aebccf;
   --c-gray: #6b7a92;
   --c-paper: #eef1f6;
 }
@@ -37,7 +37,7 @@
   color-scheme: dark;
   --bg: #0a1020;
   --bg-1: #0e1628;
-  --bg-2: #141f38;
+  --bg-2: #182848;        /* ring navy as the elevated surface */
   --bg-glass: rgba(10, 16, 32, 0.72);
   --fg: #eef1f6;
   --fg-soft: #b8c4d8;
@@ -45,16 +45,16 @@
   --line: rgba(238, 241, 246, 0.1);
   --line-strong: rgba(154, 168, 188, 0.35);
 
-  --accent: #4a8fe8;
-  --accent-ink: #0a1020;
-  --accent-2: #9aa8bc;
-  --energy: #4a8fe8;
-  --glow: rgba(74, 143, 232, 0.45);
+  --accent: #aebccf;       /* silver */
+  --accent-ink: #0a1020;   /* navy text on silver/white fills */
+  --accent-2: #7f8ca3;
+  --energy: #c3cdda;       /* bright silver for particles/glow */
+  --glow: rgba(174, 188, 207, 0.42);
 
   --hero-bg: #0a1020;
   --nav-logo-filter: brightness(0) invert(1);
-  --grade-mid: #1a3a6e;
-  --grade-hi: #4a8fe8;
+  --grade-mid: #182848;    /* navy -> silver duotone for media */
+  --grade-hi: #c3cad6;
 
   --radius: 12px;
   --radius-lg: 20px;
@@ -75,16 +75,16 @@
   --line: rgba(10, 16, 32, 0.1);
   --line-strong: rgba(10, 16, 32, 0.2);
 
-  --accent: #2b6fd4;
+  --accent: #182848;
   --accent-ink: #ffffff;
   --accent-2: #6b7a92;
-  --energy: #2b6fd4;
-  --glow: rgba(43, 111, 212, 0.35);
+  --energy: #182848;
+  --glow: rgba(24, 40, 72, 0.32);
 
   --hero-bg: #e8edf5;
   --nav-logo-filter: none;
-  --grade-mid: #2b6fd4;
-  --grade-hi: #6ba3e8;
+  --grade-mid: #182848;
+  --grade-hi: #7a8aa4;
 
   --radius: 12px;
   --radius-lg: 20px;
