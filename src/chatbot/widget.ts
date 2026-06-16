@@ -10,6 +10,7 @@ type Phase =
   | "phone"
   | "ready"
   | "faq"
+  | "escalation_topic"
   | "escalation"
   | "done";
 
@@ -18,6 +19,14 @@ type Msg = { role: "bot" | "user"; text: string; html?: boolean };
 const BOT_AVATAR = "/logo.png";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SKIP_RE = /^(non|pas maintenant|passer|skip|—|-)$/i;
+const ESCALATION_TOPICS = [
+  { id: "contact", label: "Contact et essais" },
+  { id: "membre", label: "Devenir membre et paiement" },
+  { id: "cours", label: "Nos cours et programmes" },
+  { id: "resiliation", label: "Modification et résiliation" },
+  { id: "abonnement", label: "Inscription et abonnements" },
+  { id: "autre", label: "Autre question" },
+] as const;
 
 function sessionId(): string {
   const key = "bcp-chat-session";
@@ -44,6 +53,7 @@ export function initChatbot() {
   const profile = { name: "", email: "", phone: "", metier: "" };
   let phase: Phase = "greeting";
   let faq: FaqItem[] = [];
+  let escalationTopic = "";
   let opened = false;
   let typing = false;
 
@@ -142,15 +152,43 @@ export function initChatbot() {
   }
 
   function showSuggestions(items: FaqItem[]) {
-    if (!items.length) {
+    const faqButtons = items
+      .slice(0, 4)
+      .map(
+        (f) =>
+          `<button type="button" data-q="${escapeAttr(f.question)}">${escapeHtml(f.question)}</button>`
+      )
+      .join("");
+    const escalationBtn = `<button type="button" class="bcp-chat__suggestion--escalation" data-escalation>Ma question n'apparaît pas ?</button>`;
+    if (!faqButtons && phase !== "faq") {
       suggestionsEl.hidden = true;
       return;
     }
     suggestionsEl.hidden = false;
-    suggestionsEl.innerHTML = items
-      .slice(0, 4)
-      .map((f) => `<button type="button" data-q="${escapeAttr(f.question)}">${escapeHtml(f.question)}</button>`)
-      .join("");
+    suggestionsEl.innerHTML =
+      phase === "faq" ? `${faqButtons}${escalationBtn}` : faqButtons;
+  }
+
+  function showTopicSuggestions() {
+    suggestionsEl.hidden = false;
+    suggestionsEl.innerHTML = ESCALATION_TOPICS.map(
+      (t) =>
+        `<button type="button" data-topic="${escapeAttr(t.id)}">${escapeHtml(t.label)}</button>`
+    ).join("");
+  }
+
+  function hideSuggestions() {
+    suggestionsEl.hidden = true;
+    suggestionsEl.innerHTML = "";
+  }
+
+  function showRecontactCheckbox() {
+    messages.push({
+      role: "bot",
+      text: `<label class="bcp-chat__recontact"><input type="checkbox" id="bcp-chat-recontact" checked /> Me tenir au courant par e-mail</label>`,
+      html: true,
+    });
+    renderMessages();
   }
 
   function escapeAttr(s: string) {
@@ -255,32 +293,45 @@ export function initChatbot() {
     }
   }
 
+  async function startEscalation() {
+    phase = "escalation_topic";
+    hideSuggestions();
+    await botSay("Pas de souci ! Choisissez le sujet qui correspond le mieux à votre question :");
+    showTopicSuggestions();
+    setPlaceholder("Ou écrivez votre sujet…");
+  }
+
   async function handleFaqQuestion(q: string) {
+    if (/ma question n.?appara[iî]t pas/i.test(q)) {
+      userSay(q);
+      await startEscalation();
+      return;
+    }
+
     userSay(q);
-    showSuggestions([]);
+    hideSuggestions();
     try {
       const result = await searchFaq(q, sid);
       if (result.match && result.answer) {
         await botSay(result.answer);
+        showSuggestions(faq);
       } else {
-        phase = "escalation";
-        await botSay(
-          "Je n'ai pas la réponse sous la main. Vous pouvez laisser un message ici — l'équipe vous répondra dès que possible."
-        );
-        messages.push({
-          role: "bot",
-          text: `<label class="bcp-chat__recontact"><input type="checkbox" id="bcp-chat-recontact" checked /> Me tenir au courant par e-mail</label>`,
-          html: true,
-        });
-        renderMessages();
-        setPlaceholder("Votre message…");
+        await startEscalation();
       }
     } catch {
-      phase = "escalation";
-      await botSay("Petit souci de connexion… Laissez votre message, on vous répondra vite.");
-      setPlaceholder("Votre message…");
+      await botSay("Petit souci de connexion… Vous pouvez laisser votre message ci-dessous.");
+      await startEscalation();
     }
-    if (phase === "faq") showSuggestions(faq);
+  }
+
+  async function pickEscalationTopic(topicId: string, label: string) {
+    escalationTopic = topicId;
+    userSay(label);
+    phase = "escalation";
+    hideSuggestions();
+    await botSay("Décrivez votre question en quelques lignes — l'équipe vous répondra par e-mail.");
+    showRecontactCheckbox();
+    setPlaceholder("Votre message…");
   }
 
   async function handleEscalation(text: string) {
@@ -291,11 +342,13 @@ export function initChatbot() {
         event: "escalation",
         sessionId: sid,
         ...profile,
+        topic: escalationTopic || "autre",
         message: text,
         recontactRequested: recontact,
       });
-      await botSay("C'est noté, merci ! L'équipe revient vers vous très vite.");
+      await botSay("C'est envoyé, merci ! L'équipe revient vers vous très vite à " + (profile.email || "votre adresse e-mail") + ".");
       phase = "done";
+      hideSuggestions();
       setPlaceholder("À bientôt au club");
       input.disabled = true;
     } catch {
@@ -322,12 +375,39 @@ export function initChatbot() {
       return;
     }
 
+    if (phase === "escalation_topic") {
+      const topic = ESCALATION_TOPICS.find(
+        (t) => t.label.toLowerCase() === text.toLowerCase() || t.id === text
+      );
+      if (topic) {
+        await pickEscalationTopic(topic.id, topic.label);
+      } else {
+        await pickEscalationTopic("autre", text);
+      }
+      return;
+    }
+
     if (phase === "escalation") {
       await handleEscalation(text);
     }
   });
 
   suggestionsEl.addEventListener("click", async (e) => {
+    const esc = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-escalation]");
+    if (esc && phase === "faq") {
+      await startEscalation();
+      return;
+    }
+
+    const topicBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-topic]");
+    if (topicBtn && phase === "escalation_topic") {
+      const id = topicBtn.dataset.topic || "autre";
+      const label =
+        ESCALATION_TOPICS.find((t) => t.id === id)?.label || topicBtn.textContent || "Autre question";
+      await pickEscalationTopic(id, label);
+      return;
+    }
+
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-q]");
     if (!btn || phase !== "faq") return;
     await handleFaqQuestion(btn.dataset.q || "");
