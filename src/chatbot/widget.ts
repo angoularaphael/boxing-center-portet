@@ -50,9 +50,7 @@ export function initChatbot() {
   root.className = "bcp-chat";
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l'assistant Boxing Center">
-      <span class="bcp-chat__launcher-icon" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H17.5A2.5 2.5 0 0 1 20 5.5V14a2.5 2.5 0 0 1-2.5 2.5H9l-4.2 3.15A.8.8 0 0 1 3.5 19.2V16.5A2.5 2.5 0 0 1 5.5 14H6.5A2.5 2.5 0 0 1 4 11.5V5.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
-      </span>
+      <img class="bcp-chat__launcher-logo" src="/favicon-192.png" alt="" width="34" height="34" decoding="async" />
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
     <section class="bcp-chat__panel" id="bcp-chat-panel" aria-label="Assistant Boxing Center" hidden>
@@ -147,13 +145,19 @@ export function initChatbot() {
   async function openPanel() {
     if (opened) {
       panel.hidden = false;
+      panel.classList.add("bcp-chat__panel--open");
       root.classList.add("bcp-chat--open");
+      launcher.setAttribute("aria-expanded", "true");
+      launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
       input.focus();
       return;
     }
     opened = true;
     panel.hidden = false;
+    panel.classList.add("bcp-chat__panel--open");
     root.classList.add("bcp-chat--open");
+    launcher.setAttribute("aria-expanded", "true");
+    launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
     await trackEvent("chat_started", sid);
     try {
       faq = await fetchFaqList();
@@ -168,7 +172,10 @@ export function initChatbot() {
 
   function closePanel() {
     panel.hidden = true;
+    panel.classList.remove("bcp-chat__panel--open");
     root.classList.remove("bcp-chat--open");
+    launcher.setAttribute("aria-expanded", "false");
+    launcher.setAttribute("aria-label", "Ouvrir l'assistant Boxing Center");
   }
 
   async function runOnboardingAnswer(text: string) {
@@ -301,6 +308,13 @@ export function initChatbot() {
     await handleFaqQuestion(btn.dataset.q || "");
   });
 
-  launcher.addEventListener("click", () => openPanel());
-  closeBtn.addEventListener("click", () => closePanel());
+  launcher.addEventListener("click", () => {
+    if (root.classList.contains("bcp-chat--open")) closePanel();
+    else void openPanel();
+  });
+  closeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closePanel();
+  });
 }
