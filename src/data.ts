@@ -86,9 +86,6 @@ export const AUDIENCES = [
 export type Member = { name: string; role: string; kind: string; img: string; initials: string; desc: string };
 
 export const TEAM: Member[] = [
-  { name: "Salomon Kitoko", role: "Boxe anglaise · Ring", kind: "Entraîneur", img: `${IMG}/img/coaches/salomon-kitoko.webp`, initials: "SK", desc: "Vitesse de mains et lecture du combat. Il t'apprend à penser le ring avant de frapper." },
-  { name: "Elyasse Azap", role: "Boxe anglaise · Technique", kind: "Entraîneur", img: `${IMG}/img/coaches/elyasse-azap.webp`, initials: "EA", desc: "Puissance et sang-froid round après round. La rigueur technique au service de ta progression." },
-  { name: "Johnson Suffo", role: "Boxe anglaise · Intensité", kind: "Entraîneur", img: `${IMG}/img/coaches/johnson-suffo.webp`, initials: "JS", desc: "Explosivité et placement. Un style direct qui te pousse à donner le meilleur de toi-même." },
   { name: "Coach Dadi", role: "Coach diplômé FFBoxe", kind: "Entraîneur", img: `${IMG}/img/coaches/coach-dadi.webp`, initials: "DA", desc: "Du premier jab jusqu'au ring. Exigeant sur la technique, présent à chaque round." },
   { name: "Coach Mehdi", role: "Coach diplômé FFKMDA", kind: "Entraîneur", img: `${IMG}/img/coaches/coach-mehdi.webp`, initials: "ME", desc: "Il lit le combat avant toi. Tactique, timing, le détail qui fait la différence." },
   { name: "Coach Valentin", role: "Préparation physique", kind: "Entraîneur", img: `${IMG}/img/coaches/coach-valentin.webp`, initials: "VA", desc: "Force, cardio, condition — il te construit pour tenir la distance." },
