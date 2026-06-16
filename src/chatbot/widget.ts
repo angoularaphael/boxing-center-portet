@@ -15,7 +15,7 @@ type Phase =
 
 type Msg = { role: "bot" | "user"; text: string; html?: boolean };
 
-const ICON = "/favicon-192.png";
+const BOT_AVATAR = "/logo.png";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SKIP_RE = /^(non|pas maintenant|passer|skip|—|-)$/i;
 
@@ -52,12 +52,14 @@ export function initChatbot() {
   root.className = "bcp-chat";
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l'assistant Boxing Center">
-      <img class="bcp-chat__launcher-logo" src="${ICON}" alt="" width="56" height="56" decoding="async" />
+      <span class="bcp-chat__launcher-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H17.5A2.5 2.5 0 0 1 20 5.5V14a2.5 2.5 0 0 1-2.5 2.5H9l-4.2 3.15A.8.8 0 0 1 3.5 19.2V16.5A2.5 2.5 0 0 1 5.5 14H6.5A2.5 2.5 0 0 1 4 11.5V5.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
+      </span>
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
     <section class="bcp-chat__panel" id="bcp-chat-panel" aria-label="Assistant Boxing Center" hidden>
       <header class="bcp-chat__head">
-        <img class="bcp-chat__head-avatar" src="${ICON}" alt="" width="40" height="40" decoding="async" />
+        <img class="bcp-chat__head-avatar" src="${BOT_AVATAR}" alt="" width="40" height="40" decoding="async" />
         <div class="bcp-chat__head-text">
           <strong>Boxing Center Portet</strong>
           <span class="bcp-chat__status">Assistant du club</span>
@@ -94,7 +96,7 @@ export function initChatbot() {
       .map((m) => {
         const avatar =
           m.role === "bot"
-            ? `<img class="bcp-chat__msg-avatar" src="${ICON}" alt="" width="26" height="26" decoding="async" />`
+            ? `<img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />`
             : "";
         return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__bubble">${
           m.html ? m.text : escapeHtml(m.text)
@@ -105,7 +107,7 @@ export function initChatbot() {
       messagesEl.insertAdjacentHTML(
         "beforeend",
         `<div class="bcp-chat__msg bcp-chat__msg--bot bcp-chat__msg--typing">
-          <img class="bcp-chat__msg-avatar" src="${ICON}" alt="" width="26" height="26" decoding="async" />
+          <img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />
           <div class="bcp-chat__bubble"><span class="bcp-chat__dots"><i></i><i></i><i></i></span></div>
         </div>`
       );

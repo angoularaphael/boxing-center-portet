@@ -5,8 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, "..", "public");
-const managerLogo = join(__dirname, "..", "..", "infobox", "gestion-manager", "public", "logo.png");
-const logoPath = managerLogo;
+const logoPath = join(publicDir, "brand-logo.png");
 const bg = { r: 15, g: 23, b: 42, alpha: 1 };
 
 async function circularIcon(size) {
