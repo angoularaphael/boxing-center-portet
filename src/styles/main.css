@@ -136,6 +136,31 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 [data-theme="dark"] .hero {
   --fg: #f4f6fb; --fg-soft: #c7cfde; --muted: #8893a6;
   --line: rgba(255,255,255,.12); --line-strong: rgba(255,255,255,.22); }
+/* hero + ring + forge = scènes sombres même en thème clair */
+[data-theme="light"] .hero,
+[data-theme="light"] .ring,
+[data-theme="light"] .forge,
+[data-theme="light"] .portal,
+[data-theme="light"] .scrub,
+[data-theme="light"] .gate { --hero-bg: #0a1020; }
+[data-theme="light"] .hero {
+  --fg: #f4f6fb; --fg-soft: #d0d8e8; --muted: #9aa8bc;
+  --accent: #aebccf; --accent-ink: #0a1020;
+}
+[data-theme="light"] .hero::after {
+  background: linear-gradient(to top, #0a1020 8%, transparent 44%),
+    radial-gradient(130% 80% at 50% 32%, transparent 42%, #0a1020 100%); }
+[data-theme="light"] .forge__name { color: #fff; }
+[data-theme="light"] .forge__role { color: color-mix(in srgb, #fff 78%, #aebccf); }
+[data-theme="light"] .forge__desc { color: #d8dee8; }
+[data-theme="light"] .forge__kind { color: #0a1020; background: color-mix(in srgb, #aebccf 90%, #fff); }
+[data-theme="light"] .forge__toggle { color: #fff; }
+[data-theme="light"] .forge__overlay::before {
+  background: linear-gradient(to bottom, #0a1020 12%, rgba(10, 16, 32, 0.72) 55%, transparent); }
+[data-theme="light"] .forge__overlay::after {
+  background: linear-gradient(to top, #0a1020 22%, rgba(10, 16, 32, 0.65) 60%, transparent); }
+[data-theme="light"] .forge__sticky::after {
+  background: radial-gradient(75% 80% at 50% 42%, transparent 48%, #0a1020 100%); }
 /* full-bleed crest + sparkles cover the whole hero */
 .hero__canvas { position: absolute; inset: 0; z-index: 0; }
 .hero__canvas canvas { width: 100% !important; height: 100% !important; }
@@ -490,20 +515,46 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6); }
 
 /* ============================== 3D RING FLY-THROUGH ============================== */
-.ring { position: relative; height: 400vh; background: var(--hero-bg); }
+.ring { position: relative; height: 400vh; background: #0a1020; }
+[data-theme="light"] .ring { background: #0a1020; }
 .ring__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-.ring__canvas { position: absolute; inset: 0; }
+.ring__photo { display: none; }
+.ring__canvas { position: absolute; inset: 0; z-index: 1; }
 .ring__canvas canvas { width: 100% !important; height: 100% !important; display: block; }
-.ring__sticky::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(125% 95% at 50% 18%, transparent 46%, var(--hero-bg) 100%); }
-.ring__overlay { position: absolute; inset: 0; z-index: 2; pointer-events: none; color: #fff; }
+.ring__sticky::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(125% 95% at 50% 18%, transparent 46%, #0a1020 100%); }
+.ring__overlay { position: absolute; inset: 0; z-index: 3; pointer-events: none; color: #fff; }
 .ring__txt { position: absolute; left: 0; right: 0; bottom: 0;
   padding: 0 var(--gutter) clamp(3rem, 8vw, 7rem); display: flex; flex-direction: column; gap: 1rem;
   transition: opacity 0.4s var(--ease-out); }
 .ring__txt .display { color: #fff; text-shadow: 0 2px 30px rgba(6, 8, 13, 0.85), 0 1px 6px rgba(6, 8, 13, 0.6); }
 .ring__txt .eyebrow { color: #fff; text-shadow: 0 2px 16px rgba(6, 8, 13, 0.9); }
 .ring__txt .eyebrow::before { background: var(--accent); }
-.ring__txt .lead { text-shadow: 0 2px 18px rgba(6, 8, 13, 0.8); }
+.ring__txt .lead { color: #cdd3df; text-shadow: 0 2px 18px rgba(6, 8, 13, 0.8); }
+
+/* promo 10€ — punch visuel sur le ring */
+.promo-blast { animation: promoPulse 2.6s var(--ease-io) infinite; }
+.promo-blast__accent {
+  background: linear-gradient(105deg, #aebccf 0%, #fff 42%, #c3cdda 58%, #aebccf 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: promoShine 3.2s linear infinite;
+}
+@keyframes promoShine { to { background-position: 220% center; } }
+@keyframes promoPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50% { filter: drop-shadow(0 0 22px rgba(174, 188, 207, 0.55)); }
+}
+.ring__txt .btn--primary {
+  box-shadow: 0 0 0 0 rgba(174, 188, 207, 0.45);
+  animation: promoBtnGlow 2.6s var(--ease-io) infinite;
+}
+@keyframes promoBtnGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(174, 188, 207, 0.35); }
+  50% { box-shadow: 0 0 28px 4px rgba(174, 188, 207, 0.28); }
+}
 
 /* ============================== SCRUBBED VIDEO ============================== */
 .scrub { position: relative; height: 210vh; background: var(--hero-bg); }
@@ -807,4 +858,16 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .forge__head .display { font-size: clamp(1.8rem, 7vw, 2.5rem); }
   .forge__head .forge__lead { display: none; } /* keep the figure clear; bio stays in the card */
   .forge__word { opacity: 0.28; }
+
+  /* ring mobile : photo de référence en vue dessus (évite les artefacts WebGL) */
+  .ring { height: 340vh; }
+  .ring__photo {
+    display: block; position: absolute; inset: 0; z-index: 0;
+    background: #0a1020 url(/img/ring-reference.png) center 54% / 185% no-repeat;
+    opacity: 0; transition: opacity 0.55s var(--ease-out);
+  }
+  .ring.is-topdown .ring__photo { opacity: 1; }
+  .ring.is-topdown .ring__canvas { opacity: 0.12; transition: opacity 0.55s var(--ease-out); }
+  .ring__txt { padding-bottom: clamp(2.2rem, 7vw, 4rem); }
+  .promo-blast { font-size: clamp(2rem, 9vw, 2.8rem); }
 }

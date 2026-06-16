@@ -39,14 +39,14 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   let renderer: THREE.WebGLRenderer;
   try {
     renderer = new THREE.WebGLRenderer({
-      antialias: !mobile,
+      antialias: true,
       alpha: true,
-      powerPreference: mobile ? "low-power" : "high-performance",
+      powerPreference: mobile ? "default" : "high-performance",
     });
   } catch {
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.25 : 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 2 : 1.75));
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 
@@ -54,7 +54,7 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   const C = (h: string) => new THREE.Color(h);
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(C("#0a1020"), 0.045);
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(mobile ? 58 : 50, 1, 0.1, 100);
 
   const ring = new THREE.Group();
   scene.add(ring);
@@ -79,6 +79,12 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     canvasTex = new THREE.CanvasTexture(solidCanvas(NAVY));
     apronTex = new THREE.CanvasTexture(solidCanvas(WHITE));
   }
+  [canvasTex, apronTex].forEach((tex) => {
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = false;
+    tex.anisotropy = mobile ? 2 : 4;
+  });
 
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(S * 2, S * 2),
@@ -197,7 +203,9 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   const A = { p: new THREE.Vector3(8, 4.5, 10), t: new THREE.Vector3(0, 1, 0) };
   const B = { p: new THREE.Vector3(3.5, 2.2, 5), t: new THREE.Vector3(0, 1.1, 0) };
   const Cc = { p: new THREE.Vector3(0, 1.2, 0.3), t: new THREE.Vector3(0, 1.5, -S) };
-  const D = { p: new THREE.Vector3(0, 9.5, 0.2), t: new THREE.Vector3(0, 0, 0) };
+  const D = mobile
+    ? { p: new THREE.Vector3(0, 11.5, 0.05), t: new THREE.Vector3(0, 0, 0) }
+    : { p: new THREE.Vector3(0, 9.5, 0.2), t: new THREE.Vector3(0, 0, 0) };
   const ss = (t: number) => t * t * (3 - 2 * t);
   const lerpV = (a: THREE.Vector3, b: THREE.Vector3, t: number, o: THREE.Vector3) => o.copy(a).lerp(b, t);
   const camP = new THREE.Vector3();
@@ -260,6 +268,8 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     blocks.forEach((b, i) => {
       b.style.opacity = (windows[i] ? windows[i](p) : 0).toFixed(2);
     });
+
+    if (mobile) section.classList.toggle("is-topdown", p > 0.68);
 
     if (!reduced) {
       const t = clock.getElapsedTime();
