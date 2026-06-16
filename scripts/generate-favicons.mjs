@@ -1,13 +1,11 @@
 import sharp from "sharp";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, "..", "public");
-const logoPath = existsSync(join(publicDir, "logo.png"))
-  ? join(publicDir, "logo.png")
-  : join(publicDir, "brand-logo.png");
+const logoPath = join(publicDir, "brand-logo.png");
 const bg = { r: 15, g: 23, b: 42, alpha: 1 };
 
 async function circularIcon(size) {
