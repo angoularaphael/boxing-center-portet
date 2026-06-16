@@ -288,6 +288,18 @@ html.gated .bcp-chat {
   border-color: rgba(74, 143, 232, 0.45);
 }
 
+.bcp-chat__suggestion--escalation {
+  border-color: rgba(227, 6, 19, 0.35) !important;
+  background: rgba(227, 6, 19, 0.12) !important;
+  color: #ffd4d8 !important;
+}
+
+.bcp-chat__suggestion--escalation:hover {
+  background: rgba(227, 6, 19, 0.22) !important;
+  border-color: rgba(227, 6, 19, 0.5) !important;
+  color: #fff !important;
+}
+
 .bcp-chat__form {
   display: flex;
   gap: 8px;
