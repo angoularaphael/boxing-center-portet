@@ -21,39 +21,33 @@ html.gated .bcp-chat {
   display: none !important;
 }
 
-/* Launcher = favicon manager en cercle */
+/* Launcher — bulle chat (pas le favicon du site) */
 .bcp-chat__launcher {
   position: relative;
   z-index: 1;
-  display: block;
-  width: 56px;
-  height: 56px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
   padding: 0;
-  border: 2px solid rgba(255, 255, 255, 0.92);
+  border: 0;
   border-radius: 50%;
   cursor: pointer;
-  background: #0f172a;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(74, 143, 232, 0.25);
+  color: #fff;
+  background: linear-gradient(145deg, var(--bcp-chat-navy), var(--bcp-chat-blue));
+  box-shadow: 0 10px 36px rgba(43, 111, 212, 0.45);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
-  overflow: hidden;
 }
 
-.bcp-chat__launcher-logo {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+.bcp-chat__launcher-icon {
+  display: grid;
+  place-items: center;
   pointer-events: none;
 }
 
 .bcp-chat__launcher:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow:
-    0 14px 40px rgba(43, 111, 212, 0.4),
-    0 0 0 2px rgba(74, 143, 232, 0.35);
+  box-shadow: 0 14px 44px rgba(74, 143, 232, 0.5);
 }
 
 .bcp-chat__launcher-pulse {
@@ -127,9 +121,10 @@ html.gated .bcp-chat {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  background: #0f172a;
+  object-fit: contain;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .bcp-chat__head-text {
@@ -212,8 +207,10 @@ html.gated .bcp-chat {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  object-fit: contain;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .bcp-chat__msg--user .bcp-chat__msg-avatar {
