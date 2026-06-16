@@ -2,8 +2,11 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /api/community/pending
+Disallow: /api/community/moderate
 
-# Crawlers IA — accès autorisé au contenu public
+# Crawlers IA — contenu public uniquement
 User-agent: GPTBot
 Allow: /
 

@@ -7,7 +7,7 @@
  */
 import { teardownPageScroll } from "./scroll";
 import { thud, soundOn } from "./audio";
-import { applyTheme, getTheme } from "./theme";
+import { applyTheme, systemTheme } from "./theme";
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let navigating = false;
@@ -72,7 +72,7 @@ async function go(url: URL, renderPage: () => void, push: boolean) {
     window.scrollTo(0, 0);
 
     renderPage(); // re-render + re-bind everything for the new content
-    applyTheme(getTheme(), false);
+    applyTheme(systemTheme(), false);
 
     if (curtain && !reduced) {
       curtain.classList.remove("curtain--in");

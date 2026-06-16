@@ -8,7 +8,8 @@ export function renderPage(page: string | undefined) {
     if (g)
       g.innerHTML = DISCIPLINES.map(
         (d) => `
-        <article class="disc" data-reveal>
+        <article class="disc disc--img" data-reveal style="--disc-img:url('${d.img}')">
+          <div class="disc__media" aria-hidden="true"></div>
           <div class="disc__top"><span class="disc__key">${d.key}</span><span class="disc__tag">${d.tag}</span></div>
           <div><h3 class="disc__name">${d.name}</h3><p class="disc__desc">${d.desc}</p></div>
         </article>`

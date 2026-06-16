@@ -1,26 +1,16 @@
-import { THEMES, type ThemeId } from "./data";
+import type { ThemeId } from "./data";
 
-const KEY = "bcp-theme";
-const LEGACY = new Map<string, ThemeId>([
-  ["heritage", "dark"],
-  ["arena", "dark"],
-  ["raw", "dark"],
-]);
-const valid = THEMES.map((t) => t.id) as readonly string[];
+const mq = () => window.matchMedia("(prefers-color-scheme: dark)");
 
-export function getTheme(): ThemeId {
+export function systemTheme(): ThemeId {
   try {
-    const saved = localStorage.getItem(KEY);
-    if (saved) {
-      if (valid.includes(saved)) return saved as ThemeId;
-      const migrated = LEGACY.get(saved);
-      if (migrated) return migrated;
-    }
-  } catch {}
-  return "dark";
+    return mq().matches ? "dark" : "light";
+  } catch {
+    return "dark";
+  }
 }
 
-export function applyTheme(id: ThemeId, animate = true) {
+export function applyTheme(id: ThemeId, animate = false) {
   const root = document.documentElement;
   root.style.removeProperty("--accent");
   root.style.removeProperty("--glow");
@@ -29,23 +19,9 @@ export function applyTheme(id: ThemeId, animate = true) {
     window.setTimeout(() => root.classList.remove("theme-anim"), 650);
   }
   root.setAttribute("data-theme", id);
-  try {
-    localStorage.setItem(KEY, id);
-  } catch {}
-  document
-    .querySelectorAll<HTMLButtonElement>(".theme-switch button")
-    .forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.th === id)));
-  const toggle = document.getElementById("mode-toggle");
-  toggle?.setAttribute("aria-pressed", String(id === "light"));
-  toggle?.setAttribute("aria-label", id === "light" ? "Passer en mode sombre" : "Passer en mode clair");
   window.dispatchEvent(new CustomEvent("themechange", { detail: id }));
 }
 
-export function toggleTheme() {
-  applyTheme(getTheme() === "light" ? "dark" : "light");
-}
-
-/** Read the current accent color resolved from CSS, for the 3D scene. */
 export function themeColors() {
   const cs = getComputedStyle(document.documentElement);
   const get = (v: string) => cs.getPropertyValue(v).trim();
@@ -57,16 +33,13 @@ export function themeColors() {
   };
 }
 
+/** Thème automatique selon la préférence système (clair / sombre). */
 export function initThemeSwitch() {
-  applyTheme(getTheme(), false);
-  document.querySelectorAll<HTMLButtonElement>(".theme-switch button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      applyTheme(btn.dataset.th as ThemeId);
-      window.dispatchEvent(new CustomEvent("ui-tick"));
-    });
-  });
-  document.getElementById("mode-toggle")?.addEventListener("click", () => {
-    toggleTheme();
-    window.dispatchEvent(new CustomEvent("ui-tick"));
-  });
+  const apply = () => applyTheme(systemTheme(), false);
+  apply();
+  try {
+    mq().addEventListener("change", apply);
+  } catch {
+    mq().addListener(apply);
+  }
 }

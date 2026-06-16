@@ -119,11 +119,7 @@
     ]
   }
   </script>
-  <script>
-    (function () { try { var t = localStorage.getItem('bcp-theme'); var m = { heritage: 'dark', arena: 'dark', raw: 'dark' };
-      var v = ['dark', 'light']; var id = t && (v.indexOf(t) >= 0 ? t : m[t]) || 'dark';
-      document.documentElement.setAttribute('data-theme', id); } catch (e) {} })();
-  </script>
+  <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 </head>
 
 <body data-page="home">
@@ -266,25 +262,25 @@
     </div>
   </section>
 
-  <!-- ===================== ROUND 4 — LES CHAMPIONS ===================== -->
-  <section class="portal" data-round="4" data-round-name="Les champions" data-noexit aria-hidden="true">
+  <!-- ===================== ROUND 4 — LES ENTRAÎNEURS ===================== -->
+  <section class="portal" data-round="4" data-round-name="Les entraîneurs" data-noexit aria-hidden="true">
     <div class="portal__sticky">
       <div class="portal__canvas"></div>
-      <div class="portal__line wrap"><span class="portal__n">Round 04</span><span class="display">Les champions</span></div>
+      <div class="portal__line wrap"><span class="portal__n">Round 04</span><span class="display">Les entraîneurs</span></div>
     </div>
   </section>
-  <section class="forge" id="forge-champions" data-crop="body" aria-label="Les champions du club">
+  <section class="forge" id="forge-entraineurs" data-crop="face" aria-label="Les entraîneurs du club">
     <div class="forge__sticky">
       <div class="forge__canvas" aria-hidden="true"></div>
-      <span class="forge__word" aria-hidden="true">Champions</span>
+      <span class="forge__word" aria-hidden="true">Entraîneurs</span>
       <div class="forge__overlay wrap">
         <div class="forge__head">
-          <span class="eyebrow">Nos pros</span>
+          <span class="eyebrow">L'encadrement</span>
           <h2 class="display">Forgés <span class="tint">au feu</span></h2>
-          <p class="forge__lead">Des boxeurs professionnels nés dans la salle. Fais défiler — ils se révèlent un par un.</p>
+          <p class="forge__lead">Des entraîneurs diplômés FFBoxe, FFKMDA et FMMAF. Fais défiler — l'équipe se révèle un visage à la fois.</p>
         </div>
         <div class="forge__card">
-          <span class="forge__idx">01 / 03</span>
+          <span class="forge__idx">01 / 07</span>
           <span class="forge__kind"></span>
           <h3 class="forge__name"></h3>
           <p class="forge__role"></p>
@@ -295,14 +291,18 @@
       </div>
     </div>
     <ul class="sr-only">
-      <li>Salomon Kitoko — boxeur professionnel, super-plume</li>
-      <li>Elyasse Azap — boxeur professionnel, welters</li>
-      <li>Johnson Suffo — boxeur professionnel, poids moyens</li>
+      <li>Salomon Kitoko — entraîneur boxe anglaise</li>
+      <li>Elyasse Azap — entraîneur boxe anglaise</li>
+      <li>Johnson Suffo — entraîneur boxe anglaise</li>
+      <li>Coach Dadi — entraîneur diplômé FFBoxe</li>
+      <li>Coach Mehdi — entraîneur diplômé FFKMDA</li>
+      <li>Coach Valentin — préparation physique</li>
+      <li>Coach Brice — pédagogie et débutants</li>
     </ul>
   </section>
   <section class="showcase">
     <div class="showcase__frame">
-      <img class="showcase__img" src="/img/disc/showcase-ring.webp" alt="Compétition de boxe anglaise Boxing Center — deux combattants s'affrontent sur le ring" loading="lazy" />
+      <img class="showcase__img" src="https://www.boxing-center-portet.fr/img/disc/showcase-ring.webp" alt="Compétition de boxe anglaise Boxing Center — deux combattants s'affrontent sur le ring" loading="lazy" />
     </div>
     <div class="showcase__cap wrap">
       <span class="eyebrow">La récompense</span>
