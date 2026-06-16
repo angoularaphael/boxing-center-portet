@@ -8,7 +8,7 @@ import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { initCommunity } from "./community";
 import { initChatbot } from "./chatbot/widget";
-import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, CHAMPIONS, COACHS, VALUES } from "./data";
+import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, ENTRAINEURS, VALUES } from "./data";
 
 function renderHomeGrids() {
   const reel = document.getElementById("reel-track");
@@ -151,8 +151,7 @@ function bootPage() {
     }
     document.querySelectorAll<HTMLElement>(".forge").forEach((el) => {
       const crop = el.dataset.crop === "face" ? "face" : "body";
-      const members = el.id === "forge-coachs" ? COACHS : CHAMPIONS;
-      lazy3D(el, () => import("./three/forge"), (m) => m.mountForge(el, members, crop as "face" | "body"));
+      lazy3D(el, () => import("./three/forge"), (m) => m.mountForge(el, ENTRAINEURS, crop as "face" | "body"));
     });
   }
 
