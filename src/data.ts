@@ -145,4 +145,73 @@ export const BOXING_CENTER_SALLES = [
   { id: "autre", label: "Autre salle / pas encore sûr" },
 ] as const;
 
+export interface NetworkSalle {
+  id: string;
+  name: string;
+  isFlagship?: boolean;
+  address: string;
+  phone: string;
+  phoneHref: string;
+  mapsUrl: string;
+  features: string[];
+}
+
+export const NETWORK_SALLES: NetworkSalle[] = [
+  {
+    id: "portet",
+    name: "Boxing Center Portet-sur-Garonne",
+    isFlagship: true,
+    address: "61 route d'Espagne, 31120 Portet-sur-Garonne",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=61%20route%20d'Espagne%2031120%20Portet-sur-Garonne",
+    features: ["Le club phare", "800 m² d'espace", "Ring olympique", "Cage MMA & Cross Training"]
+  },
+  {
+    id: "saint-cyprien",
+    name: "Boxing Center Saint-Cyprien",
+    address: "11 rue Sainte-Lucie, 31300 Toulouse",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=11%20rue%20Sainte-Lucie%2031300%20Toulouse",
+    features: ["Proche métro République", "Espace combat complet", "Sacs de frappe", "Cardio training"]
+  },
+  {
+    id: "minimes",
+    name: "Boxing Center Minimes",
+    address: "12 rue de Fenouillet, 31200 Toulouse",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=12%20rue%20de%20Fenouillet%2031200%20Toulouse",
+    features: ["Barrière de Paris", "Ring de boxe & cage MMA", "Tatamis de combat", "Préparation physique"]
+  },
+  {
+    id: "balma",
+    name: "Boxing Center Balma-Gramont",
+    address: "8 rue Théron de Montaugé, 31200 Toulouse",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=8%20rue%20Th%C3%A9ron%20de%20Montaug%C3%A9%2031200%20Toulouse",
+    features: ["Proche métro Balma", "Cross training & Fitness", "Sacs de frappe", "Cours collectifs"]
+  },
+  {
+    id: "ramonville",
+    name: "Boxing Center Ramonville",
+    address: "33 rue des Ormes, 31520 Ramonville-Saint-Agne",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=33%20rue%20des%20Ormes%2031520%20Ramonville-Saint-Agne",
+    features: ["Ring de boxe", "Zone sacs de frappe", "Cardio training", "Musculation libre"]
+  },
+  {
+    id: "etats-unis",
+    name: "Boxing Center États-Unis",
+    address: "388 avenue des États-Unis, 31200 Toulouse",
+    phone: "05 62 24 46 82",
+    phoneHref: "+33562244682",
+    mapsUrl: "https://maps.google.com/?q=388%20avenue%20des%20%C3%89tats-Unis%2031200%20Toulouse",
+    features: ["1 200 m² (3 zones)", "Ring olympique", "Cage MMA complète", "Sacs de frappe"]
+  }
+];
+
 export type ThemeId = "dark" | "light";

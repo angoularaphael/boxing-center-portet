@@ -215,16 +215,20 @@ export function initChatbot() {
 
   async function finishOnboarding() {
     phase = "ready";
-    await submitLead({
-      event: "lead_collected",
-      sessionId: sid,
-      prenom: profile.prenom,
-      nom: profile.nom,
-      name: profileName(),
-      email: profile.email,
-      phone: profile.phone,
-      salle: profile.salle,
-    });
+    try {
+      await submitLead({
+        event: "lead_collected",
+        sessionId: sid,
+        prenom: profile.prenom,
+        nom: profile.nom,
+        name: profileName(),
+        email: profile.email,
+        phone: profile.phone,
+        salle: profile.salle,
+      });
+    } catch (err) {
+      console.warn("Failed to submit lead, continuing to FAQ:", err);
+    }
     await botSay(
       `Parfait ${profile.prenom} ! Posez-moi vos questions sur le club — horaires, tarifs, disciplines, tout ce qui vous intéresse.`
     );
@@ -307,11 +311,15 @@ export function initChatbot() {
     }
 
     if (phase === "email") {
-      if (!EMAIL_RE.test(v)) {
-        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ?");
+      const skip = v.toLowerCase() === "passer" || v.toLowerCase() === "skip";
+      if (skip) {
+        profile.email = "";
+      } else if (!EMAIL_RE.test(v)) {
+        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ? (Ou tapez « passer »)");
         return;
+      } else {
+        profile.email = v;
       }
-      profile.email = v;
       phase = "phone";
       await botSay(
         "Et un numéro pour qu'un coach vous rappelle si vous voulez tester un cours ?\n\n(Sinon tapez « passer ».)"

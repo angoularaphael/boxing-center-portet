@@ -122,7 +122,22 @@ export async function initShowcaseGL(frame: HTMLElement) {
 
   const clock = new THREE.Clock();
   const loop = () => {
-    if (!frame.isConnected) { renderer.dispose(); return; } // stop after a soft-nav swap
+    if (!frame.isConnected) {
+      window.removeEventListener("resize", resize);
+      scene.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+          obj.geometry.dispose();
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach((m) => m.dispose());
+          } else {
+            obj.material.dispose();
+          }
+        }
+      });
+      tex.dispose();
+      renderer.dispose();
+      return;
+    }
     requestAnimationFrame(loop);
     if (!visible || document.hidden) return;
     uniforms.uTime.value = clock.getElapsedTime();

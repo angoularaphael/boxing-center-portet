@@ -69,7 +69,20 @@ async function loadItems(grid: HTMLElement) {
         </figure>`
       )
       .join("");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) {
+          if (v.preload === "none") v.preload = "auto";
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "60px" });
+
     grid.querySelectorAll<HTMLVideoElement>("video").forEach((v) => {
+      io.observe(v);
       const fig = v.closest(".community__item")!;
       fig.addEventListener("pointerenter", () => v.play().catch(() => {}));
       fig.addEventListener("pointerleave", () => v.pause());

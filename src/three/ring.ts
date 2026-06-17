@@ -50,7 +50,19 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 
-  let cols = themeColors();
+  const getThemeColorsForDarkScene = () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      return {
+        accent: "#aebccf",
+        accent2: "#7f8ca3",
+        energy: "#c3cdda",
+        bg: "#0a1020",
+      };
+    }
+    return themeColors();
+  };
+  let cols = getThemeColorsForDarkScene();
   const C = (h: string) => new THREE.Color(h);
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(C("#0a1020"), 0.045);
@@ -194,15 +206,29 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   resize();
   window.addEventListener("resize", resize);
 
-  window.addEventListener("themechange", () => {
-    cols = themeColors();
+  const onTheme = () => {
+    cols = getThemeColorsForDarkScene();
     key.color.set(cols.accent);
     (embers.material as THREE.PointsMaterial).color.set(cols.accent2);
-  });
+  };
+  window.addEventListener("themechange", onTheme);
 
   const A = { p: new THREE.Vector3(8, 4.5, 10), t: new THREE.Vector3(0, 1, 0) };
   const B = { p: new THREE.Vector3(3.5, 2.2, 5), t: new THREE.Vector3(0, 1.1, 0) };
-  const Cc = { p: new THREE.Vector3(0, 1.2, 0.3), t: new THREE.Vector3(0, 1.5, -S) };
+  
+  // Calculate exact starting and ending points of the orbit phase to avoid camera jump glitches
+  const angStart = -Math.PI * 0.3;
+  const CcStart = {
+    p: new THREE.Vector3(Math.sin(angStart) * 0.45, 1.2, Math.cos(angStart) * 0.45),
+    t: new THREE.Vector3(Math.sin(angStart + Math.PI) * S, 1.45, Math.cos(angStart + Math.PI) * S)
+  };
+  
+  const angEnd = -Math.PI * 0.3 + Math.PI * 1.1;
+  const CcEnd = {
+    p: new THREE.Vector3(Math.sin(angEnd) * 0.45, 1.2, Math.cos(angEnd) * 0.45),
+    t: new THREE.Vector3(Math.sin(angEnd + Math.PI) * S, 1.45, Math.cos(angEnd + Math.PI) * S)
+  };
+
   const D = mobile
     ? { p: new THREE.Vector3(0, 11.5, 0.05), t: new THREE.Vector3(0, 0, 0) }
     : { p: new THREE.Vector3(0, 9.5, 0.2), t: new THREE.Vector3(0, 0, 0) };
@@ -227,11 +253,28 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   const epArr = eg.getAttribute("position").array as Float32Array;
   const clock = new THREE.Clock();
   let raf = 0;
-
   function frame() {
     if (!section.isConnected) {
       cancelAnimationFrame(raf);
       io.disconnect();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("themechange", onTheme);
+      
+      // Traverse and dispose geometries and materials to avoid memory leaks
+      scene.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+          obj.geometry.dispose();
+          if (Array.isArray(obj.material)) {
+            obj.material.forEach((m) => m.dispose());
+          } else {
+            obj.material.dispose();
+          }
+        }
+      });
+      eg.dispose();
+      (embers.material as THREE.Material).dispose();
+      canvasTex.dispose();
+      apronTex.dispose();
       renderer.dispose();
       return;
     }
@@ -249,8 +292,8 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
         lerpV(A.p, B.p, k * 2, camP);
         lerpV(A.t, B.t, k * 2, camT);
       } else {
-        lerpV(B.p, Cc.p, (k - 0.5) * 2, camP);
-        lerpV(B.t, Cc.t, (k - 0.5) * 2, camT);
+        lerpV(B.p, CcStart.p, (k - 0.5) * 2, camP);
+        lerpV(B.t, CcStart.t, (k - 0.5) * 2, camT);
       }
     } else if (p < 0.72) {
       const k = (p - 0.28) / 0.44;
@@ -259,8 +302,8 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
       camT.set(Math.sin(ang + Math.PI) * S, 1.45, Math.cos(ang + Math.PI) * S);
     } else {
       const k = ss((p - 0.72) / 0.28);
-      lerpV(Cc.p, D.p, k, camP);
-      lerpV(Cc.t, D.t, k, camT);
+      lerpV(CcEnd.p, D.p, k, camP);
+      lerpV(CcEnd.t, D.t, k, camT);
     }
     camera.position.copy(camP);
     camera.lookAt(camT);

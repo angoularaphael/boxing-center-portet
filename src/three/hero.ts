@@ -20,7 +20,19 @@ export async function initHero(container: HTMLElement) {
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
   camera.position.set(0, 0, 9);
 
-  let cols = themeColors();
+  const getThemeColorsForDarkScene = () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      return {
+        accent: "#aebccf",
+        accent2: "#7f8ca3",
+        energy: "#c3cdda",
+        bg: "#0a1020",
+      };
+    }
+    return themeColors();
+  };
+  let cols = getThemeColorsForDarkScene();
   const C = (h: string) => new THREE.Color(h);
   scene.fog = new THREE.FogExp2(C("#08090c"), 0.04);
 
@@ -81,14 +93,14 @@ export async function initHero(container: HTMLElement) {
   let composer: any = null;
   if (!mobile) {
     try {
-    const { EffectComposer } = await import("three/addons/postprocessing/EffectComposer.js");
-    const { RenderPass } = await import("three/addons/postprocessing/RenderPass.js");
-    const { UnrealBloomPass } = await import("three/addons/postprocessing/UnrealBloomPass.js");
-    composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-    // softer bloom on phones so the wordmark stays crisp (not a glow blob)
-    const bloomStrength = window.innerWidth < 760 ? 0.5 : 1.25;
-    composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), bloomStrength, 0.75, 0.08));
+      const { EffectComposer } = await import("three/addons/postprocessing/EffectComposer.js");
+      const { RenderPass } = await import("three/addons/postprocessing/RenderPass.js");
+      const { UnrealBloomPass } = await import("three/addons/postprocessing/UnrealBloomPass.js");
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      // softer bloom on phones so the wordmark stays crisp (not a glow blob)
+      const bloomStrength = window.innerWidth < 760 ? 0.5 : 1.25;
+      composer.addPass(new UnrealBloomPass(new THREE.Vector2(1, 1), bloomStrength, 0.75, 0.08));
     } catch { composer = null; }
   }
 
@@ -124,16 +136,18 @@ export async function initHero(container: HTMLElement) {
   window.addEventListener("resize", resize);
 
   const tgt = { x: 0, y: 0 };
-  window.addEventListener("pointermove", (e) => {
+  const onMove = (e: MouseEvent) => {
     tgt.x = (e.clientX / window.innerWidth - 0.5) * 2;
     tgt.y = (e.clientY / window.innerHeight - 0.5) * 2;
-  });
+  };
+  window.addEventListener("pointermove", onMove);
 
-  window.addEventListener("themechange", () => {
-    cols = themeColors();
+  const onTheme = () => {
+    cols = getThemeColorsForDarkScene();
     crestMat.color.set(cols.accent);
     eMat.color.set(cols.accent2);
-  });
+  };
+  window.addEventListener("themechange", onTheme);
 
   let visible = true;
   new IntersectionObserver((es) => (visible = es[0].isIntersecting), { threshold: 0 }).observe(container);
@@ -143,9 +157,22 @@ export async function initHero(container: HTMLElement) {
   const FORM = reduced ? 0.001 : 2.6; // seconds to assemble the crest
   const posAttr = geo.getAttribute("position") as THREE.BufferAttribute;
 
+  let raf = 0;
   function frame() {
-    if (!container.isConnected) { renderer.dispose(); return; } // stop after a soft-nav swap
-    requestAnimationFrame(frame);
+    if (!container.isConnected) {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("themechange", onTheme);
+      geo.dispose();
+      crestMat.dispose();
+      eGeo.dispose();
+      eMat.dispose();
+      composer?.dispose();
+      renderer.dispose();
+      return;
+    }
+    raf = requestAnimationFrame(frame);
     if (!visible || document.hidden) return;
     const t = clock.getElapsedTime();
 
