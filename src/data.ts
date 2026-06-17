@@ -134,15 +134,13 @@ export const CLIPS = [
   { src: "/media/clip-entrance.mp4", label: "L'entrée" },
 ];
 
-/** Salles du réseau Boxing Center — choix chatbot / clients */
+/** Salles du réseau Boxing Center — 5 clubs (offre été 2026) */
 export const BOXING_CENTER_SALLES = [
-  { id: "portet", label: "Portet-sur-Garonne" },
-  { id: "saint-cyprien", label: "Saint-Cyprien" },
+  { id: "minimes", label: "Les Minimes" },
   { id: "ramonville", label: "Ramonville" },
-  { id: "minimes", label: "Minimes" },
-  { id: "balma", label: "Balma-Gramont" },
+  { id: "saint-cyprien", label: "Saint-Cyprien" },
+  { id: "portet", label: "Portet-sur-Garonne" },
   { id: "etats-unis", label: "États-Unis" },
-  { id: "autre", label: "Autre salle / pas encore sûr" },
 ] as const;
 
 export interface NetworkSalle {
