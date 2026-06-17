@@ -1,11 +1,13 @@
 import type { FaqItem } from "./api";
 import { fetchFaqList, searchFaq, submitLead, trackEvent } from "./api";
+import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
 type Phase =
   | "greeting"
-  | "name"
-  | "interest"
+  | "prenom"
+  | "nom"
+  | "salle"
   | "email"
   | "phone"
   | "ready"
@@ -50,7 +52,7 @@ export function initChatbot() {
   if (document.getElementById("bcp-chat-root")) return;
 
   const sid = sessionId();
-  const profile = { name: "", email: "", phone: "", metier: "" };
+  const profile = { prenom: "", nom: "", email: "", phone: "", salle: "" };
   let phase: Phase = "greeting";
   let faq: FaqItem[] = [];
   let escalationTopic = "";
@@ -195,15 +197,32 @@ export function initChatbot() {
     return s.replace(/"/g, "&quot;");
   }
 
+  function showSalleSuggestions() {
+    suggestionsEl.hidden = false;
+    suggestionsEl.innerHTML = BOXING_CENTER_SALLES.map(
+      (s) =>
+        `<button type="button" data-salle="${escapeAttr(s.label)}">${escapeHtml(s.label)}</button>`
+    ).join("");
+  }
+
+  function profileName() {
+    return [profile.prenom, profile.nom].filter(Boolean).join(" ").trim();
+  }
+
   async function finishOnboarding() {
     phase = "ready";
     await submitLead({
       event: "lead_collected",
       sessionId: sid,
-      ...profile,
+      prenom: profile.prenom,
+      nom: profile.nom,
+      name: profileName(),
+      email: profile.email,
+      phone: profile.phone,
+      salle: profile.salle,
     });
     await botSay(
-      `Parfait ${profile.name} ! Posez-moi vos questions sur le club — horaires, tarifs, disciplines, tout ce qui vous intéresse.`
+      `Parfait ${profile.prenom} ! Posez-moi vos questions sur le club — horaires, tarifs, disciplines, tout ce qui vous intéresse.`
     );
     phase = "faq";
     showSuggestions(faq);
@@ -233,10 +252,10 @@ export function initChatbot() {
       faq = [];
     }
     await botSay(
-      "Salut ! Je suis l'assistant du club de Portet. Je peux vous renseigner sur les cours, les horaires ou les tarifs.\n\nComment je vous appelle ?",
+      "Salut ! Je suis l'assistant du club de Portet. Je peux vous renseigner sur les cours, les horaires ou les tarifs.\n\nQuel est votre prénom ?",
       900
     );
-    phase = "name";
+    phase = "prenom";
     setPlaceholder("Votre prénom");
     input.focus();
   }
@@ -253,21 +272,29 @@ export function initChatbot() {
     const v = text.trim();
     if (!v) return;
 
-    if (phase === "name") {
-      profile.name = v;
-      phase = "interest";
-      await botSay(
-        `Enchanté ${profile.name} ! Vous venez plutôt pour découvrir la boxe, reprendre le sport, ou vous entraînez déjà ?`
-      );
-      setPlaceholder("Ex. débuter, reprendre, me muscler…");
+    if (phase === "prenom") {
+      profile.prenom = v;
+      phase = "nom";
+      await botSay(`Enchanté ${profile.prenom} ! Et votre nom de famille ?`);
+      setPlaceholder("Votre nom");
       return;
     }
 
-    if (phase === "interest") {
-      profile.metier = v;
+    if (phase === "nom") {
+      profile.nom = v;
+      phase = "salle";
+      await botSay("Dans quelle salle Boxing Center souhaitez-vous vous entraîner ?");
+      showSalleSuggestions();
+      setPlaceholder("Ou tapez le nom de la salle…");
+      return;
+    }
+
+    if (phase === "salle") {
+      profile.salle = v;
+      hideSuggestions();
       phase = "email";
       await botSay(
-        "Top ! Si vous voulez, je peux faire suivre le planning de la semaine par l'équipe — une adresse mail ?"
+        "Top ! Si vous voulez, je peux faire suivre le planning par l'équipe — une adresse mail ?"
       );
       setPlaceholder("votre@email.com");
       return;
@@ -341,7 +368,12 @@ export function initChatbot() {
       await submitLead({
         event: "escalation",
         sessionId: sid,
-        ...profile,
+        prenom: profile.prenom,
+        nom: profile.nom,
+        name: profileName(),
+        email: profile.email,
+        phone: profile.phone,
+        salle: profile.salle,
         topic: escalationTopic || "autre",
         message: text,
         recontactRequested: recontact,
@@ -364,7 +396,7 @@ export function initChatbot() {
 
     if (phase === "done") return;
 
-    if (["greeting", "name", "interest", "email", "phone"].includes(phase)) {
+    if (["greeting", "prenom", "nom", "salle", "email", "phone"].includes(phase)) {
       userSay(text);
       await runOnboardingAnswer(text);
       return;
@@ -396,6 +428,20 @@ export function initChatbot() {
     const esc = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-escalation]");
     if (esc && phase === "faq") {
       await startEscalation();
+      return;
+    }
+
+    const salleBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-salle]");
+    if (salleBtn && phase === "salle") {
+      const label = salleBtn.dataset.salle || salleBtn.textContent || "";
+      userSay(label);
+      profile.salle = label;
+      hideSuggestions();
+      phase = "email";
+      await botSay(
+        "Si vous voulez, je peux faire suivre le planning par l'équipe — une adresse mail ?"
+      );
+      setPlaceholder("votre@email.com");
       return;
     }
 
