@@ -4,6 +4,7 @@
  * Page transitions are owned by the router. Degrades on touch / reduced-motion.
  */
 import { tick, bell, soundOn } from "./audio";
+import { track } from "./scroll";
 
 const fine = window.matchMedia("(pointer: fine)").matches;
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -112,7 +113,7 @@ function initSound() {
   // the bell rings ONCE, as the closing call-to-action arrives — the round's end
   const finalCta = document.querySelector(".cta-block, .page-head");
   if (finalCta) {
-    const io = new IntersectionObserver(
+    const io = track(new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
@@ -122,7 +123,7 @@ function initSound() {
         });
       },
       { threshold: 0.5 }
-    );
+    ));
     // only the home closing CTA, not every page-head
     const target = document.querySelector(".cta-block");
     if (target) io.observe(target);

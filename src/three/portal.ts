@@ -32,7 +32,19 @@ function initPortal(section: HTMLElement): Handle | null {
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 
-  let cols = themeColors();
+  const getThemeColorsForDarkScene = () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      return {
+        accent: "#aebccf",
+        accent2: "#7f8ca3",
+        energy: "#c3cdda",
+        bg: "#0a1020",
+      };
+    }
+    return themeColors();
+  };
+  let cols = getThemeColorsForDarkScene();
   const C = (h: string) => new THREE.Color(h);
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(C("#0a1020"), 0.045);
@@ -134,7 +146,7 @@ function initPortal(section: HTMLElement): Handle | null {
 
   // ---- listeners (tracked so dispose can detach them) ----
   const onTheme = () => {
-    cols = themeColors();
+    cols = getThemeColorsForDarkScene();
     ropeMat.color.set(cols.accent); ropeMat.emissive.set(cols.accent);
     emat.color.set(cols.accent); key.color.set(cols.accent);
   };

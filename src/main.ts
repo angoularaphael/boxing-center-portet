@@ -132,6 +132,8 @@ function bootPage() {
 
   if (hasWebGL) {
     if (page === "home") {
+      import("./three/world").then((m) => m.mountWorld()).catch(() => {});
+
       const heroHost = document.getElementById("hero-canvas");
       if (heroHost) import("./three/hero").then((m) => m.initHero(heroHost)).catch(() => {});
 
@@ -145,6 +147,8 @@ function bootPage() {
       if (ringSec && ringHost) {
         lazy3D(ringSec, () => import("./three/ring"), (m) => m.initRing(ringSec, ringHost));
       }
+    } else {
+      import("./three/world").then((m) => m.destroyWorld()).catch(() => {});
     }
     if (document.querySelector(".portal")) {
       lazy3D(document.querySelector(".portal"), () => import("./three/portal"), (m) => m.initPortals());
@@ -166,7 +170,6 @@ function bootOnce() {
   initScroll();
   initFxOnce();
   initChatbot();
-  if (hasWebGL) import("./three/world").then((m) => m.initWorld()).catch(() => {});
 }
 
 function boot() {

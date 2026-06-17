@@ -1,8 +1,13 @@
 import * as THREE from "three";
 import { themeColors } from "../theme";
 
+let activeCleanup: (() => void) | null = null;
+
 /** Lightweight ambient dust — home page only, pauses off-screen. */
-export function initWorld() {
+export function mountWorld() {
+  // Clean up any existing instance first
+  destroyWorld();
+
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (document.body.dataset.page !== "home") return;
 
@@ -35,18 +40,26 @@ export function initWorld() {
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  
+  // Set initial opacity: 0 in light theme (invisible/hidden) and 0.35 in dark theme (visible)
+  const isLightTheme = document.documentElement.getAttribute("data-theme") === "light";
   const mat = new THREE.PointsMaterial({
     color: new THREE.Color(themeColors().accent2),
     size: 0.04,
     transparent: true,
-    opacity: 0.35,
+    opacity: isLightTheme ? 0 : 0.35,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
   const embers = new THREE.Points(geo, mat);
   scene.add(embers);
 
-  window.addEventListener("themechange", () => mat.color.set(themeColors().accent2));
+  const onThemeChange = (e: any) => {
+    const id = e.detail || document.documentElement.getAttribute("data-theme");
+    mat.color.set(themeColors().accent2);
+    mat.opacity = id === "light" ? 0 : 0.35;
+  };
+  window.addEventListener("themechange", onThemeChange);
 
   const resize = () => {
     const w = window.innerWidth;
@@ -60,11 +73,14 @@ export function initWorld() {
 
   const arr = geo.getAttribute("position").array as Float32Array;
   let visible = true;
-  document.addEventListener("visibilitychange", () => {
+  const onVisibility = () => {
     visible = !document.hidden;
-  });
+  };
+  document.addEventListener("visibilitychange", onVisibility);
 
+  let alive = true;
   function loop() {
+    if (!alive) return;
     requestAnimationFrame(loop);
     if (!visible) return;
     for (let i = 0; i < N; i++) {
@@ -75,4 +91,24 @@ export function initWorld() {
     renderer.render(scene, camera);
   }
   loop();
+
+  activeCleanup = () => {
+    alive = false;
+    window.removeEventListener("themechange", onThemeChange);
+    window.removeEventListener("resize", resize);
+    document.removeEventListener("visibilitychange", onVisibility);
+    geo.dispose();
+    mat.dispose();
+    renderer.dispose();
+    if (canvas.parentNode) {
+      canvas.parentNode.removeChild(canvas);
+    }
+  };
+}
+
+export function destroyWorld() {
+  if (activeCleanup) {
+    activeCleanup();
+    activeCleanup = null;
+  }
 }

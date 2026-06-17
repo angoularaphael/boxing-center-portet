@@ -13,9 +13,10 @@ let started = false;
 const pageScrollCbs: ((y: number) => void)[] = []; // per-page scroll handlers, cleared on swap
 const pageObservers: IntersectionObserver[] = []; // per-page IOs, disconnected on swap
 const pageTweens: gsap.core.Tween[] = []; // per-page infinite tweens, killed on swap
+export const pageTeardowns: (() => void)[] = []; // per-page teardown callbacks (e.g. resize listeners)
 
 const onScroll = (cb: (y: number) => void) => pageScrollCbs.push(cb);
-const track = (io: IntersectionObserver) => (pageObservers.push(io), io);
+export const track = (io: IntersectionObserver) => (pageObservers.push(io), io);
 const scrollY = () => (lenis ? (lenis as any).scroll : window.scrollY);
 
 /** Boot the engine once. Returns the persistent Lenis (or null when reduced). */
@@ -69,6 +70,12 @@ export function teardownPageScroll() {
   pageObservers.length = 0;
   pageTweens.forEach((t) => t.kill());
   pageTweens.length = 0;
+  pageTeardowns.forEach((fn) => {
+    try {
+      fn();
+    } catch {}
+  });
+  pageTeardowns.length = 0;
 }
 
 /** All line-by-line headline reveals via a CSS class (no animation-lib
@@ -246,7 +253,7 @@ function initMediaReveal() {
 
 /** Ambient background videos: only play while on screen (perf + battery). */
 function initBgVideos() {
-  const vids = document.querySelectorAll<HTMLVideoElement>(".vid-bg video");
+  const vids = document.querySelectorAll<HTMLVideoElement>(".vid-bg video, .clip video");
   if (!vids.length) return;
   const io = track(new IntersectionObserver(
     (entries) => {
@@ -280,7 +287,11 @@ function initReel() {
   };
   onScroll(update);
   window.addEventListener("resize", update);
-  setTimeout(update, 600);
+  const tid = window.setTimeout(update, 600);
+  pageTeardowns.push(() => {
+    window.removeEventListener("resize", update);
+    window.clearTimeout(tid);
+  });
   update();
 }
 
