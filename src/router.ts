@@ -5,7 +5,7 @@
  * ambient <audio>) is never destroyed, so sound plays endlessly across pages.
  * Any failure falls back to a normal navigation, so links can never break.
  */
-import { teardownPageScroll } from "./scroll";
+import { teardownPageScroll, scrollToTop } from "./scroll";
 import { thud, soundOn } from "./audio";
 import { applyTheme, systemTheme } from "./theme";
 
@@ -33,6 +33,12 @@ export function initRouter(renderPage: () => void) {
       const url = new URL(href, location.href);
       if (url.origin !== location.origin) return;
       e.preventDefault();
+      
+      if (url.pathname === location.pathname) {
+        scrollToTop(true);
+        return;
+      }
+      
       go(url, renderPage, true);
     },
     true
@@ -69,7 +75,7 @@ async function go(url: URL, renderPage: () => void, push: boolean) {
     document.body.dataset.page = doc.body.dataset.page || "";
     updateNavActive(url.pathname);
     if (push) history.pushState({}, "", url.href);
-    window.scrollTo(0, 0);
+    scrollToTop(false);
 
     renderPage(); // re-render + re-bind everything for the new content
     applyTheme(systemTheme(), false);
