@@ -417,6 +417,7 @@ html.gated .bcp-chat {
     bottom: 0;
     width: 100%;
     height: min(100dvh - 68px, 640px);
+    max-height: calc(100dvh - 68px);
     border-radius: 20px 20px 0 0;
   }
 
