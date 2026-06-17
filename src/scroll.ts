@@ -42,6 +42,14 @@ export function initScroll() {
   return lenis;
 }
 
+export function scrollToTop(smooth = false) {
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: !smooth });
+  } else {
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+  }
+}
+
 /** Wire everything bound to the CURRENT page's DOM. Re-run after a soft swap. */
 export function initPageScroll() {
   initNav();
