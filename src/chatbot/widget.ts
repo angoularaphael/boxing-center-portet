@@ -82,14 +82,18 @@ export function initChatbot() {
           </svg>
         </button>
       </header>
-      <div class="bcp-chat__messages" id="bcp-chat-messages" role="log" aria-live="polite"></div>
-      <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden></div>
-      <form class="bcp-chat__form" id="bcp-chat-form">
+      <div class="bcp-chat__body">
+        <div class="bcp-chat__messages" id="bcp-chat-messages" role="log" aria-live="polite"></div>
+      </div>
+      <div class="bcp-chat__footer">
+        <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden></div>
+        <form class="bcp-chat__form" id="bcp-chat-form">
         <input class="bcp-chat__input" id="bcp-chat-input" type="text" autocomplete="off" placeholder="Écrivez votre message…" />
         <button class="bcp-chat__send" type="submit" aria-label="Envoyer">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </form>
+      </div>
     </section>`;
   document.body.appendChild(root);
 
@@ -283,7 +287,9 @@ export function initChatbot() {
     if (phase === "nom") {
       profile.nom = v;
       phase = "salle";
-      await botSay("Dans quelle salle Boxing Center souhaitez-vous vous entraîner ?");
+      await botSay(
+        "Dans quelle salle Boxing Center souhaitez-vous vous entraîner ?\n\nChoisissez ci-dessous ou tapez le nom de la salle."
+      );
       showSalleSuggestions();
       setPlaceholder("Ou tapez le nom de la salle…");
       return;
