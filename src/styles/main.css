@@ -989,4 +989,18 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .ring.is-topdown .ring__canvas { opacity: 0.12; transition: opacity 0.55s var(--ease-out); }
   .ring__txt { padding-bottom: clamp(2.2rem, 7vw, 4rem); }
   .promo-blast { font-size: clamp(2rem, 9vw, 2.8rem); }
+
+  .map-frame { min-height: min(52vw, 300px); }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+  .contact-grid { gap: 1.25rem; }
+  .footer__grid { gap: 1.75rem; }
+  .menu__panel { padding-bottom: max(1.6rem, env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 480px) {
+  :root { --section-pad: clamp(64px, 14vw, 90px); }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-right: none !important; }
+  h1.display { font-size: clamp(2.2rem, 11vw, 3rem); }
+  .marquee__track { font-size: 0.82rem; }
 }
