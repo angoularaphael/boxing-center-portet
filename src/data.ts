@@ -134,4 +134,15 @@ export const CLIPS = [
   { src: "/media/clip-entrance.mp4", label: "L'entrée" },
 ];
 
+/** Salles du réseau Boxing Center — choix chatbot / clients */
+export const BOXING_CENTER_SALLES = [
+  { id: "portet", label: "Portet-sur-Garonne" },
+  { id: "saint-cyprien", label: "Saint-Cyprien" },
+  { id: "ramonville", label: "Ramonville" },
+  { id: "minimes", label: "Minimes" },
+  { id: "balma", label: "Balma-Gramont" },
+  { id: "etats-unis", label: "États-Unis" },
+  { id: "autre", label: "Autre salle / pas encore sûr" },
+] as const;
+
 export type ThemeId = "dark" | "light";
