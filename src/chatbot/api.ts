@@ -51,6 +51,21 @@ export async function trackEvent(
   }
 }
 
+/** Grounded AI answer (Gemini pool → Groq → Mistral) served from this site's own
+ *  /api/chat function. Same origin, so it works once deployed on Vercel. */
+export async function askAi(message: string, history: { role: string; content: string }[] = []): Promise<string> {
+  const base = (import.meta.env.VITE_COMMUNITY_API as string | undefined) ?? "";
+  const res = await fetch(`${base}/api/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, history }),
+  });
+  if (!res.ok) throw new Error("AI indisponible");
+  const data = await res.json();
+  if (!data.reply) throw new Error("AI vide");
+  return data.reply as string;
+}
+
 export async function submitLead(payload: Record<string, unknown>) {
   const res = await fetch(endpoints().lead, {
     method: 'POST',

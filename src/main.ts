@@ -8,6 +8,7 @@ import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { initCommunity } from "./community";
 import { initChatbot } from "./chatbot/widget";
+import { injectSchema } from "./seo";
 import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, ENTRAINEURS, VALUES } from "./data";
 
 function renderHomeGrids() {
@@ -160,6 +161,7 @@ function bootPage() {
   }
 
   initCommunity();
+  injectSchema(document.body.dataset.page);
 }
 
 /** Persistent shell — created once; survives soft navigation. */

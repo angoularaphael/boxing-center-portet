@@ -14,8 +14,11 @@ try {
     const m = line.match(/^([A-Z_]+)=(.*)$/); if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
   }
 } catch {}
-cloudinary.config({ secure: true });
-if (!process.env.CLOUDINARY_URL) { console.error("CLOUDINARY_URL not set"); process.exit(1); }
+// ESM imports run before the .env loader above, so configure explicitly from the URL.
+const cu = process.env.CLOUDINARY_URL || "";
+const mm = cu.match(/^cloudinary:\/\/([^:]+):([^@]+)@(.+)$/);
+if (!mm) { console.error("CLOUDINARY_URL missing/invalid in .env"); process.exit(1); }
+cloudinary.config({ api_key: mm[1], api_secret: mm[2], cloud_name: mm[3], secure: true });
 
 const media = path.join(root, "public", "media");
 const FOLDER = "bcp-community";

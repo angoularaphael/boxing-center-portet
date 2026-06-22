@@ -1,5 +1,6 @@
 import type { FaqItem } from "./api";
-import { fetchFaqList, searchFaq, submitLead, trackEvent } from "./api";
+import { submitLead, trackEvent, askAi } from "./api";
+import { QUICKS, fallbackAnswer } from "../chatbot-kb";
 import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
@@ -253,12 +254,7 @@ export function initChatbot() {
     root.classList.add("bcp-chat--open");
     launcher.setAttribute("aria-expanded", "true");
     launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
-    await trackEvent("chat_started", sid);
-    try {
-      faq = await fetchFaqList();
-    } catch {
-      faq = [];
-    }
+    faq = QUICKS.map((x, i) => ({ id: `q${i}`, question: x.q, answer: x.a })); // local quick-access (AI handles free-text)
     await botSay(
       "Salut ! Je suis l'assistant du club de Portet. Je peux vous renseigner sur les cours, les horaires ou les tarifs.\n\nQuel est votre prénom ?",
       900
@@ -351,18 +347,15 @@ export function initChatbot() {
 
     userSay(q);
     hideSuggestions();
+    // 1) grounded AI — answers anything about the club (Gemini → Groq → Mistral)
     try {
-      const result = await searchFaq(q, sid);
-      if (result.match && result.answer) {
-        await botSay(result.answer);
-        showSuggestions(faq);
-      } else {
-        await startEscalation();
-      }
-    } catch {
-      await botSay("Petit souci de connexion… Vous pouvez laisser votre message ci-dessous.");
-      await startEscalation();
-    }
+      const ai = await askAi(q);
+      if (ai) { await botSay(ai); showSuggestions(faq); return; }
+    } catch { /* fall through to local fallback */ }
+    // 2) local keyword fallback (works even fully offline)
+    const local = fallbackAnswer(q);
+    if (local) { await botSay(local); showSuggestions(faq); return; }
+    await startEscalation();
   }
 
   async function pickEscalationTopic(topicId: string, label: string) {

@@ -13,10 +13,14 @@ dist/
 shot_*.png
 s_*.png
 v_*.png
+nv_*.png
+fv_*.png
 mb_*.png
 wm_*.png
 vm_*.jpg
 sweep*.jpg
 contact_*.jpg
+*_montage.jpg
 _posters/
 _*.py
+_*.mjs
