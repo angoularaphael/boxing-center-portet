@@ -1,64 +1,54 @@
-import type { FaqItem } from "./api";
-import { submitLead, trackEvent, askAi } from "./api";
+/**
+ * Assistant du Boxing Center Portet — conversationnel, IA d'abord.
+ *
+ * Philosophie (≠ formulaire) : dès le premier message, on RÉPOND. Le bot
+ * comprend le langage naturel (via /api/chat, grounded), répond à toute
+ * question sur le club ou une salle sœur, et capte AU VOL les coordonnées
+ * (prénom, email, téléphone, salle) quand le visiteur les donne — sans
+ * jamais l'interroger de force. Chaque coordonnée récupérée part vers le
+ * CRM (submitLead) pour nourrir la liste de contacts.
+ */
+import { submitLead, askAi } from "./api";
 import { QUICKS, fallbackAnswer } from "../chatbot-kb";
 import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
-type Phase =
-  | "greeting"
-  | "prenom"
-  | "nom"
-  | "salle"
-  | "email"
-  | "phone"
-  | "ready"
-  | "faq"
-  | "escalation_topic"
-  | "escalation"
-  | "done";
-
 type Msg = { role: "bot" | "user"; text: string; html?: boolean };
 
 const BOT_AVATAR = "/logo.png";
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const SKIP_RE = /^(non|pas maintenant|passer|skip|—|-)$/i;
-const ESCALATION_TOPICS = [
-  { id: "contact", label: "Contact et essais" },
-  { id: "membre", label: "Devenir membre et paiement" },
-  { id: "cours", label: "Nos cours et programmes" },
-  { id: "resiliation", label: "Modification et résiliation" },
-  { id: "abonnement", label: "Inscription et abonnements" },
-  { id: "autre", label: "Autre question" },
-] as const;
+const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
+// numéro FR : +33 ou 0, puis 9 chiffres groupés librement (espaces, points, tirets)
+const PHONE_RE = /(?:\+33|0)\s?[1-9](?:[\s.-]?\d{2}){4}/;
+// « je m'appelle X », « moi c'est X », « mon prénom est X »… (déclencheurs
+// SPÉCIFIQUES à un prénom — pas de « c'est » nu qui capterait « c'est ouvert »)
+const NAME_RE = /(?:je m['’ ]?appelle|moi c['’ ]?est|mon nom est|mon pr[ée]nom (?:est|c['’ ]?est)|je me nomme)\s+([a-zà-öø-ÿ][a-zà-öø-ÿ'’-]+)/i;
+const STOP_NAMES = /^(bonjour|salut|coucou|hello|merci|oui|non|ok|d['’]accord|bien|super|cool|pas|ouvert|ferm|combien|quoi|rien|voir|bof)$/i;
 
 function sessionId(): string {
   const key = "bcp-chat-session";
   try {
     let id = sessionStorage.getItem(key);
-    if (!id) {
-      id = crypto.randomUUID();
-      sessionStorage.setItem(key, id);
-    }
+    if (!id) { id = crypto.randomUUID(); sessionStorage.setItem(key, id); }
     return id;
-  } catch {
-    return crypto.randomUUID();
-  }
+  } catch { return crypto.randomUUID(); }
 }
-
-function delay(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
-}
+const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const titleCase = (s: string) =>
+  s.replace(/\S+/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 
 export function initChatbot() {
   if (document.getElementById("bcp-chat-root")) return;
 
   const sid = sessionId();
   const profile = { prenom: "", nom: "", email: "", phone: "", salle: "" };
-  let phase: Phase = "greeting";
-  let faq: FaqItem[] = [];
-  let escalationTopic = "";
+  const aiHistory: { role: string; content: string }[] = [];
   let opened = false;
   let typing = false;
+  let exchanges = 0;      // nombre de réponses IA données
+  let nudged = false;     // l'invitation douce à laisser un contact a-t-elle été faite ?
+  let expectName = false; // le bot vient de demander le prénom
+  let leadSig = "";       // signature du dernier lead envoyé (anti-doublon)
+  let callbackAsked = false;
 
   const root = document.createElement("div");
   root.id = "bcp-chat-root";
@@ -75,7 +65,7 @@ export function initChatbot() {
         <img class="bcp-chat__head-avatar" src="${BOT_AVATAR}" alt="" width="40" height="40" decoding="async" />
         <div class="bcp-chat__head-text">
           <strong>Boxing Center Portet</strong>
-          <span class="bcp-chat__status">Assistant du club</span>
+          <span class="bcp-chat__status">Assistant du club · en ligne</span>
         </div>
         <button type="button" class="bcp-chat__close" id="bcp-chat-close" aria-label="Fermer">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -89,11 +79,11 @@ export function initChatbot() {
       <div class="bcp-chat__footer">
         <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden></div>
         <form class="bcp-chat__form" id="bcp-chat-form">
-        <input class="bcp-chat__input" id="bcp-chat-input" type="text" autocomplete="off" placeholder="Écrivez votre message…" />
-        <button class="bcp-chat__send" type="submit" aria-label="Envoyer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </form>
+          <input class="bcp-chat__input" id="bcp-chat-input" type="text" autocomplete="off" placeholder="Écrivez votre message…" />
+          <button class="bcp-chat__send" type="submit" aria-label="Envoyer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
       </div>
     </section>`;
   document.body.appendChild(root);
@@ -108,162 +98,156 @@ export function initChatbot() {
 
   const messages: Msg[] = [];
 
+  function escapeHtml(s: string) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+  }
+  function escapeAttr(s: string) { return s.replace(/"/g, "&quot;"); }
+
   function renderMessages() {
     messagesEl.innerHTML = messages
       .map((m) => {
-        const avatar =
-          m.role === "bot"
-            ? `<img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />`
-            : "";
-        return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__bubble">${
-          m.html ? m.text : escapeHtml(m.text)
-        }</div></div>`;
+        const avatar = m.role === "bot"
+          ? `<img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />`
+          : "";
+        return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__bubble">${m.html ? m.text : escapeHtml(m.text)}</div></div>`;
       })
       .join("");
     if (typing) {
-      messagesEl.insertAdjacentHTML(
-        "beforeend",
+      messagesEl.insertAdjacentHTML("beforeend",
         `<div class="bcp-chat__msg bcp-chat__msg--bot bcp-chat__msg--typing">
           <img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />
           <div class="bcp-chat__bubble"><span class="bcp-chat__dots"><i></i><i></i><i></i></span></div>
-        </div>`
-      );
+        </div>`);
     }
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  function escapeHtml(s: string) {
-    return s
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\n/g, "<br>");
-  }
-
-  async function botSay(text: string, pause = 650) {
-    typing = true;
-    renderMessages();
+  async function botSay(text: string, pause = 600) {
+    typing = true; renderMessages();
     await delay(pause);
     typing = false;
     messages.push({ role: "bot", text });
     renderMessages();
   }
+  function userSay(text: string) { messages.push({ role: "user", text }); renderMessages(); }
+  const setPlaceholder = (t: string) => (input.placeholder = t);
 
-  function userSay(text: string) {
-    messages.push({ role: "user", text });
-    renderMessages();
-  }
-
-  function setPlaceholder(text: string) {
-    input.placeholder = text;
-  }
-
-  function showSuggestions(items: FaqItem[]) {
-    const faqButtons = items
-      .slice(0, 4)
-      .map(
-        (f) =>
-          `<button type="button" data-q="${escapeAttr(f.question)}">${escapeHtml(f.question)}</button>`
-      )
+  // ---------- suggestions (chips) ----------
+  function showChips() {
+    const qs = QUICKS.slice(0, 5)
+      .map((f) => `<button type="button" data-q="${escapeAttr(f.q)}">${escapeHtml(f.label)}</button>`)
       .join("");
-    const escalationBtn = `<button type="button" class="bcp-chat__suggestion--escalation" data-escalation>Ma question n'apparaît pas ?</button>`;
-    if (!faqButtons && phase !== "faq") {
-      suggestionsEl.hidden = true;
+    const callback = `<button type="button" class="bcp-chat__suggestion--escalation" data-callback>📞 Être rappelé</button>`;
+    suggestionsEl.hidden = false;
+    suggestionsEl.innerHTML = qs + callback;
+  }
+  function hideChips() { suggestionsEl.hidden = true; suggestionsEl.innerHTML = ""; }
+
+  // ---------- capture de coordonnées au fil de l'eau ----------
+  function contextString() {
+    const bits: string[] = [];
+    if (profile.prenom) bits.push(`Prénom : ${profile.prenom}`);
+    if (profile.salle) bits.push(`Salle souhaitée : ${profile.salle}`);
+    if (profile.email) bits.push(`Email connu`);
+    if (profile.phone) bits.push(`Téléphone connu`);
+    return bits.join(". ");
+  }
+  function maybeSubmitLead(event: string) {
+    // on n'envoie que si on a un moyen de recontact, et une seule fois par état
+    if (!profile.email && !profile.phone) return;
+    const sig = JSON.stringify(profile);
+    if (sig === leadSig) return;
+    leadSig = sig;
+    submitLead({
+      event, sessionId: sid,
+      prenom: profile.prenom, nom: profile.nom,
+      name: [profile.prenom, profile.nom].filter(Boolean).join(" ").trim(),
+      email: profile.email, phone: profile.phone, salle: profile.salle,
+    }).catch(() => { /* silencieux : ne bloque jamais la conversation */ });
+  }
+  /** Extrait prénom/email/téléphone/salle du message. Renvoie true si du neuf a été capté. */
+  function extract(text: string): boolean {
+    let found = false;
+    const email = text.match(EMAIL_RE);
+    if (email && !profile.email) { profile.email = email[0]; found = true; }
+    const phone = text.match(PHONE_RE);
+    if (phone && !profile.phone) { profile.phone = phone[0].replace(/\s+/g, " ").trim(); found = true; }
+    const salle = BOXING_CENTER_SALLES.find((s) => new RegExp(`\\b${s.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(text));
+    if (salle && !profile.salle) { profile.salle = salle.label; found = true; }
+    if (!profile.prenom) {
+      const m = text.match(NAME_RE);
+      let name = m?.[1]?.trim();
+      // le bot vient de demander le prénom : un mot simple suffit
+      if (!name && expectName) {
+        const w = text.trim().split(/\s+/)[0];
+        if (w && !EMAIL_RE.test(w) && !/\d/.test(w) && !STOP_NAMES.test(w)) name = w;
+      }
+      if (name && !STOP_NAMES.test(name)) { profile.prenom = titleCase(name.split(/\s+/)[0]); found = true; }
+    }
+    expectName = false;
+    return found;
+  }
+
+  // ---------- conversation ----------
+  async function answer(text: string) {
+    const gotNew = extract(text);
+    if (gotNew) maybeSubmitLead(callbackAsked ? "callback_request" : "lead_collected");
+
+    hideChips();
+    let reply = "";
+    try {
+      reply = await askAi(text, aiHistory.slice(-6), contextString());
+    } catch {
+      reply = fallbackAnswer(text); // hors-ligne / dev : repli mots-clés
+    }
+    aiHistory.push({ role: "user", content: text }, { role: "assistant", content: reply });
+    await botSay(reply);
+    exchanges++;
+
+    // remerciement discret quand on vient de récupérer un contact
+    if (gotNew && (profile.email || profile.phone) && callbackAsked) {
+      callbackAsked = false;
+      await botSay(`C'est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500);
+    }
+    // invitation douce (une seule fois) à laisser un contact
+    else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
+      nudged = true;
+      await botSay("Au fait — si tu veux qu'un coach te rappelle ou t'envoie le planning, laisse-moi ton prénom et un numéro ou un email, quand tu veux. 😉", 500);
+    }
+    showChips();
+  }
+
+  async function startCallback() {
+    callbackAsked = true;
+    hideChips();
+    if (profile.email || profile.phone) {
+      // on a déjà de quoi le joindre
+      maybeSubmitLead("callback_request");
+      await botSay(`Parfait${profile.prenom ? `, ${profile.prenom}` : ""} ! Je transmets ta demande — un coach te rappelle très vite. En attendant, une question sur le club ?`);
+      callbackAsked = false;
+      showChips();
       return;
     }
-    suggestionsEl.hidden = false;
-    suggestionsEl.innerHTML =
-      phase === "faq" ? `${faqButtons}${escalationBtn}` : faqButtons;
-  }
-
-  function showTopicSuggestions() {
-    suggestionsEl.hidden = false;
-    suggestionsEl.innerHTML = ESCALATION_TOPICS.map(
-      (t) =>
-        `<button type="button" data-topic="${escapeAttr(t.id)}">${escapeHtml(t.label)}</button>`
-    ).join("");
-  }
-
-  function hideSuggestions() {
-    suggestionsEl.hidden = true;
-    suggestionsEl.innerHTML = "";
-  }
-
-  function showRecontactCheckbox() {
-    messages.push({
-      role: "bot",
-      text: `<label class="bcp-chat__recontact"><input type="checkbox" id="bcp-chat-recontact" checked /> Me tenir au courant par e-mail</label>`,
-      html: true,
-    });
-    renderMessages();
-  }
-
-  function escapeAttr(s: string) {
-    return s.replace(/"/g, "&quot;");
-  }
-
-  function showSalleSuggestions() {
-    suggestionsEl.hidden = false;
-    suggestionsEl.innerHTML = BOXING_CENTER_SALLES.map(
-      (s) =>
-        `<button type="button" data-salle="${escapeAttr(s.label)}">${escapeHtml(s.label)}</button>`
-    ).join("");
-  }
-
-  function profileName() {
-    return [profile.prenom, profile.nom].filter(Boolean).join(" ").trim();
-  }
-
-  async function finishOnboarding() {
-    phase = "ready";
-    try {
-      await submitLead({
-        event: "lead_collected",
-        sessionId: sid,
-        prenom: profile.prenom,
-        nom: profile.nom,
-        name: profileName(),
-        email: profile.email,
-        phone: profile.phone,
-        salle: profile.salle,
-      });
-    } catch (err) {
-      console.warn("Failed to submit lead, continuing to FAQ:", err);
-    }
-    await botSay(
-      `Parfait ${profile.prenom} ! Posez-moi vos questions sur le club — horaires, tarifs, disciplines, tout ce qui vous intéresse.`
-    );
-    phase = "faq";
-    showSuggestions(faq);
-    setPlaceholder("Votre question…");
+    expectName = !profile.prenom;
+    await botSay(profile.prenom
+      ? `Avec plaisir ${profile.prenom} ! Laisse-moi un numéro ou un email et un coach te rappelle.`
+      : "Avec plaisir ! Dis-moi ton prénom et un numéro (ou un email) et un coach te rappelle.");
+    setPlaceholder("Ton prénom et ton numéro…");
   }
 
   async function openPanel() {
-    if (opened) {
-      panel.hidden = false;
-      panel.classList.add("bcp-chat__panel--open");
-      root.classList.add("bcp-chat--open");
-      launcher.setAttribute("aria-expanded", "true");
-      launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
-      input.focus();
-      return;
-    }
-    opened = true;
     panel.hidden = false;
     panel.classList.add("bcp-chat__panel--open");
     root.classList.add("bcp-chat--open");
     launcher.setAttribute("aria-expanded", "true");
     launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
-    faq = QUICKS.map((x, i) => ({ id: `q${i}`, question: x.q, answer: x.a })); // local quick-access (AI handles free-text)
-    await botSay(
-      "Salut ! Je suis l'assistant du club de Portet. Je peux vous renseigner sur les cours, les horaires ou les tarifs.\n\nQuel est votre prénom ?",
-      900
-    );
-    phase = "prenom";
-    setPlaceholder("Votre prénom");
+    if (!opened) {
+      opened = true;
+      await botSay("Salut ! 👋 Je suis l'assistant du Boxing Center Portet. Pose-moi ta question — horaires, tarifs, disciplines, essai à 10€… ou dis-moi ce que tu cherches, je te guide.", 800);
+      showChips();
+    }
     input.focus();
   }
-
   function closePanel() {
     panel.hidden = true;
     panel.classList.remove("bcp-chat__panel--open");
@@ -272,207 +256,26 @@ export function initChatbot() {
     launcher.setAttribute("aria-label", "Ouvrir l'assistant Boxing Center");
   }
 
-  async function runOnboardingAnswer(text: string) {
-    const v = text.trim();
-    if (!v) return;
-
-    if (phase === "prenom") {
-      profile.prenom = v;
-      phase = "nom";
-      await botSay(`Enchanté ${profile.prenom} ! Et votre nom de famille ?`);
-      setPlaceholder("Votre nom");
-      return;
-    }
-
-    if (phase === "nom") {
-      profile.nom = v;
-      phase = "salle";
-      await botSay(
-        "Dans quelle salle Boxing Center souhaitez-vous vous entraîner ?\n\nChoisissez ci-dessous ou tapez le nom de la salle."
-      );
-      showSalleSuggestions();
-      setPlaceholder("Ou tapez le nom de la salle…");
-      return;
-    }
-
-    if (phase === "salle") {
-      profile.salle = v;
-      hideSuggestions();
-      phase = "email";
-      await botSay(
-        "Top ! Si vous voulez, je peux faire suivre le planning par l'équipe — une adresse mail ?"
-      );
-      setPlaceholder("votre@email.com");
-      return;
-    }
-
-    if (phase === "email") {
-      const skip = v.toLowerCase() === "passer" || v.toLowerCase() === "skip";
-      if (skip) {
-        profile.email = "";
-      } else if (!EMAIL_RE.test(v)) {
-        await botSay("Hmm, l'adresse ne passe pas… vous pouvez réessayer ? (Ou tapez « passer »)");
-        return;
-      } else {
-        profile.email = v;
-      }
-      phase = "phone";
-      await botSay(
-        "Et un numéro pour qu'un coach vous rappelle si vous voulez tester un cours ?\n\n(Sinon tapez « passer ».)"
-      );
-      setPlaceholder("06 12 34 56 78 ou passer");
-      return;
-    }
-
-    if (phase === "phone") {
-      if (!SKIP_RE.test(v)) profile.phone = v;
-      await finishOnboarding();
-    }
-  }
-
-  async function startEscalation() {
-    phase = "escalation_topic";
-    hideSuggestions();
-    await botSay("Pas de souci ! Choisissez le sujet qui correspond le mieux à votre question :");
-    showTopicSuggestions();
-    setPlaceholder("Ou écrivez votre sujet…");
-  }
-
-  async function handleFaqQuestion(q: string) {
-    if (/ma question n.?appara[iî]t pas/i.test(q)) {
-      userSay(q);
-      await startEscalation();
-      return;
-    }
-
-    userSay(q);
-    hideSuggestions();
-    // 1) grounded AI — answers anything about the club (Gemini → Groq → Mistral)
-    try {
-      const ai = await askAi(q);
-      if (ai) { await botSay(ai); showSuggestions(faq); return; }
-    } catch { /* fall through to local fallback */ }
-    // 2) local keyword fallback (works even fully offline)
-    const local = fallbackAnswer(q);
-    if (local) { await botSay(local); showSuggestions(faq); return; }
-    await startEscalation();
-  }
-
-  async function pickEscalationTopic(topicId: string, label: string) {
-    escalationTopic = topicId;
-    userSay(label);
-    phase = "escalation";
-    hideSuggestions();
-    await botSay("Décrivez votre question en quelques lignes — l'équipe vous répondra par e-mail.");
-    showRecontactCheckbox();
-    setPlaceholder("Votre message…");
-  }
-
-  async function handleEscalation(text: string) {
-    const recontact = document.querySelector<HTMLInputElement>("#bcp-chat-recontact")?.checked ?? true;
-    userSay(text);
-    try {
-      await submitLead({
-        event: "escalation",
-        sessionId: sid,
-        prenom: profile.prenom,
-        nom: profile.nom,
-        name: profileName(),
-        email: profile.email,
-        phone: profile.phone,
-        salle: profile.salle,
-        topic: escalationTopic || "autre",
-        message: text,
-        recontactRequested: recontact,
-      });
-      await botSay("C'est envoyé, merci ! L'équipe revient vers vous très vite à " + (profile.email || "votre adresse e-mail") + ".");
-      phase = "done";
-      hideSuggestions();
-      setPlaceholder("À bientôt au club");
-      input.disabled = true;
-    } catch {
-      await botSay("L'envoi a échoué — écrivez-nous à boxingcenter31@gmail.com");
-    }
-  }
-
+  // ---------- événements ----------
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text || typing) return;
     input.value = "";
-
-    if (phase === "done") return;
-
-    if (["greeting", "prenom", "nom", "salle", "email", "phone"].includes(phase)) {
-      userSay(text);
-      await runOnboardingAnswer(text);
-      return;
-    }
-
-    if (phase === "faq") {
-      await handleFaqQuestion(text);
-      return;
-    }
-
-    if (phase === "escalation_topic") {
-      const topic = ESCALATION_TOPICS.find(
-        (t) => t.label.toLowerCase() === text.toLowerCase() || t.id === text
-      );
-      if (topic) {
-        await pickEscalationTopic(topic.id, topic.label);
-      } else {
-        await pickEscalationTopic("autre", text);
-      }
-      return;
-    }
-
-    if (phase === "escalation") {
-      await handleEscalation(text);
-    }
+    userSay(text);
+    await answer(text);
   });
 
   suggestionsEl.addEventListener("click", async (e) => {
-    const esc = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-escalation]");
-    if (esc && phase === "faq") {
-      await startEscalation();
-      return;
-    }
-
-    const salleBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-salle]");
-    if (salleBtn && phase === "salle") {
-      const label = salleBtn.dataset.salle || salleBtn.textContent || "";
-      userSay(label);
-      profile.salle = label;
-      hideSuggestions();
-      phase = "email";
-      await botSay(
-        "Si vous voulez, je peux faire suivre le planning par l'équipe — une adresse mail ?"
-      );
-      setPlaceholder("votre@email.com");
-      return;
-    }
-
-    const topicBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-topic]");
-    if (topicBtn && phase === "escalation_topic") {
-      const id = topicBtn.dataset.topic || "autre";
-      const label =
-        ESCALATION_TOPICS.find((t) => t.id === id)?.label || topicBtn.textContent || "Autre question";
-      await pickEscalationTopic(id, label);
-      return;
-    }
-
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-q]");
-    if (!btn || phase !== "faq") return;
-    await handleFaqQuestion(btn.dataset.q || "");
+    const target = e.target as HTMLElement;
+    if (target.closest("button[data-callback]")) { await startCallback(); return; }
+    const q = target.closest<HTMLButtonElement>("button[data-q]");
+    if (q) { const text = q.dataset.q || ""; userSay(text); await answer(text); }
   });
 
   launcher.addEventListener("click", () => {
     if (root.classList.contains("bcp-chat--open")) closePanel();
     else void openPanel();
   });
-  closeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    closePanel();
-  });
+  closeBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); closePanel(); });
 }

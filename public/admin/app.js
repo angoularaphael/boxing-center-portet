@@ -552,14 +552,26 @@ function logout(){ sessionStorage.removeItem("bcp_admin"); TOKEN = ""; DIRTY = f
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const t = document.getElementById("token").value.trim(); if (!t) return;
-  document.getElementById("loginErr").textContent = "";
+  const errEl = document.getElementById("loginErr");
+  errEl.textContent = "";
   const r = await fetch(`${API}/api/admin/content`, { headers:{ "x-admin-token":t } }).catch(() => null);
-  if (r && r.ok){ TOKEN = t; sessionStorage.setItem("bcp_admin", t); showApp(); }
-  else{
-    document.getElementById("loginErr").textContent = r && r.status === 401 ? "Mot de passe incorrect." : "Connexion impossible (API non configurée ?).";
-    const f = document.getElementById("loginForm");
-    f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
+  if (r && r.ok){ TOKEN = t; sessionStorage.setItem("bcp_admin", t); showApp(); return; }
+  // diagnostic précis : le patron doit savoir EXACTEMENT quoi corriger
+  let msg;
+  if (!r) msg = "Serveur injoignable. Vérifie ta connexion internet.";
+  else if (r.status === 401) msg = "Mot de passe incorrect.";
+  else {
+    const body = await r.json().catch(() => ({}));
+    const detail = (body.error || "").toString();
+    if (/GITHUB_TOKEN/i.test(detail))
+      msg = "Mot de passe correct ✓ — mais la variable GITHUB_TOKEN manque sur Vercel (Settings → Environment Variables), puis redéploie.";
+    else if (r.status === 502 || /GitHub/i.test(detail))
+      msg = "Mot de passe correct ✓ — connexion à GitHub impossible : vérifie GITHUB_TOKEN et GITHUB_REPO sur Vercel.";
+    else msg = detail ? `Erreur serveur : ${detail}` : `Connexion impossible (erreur ${r.status}).`;
   }
+  errEl.textContent = msg;
+  const f = document.getElementById("loginForm");
+  f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
 });
 document.getElementById("publish").addEventListener("click", publish);
 document.getElementById("preview").addEventListener("click", openPreview);
