@@ -1,3 +1,4 @@
+@import "./fonts.css";
 @import "./tokens.css";
 
 /* ============================== RESET ============================== */
@@ -982,7 +983,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .ring { height: 340vh; }
   .ring__photo {
     display: block; position: absolute; inset: 0; z-index: 0;
-    background: #0a1020 url(/img/ring-reference.png) center 54% / 185% no-repeat;
+    background: #0a1020 url(/img/opt/ring-reference-480.webp) center 54% / 185% no-repeat;
     opacity: 0; transition: opacity 0.55s var(--ease-out);
   }
   .ring.is-topdown .ring__photo { opacity: 1; }
@@ -1005,3 +1006,18 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   h1.display { font-size: clamp(2.2rem, 11vw, 3rem); }
   .marquee__track { font-size: 0.82rem; }
 }
+
+/* ============================== APERÇU BACKOFFICE ============================== */
+/* bandeau fixe quand le site est ouvert en ?apercu=1 depuis /admin/ */
+.preview-banner {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%);
+  z-index: 99999; max-width: min(92vw, 560px);
+  padding: 0.7rem 1.2rem; border-radius: 999px;
+  background: rgba(10, 16, 32, 0.92); color: #e8edf5;
+  border: 1px solid rgba(174, 188, 207, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  font-size: 0.85rem; line-height: 1.4; text-align: center;
+  backdrop-filter: blur(8px);
+}
+.preview-banner strong { color: #ffd166; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.78rem; }
+.preview-banner span { opacity: 0.75; }

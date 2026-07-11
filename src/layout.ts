@@ -1,4 +1,4 @@
-import { NAV, SITE } from "./data";
+import { NAV, SITE, PREVIEW } from "./data";
 import { punch, tick, whoosh, setSound, soundOn } from "./audio";
 
 const svgArrow = `<svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -101,6 +101,14 @@ export function mountLayout() {
     g.className = "grain";
     g.setAttribute("aria-hidden", "true");
     document.body.appendChild(g);
+  }
+  // backoffice draft preview — make it unmistakable that this isn't the live site
+  if (PREVIEW && !document.querySelector(".preview-banner")) {
+    const b = document.createElement("div");
+    b.className = "preview-banner";
+    b.setAttribute("role", "status");
+    b.innerHTML = `<strong>Aperçu</strong> — modifications non publiées. <span>Ferme cet onglet pour revenir au vrai site.</span>`;
+    document.body.appendChild(b);
   }
   // fight scorecard HUD (home only — it tracks rounds)
   if (document.body.dataset.page === "home" && !document.getElementById("hud")) {

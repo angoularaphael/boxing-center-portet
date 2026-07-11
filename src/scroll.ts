@@ -2,6 +2,7 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { whoosh, soundOn } from "./audio";
+import { liteMode } from "./net";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -261,6 +262,7 @@ function initMediaReveal() {
 
 /** Ambient background videos: only play while on screen (perf + battery). */
 function initBgVideos() {
+  if (liteMode) return; // Save-Data / 2G: never pull video bytes
   const vids = document.querySelectorAll<HTMLVideoElement>(".vid-bg video, .clip video");
   if (!vids.length) return;
   const io = track(new IntersectionObserver(

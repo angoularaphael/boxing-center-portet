@@ -24,3 +24,6 @@ contact_*.jpg
 _posters/
 _*.py
 _*.mjs
+
+# Claude Code local (permissions personnelles)
+.claude/settings.local.json

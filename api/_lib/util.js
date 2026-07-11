@@ -1,6 +1,7 @@
 // Shared helpers for the Boxing Center Portet community API (Vercel serverless).
 // Cloudinary = storage + treatment (eager transforms) + DB (tags) + moderation.
 import { v2 as cloudinary } from "cloudinary";
+import { createHash, timingSafeEqual } from "crypto";
 
 cloudinary.config({ secure: true }); // reads CLOUDINARY_URL from the environment
 
@@ -35,7 +36,11 @@ export function allowCors(res) {
 }
 
 export function isAdmin(req) {
-  return !!process.env.ADMIN_TOKEN && (req.headers["x-admin-token"] || "") === process.env.ADMIN_TOKEN;
+  if (!process.env.ADMIN_TOKEN) return false;
+  // hash both sides → equal length buffers → constant-time compare
+  const given = createHash("sha256").update(String(req.headers["x-admin-token"] || "")).digest();
+  const good = createHash("sha256").update(process.env.ADMIN_TOKEN).digest();
+  return timingSafeEqual(given, good);
 }
 
 /** Map a Cloudinary video resource → the public item shape the site expects. */

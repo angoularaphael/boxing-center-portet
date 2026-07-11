@@ -1,0 +1,250 @@
+/* ============================================================
+   LE VESTIAIRE — backoffice Boxing Center Portet
+   Palette du site (tokens.css) : arène navy + argent, Oswald.
+   Sommaire :
+     1. polices & tokens        5. formulaires & cartes
+     2. login (le vestiaire)    6. glisser-déposer & galerie
+     3. shell (coin du ring)    7. accueil & assistants
+     4. topbar & boutons        8. visite interactive
+                                9. divers & responsive
+   ============================================================ */
+
+/* ---------- 1. polices (auto-hébergées, zéro requête externe) & tokens ---------- */
+@font-face{font-family:'Oswald';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/oswald-latin.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/inter-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(/fonts/jbmono-latin.woff2) format('woff2')}
+
+:root{
+  --bg:#070d1a; --panel:#0c1424; --panel-2:#101b30; --line:rgba(238,241,246,.09); --line-strong:rgba(174,188,207,.32);
+  --navy:#182848; --ink:#eef1f6; --muted:#7a8aa4; --silver:#aebccf; --silver-hi:#dbe3ee;
+  --ok:#3ad29f; --bad:#ff6b6b; --warn:#ffd166;
+  --r:12px; --disp:'Oswald','Arial Narrow',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1); font-synthesis:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.5}
+button{font:inherit;cursor:pointer}
+input,textarea,select{font:inherit}
+a{color:var(--silver)}
+.hidden{display:none!important}
+::selection{background:rgba(174,188,207,.25)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#1a2947;border-radius:8px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#2a3d61}
+svg{display:block}
+
+/* ---------- 2. LOGIN : l'entrée du vestiaire ---------- */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(56% 42% at 50% -4%, rgba(174,188,207,.14), transparent 62%),
+    radial-gradient(110% 80% at 50% 118%, rgba(24,40,72,.5), transparent 62%),
+    var(--bg)}
+.ropes{position:absolute;inset:0;pointer-events:none}
+.ropes i{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(174,188,207,.2) 18%,rgba(174,188,207,.2) 82%,transparent)}
+.ropes i:nth-child(1){top:41%}.ropes i:nth-child(2){top:50%;opacity:.8}.ropes i:nth-child(3){top:59%;opacity:.55}
+.login form{position:relative;width:min(430px,92vw);text-align:center;
+  background:linear-gradient(180deg,#0e1729,#091120);border:1px solid var(--line-strong);border-radius:18px;
+  padding:38px 36px 26px;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 90px rgba(174,188,207,.06);
+  animation:card-in .7s var(--ease) both}
+@keyframes card-in{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+/* coins du ring aux angles de la carte */
+.login form::before,.login form::after{content:"";position:absolute;width:30px;height:30px;border:2px solid var(--silver);opacity:.7;pointer-events:none}
+.login form::before{top:-2px;left:-2px;border-right:0;border-bottom:0;border-radius:18px 0 0 0}
+.login form::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-radius:0 0 18px 0}
+.lg-logo{height:52px;margin:0 auto 14px;filter:brightness(0) invert(1);opacity:.95}
+.lg-kicker{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.login h1{margin:0 0 8px;font-family:var(--disp);font-size:34px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.05;
+  background:linear-gradient(180deg,#fff,#aebccf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.login p{margin:0 auto 24px;color:var(--muted);font-size:13.5px;max-width:30ch}
+.login .field{text-align:left}
+.login input[type=password]{height:48px;font-family:var(--mono);letter-spacing:.25em;text-align:center;font-size:16px}
+.lg-btn{width:100%;height:48px;margin-top:6px;font-family:var(--disp);font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  position:relative;overflow:hidden}
+.lg-btn::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;transform:skewX(-20deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transition:left .5s var(--ease)}
+.lg-btn:hover::after{left:125%}
+.lg-foot{display:block;margin-top:18px;font-size:12px;color:var(--muted)}
+.lg-foot a{text-decoration:none}
+.lg-foot a:hover{color:var(--ink)}
+form.shake{animation:shake .45s}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}
+
+/* ---------- 3. SHELL : le coin du ring ---------- */
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:#080f1e;border-right:1px solid var(--line);padding:20px 12px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:11px;padding:2px 10px 16px}
+.brand img{height:34px;filter:brightness(0) invert(1)}
+.brand b{display:block;font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.09em;text-transform:uppercase;line-height:1.15}
+.brand span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.ropeline{height:8px;margin:0 10px 14px;background:repeating-linear-gradient(180deg,var(--line-strong) 0 1px,transparent 1px 3.5px);opacity:.5}
+.navbtn{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:0;color:var(--muted);
+  padding:10px 12px;border-radius:8px;margin-bottom:2px;font-family:var(--disp);font-size:13.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;transition:color .18s,transform .18s var(--ease),background .18s}
+.navbtn .nico{display:inline-flex;opacity:.75}
+.navbtn .nico svg{width:17px;height:17px}
+.navbtn:hover{color:var(--ink);transform:translateX(3px)}
+.navbtn.active{color:#fff;background:linear-gradient(90deg,rgba(174,188,207,.14),rgba(174,188,207,.02) 70%,transparent);
+  box-shadow:inset 3px 0 0 var(--silver)}
+.navbtn.active .nico{opacity:1}
+.side .foot{margin-top:auto;padding:14px 10px 4px;border-top:1px solid var(--line)}
+.side .foot a{font-size:13px;text-decoration:none}
+.side .foot a:hover{color:var(--ink)}
+.main{display:flex;flex-direction:column;min-width:0}
+
+/* ---------- 4. TOPBAR & boutons ---------- */
+.topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;justify-content:space-between;
+  padding:12px 24px;background:rgba(7,13,26,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.ptitle .kicker{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+.topbar h2{margin:0;font-family:var(--disp);font-weight:600;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.topbar .right{display:flex;align-items:center;gap:10px}
+.status{font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:7px;
+  padding:5px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+.status:empty{display:none}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted);flex:0 0 auto}
+.status.ok{color:var(--ok);border-color:rgba(58,210,159,.35)} .status.ok::before{background:var(--ok)}
+.status.bad{color:var(--bad);border-color:rgba(255,107,107,.4)} .status.bad::before{background:var(--bad)}
+.content{padding:26px 24px 60px;max-width:940px;width:100%}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.content>*{animation:rise .38s var(--ease) both}
+.content>*:nth-child(2){animation-delay:.05s}
+.content>*:nth-child(3){animation-delay:.09s}
+
+.btn{background:linear-gradient(180deg,#c6d0dd,var(--silver));color:#0a1020;border:0;border-radius:9px;padding:10px 18px;
+  font-weight:700;letter-spacing:.02em;transition:filter .18s,transform .12s}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:transparent;color:var(--silver);border:1px solid var(--line-strong)}
+.btn.ghost:hover{border-color:var(--silver);color:var(--silver-hi);filter:none}
+.btn.sm{padding:6px 12px;font-weight:600;font-size:13px}
+.btn.danger{background:transparent;border:1px solid #5a2433;color:#ff9aa6}
+.btn.danger:hover{border-color:var(--bad);filter:none}
+.btn .bico{display:inline-flex;vertical-align:-3px;margin-right:7px}
+.btn .bico svg{width:15px;height:15px}
+#publish{font-family:var(--disp);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px}
+/* rappel visuel : des modifications attendent d'être publiées */
+.btn.attn{animation:attn 2s infinite}
+@keyframes attn{0%{box-shadow:0 0 0 0 rgba(255,209,102,.55)}70%{box-shadow:0 0 0 9px rgba(255,209,102,0)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
+
+/* ---------- 5. formulaires & cartes ---------- */
+label{display:block;font-size:11px;color:var(--muted);margin:0 0 6px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.field{margin-bottom:14px}
+input[type=text],input[type=url],input[type=email],input[type=password],textarea,select{
+  width:100%;background:#0a1222;border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:9px 12px;outline:none;transition:border-color .18s,box-shadow .18s}
+input:focus,textarea:focus,select:focus{border-color:var(--silver);box-shadow:0 0 0 3px rgba(174,188,207,.12)}
+textarea{min-height:72px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+.card{background:linear-gradient(180deg,var(--panel),#0a1222);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px;margin-bottom:14px;transition:border-color .2s,transform .2s var(--ease)}
+.card:hover{border-color:var(--line-strong)}
+.card .card-head{display:flex;align-items:center;justify-content:space-between;margin:-2px 0 12px}
+.card .card-head .t{font-family:var(--disp);font-weight:600;color:var(--silver);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.card .ctrls{display:flex;gap:6px}
+.iconbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--muted);border-radius:7px;width:30px;height:30px;line-height:1;transition:color .15s,border-color .15s}
+.iconbtn:hover{color:var(--ink);border-color:var(--silver)}
+.sec-intro{color:var(--muted);font-size:13.5px;margin:-4px 0 20px;padding-left:12px;border-left:3px solid var(--line-strong);max-width:64ch}
+.add-row{margin-top:4px}
+.chk{display:flex;align-items:center;gap:8px;color:var(--ink);font-size:14px}
+.chk input{width:18px;height:18px;accent-color:var(--silver)}
+
+.imgfield{display:flex;gap:12px;align-items:flex-start}
+.imgfield .thumb{width:84px;height:84px;border-radius:9px;border:1px solid var(--line);background:var(--panel-2) center/cover no-repeat;flex:0 0 auto}
+.imgfield .grow{flex:1;min-width:0}
+.img-hint{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.strlist .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 12px}
+.chip button{background:none;border:0;color:var(--muted);font-size:15px;line-height:1}
+.chip button:hover{color:var(--bad)}
+
+.slot{display:grid;grid-template-columns:34px 110px 1fr 34px;gap:8px;margin-bottom:8px;align-items:center}
+.mod-item{display:flex;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.mod-item video{width:160px;border-radius:8px;background:#000;flex:0 0 auto}
+.mod-item .meta{flex:1;min-width:0}
+.empty{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--line);border-radius:var(--r)}
+
+/* ---------- 6. glisser-déposer & galerie ---------- */
+.handle{cursor:grab;user-select:none;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);
+  border-radius:7px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;touch-action:none}
+.handle:hover{color:var(--ink);border-color:var(--silver)}
+.handle:active{cursor:grabbing}
+.drag-ghost{opacity:.35}
+.drag-chosen{box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+.galgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.gitem{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:grab;
+  transition:border-color .2s,transform .2s var(--ease),box-shadow .2s}
+.gitem:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.gitem:active{cursor:grabbing}
+.gitem .gimg{aspect-ratio:4/3;background:var(--panel-2) center/cover no-repeat;position:relative}
+.gitem .gdel{position:absolute;top:6px;right:6px;background:rgba(10,16,32,.85);border:1px solid var(--line);color:#ff9aa6;
+  border-radius:7px;width:26px;height:26px;line-height:1;opacity:0;transition:opacity .18s}
+.gitem:hover .gdel{opacity:1}
+.gitem .gdel:hover{border-color:var(--bad);color:var(--bad)}
+.gitem .gbody{padding:8px;display:grid;gap:6px}
+.gitem input,.gitem select{padding:6px 8px;font-size:13px}
+.gadd{border:1px dashed var(--line-strong);border-radius:var(--r);display:grid;place-items:center;min-height:180px;color:var(--muted);
+  background:none;font-size:13.5px;text-align:center;line-height:1.6;white-space:pre-line;transition:border-color .2s,color .2s}
+.gadd:hover{border-color:var(--silver);color:var(--ink)}
+.galgrid.dropping .gadd{border-color:var(--ok);color:var(--ok)}
+.dropzone-on{outline:2px dashed var(--ok);outline-offset:-2px}
+
+/* brouillon retrouvé au login */
+.draftbar{background:#241f0e;border:1px solid #6b5c1e;color:#ffd166;border-radius:var(--r);padding:12px 16px;margin:18px 24px -8px;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:14px;max-width:920px}
+
+/* ---------- 7. ACCUEIL : tableau de bord & assistants ---------- */
+.dash-hero{margin:2px 0 20px}
+.dash-kick{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.dash-hero h3{margin:6px 0 4px;font-family:var(--disp);font-size:27px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.dash-hero p{margin:0;color:var(--muted)}
+.dash-status{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(180deg,var(--panel),#0a1222);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;margin-bottom:24px}
+.dash-status .lamp{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px rgba(58,210,159,.55);flex:0 0 auto}
+.dash-status.dirty .lamp{background:var(--warn);box-shadow:0 0 12px rgba(255,209,102,.55);animation:lamp 1.6s infinite}
+@keyframes lamp{50%{opacity:.45}}
+.dash-status p{margin:0;flex:1;min-width:220px;font-size:14px}
+.dash-title{font-family:var(--disp);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin:0 0 12px}
+.wizgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px;margin-bottom:8px}
+.wiz{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-align:left;background:linear-gradient(180deg,var(--panel),#0a1222);
+  border:1px solid var(--line);border-radius:var(--r);padding:16px;transition:border-color .2s,transform .2s var(--ease),box-shadow .2s;color:var(--ink)}
+.wiz:hover{border-color:var(--silver);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.wiz .nico{color:var(--silver)}
+.wiz .nico svg{width:21px;height:21px}
+.wiz b{font-family:var(--disp);font-weight:600;letter-spacing:.07em;text-transform:uppercase;font-size:14px}
+.wiz span{color:var(--muted);font-size:12.5px;line-height:1.5}
+
+/* ---------- 8. VISITE INTERACTIVE (le reste s'assombrit, la cible reste vivante) ---------- */
+.tour-block{position:fixed;z-index:59;background:rgba(4,8,18,.8)}
+.tour-spot{position:fixed;z-index:60;border-radius:12px;pointer-events:none;border:2px solid var(--silver);
+  box-shadow:0 0 34px rgba(174,188,207,.4);
+  transition:left .28s var(--ease),top .28s var(--ease),width .28s var(--ease),height .28s var(--ease),opacity .2s}
+.tour-card{position:fixed;z-index:61;width:min(360px,calc(100vw - 32px));background:linear-gradient(180deg,#101b30,#0a1222);
+  border:1px solid var(--line-strong);border-radius:14px;padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.6);
+  animation:rise .3s var(--ease) both}
+.tour-card h3{margin:0 0 7px;font-family:var(--disp);font-weight:600;font-size:17px;letter-spacing:.05em;text-transform:uppercase;color:var(--silver-hi)}
+.tour-card p{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.6}
+.tour-hint{display:inline-flex;align-items:center;gap:8px;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.35);
+  color:var(--warn);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;margin-bottom:14px}
+.tour-hint::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--warn);animation:lamp 1.2s infinite}
+.tour-card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tour-card .dots{color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.14em;white-space:nowrap}
+.tour-card .acts{display:flex;gap:8px;align-items:center}
+.tour-skip{background:none;border:0;color:var(--muted);font-size:12px;text-decoration:underline;padding:0}
+.tour-skip:hover{color:var(--ink)}
+
+/* ---------- 9. responsive ---------- */
+@media(max-width:760px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px;padding:12px}
+  .brand{width:100%;padding-bottom:10px}
+  .ropeline{display:none}
+  #nav{display:flex;flex-wrap:wrap;gap:4px}
+  .navbtn{width:auto}
+  .side .foot{margin:0;border:0;padding:0;display:flex;gap:8px;align-items:center}
+  .topbar{flex-wrap:wrap}
+  .row,.row3{grid-template-columns:1fr}
+  .draftbar{margin:14px 16px -6px}
+}

@@ -1,7 +1,53 @@
 // POST /api/chat — grounded assistant for Boxing Center Portet.
 // Tries a pool of Gemini keys (rotating, skipping dead ones) → Groq → Mistral.
-// Grounded on the club's real info; never invents.
+// Grounded on the club's real info; never invents. Les faits éditables via le
+// backoffice (tarifs, planning, horaires, coachs…) sont lus dans
+// src/content.json (bundlé au déploiement — chaque publication redéploie,
+// donc le bot reste synchronisé avec le site). Repli statique complet si la
+// lecture échoue : le bot ne casse jamais.
+import { readFileSync } from "fs";
+import { join } from "path";
 import { allowCors } from "./_lib/util.js";
+
+/* Faits non éditables dans le backoffice (procédure d'inscription, réseau…). */
+const STATIC_TAIL = `- Séance d'essai : 10€, toutes disciplines, sans engagement (matériel prêté). Réservation page Contact ou sur place.
+- Inscription : fiche d'inscription + certificat médical de non contre-indication à la boxe + moyen de paiement (prélèvement, espèces, chèque ou PayPal en ligne) + badge d'accès 34€ à l'inscription (aucun autre frais).
+- Équipements : ring olympique, cage MMA, 24 sacs lourds Metal Boxe, 500 m² combat + 400 m² cross training.
+- Réseau : plusieurs salles à Toulouse (Minimes, Saint-Cyprien, Ramonville, États-Unis…), accès à toutes avec l'abonnement.
+- Boutique : boutique.boxingcenter.fr — Groupe : boxingcenter.fr.`;
+
+/* Repli si content.json est illisible : les mêmes infos, figées. */
+const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Center, 800 m², à Portet-sur-Garonne (depuis 2016).
+- Adresse : 61 route d'Espagne, 31120 Portet-sur-Garonne. Téléphone : 05 62 24 46 82. Email : boxingcenter31@gmail.com.
+- Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche. Accès illimité 7j/7 pour les abonnés.
+- Tarifs : Mensuel 36–44€/mois (sans engagement) ; Annuel 250–400€/an ; Enfants 280€/an.
+- Disciplines : boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training (cardio), Lady Punch (100% femmes), boxe éducative (dès 7 ans), savate / boxe française.
+- Coachs diplômés FFBoxe, FFKMDA, FMMAF : Dadi, Mehdi, Valentin, Brice. Du débutant au compétiteur.
+- Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Muay thaï / 20h30 Cross training ; Mar 12h30 Boxing training / 18h30 MMA / 19h30 Lady Punch ; Mer 14h Boxe éducative / 18h30 Kick / 19h30 Boxe anglaise ; Jeu 12h30 Cross / 18h30 Muay thaï / 19h30 Grappling ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Cross / 11h30 Boxing training / 12h30 Open mat.`;
+
+/** Bloc d'infos construit depuis le contenu éditable du site (backoffice). */
+export function liveInfo() {
+  try {
+    const c = JSON.parse(readFileSync(join(process.cwd(), "src/content.json"), "utf8"));
+    const s = c.site || {};
+    const a = s.address || {};
+    const L = [];
+    if (s.name) L.push(`${s.name} : salle phare du groupe Boxing Center, 800 m², à Portet-sur-Garonne (depuis 2016). ${s.claim || ""}`.trim());
+    if (a.street) L.push(`Adresse : ${a.street}, ${a.zip || ""} ${a.city || ""}. Téléphone : ${s.phone || ""}. Email : ${s.email || ""}.`);
+    if (s.hours) L.push(`Horaires de la salle : ${s.hours}. Accès illimité 7j/7 pour les abonnés.`);
+    if (Array.isArray(c.tarifs) && c.tarifs.length)
+      L.push("Tarifs : " + c.tarifs.map((t) => `${t.name} ${t.price} ${t.unit || ""}`.trim()).join(" ; ") + ".");
+    if (Array.isArray(c.disciplines) && c.disciplines.length)
+      L.push("Disciplines : " + c.disciplines.map((d) => d.name).filter(Boolean).join(", ") + ".");
+    if (Array.isArray(c.team) && c.team.length)
+      L.push("Coachs diplômés (FFBoxe, FFKMDA, FMMAF) : " + c.team.map((m) => `${m.name}${m.role ? ` (${m.role})` : ""}`).join(", ") + ". Du débutant au compétiteur.");
+    if (Array.isArray(c.planning) && c.planning.length)
+      L.push("Planning Portet : " + c.planning
+        .map((d) => `${d.day} ${(d.items || []).map((i) => `${i[0]} ${i[1]}`).join(" / ")}`.trim())
+        .join(" ; ") + ".");
+    return L.length >= 4 ? "- " + L.join("\n- ") : null; // contenu trop partiel → repli
+  } catch { return null; }
+}
 
 const SYSTEM = `Tu es l'assistant virtuel du BOXING CENTER PORTET (salle de boxe à Portet-sur-Garonne).
 Règles: réponds en FRANÇAIS, de façon concise (2 à 4 phrases), chaleureuse et motivante. Réponds
@@ -9,18 +55,8 @@ UNIQUEMENT à partir des informations ci-dessous. Si l'info n'y est pas, invite 
 05 62 24 46 82 ou à passer au club — n'invente JAMAIS. Quand c'est pertinent, encourage la séance d'essai à 10€.
 
 INFOS CLUB:
-- Boxing Center Portet : salle phare du groupe Boxing Center, 800 m², à Portet-sur-Garonne (depuis 2016).
-- Adresse : 61 route d'Espagne, 31120 Portet-sur-Garonne. Téléphone : 05 62 24 46 82. Email : boxingcenter31@gmail.com.
-- Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche. Accès illimité 7j/7 pour les abonnés.
-- Séance d'essai : 10€, toutes disciplines, sans engagement (matériel prêté). Réservation page Contact ou sur place.
-- Tarifs : Mensuel 36–44€/mois (sans engagement) ; Annuel 250–400€/an ; Enfants 280€/an ; Badge d'accès 34€ à l'inscription (aucun autre frais).
-- Inscription : fiche d'inscription + certificat médical de non contre-indication à la boxe + moyen de paiement (prélèvement, espèces, chèque ou PayPal en ligne) + badge 34€. En ligne ou sur place.
-- Disciplines : boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training (cardio), Lady Punch (100% femmes), boxe éducative (dès 7 ans), savate / boxe française.
-- Équipements : ring olympique, cage MMA, 24 sacs lourds Metal Boxe, 500 m² combat + 400 m² cross training.
-- Coachs diplômés FFBoxe, FFKMDA, FMMAF : Dadi, Mehdi, Valentin, Brice. Du débutant au compétiteur.
-- Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Muay thaï / 20h30 Cross training ; Mar 12h30 Boxing training / 18h30 MMA / 19h30 Lady Punch ; Mer 14h Boxe éducative / 18h30 Kick / 19h30 Boxe anglaise ; Jeu 12h30 Cross / 18h30 Muay thaï / 19h30 Grappling ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Cross / 11h30 Boxing training / 12h30 Open mat.
-- Réseau : plusieurs salles à Toulouse (Minimes, Saint-Cyprien, Ramonville, États-Unis…), accès à toutes avec l'abonnement.
-- Boutique : boutique.boxingcenter.fr — Groupe : boxingcenter.fr.`;
+${liveInfo() || STATIC_INFO}
+${STATIC_TAIL}`;
 
 async function gemini(key, model, messages) {
   const contents = messages.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] }));

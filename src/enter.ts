@@ -5,7 +5,7 @@ import { enableSound, resumeSound, prefMuted } from "./audio";
  */
 const KEY = "bcp-entered";
 
-const PRELOAD = ["/logo.png", "/img/ring-reference.png"];
+const PRELOAD = ["/logo.png", "/img/opt/ring-reference-480.webp"];
 
 export function initEnterGate() {
   let entered = false;

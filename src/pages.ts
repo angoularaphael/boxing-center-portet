@@ -1,4 +1,5 @@
 import { DISCIPLINES, TARIFS, PLANNING, SITE, NETWORK_SALLES } from "./data";
+import { optUrl } from "./img";
 
 const el = (id: string) => document.getElementById(id);
 
@@ -8,7 +9,7 @@ export function renderPage(page: string | undefined) {
     if (g)
       g.innerHTML = DISCIPLINES.map(
         (d) => `
-        <article class="disc disc--img" data-reveal style="--disc-img:url('${d.img}')">
+        <article class="disc disc--img" data-reveal style="--disc-img:url('${optUrl(d.img, 960, "2:1")}')">
           <div class="disc__media" aria-hidden="true"></div>
           <div class="disc__top"><span class="disc__key">${d.key}</span><span class="disc__tag">${d.tag}</span></div>
           <div><h3 class="disc__name">${d.name}</h3><p class="disc__desc">${d.desc}</p></div>

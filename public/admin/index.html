@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Le vestiaire — Boxing Center Portet</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+
+<!-- LOGIN — l'entrée du vestiaire -->
+<div class="login" id="login">
+  <div class="ropes" aria-hidden="true"><i></i><i></i><i></i></div>
+  <form id="loginForm">
+    <img class="lg-logo" src="/logo.png" alt="Boxing Center" />
+    <span class="lg-kicker">Boxing Center · Portet-sur-Garonne</span>
+    <h1>Le vestiaire</h1>
+    <p>Tout le site du club se gère d'ici. Entre le mot de passe du staff.</p>
+    <div class="field"><label for="token">Mot de passe</label><input type="password" id="token" autocomplete="current-password" autofocus required /></div>
+    <div class="status bad" id="loginErr" style="margin-bottom:10px"></div>
+    <button class="btn lg-btn" type="submit">Entrer</button>
+    <span class="lg-foot">Accès staff uniquement · <a href="/">← Retour au site</a></span>
+  </form>
+</div>
+
+<!-- APP — le coin du ring -->
+<div class="shell hidden" id="app">
+  <aside class="side">
+    <div class="brand">
+      <img src="/logo.png" alt="" />
+      <div><b>Boxing Center</b><span>Portet · Le vestiaire</span></div>
+    </div>
+    <div class="ropeline" aria-hidden="true"></div>
+    <nav id="nav"></nav>
+    <div class="foot">
+      <a href="/" target="_blank" rel="noopener">↗ Voir le site</a>
+      <button class="navbtn" id="tourBtn" style="margin-top:10px">Revoir le guide</button>
+      <button class="navbtn" id="logout">Se déconnecter</button>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="ptitle"><span class="kicker">Section</span><h2 id="paneTitle">Accueil</h2></div>
+      <div class="right">
+        <span class="status" id="status"></span>
+        <button class="btn ghost sm" id="preview" title="Voir le site avec tes modifications, avant de publier"><span class="bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span>Aperçu</button>
+        <button class="btn ghost sm" id="reload" title="Revenir à la dernière version publiée"><span class="bico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span>Annuler tout</button>
+        <button class="btn" id="publish">Publier</button>
+      </div>
+    </div>
+    <div class="content" id="pane"></div>
+  </div>
+</div>
+
+<script src="/admin/sortable.min.js"></script>
+<script src="/admin/tour.js"></script>
+<script src="/admin/app.js"></script>
+</body>
+</html>

@@ -9,15 +9,31 @@ import { initRouter } from "./router";
 import { initCommunity } from "./community";
 import { initChatbot } from "./chatbot/widget";
 import { injectSchema } from "./seo";
-import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, ENTRAINEURS, VALUES } from "./data";
+import { imgAttrs, initLazyBackgrounds } from "./img";
+import { liteMode } from "./net";
+import { initGuard } from "./guard";
+import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, ENTRAINEURS, VALUES, HERO } from "./data";
+
+const escHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/** Hero hook lines come from the backoffice; the last word keeps the accent tint. */
+function renderHeroHook() {
+  const hook = document.querySelector(".hero__hook");
+  if (!hook || !HERO.hookLine1) return;
+  const words = String(HERO.hookLine2 || "").trim().split(" ");
+  const last = words.pop() || "";
+  hook.innerHTML = `${escHtml(HERO.hookLine1)}<br>${escHtml(words.join(" "))} <span class="tint">${escHtml(last)}</span>`;
+}
 
 function renderHomeGrids() {
+  renderHeroHook();
   const reel = document.getElementById("reel-track");
   if (reel) {
     reel.innerHTML = DISCIPLINES.map(
       (d) => `
       <article class="reel__frame">
-        <img src="${d.img}" alt="${d.name} — Boxing Center Portet" loading="lazy" decoding="async" />
+        <img ${imgAttrs(d.img, "(max-width: 760px) 80vw, 42vw", "4:5")} alt="${d.name} — Boxing Center Portet" loading="lazy" decoding="async" />
         <span class="reel__num">${d.key} / 08</span>
         <span class="reel__tag">${d.tag}</span>
         <div class="reel__body">
@@ -85,9 +101,14 @@ function renderHomeGrids() {
 function renderMedia() {
   const gal = document.getElementById("gallery");
   if (gal) {
-    gal.innerHTML = GALLERY.map((g) => {
+    gal.innerHTML = GALLERY.map((g, i) => {
       const cls = g.span === "wide" ? "shot--wide" : g.span === "tall" ? "shot--tall" : "";
-      return `<figure class="shot ${cls}"><img src="${g.src}" alt="${g.label}" loading="lazy" decoding="async" />
+      const sizes = g.span === "wide" ? "(max-width: 760px) 100vw, 66vw" : "(max-width: 760px) 100vw, 33vw";
+      // ratio ≈ celui de la cellule (12 col × rangées fixes) → crop serveur intelligent
+      const ar = g.span === "wide" ? "16:9" : g.span === "tall" ? "4:5" : "3:2";
+      // the first shots are the page's LCP — fetch them eagerly and first
+      const prio = i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`;
+      return `<figure class="shot ${cls}"><img ${imgAttrs(g.src, sizes, ar)} alt="${g.label}" ${prio} decoding="async" />
         <figcaption class="shot__label">${g.label}</figcaption></figure>`;
     }).join("");
   }
@@ -100,7 +121,9 @@ function renderMedia() {
   }
 }
 
-const hasWebGL = "WebGLRenderingContext" in window;
+// no WebGL scenes on constrained networks (Save-Data / 2G) — the design keeps
+// its photo fallbacks; the visitor keeps their data plan.
+const hasWebGL = "WebGLRenderingContext" in window && !liteMode;
 
 function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void) {
   if (!el) return;
@@ -128,6 +151,7 @@ function bootPage() {
   else renderPage(page);
   if (page === "galerie") renderMedia();
 
+  initLazyBackgrounds();
   initPageScroll();
   initFxPage();
 
@@ -178,6 +202,15 @@ function boot() {
   bootOnce();
   bootPage();
   initRouter(bootPage);
+  if (import.meta.env.PROD) initGuard(); // anti-copie (jamais en dev)
+
+  // offline / repeat-visit cache — registered after load so it never competes
+  // with the first paint for bandwidth
+  if ("serviceWorker" in navigator && import.meta.env.PROD) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    });
+  }
 }
 
 if (document.readyState === "loading") {

@@ -8,6 +8,7 @@
 import { teardownPageScroll, scrollToTop } from "./scroll";
 import { thud, soundOn } from "./audio";
 import { applyTheme, systemTheme } from "./theme";
+import { PREVIEW } from "./data";
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let navigating = false;
@@ -32,6 +33,7 @@ export function initRouter(renderPage: () => void) {
         return;
       const url = new URL(href, location.href);
       if (url.origin !== location.origin) return;
+      if (PREVIEW) url.searchParams.set("apercu", "1"); // keep the draft preview alive across pages
       e.preventDefault();
       
       if (url.pathname === location.pathname) {
