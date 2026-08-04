@@ -30,7 +30,7 @@ const DEF_SITE = {
   group: "Boxing Center",
   city: "Portet-sur-Garonne",
   baseline: "Boxes pieds, poings, projections.",
-  claim: "La plus grande salle du groupe. 800 m² pour devenir plus fort.",
+  claim: "La salle phare du groupe. 600 m² dédiés aux sports de combat.",
   since: 2016,
   address: { street: "61 route d'Espagne", zip: "31120", city: "Portet-sur-Garonne", country: "FR", lat: 43.5236, lng: 1.4053 },
   phone: "05 62 24 46 82",
@@ -67,7 +67,7 @@ export const SITE: typeof DEF_SITE = {
 };
 
 /** Hero copy + per-page SEO (also baked into static HTML by the Vite plugin). */
-export const HERO = { hookLine1: "Ici, on ne fait pas du sport.", hookLine2: "On forge des combattants.", ...(C.hero || {}) };
+export const HERO = { hookLine1: "Ici, le sport devient une passion.", hookLine2: "La passion devient un mode de vie.", ...(C.hero || {}) };
 export const SEO = C.seo || {};
 
 export const NAV = [
@@ -75,6 +75,7 @@ export const NAV = [
   { href: "/activites/", label: "Activités" },
   { href: "/salles/", label: "Le club" },
   { href: "/coachs/", label: "Coachs" },
+  { href: "/boxeurs/", label: "Nos Boxeurs" },
   { href: "/galerie/", label: "Galerie" },
   { href: "/plannings/", label: "Planning" },
   { href: "/tarifs/", label: "Tarifs" },
@@ -135,7 +136,7 @@ export interface NetworkSalle {
 }
 
 export const NETWORK_SALLES: NetworkSalle[] = [
-  { id: "portet", name: "Boxing Center Portet-sur-Garonne", isFlagship: true, address: "61 route d'Espagne, 31120 Portet-sur-Garonne", phone: "05 62 24 46 82", phoneHref: "+33562244682", mapsUrl: "https://maps.google.com/?q=61%20route%20d'Espagne%2031120%20Portet-sur-Garonne", features: ["Le club phare", "800 m² d'espace", "Ring olympique", "Cage MMA & Cross Training"] },
+  { id: "portet", name: "Boxing Center Portet-sur-Garonne", isFlagship: true, address: "61 route d'Espagne, 31120 Portet-sur-Garonne", phone: "05 62 24 46 82", phoneHref: "+33562244682", mapsUrl: "https://maps.google.com/?q=61%20route%20d'Espagne%2031120%20Portet-sur-Garonne", features: ["Le club phare", "600 m² dédiés au combat", "Ring de boxe anglaise", "Cage MMA & prépa physique"] },
   { id: "saint-cyprien", name: "Boxing Center Saint-Cyprien", address: "11 rue Sainte-Lucie, 31300 Toulouse", phone: "05 62 24 46 82", phoneHref: "+33562244682", mapsUrl: "https://maps.google.com/?q=11%20rue%20Sainte-Lucie%2031300%20Toulouse", features: ["Proche métro République", "Espace combat complet", "Sacs de frappe", "Cardio training"] },
   { id: "minimes", name: "Boxing Center Minimes", address: "12 rue de Fenouillet, 31200 Toulouse", phone: "05 62 24 46 82", phoneHref: "+33562244682", mapsUrl: "https://maps.google.com/?q=12%20rue%20de%20Fenouillet%2031200%20Toulouse", features: ["Barrière de Paris", "Ring de boxe & cage MMA", "Tatamis de combat", "Préparation physique"] },
   { id: "balma", name: "Boxing Center Balma-Gramont", address: "8 rue Théron de Montaugé, 31200 Toulouse", phone: "05 62 24 46 82", phoneHref: "+33562244682", mapsUrl: "https://maps.google.com/?q=8%20rue%20Th%C3%A9ron%20de%20Montaug%C3%A9%2031200%20Toulouse", features: ["Proche métro Balma", "Cross training & Fitness", "Sacs de frappe", "Cours collectifs"] },

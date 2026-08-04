@@ -51,6 +51,39 @@ export function renderPage(page: string | undefined) {
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.
 
   if (page === "salles") {
+    // Slider « Le terrain » : flèches ← → sur la piste scroll-snap.
+    // Le snap mandatory casse les défilements programmés (Chromium les
+    // renvoie au point de départ) → on coupe le snap le temps d'un tween
+    // rAF vers la diapo cible, puis on le rétablit. Le doigt garde le snap.
+    const track = el("terrain-track");
+    if (track) {
+      const slides = Array.from(track.querySelectorAll<HTMLElement>(".terrain__slide"));
+      const go = (dir: number) => {
+        if (!slides.length) return;
+        const tr = track.getBoundingClientRect();
+        let idx = 0, best = Infinity;
+        slides.forEach((s, i) => {
+          const d = Math.abs(s.getBoundingClientRect().left + s.offsetWidth / 2 - (tr.left + tr.width / 2));
+          if (d < best) { best = d; idx = i; }
+        });
+        const next = slides[Math.min(slides.length - 1, Math.max(0, idx + dir))];
+        const nr = next.getBoundingClientRect();
+        const target = track.scrollLeft + (nr.left - tr.left) - (tr.width - nr.width) / 2;
+        track.style.scrollSnapType = "none";
+        const from = track.scrollLeft, delta = target - from, t0 = performance.now();
+        const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+        const tick = (now: number) => {
+          const k = Math.min(1, (now - t0) / 380);
+          track.scrollLeft = from + delta * ease(k);
+          if (k < 1) requestAnimationFrame(tick);
+          else track.style.scrollSnapType = "";
+        };
+        requestAnimationFrame(tick);
+      };
+      document.querySelector(".terrain__prev")?.addEventListener("click", () => go(-1));
+      document.querySelector(".terrain__next")?.addEventListener("click", () => go(1));
+    }
+
     const g = el("specs");
     if (g)
       g.innerHTML = SITE.surfaces

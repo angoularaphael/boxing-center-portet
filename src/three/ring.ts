@@ -103,7 +103,11 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     new THREE.MeshStandardMaterial({ map: canvasTex, roughness: 0.9, metalness: 0.05 })
   );
   floor.rotation.x = -Math.PI / 2;
-  floor.position.y = 0.02;
+  /* 0.09 et non 0.02 : le plateau (BoxGeometry h=0.12 centré à y=-0.04) a sa
+     face supérieure EXACTEMENT à +0.02 — deux surfaces coplanaires = z-fighting,
+     la toile scintillait et l'image du ring devenait illisible (vue du dessus
+     surtout). L'écart doit rester > la précision du depth buffer vue de 9.5. */
+  floor.position.y = 0.09;
   ring.add(floor);
 
   const platform = new THREE.Mesh(

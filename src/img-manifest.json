@@ -303,5 +303,292 @@
    480
   ],
   "ar": 1.1962
+ },
+ "/img/team/anakine-lemberger.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/anna-boullez-coin.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/anna-boullez-garde.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.6665
+ },
+ "/img/team/anna-boullez-sparring.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.3333
+ },
+ "/img/team/anna-boullez.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.3333
+ },
+ "/img/team/enzo-pioppo.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.75
+ },
+ "/img/team/gala-corner.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4971
+ },
+ "/img/team/gala-kick-01.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 1
+ },
+ "/img/team/gala-kick-02.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 1
+ },
+ "/img/team/gala-kick-03.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1
+ },
+ "/img/team/gala-trophee.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.668
+ },
+ "/img/team/loyna-cagniac.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.3333
+ },
+ "/img/team/marama-mercier.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/marama-training.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.3333
+ },
+ "/img/team/mourad-berraho.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.6665
+ },
+ "/img/team/pauline-re-combat.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4993
+ },
+ "/img/team/pauline-re-victoire.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.7998
+ },
+ "/img/team/pauline-re.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4971
+ },
+ "/img/team/pinto-fight-01.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 1.5126
+ },
+ "/img/team/pinto-fight-02.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.5
+ },
+ "/img/team/pinto-fight-03.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.5
+ },
+ "/img/team/pinto-savate-01.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.5
+ },
+ "/img/team/pinto-savate-02.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.2384
+ },
+ "/img/team/pinto-savate-03.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 1.5031
+ },
+ "/img/team/pinto-savate-04.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1
+ },
+ "/img/team/podium-ffboxe.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/salut-ecole-nb.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/samuel-pinto-nb.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 0.75
+ },
+ "/img/team/samuel-pinto-pesee.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.7587
+ },
+ "/img/team/samuel-pinto.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 0.75
+ },
+ "/img/team/tapia-corner.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.6665
+ },
+ "/img/team/tapia-pads-marama.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4993
+ },
+ "/img/team/tapia-ring-bw.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.6665
+ },
+ "/img/team/team-tapia-mitts.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4993
+ },
+ "/img/team/team-tapia-pads.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.4993
+ },
+ "/img/team/valentin-tapia.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.667
+ },
+ "/img/team/victoire-gala.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.5004
+ },
+ "/img/team/walkout-ecole.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.75
+ },
+ "/img/team/walkout-gala.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.667
  }
 }

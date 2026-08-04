@@ -21,9 +21,9 @@ const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Cente
 - Adresse : 61 route d'Espagne, 31120 Portet-sur-Garonne. Téléphone : 05 62 24 46 82. Email : boxingcenter31@gmail.com.
 - Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche. Accès illimité 7j/7 pour les abonnés.
 - Tarifs : Mensuel 36–44€/mois (sans engagement) ; Annuel 250–400€/an ; Enfants 280€/an.
-- Disciplines : boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training (cardio), Lady Punch (100% femmes), boxe éducative (dès 7 ans), savate / boxe française.
+- Disciplines : boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative, kick-boxing enfants/ados.
 - Coachs diplômés FFBoxe, FFKMDA, FMMAF : Dadi, Mehdi, Valentin, Brice. Du débutant au compétiteur.
-- Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Muay thaï / 20h30 Cross training ; Mar 12h30 Boxing training / 18h30 MMA / 19h30 Lady Punch ; Mer 14h Boxe éducative / 18h30 Kick / 19h30 Boxe anglaise ; Jeu 12h30 Cross / 18h30 Muay thaï / 19h30 Grappling ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Cross / 11h30 Boxing training / 12h30 Open mat.`;
+- Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Kick-boxing / 20h30 Prépa physique ; Mar 12h30 Prépa physique / 18h30 MMA / 19h30 Lady Boxing ; Mer 14h Boxe éducative / 18h30 Kick-boxing / 19h30 Boxe anglaise ; Jeu 12h30 Prépa physique / 18h30 Kick-boxing / 19h30 Grappling & JJB ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Prépa physique / 11h30 Baby boxe / 12h30 Open mat.`;
 
 /** Bloc d'infos construit depuis le contenu éditable du site (backoffice). */
 export function liveInfo() {

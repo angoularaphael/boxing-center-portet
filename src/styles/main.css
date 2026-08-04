@@ -979,12 +979,21 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .forge__head .forge__lead { display: none; } /* keep the figure clear; bio stays in the card */
   .forge__word { opacity: 0.28; }
 
-  /* ring mobile : photo de référence en vue dessus (évite les artefacts WebGL) */
+  /* ring mobile : la VRAIE photo du ring de Portet en fin de séquence.
+     L'ancien réglage zoomait à 185% dans le montage 3-vues ring-reference
+     → cadrage illisible qui « glitchait » avec la 3D. Une seule image,
+     entière, nette. */
   .ring { height: 340vh; }
   .ring__photo {
     display: block; position: absolute; inset: 0; z-index: 0;
-    background: #0a1020 url(/img/opt/ring-reference-480.webp) center 54% / 185% no-repeat;
+    background: #0a1020 url(/img/opt/gym-21-960.webp) center / cover no-repeat;
     opacity: 0; transition: opacity 0.55s var(--ease-out);
+  }
+  /* voile navy : le texte final (« 10€. Sans engagement. ») doit rester
+     lisible sur les murs clairs de la photo, sans cacher le ring */
+  .ring__photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,16,32,0.55), rgba(10,16,32,0.12) 48%, rgba(10,16,32,0.5));
   }
   .ring.is-topdown .ring__photo { opacity: 1; }
   .ring.is-topdown .ring__canvas { opacity: 0.12; transition: opacity 0.55s var(--ease-out); }
@@ -1021,3 +1030,66 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 }
 .preview-banner strong { color: #ffd166; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.78rem; }
 .preview-banner span { opacity: 0.75; }
+
+/* ===================== LE TERRAIN — slider des deux espaces =====================
+   Visite guidée demandée par le club : la salle de boxe anglaise (ring) et
+   l'espace combat (cage MMA) en défilement horizontal. Scroll-snap natif —
+   fluide au doigt comme à la molette, zéro dépendance. */
+.terrain__ctrl { display: flex; gap: 0.6rem; }
+.terrain__ctrl .icon-btn { min-width: 44px; min-height: 44px; font-size: 1.1rem; }
+.terrain__track {
+  display: flex; gap: clamp(0.8rem, 2vw, 1.4rem);
+  /* PAS de scroll-behavior:smooth ici : combiné au snap mandatory, Chromium
+     renvoie les défilements programmés à 0. Les flèches animent en rAF. */
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: clamp(1.2rem, 3vw, 2rem) max(calc((100vw - var(--wrap-w, 1200px)) / 2), 5vw);
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.terrain__track::-webkit-scrollbar { display: none; }
+.terrain__slide {
+  flex: 0 0 min(78vw, 880px); margin: 0; position: relative;
+  scroll-snap-align: center; border-radius: 14px; overflow: hidden;
+  aspect-ratio: 16 / 10; background: #0a1020;
+}
+.terrain__slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.terrain__slide figcaption {
+  position: absolute; inset: auto 0 0 0; display: flex; flex-direction: column; gap: 0.15rem;
+  padding: clamp(0.9rem, 2.5vw, 1.4rem);
+  background: linear-gradient(180deg, transparent, rgba(10, 16, 32, 0.88) 60%);
+}
+.terrain__space { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #a8b4c4; }
+.terrain__what { font-family: var(--font-display, "Oswald", sans-serif); font-size: clamp(1.1rem, 2.6vw, 1.6rem); text-transform: uppercase; color: #eef1f6; }
+@media (max-width: 640px) { .terrain__slide { flex-basis: 86vw; } }
+
+/* ===================== NOS BOXEURS — la Team Tapia =====================
+   Cartes athlètes : nom en display, palmarès en chip, bio en clair.
+   Les photos nominatives arriveront du club — jamais un visage au hasard. */
+.boxer-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: 1fr; }
+@media (min-width: 720px) { .boxer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .boxer-grid { grid-template-columns: repeat(3, 1fr); } }
+.boxer {
+  position: relative; display: flex; flex-direction: column; gap: 0.55rem;
+  padding: clamp(1.4rem, 3vw, 2rem); border-radius: 14px;
+  background: color-mix(in srgb, #0a1020 82%, transparent);
+  border: 1px solid rgba(168, 180, 196, 0.18);
+  backdrop-filter: blur(6px);
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+.boxer:hover { transform: translateY(-4px); border-color: rgba(168, 180, 196, 0.45); }
+.boxer__tag {
+  align-self: flex-start; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #eef1f6;
+  padding: 0.35em 0.75em; border-radius: 100px;
+  background: rgba(168, 180, 196, 0.16); border: 1px solid rgba(168, 180, 196, 0.35);
+}
+.boxer__name { font-family: var(--font-display, "Oswald", sans-serif); font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1; text-transform: uppercase; color: #eef1f6; margin: 0.2rem 0 0; }
+.boxer__meta { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; color: #a8b4c4; }
+.boxer__record { font-size: 0.95rem; color: #cdd3df; }
+.boxer__record strong { color: #eef1f6; }
+.boxer__bio { font-size: 0.92rem; line-height: 1.55; color: #aeb8c8; }
+
+/* photos des boxeurs — identifiées par le club, jamais un visage au hasard */
+.boxer { padding-top: 0; overflow: hidden; }
+.boxer__photo { margin: 0 calc(-1 * clamp(1.4rem, 3vw, 2rem)); }
+.boxer__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 22%; display: block; }
+.boxer__tag { margin-top: 0.9rem; }
