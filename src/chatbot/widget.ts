@@ -243,7 +243,7 @@ export function initChatbot() {
     launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
     if (!opened) {
       opened = true;
-      await botSay("Salut ! 👋 Je suis l'assistant du Boxing Center Portet. Pose-moi ta question — horaires, tarifs, disciplines, essai à 10€… ou dis-moi ce que tu cherches, je te guide.", 800);
+      await botSay("Salut ! 👋 Je suis l'assistant du Boxing Center Portet. L'offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.", 800);
       showChips();
     }
     input.focus();

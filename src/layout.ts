@@ -3,7 +3,7 @@ import { punch, tick, whoosh, setSound, soundOn } from "./audio";
 
 const svgArrow = `<svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const svgExt = `<svg class="ext" width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const SHOP = "https://boutique.boxingcenter.fr/";
+const SHOP = "https://box-plus.vercel.app/";
 const GROUP = "https://boxingcenter.fr/";
 
 function navMarkup(path: string) {
@@ -27,7 +27,7 @@ function navMarkup(path: string) {
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>
-        <a class="btn btn--primary" href="/contact/">Essai 10€ ${svgArrow}</a>
+        <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promotions" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -47,7 +47,7 @@ function navMarkup(path: string) {
     <div class="menu__foot">
       <a class="menu__ext" href="${GROUP}" target="_blank" rel="noopener">Le groupe Boxing Center ${svgExt}</a>
       <a class="menu__ext" href="${SHOP}" target="_blank" rel="noopener">Boutique ${svgExt}</a>
-      <a class="btn btn--primary" href="/contact/">Séance d'essai · 10€ ${svgArrow}</a>
+      <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promotions" target="_blank" rel="noopener">Je profite de l'offre · 29€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -60,7 +60,7 @@ function footerMarkup() {
       <div class="footer__grid">
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
-          <a class="btn btn--primary" href="/contact/">Réserver ma séance d'essai ${svgArrow}</a>
+          <a class="btn btn--primary" href="https://box-plus.vercel.app/seance-essai" target="_blank" rel="noopener">Mon essai offert ${svgArrow}</a>
         </div>
         <div>
           <h4>Le club</h4>

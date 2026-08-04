@@ -1093,3 +1093,8 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .boxer__photo { margin: 0 calc(-1 * clamp(1.4rem, 3vw, 2rem)); }
 .boxer__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 22%; display: block; }
 .boxer__tag { margin-top: 0.9rem; }
+
+/* offres : ancien prix barre + CTA par carte — le tunnel de vente sur place */
+.tarif__old { color: #7f8ca3; text-decoration: line-through; text-decoration-thickness: 2px; font-size: 0.62em; font-weight: 600; margin-right: 0.25em; vertical-align: 0.12em; }
+.tarif { display: flex; flex-direction: column; gap: 0.55rem; }
+.tarif__cta { margin-top: auto; align-self: stretch; justify-content: center; text-align: center; }

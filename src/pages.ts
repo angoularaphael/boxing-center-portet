@@ -21,12 +21,13 @@ export function renderPage(page: string | undefined) {
     const g = el("tarifs-grid");
     if (g)
       g.innerHTML = TARIFS.map(
-        (t) => `
+        (t: any) => `
         <div class="tarif ${t.feature ? "tarif--feature" : ""}" data-reveal>
-          ${t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : ""}
+          ${t.badge ? `<span class="tarif__badge">${t.badge}</span>` : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : ""}
           <span class="tarif__name">${t.name}</span>
-          <span class="tarif__price">${t.price}<small> ${t.unit}</small></span>
+          <span class="tarif__price">${t.old ? `<s class="tarif__old">${t.old}</s> ` : ""}${t.price}<small> ${t.unit}</small></span>
           <p class="tarif__note">${t.note}</p>
+          ${t.href ? `<a class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta" href="${t.href}" target="_blank" rel="noopener">${t.cta || "Je choisis cette formule"}</a>` : ""}
         </div>`
       ).join("");
   }
