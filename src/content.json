@@ -108,7 +108,7 @@
       "name": "Grappling & Jiu-Jitsu Brésilien",
       "tag": "Le sol",
       "desc": "Contrôles, passages, soumissions. Ici l'erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.",
-      "img": "/img/gym-22.jpg"
+      "img": "/img/disc/grappling.jpg"
     },
     {
       "key": "05",
@@ -122,14 +122,14 @@
       "name": "Préparation Physique",
       "tag": "Le moteur",
       "desc": "Force, cardio, explosivité. Le moteur du combattant — celui qui tient trois rounds sans baisser la garde.",
-      "img": "/img/disc/cross.webp"
+      "img": "/img/disc/prepa.jpg"
     },
     {
       "key": "07",
       "name": "Baby Boxe",
       "tag": "Les petits",
       "desc": "Motricité, confiance, respect des règles. Le premier gant, à hauteur d'enfant.",
-      "img": "/img/disc/educative.webp"
+      "img": "/img/disc/baby-boxe.jpg"
     },
     {
       "key": "08",
@@ -143,7 +143,7 @@
       "name": "Kick-Boxing Enfants / Ados",
       "tag": "La relève",
       "desc": "Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l'école de la relève.",
-      "img": "/img/disc/kick.webp"
+      "img": "/img/disc/kick-enfants.jpg"
     }
   ],
   "audiences": [
