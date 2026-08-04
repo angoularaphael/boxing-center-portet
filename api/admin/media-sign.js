@@ -5,7 +5,7 @@
 import { cloudinary, allowCors, isAdmin } from "../_lib/util.js";
 
 export default async function handler(req, res) {
-  allowCors(res);
+  allowCors(res, req);
   if (req.method === "OPTIONS") return res.status(204).end();
   if (!isAdmin(req)) return res.status(401).json({ error: "Unauthorized" });
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });

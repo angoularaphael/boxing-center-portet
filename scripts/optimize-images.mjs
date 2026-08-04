@@ -12,7 +12,7 @@ const OUT_DIR = join(ROOT, "public", "img", "opt");
 const MANIFEST = join(ROOT, "src", "img-manifest.json");
 
 const WIDTHS = [480, 960, 1440];
-const QUALITY = 78;
+const QUALITY = 84; // 78 laissait des artefacts sur les aplats navy — 84 est visuellement transparent
 // cutouts/ are WebGL textures (alpha PNG used by the 3D forge) — leave untouched.
 const SKIP_DIRS = new Set(["opt", "cutouts"]);
 const EXTS = new Set([".jpg", ".jpeg", ".png", ".webp"]);

@@ -398,18 +398,23 @@ async function renderCommunity(pane){
     list.innerHTML = "";
     if (!items.length){ list.append(el("div", { class:"empty" }, "Aucune vidéo en attente.")); return; }
     items.forEach((it) => {
-      list.append(el("div", { class:"mod-item" },
+      const when = it.createdAt ? new Date(it.createdAt).toLocaleDateString("fr-FR", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" }) : "";
+      const dur = it.duration ? ` · ${Math.round(it.duration)}s` : "";
+      const busy = (row, on) => row.querySelectorAll("button").forEach((b) => { b.disabled = on; });
+      const row = el("div", { class:"mod-item" },
         el("video", { src:it.src, controls:"", preload:"metadata" }),
         el("div", { class:"meta" }, el("div", { style:"font-weight:700" }, it.title || "(sans titre)"),
-          el("div", { class:"status" }, it.author ? ("par " + it.author) : "")),
+          el("div", { class:"status" }, [it.author ? ("par " + it.author) : "", when + dur].filter(Boolean).join(" · "))),
         el("div", { style:"display:flex;gap:8px" },
-          el("button", { class:"btn sm", onclick:async () => { await moderate(it.id, "approve"); renderSection("community"); } }, "Approuver"),
-          el("button", { class:"btn danger sm", onclick:async () => { if (confirm("Refuser et supprimer ?")){ await moderate(it.id, "reject"); renderSection("community"); } } }, "Refuser"))));
+          el("button", { class:"btn sm", onclick:async (e) => { busy(row, true); e.target.textContent = "…"; try { const r = await moderate(it.id, "approve"); if (r && r.error) alert(r.error); } finally { renderSection("community"); } } }, "Approuver"),
+          el("button", { class:"btn danger sm", onclick:async () => { if (confirm("Refuser et supprimer ?")){ busy(row, true); await moderate(it.id, "reject"); renderSection("community"); } } }, "Refuser")));
+      list.append(row);
     });
   }catch(e){ list.innerHTML = ""; list.append(el("div", { class:"empty" }, "Erreur de chargement.")); }
 }
 async function moderate(id, action){
-  await fetch(`${API}/api/community/moderate`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ id, action }) });
+  const r = await fetch(`${API}/api/community/moderate`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ id, action }) });
+  return r.json().catch(() => ({}));
 }
 
 /* ---------- 6. upload d'images (Cloudinary, signé côté serveur) ----------

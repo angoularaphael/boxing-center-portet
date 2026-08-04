@@ -7,7 +7,7 @@
 // lecture échoue : le bot ne casse jamais.
 import { readFileSync } from "fs";
 import { join } from "path";
-import { allowCors } from "./_lib/util.js";
+import { allowCors, memoryLimit, ipOf } from "./_lib/util.js";
 
 /* Faits non éditables dans le backoffice (offres, inscription, réseau…).
    LES OFFRES (source : box-plus.vercel.app, la boutique officielle) : */
@@ -142,9 +142,14 @@ async function openaiLike(url, key, model, messages, system) {
 }
 
 export default async function handler(req, res) {
-  allowCors(res);
+  allowCors(res, req);
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  const ip = ipOf(req);
+  if (!memoryLimit(`chat-m:${ip}`, 10, 60_000) || !memoryLimit(`chat-h:${ip}`, 60, 3_600_000)) {
+    return res.status(429).json({ error: "On souffle une seconde ? Réessaie dans une minute." });
+  }
 
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
   const message = String(body.message || "").slice(0, 500).trim();

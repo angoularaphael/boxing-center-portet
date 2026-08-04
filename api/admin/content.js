@@ -24,7 +24,7 @@ function gh(path, init = {}) {
 }
 
 export default async function handler(req, res) {
-  allowCors(res);
+  allowCors(res, req);
   if (req.method === "OPTIONS") return res.status(204).end();
   if (!isAdmin(req)) return res.status(401).json({ error: "Unauthorized" });
   if (!process.env.GITHUB_TOKEN) return res.status(500).json({ error: "GITHUB_TOKEN non configuré." });

@@ -14,7 +14,7 @@ const RAW = (import.meta as any).env?.VITE_COMMUNITY_API;
 const ENABLED = RAW !== "off"; // on by default (the /api functions ship with the app on Vercel)
 const API = RAW && RAW !== "off" ? RAW : ""; // "" → relative same-origin requests (/api/...)
 
-let limits = { maxUploadMb: 80, maxDurationSec: 30 };
+let limits = { maxUploadMb: 80, maxDurationSec: 15 };
 
 // First-line content guard for user-supplied names (server re-checks). FR + EN.
 const BADWORDS = [
@@ -45,7 +45,7 @@ export function initCommunity() {
   }
 
   const hint = form.querySelector<HTMLElement>(".community__hint");
-  if (hint) hint.textContent = `Vidéo (mp4/mov) · ${limits.maxUploadMb} Mo max · ${limits.maxDurationSec}s max · validée avant publication`;
+  if (hint) hint.textContent = `Vidéo (mp4/mov/webm) · ${limits.maxUploadMb} Mo max · ${limits.maxDurationSec}s max · validée avant publication`;
 
   loadItems(grid);
 }
@@ -121,10 +121,15 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
     submit.disabled = true;
     setStatus(status, "Préparation…", "info");
     try {
+      // 0) défi anti-bot : émis par le serveur, résolu ici en un clin d'œil
+      const powRes = await fetch(`${API}/api/community/sign`).then((r) => r.json()).catch(() => null);
+      const nonce = powRes?.challenge ? await solvePowC(powRes.challenge, powRes.difficulty || 4) : "";
+      const website = (form.querySelector<HTMLInputElement>('input[name="website"]')?.value || "");
+
       // 1) ask our function to validate + sign (file bytes never pass through Vercel)
       const signRes = await fetch(`${API}/api/community/sign`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, author }),
+        body: JSON.stringify({ title, author, website, pow: powRes ? { challenge: powRes.challenge, ts: powRes.ts, sig: powRes.sig, nonce } : {} }),
       });
       const sign = await signRes.json().catch(() => ({}));
       if (!signRes.ok) { submit.disabled = false; return setStatus(status, sign.error || "Envoi refusé.", "err"); }
@@ -137,13 +142,18 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
       fd.append("folder", sign.folder);
       fd.append("tags", sign.tags);
       fd.append("context", sign.context);
+      if (sign.allowedFormats) fd.append("allowed_formats", sign.allowedFormats);
+      if (sign.transformation) fd.append("transformation", sign.transformation);
       fd.append("signature", sign.signature);
 
       setStatus(status, "Envoi en cours…", "info");
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `https://api.cloudinary.com/v1_1/${sign.cloudName}/video/upload`);
       xhr.upload.onprogress = (ev) => {
-        if (bar && ev.lengthComputable) bar.style.width = `${Math.round((ev.loaded / ev.total) * 100)}%`;
+        if (!ev.lengthComputable) return;
+        const pct = Math.round((ev.loaded / ev.total) * 100);
+        if (bar) bar.style.width = `${pct}%`;
+        setStatus(status, pct < 100 ? `Envoi en cours… ${pct}%` : "Traitement de la vidéo…", "info");
       };
       xhr.onload = () => {
         submit.disabled = false;
@@ -168,6 +178,20 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
       setStatus(status, "Service indisponible pour le moment.", "err");
     }
   });
+}
+
+/* Preuve de travail : trouver un nonce tel que sha256("challenge:nonce")
+   commence par N zéros. WebCrypto, ~une fraction de seconde pour un humain. */
+async function sha256HexC(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function solvePowC(challenge: string, difficulty: number): Promise<string> {
+  const prefix = "0".repeat(difficulty);
+  for (let nonce = 0; ; nonce++) {
+    if ((await sha256HexC(`${challenge}:${nonce}`)).startsWith(prefix)) return String(nonce);
+    if (nonce % 2000 === 1999) await new Promise((r) => setTimeout(r));
+  }
 }
 
 function videoDuration(file: File): Promise<number> {
