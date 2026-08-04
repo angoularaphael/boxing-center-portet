@@ -1098,3 +1098,32 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .tarif__old { color: #7f8ca3; text-decoration: line-through; text-decoration-thickness: 2px; font-size: 0.62em; font-weight: 600; margin-right: 0.25em; vertical-align: 0.12em; }
 .tarif { display: flex; flex-direction: column; gap: 0.55rem; }
 .tarif__cta { margin-top: auto; align-self: stretch; justify-content: center; text-align: center; }
+
+/* ===================== PARTENAIRES ===================== */
+.partner-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .partner-grid { grid-template-columns: repeat(3, 1fr); } }
+.partner { display: flex; flex-direction: column; gap: 0.6rem; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 14px; background: color-mix(in srgb, #0a1020 82%, transparent); border: 1px solid rgba(168, 180, 196, 0.18); }
+.partner__logo { display: grid; place-items: center; background: #fff; border-radius: 10px; padding: 1.2rem; min-height: 150px; }
+.partner__logo img { max-width: 100%; max-height: 120px; object-fit: contain; }
+.partner__logo--link { transition: transform 0.3s ease; }
+.partner__logo--link:hover { transform: scale(1.03); }
+.partner__name { font-family: var(--font-display, "Oswald", sans-serif); font-size: 1.3rem; text-transform: uppercase; color: #eef1f6; margin-top: 0.4rem; }
+.partner__desc { font-size: 0.92rem; line-height: 1.55; color: #aeb8c8; }
+.partner__desc a { color: #cdd3df; text-decoration: underline; }
+
+/* formulaire partenariat / privatisation (Inlett) */
+.pform { display: flex; flex-direction: column; gap: 0.9rem; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 14px; background: color-mix(in srgb, #0a1020 85%, transparent); border: 1px solid rgba(168, 180, 196, 0.2); }
+.pform__row { display: grid; gap: 0.9rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .pform__row { grid-template-columns: 1fr 1fr; } }
+.pform__field { display: flex; flex-direction: column; gap: 0.35rem; }
+.pform__field span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a8b4c4; }
+.pform__field input, .pform__field select, .pform__field textarea {
+  background: rgba(238, 241, 246, 0.05); border: 1px solid rgba(168, 180, 196, 0.3); border-radius: 8px;
+  color: #eef1f6; padding: 0.7em 0.85em; font: inherit; min-height: 44px;
+}
+.pform__field textarea { resize: vertical; }
+.pform__field input:focus-visible, .pform__field select:focus-visible, .pform__field textarea:focus-visible { outline: 2px solid #a8b4c4; outline-offset: 1px; }
+.pform__field select { appearance: auto; }
+.pform__field option { color: #0a1020; }
+.pform__submit { justify-content: center; }
+.pform__status { min-height: 1.2em; font-size: 0.9rem; color: #cdd3df; }

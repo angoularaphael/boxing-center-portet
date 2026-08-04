@@ -18,12 +18,15 @@ export const QUICKS: Quick[] = [
   { label: "Inscription", q: "Comment s'inscrire ?",
     a: "Il faut : la fiche d'inscription, un certificat médical de non contre-indication à la boxe, un moyen de paiement et le badge à 34 €. Tout se fait en ligne sur box-plus.vercel.app ou directement à l'accueil." },
   { label: "Coachs", q: "Qui sont les coachs ?",
-    a: "Valentin Tapia (Head Coach boxe anglaise, gérant, formateur de champions de France), Samuel Pinto (pieds-poings, Lady Boxing, prépa — vice-champion du Monde), Enzo Pioppo (MMA & grappling — champion du Monde de lutte libre) et Mourad Berraho (boxe éducative — triple champion de France)." },
+    a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados)." },
   { label: "Essai offert", q: "Comment se passe la séance d'essai ?",
     a: "Ta première séance est offerte : toutes disciplines, matériel prêté, sans engagement. Tu viens, tu testes, tu décides. Réserve sur box-plus.vercel.app/seance-essai ou passe au club, 61 route d'Espagne." },
+  { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
+    a: "Oui ! Événement d'entreprise, team building, partenariat, collaboration : la salle (600 m²) s'ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Remplissez le formulaire sur la page Partenaires (menu « Votre projet ») ou appelez le 05 62 24 46 82." },
 ];
 
 const RULES: [RegExp, number][] = [
+  [/privatis|r[ée]serv.*salle|team ?building|partenair|sponsor|collab|entreprise|tournage|m[ée]dia/i, 8],
   [/offre|rentr[ée]e|promo|duo|bin[ôo]me|29/i, 0],
   [/tarif|prix|co[ûu]te|combien|abonn|mensuel|annuel|saison|badge|259/i, 1],
   [/horaire|ouvert|ferm|heure|dimanche/i, 2],

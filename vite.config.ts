@@ -95,6 +95,7 @@ export default defineConfig({
         salles: page("salles/index.html"),
         coachs: page("coachs/index.html"),
         boxeurs: page("boxeurs/index.html"),
+        partenaires: page("partenaires/index.html"),
         galerie: page("galerie/index.html"),
         plannings: page("plannings/index.html"),
         tarifs: page("tarifs/index.html"),

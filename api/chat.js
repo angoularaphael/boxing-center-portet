@@ -20,14 +20,16 @@ const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : box-plus.verc
 - Inscription : fiche d'inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d'accès 34€ à l'inscription (aucun autre frais). Tout se fait en ligne sur box-plus.vercel.app ou à l'accueil.
 - Équipements : salle de boxe anglaise avec ring, espace combat avec cage MMA, sacs de frappe, matériel de préparation physique, vestiaires — 600 m².
 - Réseau : 5 salles (Portet, Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis) — l'abonnement ouvre les 5.
-- Boutique officielle (abonnements, offres, matériel) : box-plus.vercel.app — Groupe : boxingcenter.fr.`;
+- Boutique officielle (abonnements, offres, matériel) : box-plus.vercel.app — Groupe : boxingcenter.fr.
+- Partenaires du club : KFC, O2 Portet-sur-Garonne, Karting 2 Muret (kartingmuret.fr).
+- PRIVATISATION & PROJETS : la salle (600 m²) peut être privatisée pour un événement, une séance de groupe/team building d'entreprise, un tournage ou une collaboration. Toute demande de ce type (réserver LA SALLE entière, partenariat, sponsor, collaboration, médias, école/association) passe par le formulaire dédié : boxing-center-portet.fr/partenaires/ (menu « Votre projet » pour préciser). Ne pas confondre avec une inscription individuelle.`;
 
 /* Repli si content.json est illisible : les mêmes infos, figées. */
 const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat, à Portet-sur-Garonne (depuis 2016).
 - Adresse : 61 route d'Espagne, 31120 Portet-sur-Garonne. Téléphone : 05 62 24 46 82. Email : boxingcenter31@gmail.com.
 - Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche.
 - Disciplines : boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative, kick-boxing enfants/ados.
-- Encadrement : Valentin Tapia (Head Coach boxe anglaise, gérant, formateur de champions de France), Samuel Pinto (pieds-poings, Lady Boxing, prépa physique — vice-champion du Monde), Enzo Pioppo (MMA & grappling — champion du Monde de lutte libre), Mourad Berraho (boxe éducative — triple champion de France).
+- Encadrement (saison 2026/2027) : Valentin Tapia (Head Coach, responsable sportif — boxe loisirs, éducative, compétiteurs), Samuel Pinto (kick boxing/K1, boxe française, Lady Boxing, kick enfants/ados, prépa physique — vice-champion d'Europe et du Monde en boxe française), Enzo Pioppo (grappling & MMA — champion du Monde), Nicolas Tramaçon (grappling & MMA — ceinture noire sol), Mourad Berraho (boxe anglaise enfants/ados — triple champion de France), Ingrid (kick boxing enfants/ados).
 - Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Kick-boxing / 20h30 Prépa physique ; Mar 12h30 Prépa physique / 18h30 MMA / 19h30 Lady Boxing ; Mer 14h Boxe éducative / 18h30 Kick-boxing / 19h30 Boxe anglaise ; Jeu 12h30 Prépa physique / 18h30 Kick-boxing / 19h30 Grappling & JJB ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Prépa physique / 11h30 Baby boxe / 12h30 Open mat.`;
 
 /** Bloc d'infos construit depuis le contenu éditable du site (backoffice). */
@@ -72,6 +74,7 @@ VENDRE (ton objectif n°1 — dans cet ordre) :
 1. L'OFFRE RENTRÉE 29 € par personne (4 semaines, sans engagement) — propose-la en PREMIER dès que la personne parle de commencer, de prix, ou d'hésitation. Formule exacte : « 29 € par personne » (jamais « 29 € pour deux »). Lien : box-plus.vercel.app/abonnements.
 2. La SAISON 259 € en 4× sans frais pour les motivés à l'année.
 3. La SÉANCE D'ESSAI OFFERTE — uniquement en DERNIER recours, si la personne hésite encore après avoir vu les offres : « ta première séance est offerte, viens tester ».
+4. CAS PARTICULIER — si la demande concerne l'ENTREPRISE ou le COLLECTIF (privatiser/réserver la salle entière, team building, séance de groupe, partenariat, sponsoring, collaboration, médias, école/association) : dirige vers le formulaire boxing-center-portet.fr/partenaires/ en expliquant qu'on y précise son projet, et propose aussi le 05 62 24 46 82. Capture quand même nom + contact.
 Donne toujours le lien ou l'étape suivante concrète (boutique en ligne, appeler le 05 62 24 46 82, passer au club).
 
 CAPTER LE CONTACT (naturellement, jamais de force) :

@@ -12,7 +12,7 @@ import { injectSchema } from "./seo";
 import { imgAttrs, initLazyBackgrounds } from "./img";
 import { liteMode } from "./net";
 import { initGuard } from "./guard";
-import { DISCIPLINES, TARIFS, GALLERY, CLIPS, AUDIENCES, ENTRAINEURS, VALUES, HERO } from "./data";
+import { DISCIPLINES, TARIFS, GALLERY, AUDIENCES, ENTRAINEURS, VALUES, HERO } from "./data";
 
 const escHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -34,7 +34,7 @@ function renderHomeGrids() {
       (d) => `
       <article class="reel__frame">
         <img ${imgAttrs(d.img, "(max-width: 760px) 80vw, 42vw", "4:5")} alt="${d.name} — Boxing Center Portet" loading="lazy" decoding="async" />
-        <span class="reel__num">${d.key} / 08</span>
+        <span class="reel__num">${d.key} / ${String(DISCIPLINES.length).padStart(2, "0")}</span>
         <span class="reel__tag">${d.tag}</span>
         <div class="reel__body">
           <h3 class="reel__name">${d.name}</h3>
@@ -46,7 +46,7 @@ function renderHomeGrids() {
 
   const disc = document.getElementById("disc-grid");
   if (disc) {
-    disc.innerHTML = DISCIPLINES.slice(0, 8)
+    disc.innerHTML = DISCIPLINES
       .map(
         (d) => `
       <article class="disc" data-reveal>
@@ -112,13 +112,6 @@ function renderMedia() {
       return `<figure class="shot ${cls}"><img ${imgAttrs(g.src, sizes, ar)} alt="${g.label}" ${prio} decoding="async" />
         <figcaption class="shot__label">${g.label}</figcaption></figure>`;
     }).join("");
-  }
-  const clips = document.getElementById("clips");
-  if (clips) {
-    clips.innerHTML = CLIPS.map(
-      (c) => `<div class="clip"><video src="${c.src}" muted loop playsinline preload="none"></video>
-        <span class="clip__label">${c.label}</span></div>`
-    ).join("");
   }
 }
 

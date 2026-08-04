@@ -76,6 +76,7 @@ export const NAV = [
   { href: "/salles/", label: "Le club" },
   { href: "/coachs/", label: "Coachs" },
   { href: "/boxeurs/", label: "Nos Boxeurs" },
+  { href: "/partenaires/", label: "Partenaires" },
   { href: "/galerie/", label: "Galerie" },
   { href: "/plannings/", label: "Planning" },
   { href: "/tarifs/", label: "Tarifs" },

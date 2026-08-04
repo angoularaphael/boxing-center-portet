@@ -290,6 +290,29 @@
   ],
   "ar": 0.8003
  },
+ "/img/partners/karting-muret.png": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 3.9088
+ },
+ "/img/partners/kfc.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.9994
+ },
+ "/img/partners/o2.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.1897
+ },
  "/img/portet-exterior.jpg": {
   "w": [
    480,
@@ -342,6 +365,41 @@
    1440
   ],
   "ar": 1.3333
+ },
+ "/img/team/cards/card-enzo-pioppo.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.7583
+ },
+ "/img/team/cards/card-mourad-ingrid.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1
+ },
+ "/img/team/cards/card-nicolas-tramacon.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.7583
+ },
+ "/img/team/cards/card-samuel-pinto.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.7583
+ },
+ "/img/team/cards/card-valentin-tapia.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.7583
  },
  "/img/team/enzo-pioppo.jpg": {
   "w": [
@@ -398,6 +456,12 @@
   ],
   "ar": 0.668
  },
+ "/img/team/ingrid.jpg": {
+  "w": [
+   439
+  ],
+  "ar": 0.8978
+ },
  "/img/team/loyna-cagniac.jpg": {
   "w": [
    480,
@@ -428,6 +492,18 @@
    960
   ],
   "ar": 0.6665
+ },
+ "/img/team/mourad-card.jpg": {
+  "w": [
+   438
+  ],
+  "ar": 0.8957
+ },
+ "/img/team/nicolas-tramacon.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 0.6628
  },
  "/img/team/pauline-re-combat.jpg": {
   "w": [
@@ -518,6 +594,12 @@
   ],
   "ar": 0.75
  },
+ "/img/team/samuel-pinto-card.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 0.7329
+ },
  "/img/team/samuel-pinto-nb.jpg": {
   "w": [
    480
@@ -574,6 +656,12 @@
    1440
   ],
   "ar": 1.4993
+ },
+ "/img/team/valentin-tapia-card.jpg": {
+  "w": [
+   480
+  ],
+  "ar": 0.6319
  },
  "/img/team/valentin-tapia.jpg": {
   "w": [

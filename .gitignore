@@ -27,3 +27,6 @@ _*.mjs
 
 # Claude Code local (permissions personnelles)
 .claude/settings.local.json
+
+# Recherche interne (copywriting, veille)
+.research/

@@ -3,6 +3,59 @@ import { optUrl } from "./img";
 
 const el = (id: string) => document.getElementById(id);
 
+/* ---------- Formulaire partenaires (Inlett) ----------
+   Contrat du service (inlett.vercel.app/docs) : GET /api/challenge →
+   résoudre la preuve de travail (sha256("challenge:nonce") commençant par
+   N zéros) → POST /api/submit/{FORM_ID} avec les champs + pow_* + _gotcha
+   (pot de miel, vide pour un humain). Coût humain : un clignement d'œil. */
+const INLETT_URL = "https://inlett.vercel.app";
+const INLETT_FORM_ID = "612111d6-abe5-45a7-bee7-e524d1d870d9";
+
+async function sha256Hex(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function solvePow(challenge: string, difficulty: number): Promise<string> {
+  const prefix = "0".repeat(difficulty);
+  for (let nonce = 0; ; nonce++) {
+    if ((await sha256Hex(`${challenge}:${nonce}`)).startsWith(prefix)) return String(nonce);
+    if (nonce % 2000 === 1999) await new Promise((r) => setTimeout(r)); // ne fige jamais l'UI
+  }
+}
+function initPartnerForm() {
+  const form = document.getElementById("partner-form") as HTMLFormElement | null;
+  const status = document.getElementById("pform-status");
+  if (!form || !status) return;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const btn = form.querySelector<HTMLButtonElement>(".pform__submit");
+    if (btn) btn.disabled = true;
+    status.textContent = "Envoi en cours…";
+    try {
+      const ch = await (await fetch(`${INLETT_URL}/api/challenge`)).json();
+      const nonce = await solvePow(ch.challenge, ch.difficulty);
+      const fd = new FormData(form);
+      const payload: Record<string, string> = { _lang: "fr" };
+      fd.forEach((v, k) => (payload[k] = String(v)));
+      payload.pow_challenge = ch.challenge;
+      payload.pow_timestamp = String(ch.timestamp);
+      payload.pow_nonce = nonce;
+      const r = await fetch(`${INLETT_URL}/api/submit/${INLETT_FORM_ID}`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error((j as any).error || "envoi refusé");
+      form.reset();
+      status.textContent = "C'est envoyé ! On vous répond très vite — merci pour votre confiance. 🥊";
+    } catch {
+      status.textContent = "L'envoi n'est pas passé. Réessayez dans un instant, ou appelez-nous au 05 62 24 46 82.";
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  });
+}
+
 export function renderPage(page: string | undefined) {
   if (page === "activites") {
     const g = el("act-grid");
@@ -50,6 +103,8 @@ export function renderPage(page: string | undefined) {
   }
 
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.
+
+  if (page === "partenaires") initPartnerForm();
 
   if (page === "salles") {
     // Slider « Le terrain » : flèches ← → sur la piste scroll-snap.
