@@ -7,6 +7,12 @@
  * le HTML complet.
  */
 export function initGuard(): void {
+  // Injection CSS pour interdire la sélection de texte/images sur les <img>
+  const style = document.createElement("style");
+  style.textContent =
+    "img { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }";
+  document.head.appendChild(style);
+
   // champs de formulaire, liens tel/mail : le clic droit reste naturel
   const interactive = (t: EventTarget | null) =>
     t instanceof Element && !!t.closest("input, textarea, select, a[href^='tel:'], a[href^='mailto:']");
@@ -24,9 +30,15 @@ export function initGuard(): void {
     const blocked =
       e.key === "F12" ||
       (e.ctrlKey && !e.shiftKey && (k === "u" || k === "s")) || // source / enregistrer
-      (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")); // devtools
+      (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c" || k === "s")); // devtools / enregistrer sous
     if (blocked) e.preventDefault();
   });
+
+  /* PAS de console.clear en boucle, pas de piège debugger, pas de blocage
+     d'impression, pas de flash blanc sur PrintScreen : ces gadgets punissent
+     les vrais visiteurs (et gèlent la page DevTools ouverts) sans arrêter
+     personne de déterminé. La protection reste : clic droit, raccourcis
+     source/enregistrer, images non sélectionnables. */
 
   console.log(
     "%c🥊 Boxing Center Portet",

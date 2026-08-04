@@ -387,7 +387,7 @@ function renderDashboard(pane){
 
 /* modération communauté */
 async function renderCommunity(pane){
-  pane.append(el("p", { class:"sec-intro" }, "Valide ou refuse les vidéos envoyées par les membres avant qu'elles n'apparaissent sur le site."));
+  pane.append(el("p", { class:"sec-intro" }, "Valide ou refuse les photos et vidéos envoyées par les membres avant qu'elles n'apparaissent sur le site."));
   if (DEV_MODE){ pane.append(el("div", { class:"empty" }, "Mode local — la modération ne marche qu'en ligne.")); return; }
   const list = el("div"); pane.append(list);
   list.append(el("p", { class:"status" }, "Chargement…"));
@@ -396,24 +396,27 @@ async function renderCommunity(pane){
     if (r.status === 401) return logout();
     const j = await r.json(); const items = j.items || [];
     list.innerHTML = "";
-    if (!items.length){ list.append(el("div", { class:"empty" }, "Aucune vidéo en attente.")); return; }
+    if (!items.length){ list.append(el("div", { class:"empty" }, "Rien en attente. Tout est à jour.")); return; }
     items.forEach((it) => {
       const when = it.createdAt ? new Date(it.createdAt).toLocaleDateString("fr-FR", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" }) : "";
       const dur = it.duration ? ` · ${Math.round(it.duration)}s` : "";
       const busy = (row, on) => row.querySelectorAll("button").forEach((b) => { b.disabled = on; });
+      const media = it.rtype === "image"
+        ? el("img", { src:it.src, alt:it.title || "", loading:"lazy", style:"max-width:220px;border-radius:8px" })
+        : el("video", { src:it.src, controls:"", preload:"metadata" });
       const row = el("div", { class:"mod-item" },
-        el("video", { src:it.src, controls:"", preload:"metadata" }),
+        media,
         el("div", { class:"meta" }, el("div", { style:"font-weight:700" }, it.title || "(sans titre)"),
           el("div", { class:"status" }, [it.author ? ("par " + it.author) : "", when + dur].filter(Boolean).join(" · "))),
         el("div", { style:"display:flex;gap:8px" },
-          el("button", { class:"btn sm", onclick:async (e) => { busy(row, true); e.target.textContent = "…"; try { const r = await moderate(it.id, "approve"); if (r && r.error) alert(r.error); } finally { renderSection("community"); } } }, "Approuver"),
-          el("button", { class:"btn danger sm", onclick:async () => { if (confirm("Refuser et supprimer ?")){ busy(row, true); await moderate(it.id, "reject"); renderSection("community"); } } }, "Refuser")));
+          el("button", { class:"btn sm", onclick:async (e) => { busy(row, true); e.target.textContent = "…"; try { const r = await moderate(it.id, "approve", it.rtype); if (r && r.error) alert(r.error); } finally { renderSection("community"); } } }, "Approuver"),
+          el("button", { class:"btn danger sm", onclick:async () => { if (confirm("Refuser et supprimer ?")){ busy(row, true); await moderate(it.id, "reject", it.rtype); renderSection("community"); } } }, "Refuser")));
       list.append(row);
     });
   }catch(e){ list.innerHTML = ""; list.append(el("div", { class:"empty" }, "Erreur de chargement.")); }
 }
-async function moderate(id, action){
-  const r = await fetch(`${API}/api/community/moderate`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ id, action }) });
+async function moderate(id, action, rtype){
+  const r = await fetch(`${API}/api/community/moderate`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ id, action, rtype }) });
   return r.json().catch(() => ({}));
 }
 

@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   }
   try {
     const r = await cloudinary.search
-      .expression(`folder:${FOLDER} AND resource_type:video AND tags=pending`)
+      .expression(`folder:${FOLDER} AND tags=pending`)
       .with_field("context").sort_by("created_at", "asc").max_results(60).execute();
     res.status(200).json({ items: (r.resources || []).map(publicItem) });
   } catch (e) {

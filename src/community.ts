@@ -45,7 +45,7 @@ export function initCommunity() {
   }
 
   const hint = form.querySelector<HTMLElement>(".community__hint");
-  if (hint) hint.textContent = `Vidéo (mp4/mov/webm) · ${limits.maxUploadMb} Mo max · ${limits.maxDurationSec}s max · validée avant publication`;
+  if (hint) hint.textContent = `Photo ou vidéo · ${limits.maxUploadMb} Mo max · vidéo ${limits.maxDurationSec}s max · validée avant publication`;
 
   loadItems(grid);
 }
@@ -61,13 +61,13 @@ async function loadItems(grid: HTMLElement) {
     }
     const abs = (u: string) => (/^https?:/.test(u) ? u : `${API}${u}`); // Cloudinary URLs are absolute
     grid.innerHTML = items
-      .map(
-        (it: any) => `
-        <figure class="clip community__item">
-          <video src="${abs(it.src)}" poster="${abs(it.poster || "")}" muted loop playsinline preload="none"></video>
-          <figcaption class="clip__label">${escapeHtml(it.title || it.caption || "Communauté")}${it.author ? ` · ${escapeHtml(it.author)}` : ""}</figcaption>
-        </figure>`
-      )
+      .map((it: any) => {
+        const cap = `<figcaption class="clip__label">${escapeHtml(it.title || it.caption || "Communauté")}${it.author ? ` · ${escapeHtml(it.author)}` : ""}</figcaption>`;
+        const media = it.rtype === "image"
+          ? `<img src="${abs(it.src)}" alt="${escapeHtml(it.title || "Communauté")}" loading="lazy" decoding="async" />`
+          : `<video src="${abs(it.src)}" poster="${abs(it.poster || "")}" muted loop playsinline preload="none"></video>`;
+        return `<figure class="clip community__item">${media}${cap}</figure>`;
+      })
       .join("");
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -97,26 +97,41 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
   const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
   const bar = form.querySelector<HTMLElement>(".community__bar > i");
 
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    const hint = form.querySelector<HTMLElement>('.community__hint');
+    if (hint && file) {
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      hint.textContent = `✓ ${file.name} (${sizeMb} Mo)`;
+      hint.style.color = 'var(--accent)';
+    } else if (hint) {
+      hint.textContent = 'Photo ou vidéo · validée avant publication';
+      hint.style.color = '';
+    }
+  });
+
   const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!ENABLED) return setStatus(status, "La mise en ligne ouvre très bientôt — reviens vite.", "info");
     const title = (titleInput?.value || "").trim();
-    if (title.length < 2) return setStatus(status, "Donne un nom à ta vidéo.", "err");
+    if (title.length < 2) return setStatus(status, "Donne un nom à ta photo ou vidéo.", "err");
     if (isInappropriate(title)) return setStatus(status, "Ce nom n'est pas autorisé. Choisis-en un autre.", "err");
     const author = (form.querySelector<HTMLInputElement>('input[name="author"]')?.value || "").trim();
     if (author && isInappropriate(author)) return setStatus(status, "Ce prénom n'est pas autorisé.", "err");
     const file = fileInput.files?.[0];
-    if (!file) return setStatus(status, "Choisis une vidéo d'abord.", "err");
+    if (!file) return setStatus(status, "Choisis une photo ou une vidéo d'abord.", "err");
 
-    if (!file.type.startsWith("video/")) return setStatus(status, "Le fichier doit être une vidéo.", "err");
+    if (!file.type.startsWith("video/") && !file.type.startsWith("image/")) return setStatus(status, "Le fichier doit être une photo ou une vidéo.", "err");
     if (file.size > limits.maxUploadMb * 1024 * 1024)
       return setStatus(status, `Trop lourd (max ${limits.maxUploadMb} Mo).`, "err");
 
-    const dur = await videoDuration(file).catch(() => 0);
-    if (dur && dur > limits.maxDurationSec + 1)
-      return setStatus(status, `Trop longue (max ${limits.maxDurationSec}s) — elle sera coupée à l'envoi.`, "warn");
+    if (file.type.startsWith("video/")) {
+      const dur = await videoDuration(file).catch(() => 0);
+      if (dur && dur > limits.maxDurationSec + 1)
+        return setStatus(status, `Trop longue (max ${limits.maxDurationSec}s) — elle sera coupée à l'envoi.`, "warn");
+    }
 
     submit.disabled = true;
     setStatus(status, "Préparation…", "info");
@@ -125,11 +140,12 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
       const powRes = await fetch(`${API}/api/community/sign`).then((r) => r.json()).catch(() => null);
       const nonce = powRes?.challenge ? await solvePowC(powRes.challenge, powRes.difficulty || 4) : "";
       const website = (form.querySelector<HTMLInputElement>('input[name="website"]')?.value || "");
+      const kind = file.type.startsWith("image/") ? "image" : "video";
 
       // 1) ask our function to validate + sign (file bytes never pass through Vercel)
       const signRes = await fetch(`${API}/api/community/sign`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, author, website, pow: powRes ? { challenge: powRes.challenge, ts: powRes.ts, sig: powRes.sig, nonce } : {} }),
+        body: JSON.stringify({ title, author, website, kind, pow: powRes ? { challenge: powRes.challenge, ts: powRes.ts, sig: powRes.sig, nonce } : {} }),
       });
       const sign = await signRes.json().catch(() => ({}));
       if (!signRes.ok) { submit.disabled = false; return setStatus(status, sign.error || "Envoi refusé.", "err"); }
@@ -148,18 +164,18 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
 
       setStatus(status, "Envoi en cours…", "info");
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", `https://api.cloudinary.com/v1_1/${sign.cloudName}/video/upload`);
+      xhr.open("POST", `https://api.cloudinary.com/v1_1/${sign.cloudName}/${sign.resourceType || kind}/upload`);
       xhr.upload.onprogress = (ev) => {
         if (!ev.lengthComputable) return;
         const pct = Math.round((ev.loaded / ev.total) * 100);
         if (bar) bar.style.width = `${pct}%`;
-        setStatus(status, pct < 100 ? `Envoi en cours… ${pct}%` : "Traitement de la vidéo…", "info");
+        setStatus(status, pct < 100 ? `Envoi en cours… ${pct}%` : "Traitement en cours…", "info");
       };
       xhr.onload = () => {
         submit.disabled = false;
         if (bar) bar.style.width = "0%";
         if (xhr.status >= 200 && xhr.status < 300) {
-          setStatus(status, "Merci ! Ta vidéo sera publiée après validation.", "ok");
+          setStatus(status, "Merci ! Ta publication apparaîtra après validation.", "ok");
           form.reset();
           if (soundOn()) punch();
         } else {

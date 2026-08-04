@@ -97,11 +97,14 @@ export function memoryLimit(key, max, windowMs) {
   return true;
 }
 
-/** Map a Cloudinary video resource → the public item shape the site expects. */
+/** Map a Cloudinary resource (photo OU vidéo) → the public item shape. */
 export function publicItem(r) {
   const id = r.public_id;
+  const rtype = r.resource_type === "image" ? "image" : "video";
   const ctx = (r.context && (r.context.custom || r.context)) || {};
-  const src = cloudinary.url(id, { resource_type: "video", secure: true, transformation: [{ quality: "auto" }] });
-  const poster = cloudinary.url(id, { resource_type: "video", format: "jpg", secure: true, transformation: [{ quality: "auto", fetch_format: "auto" }] });
-  return { id, title: ctx.title || "", author: ctx.author || "", src, poster, createdAt: r.created_at, duration: r.duration };
+  const src = cloudinary.url(id, { resource_type: rtype, secure: true, transformation: [{ quality: "auto", fetch_format: "auto" }] });
+  const poster = rtype === "video"
+    ? cloudinary.url(id, { resource_type: "video", format: "jpg", secure: true, transformation: [{ quality: "auto", fetch_format: "auto" }] })
+    : src;
+  return { id, rtype, title: ctx.title || "", author: ctx.author || "", src, poster, createdAt: r.created_at, duration: r.duration };
 }

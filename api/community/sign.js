@@ -69,20 +69,19 @@ export default async function handler(req, res) {
 
   const timestamp = Math.round(Date.now() / 1000);
   const context = `title=${t.value}|author=${a.value}|ip=${ip}`;
-  const paramsToSign = {
-    allowed_formats: "mp4,mov,webm",
-    context,
-    folder: FOLDER,
-    tags: "pending",
-    timestamp,
-    transformation: "du_16", // Cloudinary TRONQUE à 16 s — la limite ne dépend plus du client
-  };
+  // Photo OU vidéo : chaque type a ses formats autorisés, signés — et la
+  // vidéo reste TRONQUÉE à 16 s par Cloudinary (indépendant du client).
+  const isImage = body.kind === "image";
+  const allowed = isImage ? "jpg,jpeg,png,webp" : "mp4,mov,webm";
+  const paramsToSign = { allowed_formats: allowed, context, folder: FOLDER, tags: "pending", timestamp };
+  if (!isImage) paramsToSign.transformation = "du_16";
   const signature = cloudinary.utils.api_sign_request(paramsToSign, cloudinary.config().api_secret);
 
   res.status(200).json({
     cloudName: cloudinary.config().cloud_name,
     apiKey: cloudinary.config().api_key,
     timestamp, folder: FOLDER, tags: "pending", context, signature,
-    allowedFormats: "mp4,mov,webm", transformation: "du_16",
+    allowedFormats: allowed, transformation: isImage ? "" : "du_16",
+    resourceType: isImage ? "image" : "video",
   });
 }

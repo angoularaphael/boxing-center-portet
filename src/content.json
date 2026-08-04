@@ -87,63 +87,63 @@
       "name": "Boxe Anglaise",
       "tag": "Poings",
       "desc": "Le noble art. Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round.",
-      "img": "/img/disc/boxe-anglaise.webp"
+      "img": "/img/disc/boxe-anglaise-bc.jpg"
     },
     {
       "key": "02",
       "name": "Kick-Boxing",
       "tag": "Pieds-poings",
       "desc": "Le tempo le plus électrique du ring. Pieds-poings, cardio et précision — chacun à son rythme, du premier cours au plateau.",
-      "img": "/img/disc/kick.webp"
+      "img": "/img/disc/kick-bc.jpg"
     },
     {
       "key": "03",
       "name": "MMA",
       "tag": "La cage",
       "desc": "Debout, au sol, dans la cage. L'art complet du combat — encadré, progressif, sans ego. Débutants bienvenus.",
-      "img": "/img/disc/mma.webp"
+      "img": "/img/disc/mma-bc.jpg"
     },
     {
       "key": "04",
       "name": "Grappling & Jiu-Jitsu Brésilien",
       "tag": "Le sol",
       "desc": "Contrôles, passages, soumissions. Ici l'erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.",
-      "img": "/img/disc/grappling.jpg"
+      "img": "/img/disc/grappling-bc.jpg"
     },
     {
       "key": "05",
       "name": "Lady Boxing",
       "tag": "100% femmes",
       "desc": "Un créneau, une communauté, zéro complexe. La force et la confiance, à ton rythme.",
-      "img": "/img/disc/lady.webp"
+      "img": "/img/disc/lady-bc.jpg"
     },
     {
       "key": "06",
       "name": "Préparation Physique",
       "tag": "Le moteur",
       "desc": "Force, cardio, explosivité. Le moteur du combattant — celui qui tient trois rounds sans baisser la garde.",
-      "img": "/img/disc/prepa.jpg"
+      "img": "/img/disc/prepa-bc.jpg"
     },
     {
       "key": "07",
       "name": "Baby Boxe",
       "tag": "Les petits",
       "desc": "Motricité, confiance, respect des règles. Le premier gant, à hauteur d'enfant.",
-      "img": "/img/disc/baby-boxe.jpg"
+      "img": "/img/disc/baby-boxe-bc.jpg"
     },
     {
       "key": "08",
       "name": "Boxe Éducative",
       "tag": "Dès 7 ans",
       "desc": "Respect, discipline, énergie canalisée. Le ring qui construit des enfants debout.",
-      "img": "/img/disc/educative.webp"
+      "img": "/img/disc/educative-bc.jpg"
     },
     {
       "key": "09",
       "name": "Kick-Boxing Enfants / Ados",
       "tag": "La relève",
       "desc": "Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l'école de la relève.",
-      "img": "/img/disc/kick-enfants.jpg"
+      "img": "/img/disc/kick-enfants-bc.jpg"
     }
   ],
   "audiences": [
@@ -178,7 +178,7 @@
       "name": "Valentin Tapia",
       "role": "Head Coach · Responsable sportif — Boxe Loisirs · Éducative · Compétiteurs",
       "kind": "Head Coach",
-      "img": "/img/team/valentin-tapia.jpg",
+      "img": "/img/team/cards/card-valentin-tapia.jpg",
       "initials": "VT",
       "desc": "Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l'Équipe de France. Du débutant au compétiteur, il accompagne chacun avec la même exigence. « Le talent te fait commencer. L'exigence te fait gagner. »"
     },
@@ -186,7 +186,7 @@
       "name": "Samuel Pinto",
       "role": "Kick Boxing / K1 · Boxe Française · Lady Boxing · Kick Enfants/Ados · Prépa Physique",
       "kind": "Coach",
-      "img": "/img/team/samuel-pinto-card.jpg",
+      "img": "/img/team/cards/card-samuel-pinto.jpg",
       "initials": "SP",
       "desc": "Double licence STAPS. Vice-champion d'Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensemble, on va plus loin, on va plus haut. »"
     },
@@ -194,7 +194,7 @@
       "name": "Enzo Pioppo",
       "role": "Grappling & MMA",
       "kind": "Coach",
-      "img": "/img/team/enzo-pioppo.jpg",
+      "img": "/img/team/cards/card-enzo-pioppo.jpg",
       "initials": "EP",
       "desc": "BMF 2 Pancrace, ceinture noire de Luta Livre. Champion de France, vice-champion d'Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l'écoute — il te rend plus fort, plus complet, plus confiant."
     },
@@ -202,7 +202,7 @@
       "name": "Nicolas Tramaçon",
       "role": "Grappling & MMA",
       "kind": "Coach",
-      "img": "/img/team/nicolas-tramacon.jpg",
+      "img": "/img/team/cards/card-nicolas-tramacon.jpg",
       "initials": "NT",
       "desc": "BPJEPS sport de contact, ceinture noire sol. Technicien rigoureux, compétiteur dans l'âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage."
     },
@@ -210,7 +210,7 @@
       "name": "Mourad Berraho",
       "role": "Boxe Anglaise Enfants / Ados",
       "kind": "Coach",
-      "img": "/img/team/mourad-card.jpg",
+      "img": "/img/team/cards/card-mourad-ingrid.jpg",
       "initials": "MB",
       "desc": "Triple champion de France, membre de l'Équipe de France — formé ici, par Valentin Tapia. Il accompagne vos enfants pour les aider à devenir meilleurs, dans le sport comme dans la vie."
     },
@@ -218,7 +218,7 @@
       "name": "Ingrid",
       "role": "Kick Boxing Enfants / Ados",
       "kind": "Coach",
-      "img": "/img/team/ingrid.jpg",
+      "img": "/img/team/cards/card-mourad-ingrid.jpg",
       "initials": "IN",
       "desc": "Expérience et passion au service des plus jeunes : technique, cadre et confiance. Avec Mourad, Valentin et Samuel, elle accompagne vos enfants dans le sport comme dans la vie."
     }
@@ -261,7 +261,7 @@
       "name": "Saison · 12 mois",
       "price": "259€",
       "unit": "l'année · 4× sans frais",
-      "old": "539,88€",
+      "old": "400€",
       "badge": "4× sans frais",
       "note": "Douze mois d'illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L'engagement des passionnés.",
       "feature": false,
@@ -423,56 +423,51 @@
     }
   ],
   "gallery": [
-    {
-      "src": "/img/gym-21.jpg",
-      "label": "Le ring",
-      "span": "wide"
-    },
-    {
-      "src": "/img/team/team-tapia-pads.jpg",
-      "label": "Aux pattes d'ours — Team Tapia",
-      "span": "tall"
-    },
-    {
-      "src": "/img/gym-24.jpg",
-      "label": "La cage MMA",
-      "span": ""
-    },
-    {
-      "src": "/img/team/podium-ffboxe.jpg",
-      "label": "Champions de France — le podium",
-      "span": ""
-    },
-    {
-      "src": "/img/team/gala-trophee.jpg",
-      "label": "Pauline Re — soir de gala",
-      "span": ""
-    },
-    {
-      "src": "/img/team/enzo-pioppo2.jpeg",
-      "label": "Enzo Pioppo — champion du Monde",
-      "span": ""
-    },
-    {
-      "src": "/img/team/walkout-gala.jpg",
-      "label": "Le walk-out, soir de gala",
-      "span": "tall"
-    },
-    {
-      "src": "/img/gym-22.jpg",
-      "label": "Les tatamis — grappling & JJB",
-      "span": ""
-    },
-    {
-      "src": "/img/team/anna-boullez-sparring.jpg",
-      "label": "Anna Boullez au travail",
-      "span": ""
-    },
-    {
-      "src": "/img/gym-25.jpg",
-      "label": "600 m² — deux espaces",
-      "span": ""
-    }
+    { "src": "/img/gym-21.jpg", "label": "Le ring de boxe anglaise", "span": "wide" },
+    { "src": "/img/team/team-tapia-pads.jpg", "label": "Aux pattes d'ours — Team Tapia", "span": "tall" },
+    { "src": "/img/gym-24.jpg", "label": "La cage MMA", "span": "" },
+    { "src": "/img/team/podium-ffboxe.jpg", "label": "Champions de France — le podium", "span": "" },
+    { "src": "/img/team/gala-trophee.jpg", "label": "Pauline Re — soir de gala", "span": "" },
+    { "src": "/img/team/enzo-pioppo2.jpeg", "label": "Enzo Pioppo — champion du Monde", "span": "" },
+    { "src": "/img/team/walkout-gala.jpg", "label": "Le walk-out, soir de gala", "span": "tall" },
+    { "src": "/img/gym-22.jpg", "label": "Les tatamis — grappling & JJB", "span": "" },
+    { "src": "/img/team/anna-boullez-sparring.jpg", "label": "Anna Boullez au travail", "span": "" },
+    { "src": "/img/gym-25.jpg", "label": "600 m² — deux espaces", "span": "" },
+    { "src": "/img/gym-01.jpg", "label": "L'entrée du club", "span": "" },
+    { "src": "/img/team/victoire-gala.jpg", "label": "Victoire en gala", "span": "wide" },
+    { "src": "/img/gym-02.jpg", "label": "La salle en plein entraînement", "span": "" },
+    { "src": "/img/team/gala-corner.jpg", "label": "Le coin de gala", "span": "" },
+    { "src": "/img/gym-03.jpg", "label": "Les sacs Metal Boxe", "span": "tall" },
+    { "src": "/img/team/tapia-corner.jpg", "label": "Valentin Tapia dans le coin", "span": "" },
+    { "src": "/img/gym-04.jpg", "label": "L'espace de prépa physique", "span": "" },
+    { "src": "/img/team/gala-kick-01.jpg", "label": "Gala — high kick", "span": "" },
+    { "src": "/img/team/gala-kick-02.jpg", "label": "Gala — combination", "span": "" },
+    { "src": "/img/gym-05.jpg", "label": "Entraînement au sac", "span": "" },
+    { "src": "/img/team/pauline-re-combat.jpg", "label": "Pauline Re en combat", "span": "wide" },
+    { "src": "/img/gym-06.jpg", "label": "Le ring vu de l'extérieur", "span": "tall" },
+    { "src": "/img/team/tapia-pads-marama.jpg", "label": "Tapia aux pads avec Marama", "span": "" },
+    { "src": "/img/team/anna-boullez-coin.jpg", "label": "Anna Boullez — coin de ring", "span": "" },
+    { "src": "/img/gym-07.jpg", "label": "L'ambiance du club", "span": "" },
+    { "src": "/img/team/pauline-re-victoire.jpg", "label": "Pauline Re — victoire", "span": "" },
+    { "src": "/img/gym-08.jpg", "label": "Zone de combat au sol", "span": "" },
+    { "src": "/img/team/pinto-savate-01.jpg", "label": "Samuel Pinto — savate", "span": "" },
+    { "src": "/img/team/marama-training.jpg", "label": "Marama Mercier à l'entraînement", "span": "wide" },
+    { "src": "/img/gym-09.jpg", "label": "Détail du ring", "span": "" },
+    { "src": "/img/team/salut-ecole-nb.jpg", "label": "Le salut — école de boxe", "span": "tall" },
+    { "src": "/img/gym-10.jpg", "label": "Le matériel d'entraînement", "span": "" },
+    { "src": "/img/team/pinto-fight-02.jpg", "label": "Samuel Pinto en combat", "span": "" },
+    { "src": "/img/team/gala-kick-03.jpg", "label": "Gala — mise au sol", "span": "" },
+    { "src": "/img/gym-11.jpg", "label": "Les gants suspendus", "span": "" },
+    { "src": "/img/team/walkout-ecole.jpg", "label": "Walk-out — école de boxe", "span": "wide" },
+    { "src": "/img/team/loyna-cagniac.jpg", "label": "Loyna Cagniac", "span": "" },
+    { "src": "/img/gym-12.jpg", "label": "Vue d'ensemble", "span": "" },
+    { "src": "/img/team/team-tapia-mitts.jpg", "label": "Team Tapia aux mitaines", "span": "" },
+    { "src": "/img/team/mourad-berraho.jpg", "label": "Mourad Berraho", "span": "" },
+    { "src": "/img/gym-13.jpg", "label": "Les cordes du ring", "span": "tall" },
+    { "src": "/img/team/anna-boullez-garde.jpg", "label": "Anna Boullez — en garde", "span": "" },
+    { "src": "/img/gym-14.jpg", "label": "Le mur de sacs", "span": "" },
+    { "src": "/img/team/pinto-savate-02.jpg", "label": "Pinto — boxe française", "span": "" },
+    { "src": "/img/gym-15.jpg", "label": "L'espace de travail", "span": "" }
   ],
   "seo": {
     "home": {

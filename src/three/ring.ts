@@ -84,8 +84,23 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   let canvasTex: THREE.Texture;
   let apronTex: THREE.Texture;
   try {
-    const ref = await loadImg("/img/ring-reference.png");
-    canvasTex = cropTex(ref, 0.52, 0.52, 0.46, 0.46);
+    const [ref, logo] = await Promise.all([
+      loadImg("/img/ring-reference.png"),
+      loadImg("/img/karting-mat.png"), // logo détouré (fond plaque supprimé)
+    ]);
+    /* Toile composée : navy du vrai tapis + logo Karting 2 Muret net, centré.
+       Cropper le montage basse définition étirait et floutait le logo — ici
+       il reste lisible plein cadre sous la caméra finale vue du dessus. */
+    const c = document.createElement("canvas");
+    c.width = c.height = 1024;
+    const cx = c.getContext("2d")!;
+    cx.fillStyle = "#1f2b4c";
+    cx.fillRect(0, 0, 1024, 1024);
+    const lw = 1024 * 0.8;
+    const lh = lw * (logo.naturalHeight / logo.naturalWidth);
+    cx.drawImage(logo, (1024 - lw) / 2, (1024 - lh) / 2, lw, lh);
+    canvasTex = new THREE.CanvasTexture(c);
+    canvasTex.colorSpace = THREE.SRGBColorSpace;
     apronTex = cropTex(ref, 0.02, 0.52, 0.46, 0.46);
   } catch {
     canvasTex = new THREE.CanvasTexture(solidCanvas(NAVY));
@@ -95,12 +110,12 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     tex.minFilter = THREE.LinearFilter;
     tex.magFilter = THREE.LinearFilter;
     tex.generateMipmaps = false;
-    tex.anisotropy = mobile ? 2 : 4;
+    tex.anisotropy = mobile ? 8 : 16; // le logo de la toile reste net vu en biais
   });
 
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(S * 2, S * 2),
-    new THREE.MeshStandardMaterial({ map: canvasTex, roughness: 0.9, metalness: 0.05 })
+    new THREE.MeshStandardMaterial({ map: canvasTex, roughness: 0.75, metalness: 0.08, emissive: new THREE.Color('#182848'), emissiveIntensity: 0.15 })
   );
   floor.rotation.x = -Math.PI / 2;
   /* 0.09 et non 0.02 : le plateau (BoxGeometry h=0.12 centré à y=-0.04) a sa
@@ -233,9 +248,11 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     t: new THREE.Vector3(Math.sin(angEnd + Math.PI) * S, 1.45, Math.cos(angEnd + Math.PI) * S)
   };
 
+  /* Vue finale rapprochée : la toile (et le logo Karting 2 Muret peint
+     dessus) remplit le cadre au lieu de flotter au loin. */
   const D = mobile
-    ? { p: new THREE.Vector3(0, 11.5, 0.05), t: new THREE.Vector3(0, 0, 0) }
-    : { p: new THREE.Vector3(0, 9.5, 0.2), t: new THREE.Vector3(0, 0, 0) };
+    ? { p: new THREE.Vector3(0, 9.2, 0.05), t: new THREE.Vector3(0, 0, 0) }
+    : { p: new THREE.Vector3(0, 7.6, 0.15), t: new THREE.Vector3(0, 0, 0) };
   const ss = (t: number) => t * t * (3 - 2 * t);
   const lerpV = (a: THREE.Vector3, b: THREE.Vector3, t: number, o: THREE.Vector3) => o.copy(a).lerp(b, t);
   const camP = new THREE.Vector3();

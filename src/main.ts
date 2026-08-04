@@ -9,7 +9,7 @@ import { initRouter } from "./router";
 import { initCommunity } from "./community";
 import { initChatbot } from "./chatbot/widget";
 import { injectSchema } from "./seo";
-import { imgAttrs, initLazyBackgrounds } from "./img";
+import { imgAttrs, initLazyBackgrounds, optUrl } from "./img";
 import { liteMode } from "./net";
 import { initGuard } from "./guard";
 import { DISCIPLINES, TARIFS, GALLERY, AUDIENCES, ENTRAINEURS, VALUES, HERO } from "./data";
@@ -109,10 +109,100 @@ function renderMedia() {
       const ar = g.span === "wide" ? "16:9" : g.span === "tall" ? "4:5" : "3:2";
       // the first shots are the page's LCP — fetch them eagerly and first
       const prio = i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`;
-      return `<figure class="shot ${cls}"><img ${imgAttrs(g.src, sizes, ar)} alt="${g.label}" ${prio} decoding="async" />
+      return `<figure class="shot ${cls}" data-gal-idx="${i}"><img ${imgAttrs(g.src, sizes, ar)} alt="${g.label}" ${prio} decoding="async" />
         <figcaption class="shot__label">${g.label}</figcaption></figure>`;
     }).join("");
+
+    // ── Lightbox ──
+    initLightbox(gal);
   }
+}
+
+function initLightbox(gal: HTMLElement) {
+  let current = 0;
+  let overlay: HTMLElement | null = null;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  const open = (idx: number) => {
+    current = idx;
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "lightbox";
+      overlay.innerHTML = `
+        <button class="lightbox__close" aria-label="Fermer" type="button">&times;</button>
+        <button class="lightbox__prev" aria-label="Précédent" type="button">&#8249;</button>
+        <button class="lightbox__next" aria-label="Suivant" type="button">&#8250;</button>
+        <figure class="lightbox__fig">
+          <img class="lightbox__img" draggable="false" />
+          <figcaption class="lightbox__cap"></figcaption>
+        </figure>
+        <span class="lightbox__counter"></span>`;
+      document.body.appendChild(overlay);
+
+      overlay.querySelector(".lightbox__close")!.addEventListener("click", close);
+      overlay.querySelector(".lightbox__prev")!.addEventListener("click", () => go(-1));
+      overlay.querySelector(".lightbox__next")!.addEventListener("click", () => go(1));
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) close();
+      });
+      // Swipe gestures (mobile)
+      overlay.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+      }, { passive: true });
+      overlay.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+          go(dx < 0 ? 1 : -1);
+        }
+      }, { passive: true });
+    }
+    show();
+    overlay.classList.add("lightbox--open");
+    document.body.style.overflow = "hidden";
+  };
+
+  const close = () => {
+    if (!overlay) return;
+    overlay.classList.remove("lightbox--open");
+    document.body.style.overflow = "";
+  };
+
+  const go = (dir: number) => {
+    current = (current + dir + GALLERY.length) % GALLERY.length;
+    show();
+  };
+
+  const show = () => {
+    if (!overlay) return;
+    const g = GALLERY[current];
+    const img = overlay.querySelector<HTMLImageElement>(".lightbox__img")!;
+    const cap = overlay.querySelector<HTMLElement>(".lightbox__cap")!;
+    const counter = overlay.querySelector<HTMLElement>(".lightbox__counter")!;
+    img.src = optUrl(g.src, 1440); // variante WebP 1440 — jamais l'original de plusieurs Mo
+    img.alt = g.label;
+    cap.textContent = g.label;
+    counter.textContent = `${current + 1} / ${GALLERY.length}`;
+  };
+
+  // Keyboard nav — UNE seule inscription globale, même après navigation douce
+  const w = window as any;
+  if (w.__bcpLightboxKeys) window.removeEventListener("keydown", w.__bcpLightboxKeys);
+  w.__bcpLightboxKeys = (e: KeyboardEvent) => {
+    if (!overlay?.classList.contains("lightbox--open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") go(-1);
+    if (e.key === "ArrowRight") go(1);
+  };
+  window.addEventListener("keydown", w.__bcpLightboxKeys);
+
+  // Click handlers on gallery shots
+  gal.addEventListener("click", (e) => {
+    const shot = (e.target as Element).closest<HTMLElement>("[data-gal-idx]");
+    if (shot) open(Number(shot.dataset.galIdx));
+  });
 }
 
 // no WebGL scenes on constrained networks (Save-Data / 2G) — the design keeps

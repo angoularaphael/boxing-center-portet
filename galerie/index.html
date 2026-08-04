@@ -58,13 +58,13 @@
       </div>
       <form class="community__form" id="community-form" novalidate>
         <label class="community__drop">
-          <input type="file" name="video" accept="video/mp4,video/quicktime,video/webm" id="community-file" />
-          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
-          <span class="community__hint">Vidéo (mp4/mov/webm) · validée avant publication</span>
+          <input type="file" name="media" accept="video/mp4,video/quicktime,video/webm,image/jpeg,image/png,image/webp" id="community-file" />
+          <span class="community__hint">Photo ou vidéo · validée avant publication</span>
         </label>
-        <input class="community__text" type="text" name="title" maxlength="60" required placeholder="Nom de la vidéo (obligatoire)" />
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" />
+        <input class="community__text" type="text" name="title" maxlength="60" required placeholder="Nom de ta photo ou vidéo (obligatoire)" />
         <input class="community__text" type="text" name="author" maxlength="40" placeholder="Ton prénom (optionnel)" />
-        <button class="btn btn--primary" type="submit">Envoyer ma vidéo</button>
+        <button class="btn btn--primary" type="submit">Envoyer</button>
         <div class="community__bar" aria-hidden="true"><i></i></div>
         <p class="community__status" id="community-status" role="status" aria-live="polite"></p>
       </form>

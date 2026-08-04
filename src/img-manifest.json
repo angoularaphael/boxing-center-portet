@@ -41,6 +41,13 @@
   ],
   "ar": 0.667
  },
+ "/img/disc/baby-boxe-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
+ },
  "/img/disc/baby-boxe.jpg": {
   "w": [
    480,
@@ -48,6 +55,13 @@
    1440
   ],
   "ar": 0.75
+ },
+ "/img/disc/boxe-anglaise-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
  },
  "/img/disc/boxe-anglaise.webp": {
   "w": [
@@ -67,11 +81,25 @@
   ],
   "ar": 1.5
  },
+ "/img/disc/educative-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
+ },
  "/img/disc/educative.webp": {
   "w": [
    480
   ],
   "ar": 1.5
+ },
+ "/img/disc/grappling-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
  },
  "/img/disc/grappling.jpg": {
   "w": [
@@ -80,6 +108,20 @@
    1440
   ],
   "ar": 0.75
+ },
+ "/img/disc/kick-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
+ },
+ "/img/disc/kick-enfants-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
  },
  "/img/disc/kick-enfants.jpg": {
   "w": [
@@ -95,11 +137,25 @@
   ],
   "ar": 1.5
  },
+ "/img/disc/lady-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.6667
+ },
  "/img/disc/lady.webp": {
   "w": [
    480
   ],
   "ar": 1.5
+ },
+ "/img/disc/mma-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
  },
  "/img/disc/mma.webp": {
   "w": [
@@ -112,6 +168,13 @@
    480
   ],
   "ar": 1.5
+ },
+ "/img/disc/prepa-bc.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 0.8003
  },
  "/img/disc/prepa.jpg": {
   "w": [
@@ -321,6 +384,13 @@
    960
   ],
   "ar": 0.8003
+ },
+ "/img/karting-mat.png": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 5.7143
  },
  "/img/partners/karting-muret.png": {
   "w": [
