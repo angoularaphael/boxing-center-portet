@@ -207,20 +207,12 @@
       "desc": "BPJEPS sport de contact. Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage."
     },
     {
-      "name": "Mourad Berraho",
-      "role": "Boxe Anglaise Enfants / Ados",
-      "kind": "Coach",
+      "name": "Mourad & Ingrid",
+      "role": "Boxe Anglaise & Kick Boxing — Enfants / Ados",
+      "kind": "Coachs",
       "img": "/img/team/cards/card-mourad-ingrid.jpg",
-      "initials": "MB",
-      "desc": "Triple champion de France, membre de l’Équipe de France — formé ici, par Valentin Tapia. Il accompagne vos enfants pour les aider à devenir meilleurs, dans le sport comme dans la vie."
-    },
-    {
-      "name": "Ingrid",
-      "role": "Kick Boxing Enfants / Ados",
-      "kind": "Coach",
-      "img": "/img/team/cards/card-mourad-ingrid.jpg",
-      "initials": "IN",
-      "desc": "Expérience et passion au service des plus jeunes : technique, cadre et confiance. Avec Mourad, Valentin et Samuel, elle accompagne vos enfants dans le sport comme dans la vie."
+      "initials": "M&I",
+      "desc": "Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Valentin et Samuel, accompagnent vos enfants pour les aider à devenir meilleurs dans le sport comme dans la vie. Mourad : triple champion de France, membre de l’Équipe de France — formé ici, par Valentin Tapia."
     }
   ],
   "values": [

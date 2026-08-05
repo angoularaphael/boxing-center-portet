@@ -8,11 +8,11 @@ export const QUICKS: Quick[] = [
   { label: "L'offre 29€", q: "C'est quoi l'offre de la rentrée ?",
     a: "L'offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Viens avec ton binôme — ça se prend en ligne sur box-plus.vercel.app/abonnements. Tu veux qu'un coach te rappelle pour en parler ?" },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
-    a: "Les offres du moment : rentrée 29 € par personne (4 semaines) · saison 259 € l'année en 4× sans frais · promo adulte 38,99 €/4 semaines (au lieu de 44,99 €) · enfants/ados 295 €/an avec t-shirt du club inclus · baby boxe 250 €/an. Badge d'accès : 34 € à l'inscription. Tout est sur box-plus.vercel.app/abonnements." },
+    a: "Les offres du moment : rentrée 29 € par personne (4 semaines) · saison 259 € l'année en 4× sans frais · adulte 44 € / étudiants 36 € par 4 semaines · enfants/ados 295 €/an avec t-shirt du club inclus · baby boxe 250 €/an. Badge d'accès : 34 € à l'inscription. Tout est sur box-plus.vercel.app/abonnements." },
   { label: "Horaires", q: "Quels sont les horaires ?",
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche)." },
   { label: "Adresse & accès", q: "Où êtes-vous situés ?",
-    a: "Boxing Center Portet : 61 route d'Espagne, 31120 Portet-sur-Garonne. 600 m² dédiés aux sports de combat — salle de boxe anglaise avec ring, espace combat avec cage MMA. Tél : 05 62 24 46 82." },
+    a: "Boxing Center Portet : 61 route d'Espagne, 31120 Portet-sur-Garonne. 600 m² dédiés aux sports de combat — salle de boxe anglaise avec ring, espace combat avec cage MMA. Tél : 06 87 90 02 16." },
   { label: "Disciplines", q: "Quelles disciplines proposez-vous ?",
     a: "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados. Un seul pass, toutes disciplines, 5 salles." },
   { label: "Inscription", q: "Comment s'inscrire ?",
@@ -22,7 +22,7 @@ export const QUICKS: Quick[] = [
   { label: "Essai offert", q: "Comment se passe la séance d'essai ?",
     a: "Ta première séance est offerte : toutes disciplines, matériel prêté, sans engagement. Tu viens, tu testes, tu décides. Réserve sur box-plus.vercel.app/seance-essai ou passe au club, 61 route d'Espagne." },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
-    a: "Oui ! Événement d'entreprise, team building, partenariat, collaboration : la salle (600 m²) s'ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Remplissez le formulaire sur la page Partenaires (menu « Votre projet ») ou appelez le 05 62 24 46 82." },
+    a: "Oui ! Événement d'entreprise, team building, partenariat, collaboration : la salle (600 m²) s'ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Remplissez le formulaire sur la page Partenaires (menu « Votre projet ») ou appelez le 06 87 90 02 16." },
 ];
 
 const RULES: [RegExp, number][] = [
@@ -38,5 +38,5 @@ const RULES: [RegExp, number][] = [
 ];
 export function fallbackAnswer(msg: string): string {
   for (const [re, i] of RULES) if (re.test(msg)) return QUICKS[i].a;
-  return "Je peux t'aider sur les offres (rentrée 29 € par personne), les horaires, les disciplines ou l'inscription. Pose ta question, ou appelle le 05 62 24 46 82.";
+  return "Je peux t'aider sur les offres (rentrée 29 € par personne), les horaires, les disciplines ou l'inscription. Pose ta question, ou appelle le 06 87 90 02 16.";
 }
