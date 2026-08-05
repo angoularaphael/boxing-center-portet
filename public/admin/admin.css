@@ -251,3 +251,11 @@ textarea{min-height:72px;resize:vertical}
   .row,.row3{grid-template-columns:1fr}
   .draftbar{margin:14px 16px -6px}
 }
+
+/* Mobile : la croix de suppression doit exister sans survol, et iOS ne doit
+   pas zoomer a chaque focus (plancher 16px sur les champs). */
+@media (hover:none){ .gitem .gdel{opacity:1} }
+@media (max-width:760px){
+  #pane input[type=text], #pane input[type=password], #pane textarea, #pane select{ font-size:16px }
+  #token{ font-size:16px }
+}

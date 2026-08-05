@@ -118,7 +118,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .btn .arrow { transition: transform var(--t-fast) var(--ease-out); }
 .btn:hover .arrow { transform: translateX(4px); }
 
-.icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+.icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
   display: grid; place-items: center; transition: border-color var(--t-fast), color var(--t-fast); }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 .mode-toggle[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 18%, transparent); border-color: var(--accent); color: var(--accent); }
@@ -313,7 +313,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 @media (max-width: 760px) { .reel { height: 460vh; } .reel__frame { width: 80vw; height: 62vh; } }
 
 /* ============================== DISCIPLINE CARDS ============================== */
-.disc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px;
+.disc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 1px;
   background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
 .disc { background: var(--bg-1); padding: clamp(1.6rem, 2.4vw, 2.4rem); min-height: 260px;
   display: flex; flex-direction: column; justify-content: space-between; position: relative;
@@ -437,7 +437,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
 .contact-line { display: flex; flex-direction: column; gap: 0.2rem; padding: 1.3rem 0; border-bottom: 1px solid var(--line); }
 .contact-line span { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.contact-line a, .contact-line p { font-size: 1.2rem; color: var(--fg); }
+.contact-line a, .contact-line p { font-size: 1.2rem; color: var(--fg); overflow-wrap: anywhere; }
 .map-frame { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; min-height: 420px; }
 .map-frame iframe { width: 100%; height: 100%; min-height: 420px; border: 0; filter: grayscale(0.3) contrast(1.05); }
 @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
@@ -445,7 +445,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 /* ============================== LE RÉSEAU ============================== */
 .network-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -860,7 +860,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .forge__lead { color: var(--muted); margin-top: 0.9rem; max-width: 32ch; }
 .forge__card { max-width: 44ch; }
 .forge__idx { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.24em; color: var(--accent); }
-.forge__kind { display: inline-block; margin-left: 0.8rem; font-family: var(--font-mono); font-size: 0.56rem;
+.forge__kind { display: inline-block; margin-left: 0.8rem; font-family: var(--font-mono); font-size: 0.75rem;
   letter-spacing: 0.18em; text-transform: uppercase; color: #fff; vertical-align: middle;
   background: color-mix(in srgb, var(--accent) 85%, #000); padding: 0.3em 0.65em; border-radius: 999px; }
 .forge__name { font-family: var(--font-display); text-transform: uppercase; font-weight: 700; color: #fff;
@@ -1002,15 +1002,15 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   /* 0 et non 0.12 : la texture 3D porte désormais un logo vif — en fantôme
      par-dessus la photo, il bavait des traînées rouges. La photo suffit. */
   .ring.is-topdown .ring__canvas { opacity: 0; transition: opacity 0.55s var(--ease-out); }
-  .ring__txt { padding-bottom: clamp(3rem, 7vw, 4rem); padding-right: 80px; }
-  .scrub__overlay { padding-bottom: clamp(3rem, 7vw, 4rem); padding-right: 80px; }
+  .ring__txt { padding-bottom: clamp(3rem, 7vw, 4rem); padding-right: clamp(56px, 20vw, 80px); }
+  .scrub__overlay { padding-bottom: clamp(3rem, 7vw, 4rem); padding-right: clamp(56px, 20vw, 80px); }
   .promo-blast { font-size: clamp(2rem, 9vw, 2.8rem); }
 
   .map-frame { min-height: min(52vw, 300px); }
   .sec-head { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
   .contact-grid { gap: 1.25rem; }
   .footer__grid { gap: 1.75rem; }
-  .menu__panel { padding-bottom: max(1.6rem, env(safe-area-inset-bottom, 0px)); }
+  .menu { padding-bottom: max(1.6rem, env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (max-width: 480px) {
@@ -1018,7 +1018,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .stats { grid-template-columns: 1fr; }
   .stat { border-right: none !important; }
   h1.display { font-size: clamp(2.2rem, 11vw, 3rem); }
-  .marquee__track { font-size: 0.82rem; }
+  .marquee__track span { font-size: 1.1rem; }
 }
 
 /* ============================== APERÇU BACKOFFICE ============================== */
@@ -1102,7 +1102,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 /* offres : ancien prix barre + CTA par carte — le tunnel de vente sur place */
 .tarif__old { color: #7f8ca3; text-decoration: line-through; text-decoration-thickness: 2px; font-size: 0.62em; font-weight: 600; margin-right: 0.25em; vertical-align: 0.12em; }
 .tarif { display: flex; flex-direction: column; gap: 0.55rem; }
-.tarif__cta { margin-top: auto; align-self: stretch; justify-content: center; text-align: center; }
+.tarif__cta { margin-top: auto; align-self: stretch; justify-content: center; text-align: center; white-space: normal; }
 
 /* ===================== PARTENAIRES ===================== */
 .partner-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: 1fr; }
@@ -1193,7 +1193,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 }
 
 @media (max-width: 760px) {
-  .lightbox__prev, .lightbox__next { width: 40px; height: 40px; font-size: 2rem; }
+  .lightbox__prev, .lightbox__next { width: 44px; height: 44px; font-size: 2rem; }
   .lightbox__img { max-width: 96vw; max-height: 78vh; border-radius: 4px; }
 }
 
@@ -1210,3 +1210,11 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 }
 .partner__logo img { max-width: 100%; max-height: 130px; object-fit: contain; mix-blend-mode: screen; }
 
+
+/* « Ta place » (sequence ring) : titres en bleu CLAIR — le bleu accent se
+   perdait sur la photo sombre (demande du patron). */
+.ring__txt .tint { color: #8bb4ff; }
+.ring__txt .display { color: #f2f5fa; }
+/* fallback reduced-motion de la forge : portraits stables, une colonne sur petit ecran */
+.forge__static img { aspect-ratio: 3 / 4; object-fit: cover; }
+@media (max-width: 560px){ .forge__static { width: 98%; } }

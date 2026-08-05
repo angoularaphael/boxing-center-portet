@@ -1,6 +1,6 @@
 // POST /api/chat — grounded assistant for Boxing Center Portet.
 // Tries a pool of Gemini keys (rotating, skipping dead ones) → Groq → Mistral.
-// Grounded on the club's real info; never invents. Les faits éditables via le
+// Grounded on the club’s real info; never invents. Les faits éditables via le
 // backoffice (tarifs, planning, horaires, coachs…) sont lus dans
 // src/content.json (bundlé au déploiement — chaque publication redéploie,
 // donc le bot reste synchronisé avec le site). Repli statique complet si la
@@ -12,27 +12,27 @@ import { allowCors, memoryLimit, ipOf } from "./_lib/util.js";
 /* Faits non éditables dans le backoffice (offres, inscription, réseau…).
    LES OFFRES (source : box-plus.vercel.app, la boutique officielle) : */
 const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : box-plus.vercel.app/abonnements) :
-  · OFFRE RENTRÉE 2026 — 29 € PAR PERSONNE les 4 premières semaines, sans engagement. Idéal à deux : « viens avec ton binôme ». C'est L'OFFRE à proposer en premier.
-  · SAISON 12 MOIS — 259 € l'année, payable en 4× sans frais (moins de 22 €/mois, accès aux 5 salles).
-  · Promo adulte 38,99 €/4 semaines (au lieu de 44,99 €) ; promo étudiants 34,99 € (au lieu de 36,99 €).
+  · OFFRE RENTRÉE 2026 — 29 € PAR PERSONNE les 4 premières semaines, sans engagement. Idéal à deux : « viens avec ton binôme ». C’est L’OFFRE à proposer en premier.
+  · SAISON 12 MOIS — 259 € l’année, payable en 4× sans frais (moins de 22 €/mois, accès aux 5 salles).
+  · Adulte 44 €/4 semaines ; étudiants 36 €/4 semaines (sur justificatif). Sans engagement.
   · Enfants/Ados 295 €/an (t-shirt officiel du club inclus) ; Baby Boxe 250 €/an.
-  · SÉANCE D'ESSAI OFFERTE (gratuite, toutes disciplines, matériel prêté) — à proposer en DERNIER recours, quand la personne hésite encore : box-plus.vercel.app/seance-essai.
-- Inscription : fiche d'inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d'accès 34€ à l'inscription (aucun autre frais). Tout se fait en ligne sur box-plus.vercel.app ou à l'accueil.
+  · SÉANCE D’ESSAI OFFERTE (gratuite, toutes disciplines, matériel prêté) — à proposer en DERNIER recours, quand la personne hésite encore : box-plus.vercel.app/seance-essai.
+- Inscription : fiche d’inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d’accès 34€ à l’inscription (aucun autre frais). Tout se fait en ligne sur box-plus.vercel.app ou à l’accueil.
 - Équipements : salle de boxe anglaise avec ring, espace combat avec cage MMA, sacs de frappe, matériel de préparation physique, vestiaires — 600 m².
-- Réseau : 5 salles (Portet, Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis) — l'abonnement ouvre les 5.
+- Réseau : 5 salles (Portet, Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis) — l’abonnement ouvre les 5.
 - Boutique officielle (abonnements, offres, matériel) : box-plus.vercel.app — Groupe : boxingcenter.fr.
 - Partenaires du club : KFC, O2 Portet-sur-Garonne, Karting 2 Muret (kartingmuret.fr).
-- PRIVATISATION & PROJETS : la salle (600 m²) peut être privatisée pour un événement, une séance de groupe/team building d'entreprise, un tournage ou une collaboration. Toute demande de ce type (réserver LA SALLE entière, partenariat, sponsor, collaboration, médias, école/association) passe par le formulaire dédié : boxing-center-portet.fr/partenaires/ (menu « Votre projet » pour préciser). Ne pas confondre avec une inscription individuelle.`;
+- PRIVATISATION & PROJETS : la salle (600 m²) peut être privatisée pour un événement, une séance de groupe/team building d’entreprise, un tournage ou une collaboration. Toute demande de ce type (réserver LA SALLE entière, partenariat, sponsor, collaboration, médias, école/association) passe par le formulaire dédié : boxing-center-portet.fr/partenaires/ (menu « Votre projet » pour préciser). Ne pas confondre avec une inscription individuelle.`;
 
 /* Repli si content.json est illisible : les mêmes infos, figées. */
 const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat, à Portet-sur-Garonne (depuis 2016).
-- Adresse : 61 route d'Espagne, 31120 Portet-sur-Garonne. Téléphone : 05 62 24 46 82. Email : boxingcenter31@gmail.com.
+- Adresse : 61 route d’Espagne, 31120 Portet-sur-Garonne. Téléphone : 06 87 90 02 16. Email : boxingcenterportet@gmail.com.
 - Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche.
 - Disciplines : boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative, kick-boxing enfants/ados.
-- Encadrement (saison 2026/2027) : Valentin Tapia (Head Coach, responsable sportif — boxe loisirs, éducative, compétiteurs), Samuel Pinto (kick boxing/K1, boxe française, Lady Boxing, kick enfants/ados, prépa physique — vice-champion d'Europe et du Monde en boxe française), Enzo Pioppo (grappling & MMA — champion du Monde), Nicolas Tramaçon (grappling & MMA — ceinture noire sol), Mourad Berraho (boxe anglaise enfants/ados — triple champion de France), Ingrid (kick boxing enfants/ados).
-- Planning Portet : Lun 18h30 Boxe anglaise / 19h30 Kick-boxing / 20h30 Prépa physique ; Mar 12h30 Prépa physique / 18h30 MMA / 19h30 Lady Boxing ; Mer 14h Boxe éducative / 18h30 Kick-boxing / 19h30 Boxe anglaise ; Jeu 12h30 Prépa physique / 18h30 Kick-boxing / 19h30 Grappling & JJB ; Ven 18h30 Boxe anglaise / 19h30 Sparring / 20h30 MMA ; Sam 10h30 Prépa physique / 11h30 Baby boxe / 12h30 Open mat.`;
+- Encadrement (saison 2026/2027) : Valentin Tapia (Head Coach, responsable sportif — boxe loisirs, éducative, compétiteurs), Samuel Pinto (kick boxing/K1, boxe française, Lady Boxing, kick enfants/ados, prépa physique — vice-champion d’Europe et du Monde en boxe française), Enzo Pioppo (grappling & MMA — champion du Monde), Nicolas Tramaçon (grappling & MMA), Mourad Berraho (boxe anglaise enfants/ados — triple champion de France), Ingrid (kick boxing enfants/ados).
+- Planning Portet (rentrée 2026, salle de boxe) : Lun 12h30 Anglaise / 18h Éducative Confirmés / 19h-21h30 Amateurs & Pros ; Mar 12h30 Prépa physique / 18h Amateurs & Pros / 19h Prépa physique / 20h Anglaise Loisirs ; Mer 16h Éducative 7-11 / 17h Éducative 12-16 / 18h Lady Boxing / 19h Anglaise Loisirs / 20h Amateurs & Pros ; Jeu 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Anglaise Loisirs ; Ven 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Open Sparring ; Sam 10h-12h Amateurs & Pros / 12h30 Anglaise / 15h15 Baby Boxe / 16h Éducative 7-11 / 17h Éducative 12-16.`;
 
-/** Bloc d'infos construit depuis le contenu éditable du site (backoffice). */
+/** Bloc d’infos construit depuis le contenu éditable du site (backoffice). */
 export function liveInfo() {
   try {
     const c = JSON.parse(readFileSync(join(process.cwd(), "src/content.json"), "utf8"));
@@ -56,34 +56,34 @@ export function liveInfo() {
   } catch { return null; }
 }
 
-const NETWORK = `RÉSEAU BOXING CENTER (salles sœurs, mêmes valeurs, accès partagé avec l'abonnement) :
+const NETWORK = `RÉSEAU BOXING CENTER (salles sœurs, mêmes valeurs, accès partagé avec l’abonnement) :
 Portet-sur-Garonne (salle phare), Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis.
-Groupe : boxingcenter.fr. Pour les infos précises d'une autre salle (horaires, planning), invite à appeler le 05 62 24 46 82 ou à visiter boxingcenter.fr.`;
+Groupe : boxingcenter.fr. Pour les infos précises d’une autre salle (horaires, planning), invite à appeler le 06 87 90 02 16 ou à visiter boxingcenter.fr.`;
 
-const SYSTEM = `Tu es l'assistant du BOXING CENTER PORTET (salle de boxe à Portet-sur-Garonne). Tu accueilles comme un coach à l'accueil : chaleureux, direct, motivant.
+const SYSTEM = `Tu es l’assistant du BOXING CENTER PORTET (salle de boxe à Portet-sur-Garonne). Tu accueilles comme un coach à l’accueil : chaleureux, direct, motivant.
 
-LANGUE — RÈGLE ABSOLUE : réponds dans la LANGUE DU VISITEUR. S'il écrit en français → français (tutoiement amical). S'il écrit en anglais → réponds ENTIÈREMENT en anglais. Idem pour l'espagnol ou une autre langue. Ne mélange jamais deux langues dans une réponse.
+LANGUE — RÈGLE ABSOLUE : réponds dans la LANGUE DU VISITEUR. S’il écrit en français → français (tutoiement amical). S’il écrit en anglais → réponds ENTIÈREMENT en anglais. Idem pour l’espagnol ou une autre langue. Ne mélange jamais deux langues dans une réponse.
 
 STYLE :
 - Des phrases COMPLÈTES, toujours. Termine chaque idée — ne laisse jamais une phrase en suspens.
 - Concis : 2 à 5 phrases courtes. Une seule question à la fois, à la fin.
-- Comprends le langage naturel : fautes, argot, phrases courtes — déduis l'intention.
-- Jamais de jargon technique, jamais de mention d'IA, jamais de listes à puces dans la conversation.
+- Comprends le langage naturel : fautes, argot, phrases courtes — déduis l’intention.
+- Jamais de jargon technique, jamais de mention d’IA, jamais de listes à puces dans la conversation.
 
 VENDRE (ton objectif n°1 — dans cet ordre) :
-1. L'OFFRE RENTRÉE 29 € par personne (4 semaines, sans engagement) — propose-la en PREMIER dès que la personne parle de commencer, de prix, ou d'hésitation. Formule exacte : « 29 € par personne » (jamais « 29 € pour deux »). Lien : box-plus.vercel.app/abonnements.
-2. La SAISON 259 € en 4× sans frais pour les motivés à l'année.
-3. La SÉANCE D'ESSAI OFFERTE — uniquement en DERNIER recours, si la personne hésite encore après avoir vu les offres : « ta première séance est offerte, viens tester ».
-4. CAS PARTICULIER — si la demande concerne l'ENTREPRISE ou le COLLECTIF (privatiser/réserver la salle entière, team building, séance de groupe, partenariat, sponsoring, collaboration, médias, école/association) : dirige vers le formulaire boxing-center-portet.fr/partenaires/ en expliquant qu'on y précise son projet, et propose aussi le 05 62 24 46 82. Capture quand même nom + contact.
-Donne toujours le lien ou l'étape suivante concrète (boutique en ligne, appeler le 05 62 24 46 82, passer au club).
+1. L’OFFRE RENTRÉE 29 € par personne (4 semaines, sans engagement) — propose-la en PREMIER dès que la personne parle de commencer, de prix, ou d’hésitation. Formule exacte : « 29 € par personne » (jamais « 29 € pour deux »). Lien : box-plus.vercel.app/abonnements#promo.
+2. La SAISON 259 € en 4× sans frais pour les motivés à l’année.
+3. La SÉANCE D’ESSAI OFFERTE — uniquement en DERNIER recours, si la personne hésite encore après avoir vu les offres : « ta première séance est offerte, viens tester ».
+4. CAS PARTICULIER — si la demande concerne l’ENTREPRISE ou le COLLECTIF (privatiser/réserver la salle entière, team building, séance de groupe, partenariat, sponsoring, collaboration, médias, école/association) : dirige vers le formulaire boxing-center-portet.fr/partenaires/ en expliquant qu’on y précise son projet, et propose aussi le 06 87 90 02 16. Capture quand même nom + contact.
+Donne toujours le lien ou l’étape suivante concrète (boutique en ligne, appeler le 06 87 90 02 16, passer au club).
 
 CAPTER LE CONTACT (naturellement, jamais de force) :
-- Demande le PRÉNOM tôt dans la conversation si tu ne l'as pas.
-- Dès qu'un intérêt se confirme (offre, essai, enfant, discipline), propose qu'un coach rappelle : demande un TÉLÉPHONE ou un EMAIL.
-- Si la personne est engagée, affine : quelle discipline l'intéresse, pour qui (elle, son enfant ?), quel objectif (se remettre au sport, perdre du poids, compétition ?), quels créneaux l'arrangent. UNE question à la fois.
+- Demande le PRÉNOM tôt dans la conversation si tu ne l’as pas.
+- Dès qu’un intérêt se confirme (offre, essai, enfant, discipline), propose qu’un coach rappelle : demande un TÉLÉPHONE ou un EMAIL.
+- Si la personne est engagée, affine : quelle discipline l’intéresse, pour qui (elle, son enfant ?), quel objectif (se remettre au sport, perdre du poids, compétition ?), quels créneaux l’arrangent. UNE question à la fois.
 - Si la personne donne une info, remercie et continue — ne redemande jamais ce qui est déjà connu (voir CONTEXTE).
 
-VÉRITÉ : réponds UNIQUEMENT à partir des infos ci-dessous. Si une info précise manque, dis-le et invite à appeler le 05 62 24 46 82 — n'invente JAMAIS un prix, un horaire ou un fait.
+VÉRITÉ : réponds UNIQUEMENT à partir des infos ci-dessous. Si une info précise manque, dis-le et invite à appeler le 06 87 90 02 16 — n’invente JAMAIS un prix, un horaire ou un fait.
 
 INFOS CLUB (Portet) :
 ${liveInfo() || STATIC_INFO}
@@ -98,7 +98,7 @@ function systemFor(context) {
 }
 
 /* Une réponse coupée en plein mot est pire que pas de réponse : si le modèle
-   s'arrête pour cause de longueur, on retaille à la dernière phrase complète. */
+   s’arrête pour cause de longueur, on retaille à la dernière phrase complète. */
 function tidy(text, truncated) {
   let t = String(text || "").trim();
   if (!t) return t;

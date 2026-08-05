@@ -2,12 +2,12 @@
    LE VESTIAIRE — application du backoffice.
    Tout le contenu du site vit dans src/content.json ; ce fichier
    génère les formulaires depuis SCHEMA, suit les modifications
-   (brouillon local + aperçu), et publie via l'API (commit GitHub
+   (brouillon local + aperçu), et publie via l’API (commit GitHub
    + rebuild Vercel). La visite guidée vit dans tour.js.
    Sommaire :
      1. état & helpers          5. sections spéciales (planning,
      2. schéma des contenus        galerie, seo, accueil, communauté)
-     3. brouillon & aperçu      6. upload d'images (Cloudinary signé)
+     3. brouillon & aperçu      6. upload d’images (Cloudinary signé)
      4. champs de formulaire    7. charger / publier / naviguer
                                 8. démarrage
    ============================================================ */
@@ -17,7 +17,7 @@ const API = ""; // même origine
 let TOKEN = sessionStorage.getItem("bcp_admin") || "";
 let DATA = {};           // le modèle : une copie de content.json
 let CURRENT = "dashboard"; // section affichée
-let DEV_MODE = false;    // vite dev (pas d'API serverless) : contenu réel, publication désactivée
+let DEV_MODE = false;    // vite dev (pas d’API serverless) : contenu réel, publication désactivée
 
 /** Crée un élément. `class`/`html` sont traités à part, `on*` deviennent des listeners. */
 const el = (t, a = {}, ...kids) => {
@@ -56,7 +56,7 @@ const ICONS = {
   play: I('<circle cx="12" cy="12" r="8.5"/><path d="m10 8.5 5 3.5-5 3.5v-7Z"/>'),
 };
 
-/* ---------- 2. schéma : chaque entrée pilote la génération d'un formulaire ---------- */
+/* ---------- 2. schéma : chaque entrée pilote la génération d’un formulaire ---------- */
 const SCHEMA = {
   dashboard: { label:"Accueil", type:"dashboard" },
   site: { label:"Coordonnées & club", intro:"Nom, contact, horaires et chiffres de la salle.", type:"object", fields:[
@@ -73,34 +73,34 @@ const SCHEMA = {
     {k:"surfaces",label:"Chiffres / surfaces",type:"list",singular:"chiffre",item:[{k:"label",label:"Libellé"},{k:"value",label:"Valeur"}]},
     {k:"social",label:"Réseaux sociaux",type:"object",fields:[{k:"facebook",label:"Facebook (URL)"},{k:"instagram",label:"Instagram (URL)"},{k:"parent",label:"Site du groupe (URL)"}]},
   ]},
-  hero: { label:"Phrase d'accueil", intro:"Les deux lignes de la phrase d'accroche en haut de la page d'accueil.", type:"object", fields:[
+  hero: { label:"Phrase d’accueil", intro:"Les deux lignes de la phrase d’accroche en haut de la page d’accueil.", type:"object", fields:[
     {k:"hookLine1",label:"Ligne 1"},{k:"hookLine2",label:"Ligne 2"},
   ]},
   stats: { label:"Chiffres clés", intro:"Les compteurs animés (accueil).", type:"list", singular:"chiffre", item:[
     {k:"value",label:"Valeur"},{k:"suffix",label:"Suffixe"},{k:"label",label:"Légende"},
   ]},
-  disciplines: { label:"Disciplines", intro:"Les disciplines affichées partout (reel, page Activités).", type:"list", singular:"discipline", item:[
+  disciplines: { label:"Disciplines", intro:"Les disciplines affichées partout (bandeau de l’accueil, page Activités).", type:"list", singular:"discipline", item:[
     {k:"key",label:"N°"},{k:"name",label:"Nom"},{k:"tag",label:"Tag"},{k:"desc",label:"Description",ml:true},
-    {k:"img",label:"Image",img:true,hint:"N'importe quelle photo convient : elle est optimisée et recadrée automatiquement (le sujet reste dans le cadre). Idéal : une photo d'action nette."},
+    {k:"img",label:"Image",img:true,hint:"N’importe quelle photo convient : elle est optimisée et recadrée automatiquement (le sujet reste dans le cadre). Idéal : une photo d’action nette."},
   ]},
-  audiences: { label:"Publics", intro:"« Pour qui » — enfants, femmes, débutants, compétiteurs.", type:"list", singular:"public", item:[
+  audiences: { label:"Publics", intro:"« Pour qui » — enfants dès 3 ans, ados, femmes, débutants, parents, compétiteurs.", type:"list", singular:"public", item:[
     {k:"tag",label:"Tag"},{k:"title",label:"Titre"},{k:"desc",label:"Description",ml:true},
   ]},
-  team: { label:"Coachs", intro:"L'équipe affichée dans la forge et la page Coachs.", type:"list", singular:"coach", item:[
+  team: { label:"Coachs", intro:"L’équipe affichée dans la forge et la page Coachs.", type:"list", singular:"coach", item:[
     {k:"name",label:"Nom"},{k:"role",label:"Rôle"},{k:"kind",label:"Catégorie"},{k:"initials",label:"Initiales"},{k:"desc",label:"Description",ml:true},
-    {k:"img",label:"Photo",img:true,hint:"Idéal : photo en pied sur fond transparent (PNG détouré) — c'est ce qui donne l'effet « forge ». Une photo classique marche aussi, elle s'affichera telle quelle."},
+    {k:"img",label:"Photo",img:true,hint:"Idéal : photo en pied sur fond transparent (PNG détouré) — c’est ce qui donne l’effet « forge ». Une photo classique marche aussi, elle s’affichera telle quelle."},
   ]},
   values: { label:"Valeurs", intro:"Les valeurs du club.", type:"list", singular:"valeur", item:[
     {k:"n",label:"N°"},{k:"title",label:"Titre"},{k:"desc",label:"Description",ml:true},
   ]},
   tarifs: { label:"Tarifs", intro:"Les offres affichées sur la page Tarifs (et le schéma SEO).", type:"list", singular:"tarif", item:[
-    {k:"name",label:"Nom"},{k:"price",label:"Prix"},{k:"unit",label:"Unité"},{k:"note",label:"Note",ml:true},{k:"feature",label:"Mettre en avant",bool:true},
+    {k:"name",label:"Nom"},{k:"price",label:"Prix"},{k:"old",label:"Ancien prix (affiché barré)"},{k:"unit",label:"Unité (ex. par personne / 4 semaines)"},{k:"badge",label:"Badge (ex. Promo rentrée 2026)"},{k:"note",label:"Note",ml:true},{k:"cta",label:"Texte du bouton"},{k:"href",label:"Lien du bouton (boutique box-plus)"},{k:"feature",label:"Mettre en avant",bool:true},
   ]},
-  planning: { label:"Planning", intro:"Le planning de la semaine. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d'un jour à l'autre.", type:"planning" },
-  gallery: { label:"Galerie", intro:"Les photos du site. Glisse une vignette pour changer l'ordre, dépose des images depuis ton ordinateur pour en ajouter. Aucune taille à respecter : chaque photo est compressée et recadrée automatiquement selon son format.", type:"gallery" },
-  seo: { label:"Référencement Google", intro:"Le titre et la petite description de chaque page telle qu'elle apparaît sur Google.", type:"seo" },
+  planning: { label:"Planning", intro:"Le planning de la semaine. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
+  gallery: { label:"Galerie", intro:"Les photos du site. Glisse une vignette pour changer l’ordre, dépose des images depuis ton ordinateur pour en ajouter. Aucune taille à respecter : chaque photo est compressée et recadrée automatiquement selon son format.", type:"gallery" },
+  seo: { label:"Référencement Google", intro:"Le titre et la petite description de chaque page telle qu’elle apparaît sur Google.", type:"seo" },
 };
-const PAGE_LABELS = {home:"Accueil",activites:"Activités",salles:"Le club",coachs:"Coachs",galerie:"Galerie",plannings:"Planning",tarifs:"Tarifs",contact:"Contact"};
+const PAGE_LABELS = {home:"Accueil",activites:"Activités",salles:"Le club",coachs:"Coachs",boxeurs:"Boxeurs",galerie:"Galerie",plannings:"Planning",tarifs:"Tarifs",partenaires:"Partenaires",contact:"Contact"};
 
 /* ---------- 3. brouillon local, état "modifié", aperçu ---------- */
 const DRAFT_KEY = "bcp:draft";
@@ -113,11 +113,11 @@ function clearDirty(){ DIRTY = false; try{ localStorage.removeItem(DRAFT_KEY); }
 function updateDirtyUI(){
   document.getElementById("publish").classList.toggle("attn", DIRTY);
   if (DIRTY) setStatus("Modifications non publiées");
-  if (CURRENT === "dashboard") renderSection("dashboard"); // la lampe de l'accueil suit l'état
+  if (CURRENT === "dashboard") renderSection("dashboard"); // la lampe de l’accueil suit l’état
 }
-window.addEventListener("beforeunload", (e) => { if (DIRTY){ e.preventDefault(); e.returnValue = ""; } });
+window.addEventListener("beforeunload", (e) => { if (DIRTY){ try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(DATA)); }catch(_){} e.preventDefault(); e.returnValue = ""; } });
 
-/* aperçu instantané : le site lit ce brouillon via /?apercu=1 — rien n'est publié */
+/* aperçu instantané : le site lit ce brouillon via /?apercu=1 — rien n’est publié */
 function openPreview(){
   try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(DATA)); }catch(e){}
   window.open("/?apercu=1", "bcp-apercu");
@@ -148,7 +148,7 @@ function boolField(label, val, onInput){
   return el("div", { class:"field" }, el("label", { class:"chk" }, cb, label));
 }
 
-/** Vignette réduite d'une image (transform Cloudinary ou variante WebP locale, avec repli). */
+/** Vignette réduite d’une image (transform Cloudinary ou variante WebP locale, avec repli). */
 function thumbOf(src){
   if (!src) return "";
   const c = src.match(/^(https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)(.+)$/);
@@ -165,12 +165,12 @@ function imageField(label, val, onInput, hint){
   const set = (u) => { urlInp.value = u; onInput(u); thumb.style.backgroundImage = thumbOf(u); markDirty(); };
   const up = el("button", { class:"btn ghost sm", type:"button" }, "Choisir une image…");
   up.addEventListener("click", () => pickAndUpload(set));
-  // dépôt direct d'un fichier sur la vignette
+  // dépôt direct d’un fichier sur la vignette
   ["dragover","dragleave","drop"].forEach((ev) => thumb.addEventListener(ev, async (e) => {
     e.preventDefault(); thumb.classList.toggle("dropzone-on", ev === "dragover");
     if (ev !== "drop") return;
     const f = [...(e.dataTransfer?.files || [])].find((x) => x.type.startsWith("image/")); if (!f) return;
-    setStatus("Téléversement de l'image…");
+    setStatus("Téléversement de l’image…");
     try{ set(await uploadFile(f)); setStatus("Image ajoutée ✓" + (uploadFile.lastNote || ""), "ok"); }
     catch(err){ if (err.message !== "dev-mode") setStatus("Échec du téléversement.","bad"); }
   }));
@@ -196,7 +196,7 @@ function strListField(label, arr, onChange){
   draw(); wrap.append(row, add); return wrap;
 }
 
-/* rend les champs d'un objet dans `parent`, en mutant `obj` en place */
+/* rend les champs d’un objet dans `parent`, en mutant `obj` en place */
 function renderObjectFields(parent, fields, obj){
   fields.forEach((f) => {
     if (f.type === "object"){
@@ -215,7 +215,7 @@ function renderObjectFields(parent, fields, obj){
   });
 }
 
-/* liste répétable d'objets : ajouter / supprimer / glisser pour réordonner */
+/* liste répétable d’objets : ajouter / supprimer / glisser pour réordonner */
 function listCard(label, singular, itemSchema, arr){
   const host = el("div");
   const draw = () => {
@@ -225,8 +225,8 @@ function listCard(label, singular, itemSchema, arr){
       const body = el("div");
       renderObjectFields(body, itemSchema, it);
       const ctrls = el("div", { class:"ctrls" },
-        el("span", { class:"handle", title:"Glisser pour changer l'ordre" }, "⠿"));
-      if (!window.Sortable){ // repli clavier si le drag n'est pas disponible
+        el("span", { class:"handle", title:"Glisser pour changer l’ordre" }, "⠿"));
+      if (!window.Sortable){ // repli clavier si le drag n’est pas disponible
         ctrls.append(
           el("button", { class:"iconbtn", type:"button", title:"Monter", onclick:() => { if (i > 0){ [arr[i-1], arr[i]] = [arr[i], arr[i-1]]; markDirty(); draw(); } } }, "↑"),
           el("button", { class:"iconbtn", type:"button", title:"Descendre", onclick:() => { if (i < arr.length-1){ [arr[i+1], arr[i]] = [arr[i], arr[i+1]]; markDirty(); draw(); } } }, "↓"));
@@ -266,7 +266,7 @@ function renderPlanning(parent, arr){
         slots.append(el("div", { class:"slot" },
           el("span", { class:"handle slot-h", title:"Glisser (même vers un autre jour)" }, "⠿"),
           t, c,
-          el("button", { class:"iconbtn", type:"button", title:"Supprimer le créneau", onclick:() => { day.items.splice(pi,1); markDirty(); draw(); } }, "×")));
+          el("button", { class:"iconbtn", type:"button", title:"Supprimer le créneau", onclick:() => { if (confirm("Supprimer ce créneau ?")){ day.items.splice(pi,1); markDirty(); draw(); } } }, "×")));
       });
       if (window.Sortable) new Sortable(slots, { handle:".slot-h", group:"bcp-slots", animation:150, ghostClass:"drag-ghost", chosenClass:"drag-chosen",
         onEnd: (e) => {
@@ -336,7 +336,8 @@ function renderGallery(parent, arr){
         try{ arr.push({ src:await uploadFile(files[i]), label:"", span:"" }); ok++; markDirty(); }
         catch(err){ if (err.message === "dev-mode") return; }
       }
-      setStatus(ok ? `${ok} image(s) ajoutée(s) ✓` : "Échec du téléversement.", ok ? "ok" : "bad");
+      const ko = files.length - ok;
+      setStatus(ko ? `${ok} ajoutée(s), ${ko} en échec — réessaie ces images` : `${ok} image(s) ajoutée(s) ✓`, ko ? "bad" : "ok");
       draw();
     }));
   };
@@ -361,12 +362,12 @@ function renderDashboard(pane){
   pane.append(el("div", { class:"dash-hero" },
     el("span", { class:"dash-kick" }, "Boxing Center · Portet-sur-Garonne"),
     el("h3", {}, hour < 18 ? "Bonjour coach." : "Bonsoir coach."),
-    el("p", {}, "Qu'est-ce qu'on améliore aujourd'hui ?")));
+    el("p", {}, "Qu’est-ce qu’on améliore aujourd’hui ?")));
 
   const st = el("div", { class:"dash-status" + (DIRTY ? " dirty" : "") },
     el("span", { class:"lamp" }),
     el("p", {}, DIRTY
-      ? "Des modifications attendent d'être publiées. Elles sont enregistrées ici, mais pas encore en ligne."
+      ? "Des modifications attendent d’être publiées. Elles sont enregistrées ici, mais pas encore en ligne."
       : "Tout est en ligne. Le site affiche la dernière version publiée."),
     el("button", { class:"btn ghost sm", type:"button", onclick:openPreview }, "Aperçu"),
     DIRTY ? el("button", { class:"btn sm", type:"button", onclick:publish }, "Publier") : null);
@@ -377,18 +378,18 @@ function renderDashboard(pane){
     el("button", { class:"wiz", type:"button", onclick:() => runFlow(FLOWS[flow]) },
       el("span", { class:"nico", html:icon }), el("b", {}, title), el("span", {}, desc));
   pane.append(el("div", { class:"wizgrid" },
-    wiz("addPhoto", ICONS.gallery, "Ajouter une photo", "De ton ordinateur jusqu'à la galerie du site, guidé à chaque clic."),
+    wiz("addPhoto", ICONS.gallery, "Ajouter une photo", "De ton ordinateur jusqu’à la galerie du site, guidé à chaque clic."),
     wiz("editTarif", ICONS.tarifs, "Changer un tarif", "Modifier un prix ou une offre, et le mettre en ligne."),
     wiz("editPlanning", ICONS.planning, "Modifier le planning", "Ajouter, déplacer ou supprimer un créneau de cours."),
-    wiz("editText", ICONS.text, "Changer un texte", "N'importe quel texte du site, section par section."),
+    wiz("editText", ICONS.text, "Changer un texte", "N’importe quel texte du site, section par section."),
     el("button", { class:"wiz", type:"button", onclick:() => startTour() },
       el("span", { class:"nico", html:ICONS.play }), el("b", {}, "Revoir la visite"), el("span", {}, "Le tour complet du vestiaire, en 2 minutes."))));
 }
 
 /* modération communauté */
 async function renderCommunity(pane){
-  pane.append(el("p", { class:"sec-intro" }, "Valide ou refuse les photos et vidéos envoyées par les membres avant qu'elles n'apparaissent sur le site."));
-  if (DEV_MODE){ pane.append(el("div", { class:"empty" }, "Mode local — la modération ne marche qu'en ligne.")); return; }
+  pane.append(el("p", { class:"sec-intro" }, "Valide ou refuse les photos et vidéos envoyées par les membres avant qu’elles n’apparaissent sur le site."));
+  if (DEV_MODE){ pane.append(el("div", { class:"empty" }, "Mode local — la modération ne marche qu’en ligne.")); return; }
   const list = el("div"); pane.append(list);
   list.append(el("p", { class:"status" }, "Chargement…"));
   try{
@@ -410,30 +411,31 @@ async function renderCommunity(pane){
           el("div", { class:"status" }, [it.author ? ("par " + it.author) : "", when + dur].filter(Boolean).join(" · "))),
         el("div", { style:"display:flex;gap:8px" },
           el("button", { class:"btn sm", onclick:async (e) => { busy(row, true); e.target.textContent = "…"; try { const r = await moderate(it.id, "approve", it.rtype); if (r && r.error) alert(r.error); } finally { renderSection("community"); } } }, "Approuver"),
-          el("button", { class:"btn danger sm", onclick:async () => { if (confirm("Refuser et supprimer ?")){ busy(row, true); await moderate(it.id, "reject", it.rtype); renderSection("community"); } } }, "Refuser")));
+          el("button", { class:"btn danger sm", onclick:async () => { if (!confirm("Refuser et supprimer ?")) return; busy(row, true); try { const r = await moderate(it.id, "reject", it.rtype); if (r && r.error) alert(r.error); } finally { renderSection("community"); } } }, "Refuser")));
       list.append(row);
     });
   }catch(e){ list.innerHTML = ""; list.append(el("div", { class:"empty" }, "Erreur de chargement.")); }
 }
 async function moderate(id, action, rtype){
   const r = await fetch(`${API}/api/community/moderate`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ id, action, rtype }) });
+  if (r.status === 401){ logout(); return {}; }
   return r.json().catch(() => ({}));
 }
 
-/* ---------- 6. upload d'images (Cloudinary, signé côté serveur) ----------
-   Le patron uploade N'IMPORTE quelle photo (8 Mo, verticale, de travers…) :
+/* ---------- 6. upload d’images (Cloudinary, signé côté serveur) ----------
+   Le patron uploade N’IMPORTE quelle photo (8 Mo, verticale, de travers…) :
    1. prepareImage la redresse (EXIF), la réduit à 2000 px max et la compresse
-      en WebP AVANT l'envoi → upload rapide même sur le wifi de la salle ;
+      en WebP AVANT l’envoi → upload rapide même sur le wifi de la salle ;
    2. le site la recadre ensuite par slot (ratio + cadrage IA, voir src/img.ts).
-   Il n'y a donc AUCUNE taille à respecter — c'est nous qui convertissons. */
-const MAX_PX = 2000;      // plus grand côté après réduction (le site n'affiche jamais plus de 1440)
+   Il n’y a donc AUCUNE taille à respecter — c’est nous qui convertissons. */
+const MAX_PX = 2000;      // plus grand côté après réduction (le site n’affiche jamais plus de 1440)
 const SMALL_PX = 800;     // en-dessous : risque de flou sur grand écran → on prévient
 const fmtMo = (b) => (b / 1048576).toFixed(1).replace(".", ",") + " Mo";
 
 async function prepareImage(file){
   let bmp;
   // HEIC/format exotique : le navigateur ne sait pas le décoder → on envoie
-  // l'original, Cloudinary le convertit côté serveur.
+  // l’original, Cloudinary le convertit côté serveur.
   try{ bmp = await createImageBitmap(file, { imageOrientation:"from-image" }); }
   catch(e){ return { blob:file, note:"", small:false }; }
   const w = bmp.width, h = bmp.height;
@@ -454,7 +456,7 @@ async function prepareImage(file){
 }
 
 async function uploadFile(file){
-  if (DEV_MODE){ setStatus("Mode local : l'envoi d'images ne marche qu'en ligne.","bad"); throw new Error("dev-mode"); }
+  if (DEV_MODE){ setStatus("Mode local : l’envoi d’images ne marche qu’en ligne.","bad"); throw new Error("dev-mode"); }
   const prep = await prepareImage(file);
   const sr = await fetch(`${API}/api/admin/media-sign`, { method:"POST", headers:{ "x-admin-token":TOKEN } });
   if (sr.status === 401){ logout(); throw new Error("auth"); }
@@ -466,7 +468,7 @@ async function uploadFile(file){
   const u = await up.json();
   if (!u.secure_url) throw new Error("upload");
   uploadFile.lastNote = prep.small
-    ? " — ⚠ image petite (moins de 800 px) : elle risque d'être floue sur grand écran"
+    ? " — ⚠ image petite (moins de 800 px) : elle risque d’être floue sur grand écran"
     : (prep.note || "");
   return u.secure_url;
 }
@@ -474,7 +476,7 @@ function pickAndUpload(done){
   const inp = el("input", { type:"file", accept:"image/*" });
   inp.addEventListener("change", async () => {
     const file = inp.files[0]; if (!file) return;
-    setStatus("Téléversement de l'image…");
+    setStatus("Téléversement de l’image…");
     try{ done(await uploadFile(file)); markDirty(); setStatus("Image ajoutée ✓" + (uploadFile.lastNote || ""), "ok"); }
     catch(e){ if (e.message !== "dev-mode") setStatus("Échec du téléversement.","bad"); }
   });
@@ -504,7 +506,7 @@ function showDraftBar(draft){
   const bar = el("div", { class:"draftbar", id:"draftbar" },
     el("span", {}, "Un brouillon non publié a été retrouvé sur cet ordinateur."),
     el("button", { class:"btn sm", type:"button", onclick:() => { DATA = draft; DIRTY = true; updateDirtyUI(); removeDraftBar(); renderSection(CURRENT); } }, "Reprendre le brouillon"),
-    el("button", { class:"btn ghost sm", type:"button", onclick:() => { try{ localStorage.removeItem(DRAFT_KEY); }catch(e){} removeDraftBar(); } }, "L'ignorer"));
+    el("button", { class:"btn ghost sm", type:"button", onclick:() => { try{ localStorage.removeItem(DRAFT_KEY); }catch(e){} removeDraftBar(); } }, "L’ignorer"));
   const content = document.getElementById("pane");
   content.parentElement.insertBefore(bar, content);
 }
@@ -518,7 +520,7 @@ async function load(){
     if ((r.headers.get("content-type") || "").includes("application/json")){
       const j = await r.json(); DATA = j.content || {};
     } else {
-      // vite dev sert /api/* en fichiers statiques : pas d'API → mode local complet
+      // vite dev sert /api/* en fichiers statiques : pas d’API → mode local complet
       DEV_MODE = true;
       DATA = await fetch("/src/content.json").then((x) => x.json());
     }
@@ -529,8 +531,11 @@ async function load(){
   }catch(e){ setStatus("Erreur réseau.","bad"); }
 }
 async function publish(){
-  if (DEV_MODE) return setStatus("Mode local : la publication ne marche qu'en ligne.","bad");
+  if (DEV_MODE) return setStatus("Mode local : la publication ne marche qu’en ligne.","bad");
+  const pb = document.getElementById("publish");
+  if (pb.disabled) return; // une publication est deja en cours
   if (!confirm("Publier les modifications ? Le site se met à jour automatiquement (~1 minute).")) return;
+  pb.disabled = true;
   setStatus("Publication…");
   try{
     const r = await fetch(`${API}/api/admin/content`, { method:"POST", headers:{ "Content-Type":"application/json", "x-admin-token":TOKEN }, body:JSON.stringify({ content:DATA }) });
@@ -538,6 +543,7 @@ async function publish(){
     if (r.ok){ clearDirty(); removeDraftBar(); setStatus(j.rebuild ? "Publié ✓ — le site se met à jour (~1 min)" : "Publié ✓ (pense à reconstruire)","ok"); }
     else setStatus("Échec : " + (j.error || r.status),"bad");
   }catch(e){ setStatus("Erreur réseau.","bad"); }
+  finally{ pb.disabled = false; }
 }
 
 function buildNav(){
@@ -562,7 +568,10 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const t = document.getElementById("token").value.trim(); if (!t) return;
   const errEl = document.getElementById("loginErr");
   errEl.textContent = "";
+  const lb = e.target.querySelector('button[type="submit"]') || e.target.querySelector("button");
+  if (lb){ if (lb.disabled) return; lb.disabled = true; }
   const r = await fetch(`${API}/api/admin/content`, { headers:{ "x-admin-token":t } }).catch(() => null);
+  if (lb) lb.disabled = false;
   if (r && r.ok){ TOKEN = t; sessionStorage.setItem("bcp_admin", t); showApp(); return; }
   // diagnostic précis : le patron doit savoir EXACTEMENT quoi corriger
   let msg;

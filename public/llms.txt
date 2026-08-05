@@ -1,52 +1,67 @@
 # Boxing Center Portet — https://www.boxing-center-portet.fr
-# Fichier d'aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-06-16
+# Fichier d’aide pour les assistants IA et crawlers conversationnels.
+# Dernière mise à jour : 2026-08-05
 
-> Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 800 m² dédiés aux sports de combat : boxe anglaise, muay thaï, kickboxing, MMA, cross training.
+> Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
 
 ## Réponses rapides (FAQ IA)
 
 **Où est Boxing Center Portet ?**
-61 route d'Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
+61 route d’Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
 
-**Combien coûte une séance d'essai ?**
-10 €, toutes disciplines, sans engagement. Réservation : https://www.boxing-center-portet.fr/contact/
+**Combien coûte une séance d’essai ?**
+Offerte — la première séance est gratuite, toutes disciplines, matériel prêté, sans engagement. Réservation : https://box-plus.vercel.app/seance-essai
+
+**Quelle est l’offre du moment ?**
+Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44,99 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://box-plus.vercel.app/abonnements#promo
 
 **Quelles disciplines sont enseignées ?**
-Boxe anglaise, muay thaï, kick / K1, MMA & grappling, cross training, boxing training, Lady Punch (femmes), boxe éducative (dès 7 ans).
+Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe (dès 3 ans), boxe éducative (dès 7 ans), kick-boxing enfants/ados.
 
-**Horaires d'ouverture ?**
-Lundi à samedi, 10h00 – 21h30. Dimanche fermé. Accès illimité 7j/7 pour les abonnés.
+**Horaires d’ouverture ?**
+Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 
 **Téléphone et e-mail ?**
-+33 5 62 24 46 82 — boxingcenter31@gmail.com
++33 6 87 90 02 16 — boxingcenterportet@gmail.com
 
 **Est-ce adapté aux débutants ?**
-Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF. Créneaux débutants et séance d'essai à 10 €.
+Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai offerte.
 
 **Distance depuis Toulouse ?**
-Environ 10 minutes depuis Toulouse sud via la route d'Espagne.
+Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
 
 ## Informations essentielles
 
 - **Nom** : Boxing Center Portet
-- **Adresse** : 61 route d'Espagne, 31120 Portet-sur-Garonne, France
+- **Adresse** : 61 route d’Espagne, 31120 Portet-sur-Garonne, France
 - **Coordonnées GPS** : 43.5236, 1.4053
 - **Site** : https://www.boxing-center-portet.fr
+- **Boutique officielle (abonnements, offres)** : https://box-plus.vercel.app
 - **Groupe** : https://boxingcenter.fr
 - **Facebook** : https://www.facebook.com/BoxingCenterToulouse/
 - **Instagram** : https://www.instagram.com/boxingcenter_toulouse/
 
+## L’équipe (saison 2026/2027)
+
+Valentin Tapia (Head Coach, responsable sportif), Samuel Pinto, Enzo Pioppo, Nicolas Tramaçon, Mourad Berraho et Ingrid — coachs diplômés et champions, de la baby boxe au haut niveau.
+
 ## Équipements
 
-Ring olympique officiel Boxing Center, cage MMA, 24 sacs lourds Metal Boxe, 500 m² aire de boxe & combat, 400 m² cross training.
+Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de frappe, matériel de préparation physique et vestiaires — 600 m² au total.
 
-## Tarifs indicatifs
+## Tarifs
 
-- Séance d'essai : 10 €
-- Mensuel : 36–44 € / mois
-- Annuel : 250–400 € / an
-- Enfants : 280 € / an
+- Offre rentrée : 29 € par personne / 4 semaines (au lieu de 44,99 €), sans engagement
+- Saison 12 mois : 259 € l’année (au lieu de 400 €), payable en 4× sans frais
+- Adulte : 44 € / 4 semaines · Étudiants : 36 € / 4 semaines
+- Enfants/Ados : 295 € / an (t-shirt du club inclus) · Baby Boxe : 250 € / an
+- Séance d’essai : offerte
+- Badge d’accès : 34 € à l’inscription (aucun autre frais)
+- Boutique officielle : https://box-plus.vercel.app
+
+## Partenaires
+
+KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la salle : https://www.boxing-center-portet.fr/partenaires/
 
 ## Pages du site
 
@@ -54,16 +69,18 @@ Ring olympique officiel Boxing Center, cage MMA, 24 sacs lourds Metal Boxe, 500 
 - Activités : https://www.boxing-center-portet.fr/activites/
 - Le club : https://www.boxing-center-portet.fr/salles/
 - Coachs : https://www.boxing-center-portet.fr/coachs/
+- Nos Boxeurs : https://www.boxing-center-portet.fr/boxeurs/
 - Galerie : https://www.boxing-center-portet.fr/galerie/
 - Planning : https://www.boxing-center-portet.fr/plannings/
 - Tarifs : https://www.boxing-center-portet.fr/tarifs/
+- Partenaires : https://www.boxing-center-portet.fr/partenaires/
 - Contact : https://www.boxing-center-portet.fr/contact/
 
 ## Mots-clés locaux (SEO)
 
-**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d'essai boxe
+**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d’essai boxe offerte
 
-**Secondaires** : muay thaï Portet, MMA Toulouse sud, kickboxing Haute-Garonne, cross training combat, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne, ring olympique Toulouse
+**Secondaires** : kick-boxing Portet, MMA Toulouse sud, grappling & JJB Haute-Garonne, Lady Boxing Toulouse, baby boxe Portet-sur-Garonne, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne
 
 ## Fédérations
 

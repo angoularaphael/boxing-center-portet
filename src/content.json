@@ -3,12 +3,12 @@
     "name": "Boxing Center Portet",
     "baseline": "Boxes pieds, poings, projections.",
     "claim": "La salle phare du groupe. 600 m² dédiés aux sports de combat.",
-    "phone": "05 62 24 46 82",
-    "phoneHref": "+33562244682",
-    "email": "boxingcenter31@gmail.com",
+    "phone": "06 87 90 02 16",
+    "phoneHref": "+33687900216",
+    "email": "boxingcenterportet@gmail.com",
     "hours": "Lun–Sam · 10h00 – 21h30",
     "address": {
-      "street": "61 route d'Espagne",
+      "street": "61 route d’Espagne",
       "zip": "31120",
       "city": "Portet-sur-Garonne"
     },
@@ -86,7 +86,7 @@
       "key": "01",
       "name": "Boxe Anglaise",
       "tag": "Poings",
-      "desc": "Le noble art. Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round.",
+      "desc": "Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round. Chacun à son rythme, dès le premier cours.",
       "img": "/img/disc/boxe-anglaise-bc.jpg"
     },
     {
@@ -100,14 +100,14 @@
       "key": "03",
       "name": "MMA",
       "tag": "La cage",
-      "desc": "Debout, au sol, dans la cage. L'art complet du combat — encadré, progressif, sans ego. Débutants bienvenus.",
+      "desc": "Debout, au sol, dans la cage. On t’apprend tout, étape par étape — encadré, progressif, sans ego. Débutants bienvenus.",
       "img": "/img/disc/mma-bc.jpg"
     },
     {
       "key": "04",
       "name": "Grappling & Jiu-Jitsu Brésilien",
       "tag": "Le sol",
-      "desc": "Contrôles, passages, soumissions. Ici l'erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.",
+      "desc": "Contrôles, passages, soumissions. Ici l’erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.",
       "img": "/img/disc/grappling-bc.jpg"
     },
     {
@@ -121,14 +121,14 @@
       "key": "06",
       "name": "Préparation Physique",
       "tag": "Le moteur",
-      "desc": "Force, cardio, explosivité. Le moteur du combattant — celui qui tient trois rounds sans baisser la garde.",
+      "desc": "Force, cardio, explosivité — et aucun coup à recevoir. Le moteur qui te fait tenir trois rounds sans baisser la garde, quel que soit ton niveau.",
       "img": "/img/disc/prepa-bc.jpg"
     },
     {
       "key": "07",
       "name": "Baby Boxe",
       "tag": "Les petits",
-      "desc": "Motricité, confiance, respect des règles. Le premier gant, à hauteur d'enfant.",
+      "desc": "Motricité, confiance, respect des règles. Le premier gant, à hauteur d’enfant.",
       "img": "/img/disc/baby-boxe-bc.jpg"
     },
     {
@@ -142,7 +142,7 @@
       "key": "09",
       "name": "Kick-Boxing Enfants / Ados",
       "tag": "La relève",
-      "desc": "Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l'école de la relève.",
+      "desc": "Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l’école de la relève.",
       "img": "/img/disc/kick-enfants-bc.jpg"
     }
   ],
@@ -160,17 +160,17 @@
     {
       "tag": "Premier gant",
       "title": "Les débutants",
-      "desc": "Aucun niveau demandé, gants prêtés, pas de sparring imposé. Tout le monde a commencé un jour — ici, on t'apprend."
+      "desc": "Aucun niveau demandé, gants prêtés, pas de sparring imposé. Tout le monde a commencé un jour — ici, on t’apprend."
     },
     {
-      "tag": "On s'y remet",
+      "tag": "On s’y remet",
       "title": "Les parents",
       "desc": "Vous accompagnez votre enfant ? Restez. Un créneau pour vous pendant le sien, et la famille transpire ensemble."
     },
     {
       "tag": "La Team Compétition",
       "title": "Les compétiteurs",
-      "desc": "Quand tu seras prêt — et seulement si tu en as envie — la Team Tapia t'amène du sparring au gala, préparé."
+      "desc": "Quand tu seras prêt — et seulement si tu en as envie — la Team Tapia t’amène du sparring au gala, préparé."
     }
   ],
   "team": [
@@ -180,7 +180,7 @@
       "kind": "Head Coach",
       "img": "/img/team/cards/card-valentin-tapia.jpg",
       "initials": "VT",
-      "desc": "Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l'Équipe de France. Du débutant au compétiteur, il accompagne chacun avec la même exigence. « Le talent te fait commencer. L'exigence te fait gagner. »"
+      "desc": "Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l’Équipe de France. Du débutant au compétiteur, il accompagne chacun avec la même exigence. « Le talent te fait commencer. L’exigence te fait gagner. »"
     },
     {
       "name": "Samuel Pinto",
@@ -188,7 +188,7 @@
       "kind": "Coach",
       "img": "/img/team/cards/card-samuel-pinto.jpg",
       "initials": "SP",
-      "desc": "Double licence STAPS. Vice-champion d'Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensemble, on va plus loin, on va plus haut. »"
+      "desc": "Double licence STAPS. Vice-champion d’Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensemble, on va plus loin, on va plus haut. »"
     },
     {
       "name": "Enzo Pioppo",
@@ -196,7 +196,7 @@
       "kind": "Coach",
       "img": "/img/team/cards/card-enzo-pioppo.jpg",
       "initials": "EP",
-      "desc": "BMF 2 Pancrace, ceinture noire de Luta Livre. Champion de France, vice-champion d'Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l'écoute — il te rend plus fort, plus complet, plus confiant."
+      "desc": "Ceinture noire de Luta Livre. Champion de France, vice-champion d’Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l’écoute — il te rend plus fort, plus complet, plus confiant."
     },
     {
       "name": "Nicolas Tramaçon",
@@ -204,7 +204,7 @@
       "kind": "Coach",
       "img": "/img/team/cards/card-nicolas-tramacon.jpg",
       "initials": "NT",
-      "desc": "BPJEPS sport de contact, ceinture noire sol. Technicien rigoureux, compétiteur dans l'âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage."
+      "desc": "BPJEPS sport de contact. Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage."
     },
     {
       "name": "Mourad Berraho",
@@ -212,7 +212,7 @@
       "kind": "Coach",
       "img": "/img/team/cards/card-mourad-ingrid.jpg",
       "initials": "MB",
-      "desc": "Triple champion de France, membre de l'Équipe de France — formé ici, par Valentin Tapia. Il accompagne vos enfants pour les aider à devenir meilleurs, dans le sport comme dans la vie."
+      "desc": "Triple champion de France, membre de l’Équipe de France — formé ici, par Valentin Tapia. Il accompagne vos enfants pour les aider à devenir meilleurs, dans le sport comme dans la vie."
     },
     {
       "name": "Ingrid",
@@ -226,23 +226,23 @@
   "values": [
     {
       "n": "01",
-      "title": "Discipline",
-      "desc": "Le talent ouvre la porte. La discipline te garde dans le ring."
+      "title": "Inclusion",
+      "desc": "Une place pour chacun, sans distinction d’âge, de niveau ou d’objectif."
     },
     {
       "n": "02",
       "title": "Respect",
-      "desc": "On salue avant de frapper. Le respect, c'est la première règle du club."
+      "desc": "Respect de soi, des autres et des valeurs du sport."
     },
     {
       "n": "03",
       "title": "Dépassement",
-      "desc": "Tu repars toujours un peu plus fort qu'en arrivant. C'est la promesse."
+      "desc": "Donner le meilleur de soi, un entraînement après l’autre."
     },
     {
       "n": "04",
-      "title": "Famille",
-      "desc": "Toutes les couches sociales, tous les niveaux. Un seul vestiaire, une seule meute."
+      "title": "Esprit de famille",
+      "desc": "Une communauté soudée où chacun progresse."
     }
   ],
   "tarifs": [
@@ -254,41 +254,37 @@
       "badge": "Promo rentrée 2026",
       "note": "29 € par personne, sans engagement. Viens avec ton binôme : la rentrée se boxe à deux, dans les 5 salles du réseau.",
       "feature": true,
-      "cta": "Je profite de l'offre",
-      "href": "https://box-plus.vercel.app/abonnements#promotions"
+      "cta": "Je profite de l’offre",
+      "href": "https://box-plus.vercel.app/abonnements#promo"
     },
     {
       "name": "Saison · 12 mois",
       "price": "259€",
-      "unit": "l'année · 4× sans frais",
+      "unit": "l’année · 4× sans frais",
       "old": "400€",
       "badge": "4× sans frais",
-      "note": "Douze mois d'illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L'engagement des passionnés.",
+      "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.",
       "feature": false,
       "cta": "Je prends ma saison",
-      "href": "https://box-plus.vercel.app/abonnements#promotions"
+      "href": "https://box-plus.vercel.app/abonnements#promo"
     },
     {
-      "name": "Promo Adulte",
-      "price": "38,99€",
+      "name": "Adulte",
+      "price": "44€",
       "unit": "/ 4 semaines",
-      "old": "44,99€",
-      "badge": "Promo",
-      "note": "L'abonnement adulte au tarif promo : accès aux 5 salles, toutes disciplines, sans engagement.",
+      "note": "L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.",
       "feature": false,
       "cta": "Je choisis cette formule",
-      "href": "https://box-plus.vercel.app/abonnements#promotions"
+      "href": "https://box-plus.vercel.app/abonnements#prelevement"
     },
     {
-      "name": "Promo Étudiants",
-      "price": "34,99€",
+      "name": "Étudiants",
+      "price": "36€",
       "unit": "/ 4 semaines",
-      "old": "36,99€",
-      "badge": "Promo",
-      "note": "Le tarif étudiant, encore allégé. Mêmes salles, mêmes coachs, mêmes gants.",
+      "note": "Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.",
       "feature": false,
       "cta": "Je choisis cette formule",
-      "href": "https://box-plus.vercel.app/abonnements#promotions"
+      "href": "https://box-plus.vercel.app/abonnements#prelevement"
     },
     {
       "name": "Enfants / Ados",
@@ -296,20 +292,20 @@
       "unit": "/ an",
       "note": "T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.",
       "feature": false,
-      "cta": "J'inscris mon enfant",
+      "cta": "J’inscris mon enfant",
       "href": "https://box-plus.vercel.app/abonnements#enfants"
     },
     {
       "name": "Baby Boxe",
       "price": "250€",
       "unit": "/ an",
-      "note": "Le premier gant, à hauteur d'enfant : motricité, confiance, respect.",
+      "note": "Le premier gant, à hauteur d’enfant : motricité, confiance, respect.",
       "feature": false,
-      "cta": "J'inscris mon enfant",
+      "cta": "J’inscris mon enfant",
       "href": "https://box-plus.vercel.app/abonnements#enfants"
     },
     {
-      "name": "Séance d'essai",
+      "name": "Séance d’essai",
       "price": "Offerte",
       "unit": "ta première séance",
       "note": "Toujours pas décidé ? Ta première séance est offerte : gants prêtés, aucun niveau demandé, pas de sparring. Tu viens, tu testes, tu vois.",
@@ -323,16 +319,16 @@
       "day": "Lundi",
       "items": [
         [
-          "18:30",
+          "12:30 – 13:30",
           "Boxe Anglaise"
         ],
         [
-          "19:30",
-          "Kick-Boxing"
+          "18:00 – 19:00",
+          "Boxe Éducative Confirmés"
         ],
         [
-          "20:30",
-          "Préparation Physique"
+          "19:00 – 21:30",
+          "Boxe Amateurs & Pros"
         ]
       ]
     },
@@ -340,16 +336,20 @@
       "day": "Mardi",
       "items": [
         [
-          "12:30",
+          "12:30 – 13:30",
           "Préparation Physique"
         ],
         [
-          "18:30",
-          "MMA"
+          "18:00 – 19:00",
+          "Boxe Amateurs & Pros"
         ],
         [
-          "19:30",
-          "Lady Boxing"
+          "19:00 – 20:00",
+          "Préparation Physique"
+        ],
+        [
+          "20:00 – 21:30",
+          "Boxe Anglaise Loisirs"
         ]
       ]
     },
@@ -357,16 +357,24 @@
       "day": "Mercredi",
       "items": [
         [
-          "14:00",
-          "Boxe Éducative"
+          "16:00 – 17:00",
+          "Boxe Éducative 7/11 ans"
         ],
         [
-          "18:30",
-          "Kick-Boxing"
+          "17:00 – 18:00",
+          "Boxe Éducative 12/16 ans"
         ],
         [
-          "19:30",
-          "Boxe Anglaise"
+          "18:00 – 19:00",
+          "Lady Boxing"
+        ],
+        [
+          "19:00 – 20:00",
+          "Boxe Anglaise Loisirs"
+        ],
+        [
+          "20:00 – 21:30",
+          "Boxe Amateurs & Pros"
         ]
       ]
     },
@@ -374,16 +382,16 @@
       "day": "Jeudi",
       "items": [
         [
-          "12:30",
-          "Préparation Physique"
+          "12:30 – 13:30",
+          "Boxe Anglaise"
         ],
         [
-          "18:30",
-          "Kick-Boxing"
+          "18:00 – 20:00",
+          "Boxe Amateurs & Pros"
         ],
         [
-          "19:30",
-          "Grappling & JJB"
+          "20:00 – 21:30",
+          "Boxe Anglaise Loisirs"
         ]
       ]
     },
@@ -391,16 +399,16 @@
       "day": "Vendredi",
       "items": [
         [
-          "18:30",
+          "12:30 – 13:30",
           "Boxe Anglaise"
         ],
         [
-          "19:30",
-          "Sparring"
+          "18:00 – 20:00",
+          "Boxe Amateurs & Pros"
         ],
         [
-          "20:30",
-          "MMA"
+          "20:00 – 21:30",
+          "Open Sparring"
         ]
       ]
     },
@@ -408,66 +416,254 @@
       "day": "Samedi",
       "items": [
         [
-          "10:30",
-          "Préparation Physique"
+          "10:00 – 12:00",
+          "Boxe Amateurs & Pros"
         ],
         [
-          "11:30",
-          "Baby Boxe"
+          "12:30 – 13:30",
+          "Boxe Anglaise"
         ],
         [
-          "12:30",
-          "Open Mat"
+          "15:15 – 16:00",
+          "Baby Boxe (3/6 ans)"
+        ],
+        [
+          "16:00 – 17:00",
+          "Boxe Éducative 7/11 ans"
+        ],
+        [
+          "17:00 – 18:00",
+          "Boxe Éducative 12/16 ans"
         ]
       ]
     }
   ],
   "gallery": [
-    { "src": "/img/gym-21.jpg", "label": "Le ring de boxe anglaise", "span": "wide" },
-    { "src": "/img/team/team-tapia-pads.jpg", "label": "Aux pattes d'ours — Team Tapia", "span": "tall" },
-    { "src": "/img/gym-24.jpg", "label": "La cage MMA", "span": "" },
-    { "src": "/img/team/podium-ffboxe.jpg", "label": "Champions de France — le podium", "span": "" },
-    { "src": "/img/team/gala-trophee.jpg", "label": "Pauline Re — soir de gala", "span": "" },
-    { "src": "/img/team/enzo-pioppo2.jpeg", "label": "Enzo Pioppo — champion du Monde", "span": "" },
-    { "src": "/img/team/walkout-gala.jpg", "label": "Le walk-out, soir de gala", "span": "tall" },
-    { "src": "/img/gym-22.jpg", "label": "Les tatamis — grappling & JJB", "span": "" },
-    { "src": "/img/team/anna-boullez-sparring.jpg", "label": "Anna Boullez au travail", "span": "" },
-    { "src": "/img/gym-25.jpg", "label": "600 m² — deux espaces", "span": "" },
-    { "src": "/img/gym-01.jpg", "label": "L'entrée du club", "span": "" },
-    { "src": "/img/team/victoire-gala.jpg", "label": "Victoire en gala", "span": "wide" },
-    { "src": "/img/gym-02.jpg", "label": "La salle en plein entraînement", "span": "" },
-    { "src": "/img/team/gala-corner.jpg", "label": "Le coin de gala", "span": "" },
-    { "src": "/img/gym-03.jpg", "label": "Les sacs Metal Boxe", "span": "tall" },
-    { "src": "/img/team/tapia-corner.jpg", "label": "Valentin Tapia dans le coin", "span": "" },
-    { "src": "/img/gym-04.jpg", "label": "L'espace de prépa physique", "span": "" },
-    { "src": "/img/team/gala-kick-01.jpg", "label": "Gala — high kick", "span": "" },
-    { "src": "/img/team/gala-kick-02.jpg", "label": "Gala — combination", "span": "" },
-    { "src": "/img/gym-05.jpg", "label": "Entraînement au sac", "span": "" },
-    { "src": "/img/team/pauline-re-combat.jpg", "label": "Pauline Re en combat", "span": "wide" },
-    { "src": "/img/gym-06.jpg", "label": "Le ring vu de l'extérieur", "span": "tall" },
-    { "src": "/img/team/tapia-pads-marama.jpg", "label": "Tapia aux pads avec Marama", "span": "" },
-    { "src": "/img/team/anna-boullez-coin.jpg", "label": "Anna Boullez — coin de ring", "span": "" },
-    { "src": "/img/gym-07.jpg", "label": "L'ambiance du club", "span": "" },
-    { "src": "/img/team/pauline-re-victoire.jpg", "label": "Pauline Re — victoire", "span": "" },
-    { "src": "/img/gym-08.jpg", "label": "Zone de combat au sol", "span": "" },
-    { "src": "/img/team/pinto-savate-01.jpg", "label": "Samuel Pinto — savate", "span": "" },
-    { "src": "/img/team/marama-training.jpg", "label": "Marama Mercier à l'entraînement", "span": "wide" },
-    { "src": "/img/gym-09.jpg", "label": "Détail du ring", "span": "" },
-    { "src": "/img/team/salut-ecole-nb.jpg", "label": "Le salut — école de boxe", "span": "tall" },
-    { "src": "/img/gym-10.jpg", "label": "Le matériel d'entraînement", "span": "" },
-    { "src": "/img/team/pinto-fight-02.jpg", "label": "Samuel Pinto en combat", "span": "" },
-    { "src": "/img/team/gala-kick-03.jpg", "label": "Gala — mise au sol", "span": "" },
-    { "src": "/img/gym-11.jpg", "label": "Les gants suspendus", "span": "" },
-    { "src": "/img/team/walkout-ecole.jpg", "label": "Walk-out — école de boxe", "span": "wide" },
-    { "src": "/img/team/loyna-cagniac.jpg", "label": "Loyna Cagniac", "span": "" },
-    { "src": "/img/gym-12.jpg", "label": "Vue d'ensemble", "span": "" },
-    { "src": "/img/team/team-tapia-mitts.jpg", "label": "Team Tapia aux mitaines", "span": "" },
-    { "src": "/img/team/mourad-berraho.jpg", "label": "Mourad Berraho", "span": "" },
-    { "src": "/img/gym-13.jpg", "label": "Les cordes du ring", "span": "tall" },
-    { "src": "/img/team/anna-boullez-garde.jpg", "label": "Anna Boullez — en garde", "span": "" },
-    { "src": "/img/gym-14.jpg", "label": "Le mur de sacs", "span": "" },
-    { "src": "/img/team/pinto-savate-02.jpg", "label": "Pinto — boxe française", "span": "" },
-    { "src": "/img/gym-15.jpg", "label": "L'espace de travail", "span": "" }
+    {
+      "src": "/img/team/salut-ecole-nb.jpg",
+      "label": "Le salut — école de boxe",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-21.jpg",
+      "label": "Le ring de boxe anglaise",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/walkout-ecole.jpg",
+      "label": "Walk-out — école de boxe",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/team-tapia-pads.jpg",
+      "label": "Aux pattes d’ours — Team Tapia",
+      "span": "wide"
+    },
+    {
+      "src": "/img/gym-01.jpg",
+      "label": "L’entrée du club",
+      "span": "wide"
+    },
+    {
+      "src": "/img/team/tapia-pads-marama.jpg",
+      "label": "Tapia aux pads avec Marama",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-02.jpg",
+      "label": "La salle en plein entraînement",
+      "span": "wide"
+    },
+    {
+      "src": "/img/team/team-tapia-mitts.jpg",
+      "label": "Team Tapia aux mitaines",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-25.jpg",
+      "label": "600 m² — deux espaces",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/marama-training.jpg",
+      "label": "Marama Mercier à l’entraînement",
+      "span": "wide"
+    },
+    {
+      "src": "/img/gym-04.jpg",
+      "label": "L’espace de prépa physique",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-22.jpg",
+      "label": "Les tatamis — grappling & JJB",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-24.jpg",
+      "label": "La cage MMA",
+      "span": ""
+    },
+    {
+      "src": "/img/team/podium-ffboxe.jpg",
+      "label": "Champions de France — le podium",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/gala-trophee.jpg",
+      "label": "Pauline Re — soir de gala",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/enzo-pioppo2.jpeg",
+      "label": "Enzo Pioppo — champion du Monde",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/walkout-gala.jpg",
+      "label": "Le walk-out, soir de gala",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/anna-boullez-sparring.jpg",
+      "label": "Anna Boullez au travail",
+      "span": ""
+    },
+    {
+      "src": "/img/team/victoire-gala.jpg",
+      "label": "Victoire en gala",
+      "span": "wide"
+    },
+    {
+      "src": "/img/team/gala-corner.jpg",
+      "label": "Le coin de gala",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-03.jpg",
+      "label": "Les sacs Metal Boxe",
+      "span": ""
+    },
+    {
+      "src": "/img/team/tapia-corner.jpg",
+      "label": "Valentin Tapia dans le coin",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/gala-kick-01.jpg",
+      "label": "Gala — high kick",
+      "span": ""
+    },
+    {
+      "src": "/img/team/gala-kick-02.jpg",
+      "label": "Gala — combination",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-05.jpg",
+      "label": "Entraînement au sac",
+      "span": ""
+    },
+    {
+      "src": "/img/team/pauline-re-combat.jpg",
+      "label": "Pauline Re en combat",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-06.jpg",
+      "label": "Le ring vu de l’extérieur",
+      "span": ""
+    },
+    {
+      "src": "/img/team/anna-boullez-coin.jpg",
+      "label": "Anna Boullez — coin de ring",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-07.jpg",
+      "label": "L’ambiance du club",
+      "span": ""
+    },
+    {
+      "src": "/img/team/pauline-re-victoire.jpg",
+      "label": "Pauline Re — victoire",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-08.jpg",
+      "label": "Zone de combat au sol",
+      "span": ""
+    },
+    {
+      "src": "/img/team/pinto-savate-01.jpg",
+      "label": "Samuel Pinto — savate",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-09.jpg",
+      "label": "Détail du ring",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-10.jpg",
+      "label": "Le matériel d’entraînement",
+      "span": ""
+    },
+    {
+      "src": "/img/team/pinto-fight-02.jpg",
+      "label": "Samuel Pinto en combat",
+      "span": ""
+    },
+    {
+      "src": "/img/team/gala-kick-03.jpg",
+      "label": "Gala — mise au sol",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-11.jpg",
+      "label": "Les gants suspendus",
+      "span": ""
+    },
+    {
+      "src": "/img/team/loyna-cagniac.jpg",
+      "label": "Loyna Cagniac",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-12.jpg",
+      "label": "Vue d’ensemble",
+      "span": "wide"
+    },
+    {
+      "src": "/img/team/mourad-berraho.jpg",
+      "label": "Mourad Berraho",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-13.jpg",
+      "label": "Les cordes du ring",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/anna-boullez-garde.jpg",
+      "label": "Anna Boullez — en garde",
+      "span": "tall"
+    },
+    {
+      "src": "/img/gym-14.jpg",
+      "label": "Le mur de sacs",
+      "span": "tall"
+    },
+    {
+      "src": "/img/team/pinto-savate-02.jpg",
+      "label": "Pinto — boxe française",
+      "span": ""
+    },
+    {
+      "src": "/img/gym-15.jpg",
+      "label": "L’espace de travail",
+      "span": "tall"
+    }
   ],
   "seo": {
     "home": {
@@ -484,15 +680,15 @@
     },
     "coachs": {
       "title": "Coachs boxe & MMA diplômés — Boxing Center Portet | Toulouse sud",
-      "description": "Valentin Tapia (Head Coach, gérant), Samuel Pinto, Enzo Pioppo et Mourad Berraho : coachs diplômés et champions, de la baby boxe au haut niveau, à Portet-sur-Garonne."
+      "description": "Valentin Tapia (Head Coach, responsable sportif), Samuel Pinto, Enzo Pioppo, Nicolas Tramaçon, Mourad Berraho et Ingrid : coachs diplômés et champions, de la baby boxe au haut niveau, à Portet-sur-Garonne."
     },
     "boxeurs": {
       "title": "Nos Boxeurs — la Team Tapia | Boxing Center Portet-sur-Garonne",
-      "description": "Anna Boullez, Pauline Re, Loyna Cagniac, Mourad Berraho, Marama Mercier, Anakine Lemberger : les athlètes formés au Boxing Center Portet, de l'école de boxe à l'Équipe de France."
+      "description": "Anna Boullez, Pauline Re, Loyna Cagniac, Mourad Berraho, Marama Mercier, Anakine Lemberger : les athlètes formés au Boxing Center Portet, de l’école de boxe à l’Équipe de France."
     },
     "galerie": {
       "title": "Galerie photos & vidéos — Boxing Center Portet | Salle de boxe 31120",
-      "description": "Photos et vidéos du ring, des sacs, des galas et de l'entraînement à Boxing Center Portet, et le mur de la communauté."
+      "description": "Photos et vidéos du ring, des sacs, des galas et de l’entraînement à Boxing Center Portet, et le mur de la communauté."
     },
     "plannings": {
       "title": "Planning cours boxe & MMA — Boxing Center Portet-sur-Garonne",
@@ -500,15 +696,151 @@
     },
     "tarifs": {
       "title": "Tarifs & offres — rentrée 29€, saison 259€ | Boxing Center Portet (31120)",
-      "description": "Les offres Boxing Center à Portet-sur-Garonne : rentrée 29€ par personne (4 semaines), saison 259€ en 4× sans frais, promo adulte 38,99€, enfants/ados 295€/an (t-shirt inclus), baby boxe 250€/an. Séance d'essai offerte."
+      "description": "Les offres Boxing Center à Portet-sur-Garonne : rentrée 29€ par personne (4 semaines), saison 259€ en 4× sans frais, adulte 44€, étudiants 36€, enfants/ados 295€/an (t-shirt inclus), baby boxe 250€/an. Séance d’essai offerte."
     },
     "contact": {
-      "title": "Contact & accès — Boxing Center Portet | 61 route d'Espagne, 31120",
-      "description": "Boxing Center Portet, club de boxe à Portet-sur-Garonne (31120), Toulouse sud — 61 route d'Espagne. Téléphone, horaires, accès. Séance d'essai offerte, offre rentrée 29€."
+      "title": "Contact & accès — Boxing Center Portet | 61 route d’Espagne, 31120",
+      "description": "Boxing Center Portet, club de boxe à Portet-sur-Garonne (31120), Toulouse sud — 61 route d’Espagne. Téléphone, horaires, accès. Séance d’essai offerte, offre rentrée 29€."
     },
     "partenaires": {
       "title": "Nos partenaires — KFC, O2, Karting 2 Muret | Boxing Center Portet",
       "description": "Les partenaires qui font grandir le Boxing Center Portet : KFC, O2 Portet-sur-Garonne et Karting 2 Muret. Devenir partenaire, privatiser la salle ou monter un projet : contactez-nous."
     }
-  }
+  },
+  "planningMma": [
+    {
+      "day": "Lundi",
+      "items": [
+        [
+          "18:00 – 19:00",
+          "Grappling"
+        ],
+        [
+          "19:00 – 20:00",
+          "MMA"
+        ]
+      ]
+    },
+    {
+      "day": "Mardi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "MMA"
+        ],
+        [
+          "18:00 – 19:00",
+          "Lady Kick"
+        ],
+        [
+          "19:00 – 20:00",
+          "Préparation Physique"
+        ],
+        [
+          "20:00 – 21:30",
+          "Kick Boxing / K1"
+        ]
+      ]
+    },
+    {
+      "day": "Mercredi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Kick / K1"
+        ],
+        [
+          "15:00 – 16:00",
+          "Kick Enfants"
+        ],
+        [
+          "16:00 – 17:00",
+          "Kick Ados"
+        ],
+        [
+          "17:00 – 18:00",
+          "MMA Ados"
+        ],
+        [
+          "18:00 – 19:00",
+          "Grappling"
+        ],
+        [
+          "19:00 – 20:00",
+          "MMA"
+        ],
+        [
+          "20:00 – 21:30",
+          "Kick Boxing / K1"
+        ]
+      ]
+    },
+    {
+      "day": "Jeudi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Grappling"
+        ],
+        [
+          "18:00 – 19:00",
+          "Lady Kick"
+        ],
+        [
+          "19:00 – 20:00",
+          "Boxe Française"
+        ],
+        [
+          "20:00 – 21:30",
+          "Kick Boxing / K1"
+        ]
+      ]
+    },
+    {
+      "day": "Vendredi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Kick / K1"
+        ],
+        [
+          "18:00 – 19:00",
+          "Grappling"
+        ],
+        [
+          "19:00 – 20:00",
+          "MMA"
+        ],
+        [
+          "20:00 – 21:30",
+          "Open Sparring"
+        ]
+      ]
+    },
+    {
+      "day": "Samedi",
+      "items": [
+        [
+          "10:00 – 11:30",
+          "Boxe Française + Kick Enfants"
+        ],
+        [
+          "11:30 – 12:30",
+          "Prépa Physique + Kick Ados"
+        ],
+        [
+          "12:30 – 13:30",
+          "MMA"
+        ],
+        [
+          "14:00 – 15:00",
+          "Grappling"
+        ],
+        [
+          "15:00 – 16:00",
+          "MMA Ados"
+        ]
+      ]
+    }
+  ]
 }

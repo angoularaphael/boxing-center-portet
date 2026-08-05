@@ -2,8 +2,8 @@
  * Community wall — members upload short clips of the club; approved ones appear
  * here. Talks to the BCP community API (see /server). Validates client-side
  * (type / size / duration), shows upload progress, and degrades gracefully to a
- * friendly empty state if the backend isn't reachable (the static site never
- * breaks). Server-side: every clip is treated + moderated before it's public.
+ * friendly empty state if the backend isn’t reachable (the static site never
+ * breaks). Server-side: every clip is treated + moderated before it’s public.
  */
 import { punch, tick, soundOn } from "./audio";
 
@@ -56,7 +56,7 @@ async function loadItems(grid: HTMLElement) {
     if (!res.ok) throw new Error();
     const { items } = await res.json();
     if (!items?.length) {
-      grid.innerHTML = `<p class="community__empty">Sois le premier à poster ta vidéo. Le mur t'attend. 🥊</p>`;
+      grid.innerHTML = `<p class="community__empty">Sois le premier à poster ta vidéo. Le mur t’attend. 🥊</p>`;
       return;
     }
     const abs = (u: string) => (/^https?:/.test(u) ? u : `${API}${u}`); // Cloudinary URLs are absolute
@@ -117,11 +117,11 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
     if (!ENABLED) return setStatus(status, "La mise en ligne ouvre très bientôt — reviens vite.", "info");
     const title = (titleInput?.value || "").trim();
     if (title.length < 2) return setStatus(status, "Donne un nom à ta photo ou vidéo.", "err");
-    if (isInappropriate(title)) return setStatus(status, "Ce nom n'est pas autorisé. Choisis-en un autre.", "err");
+    if (isInappropriate(title)) return setStatus(status, "Ce nom n’est pas autorisé. Choisis-en un autre.", "err");
     const author = (form.querySelector<HTMLInputElement>('input[name="author"]')?.value || "").trim();
-    if (author && isInappropriate(author)) return setStatus(status, "Ce prénom n'est pas autorisé.", "err");
+    if (author && isInappropriate(author)) return setStatus(status, "Ce prénom n’est pas autorisé.", "err");
     const file = fileInput.files?.[0];
-    if (!file) return setStatus(status, "Choisis une photo ou une vidéo d'abord.", "err");
+    if (!file) return setStatus(status, "Choisis une photo ou une vidéo d’abord.", "err");
 
     if (!file.type.startsWith("video/") && !file.type.startsWith("image/")) return setStatus(status, "Le fichier doit être une photo ou une vidéo.", "err");
     if (file.size > limits.maxUploadMb * 1024 * 1024)
@@ -130,7 +130,7 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
     if (file.type.startsWith("video/")) {
       const dur = await videoDuration(file).catch(() => 0);
       if (dur && dur > limits.maxDurationSec + 1)
-        return setStatus(status, `Trop longue (max ${limits.maxDurationSec}s) — elle sera coupée à l'envoi.`, "warn");
+        return setStatus(status, `Trop longue (max ${limits.maxDurationSec}s) — elle sera coupée à l’envoi.`, "warn");
     }
 
     submit.disabled = true;
@@ -179,7 +179,7 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
           form.reset();
           if (soundOn()) punch();
         } else {
-          setStatus(status, "Échec de l'envoi. Réessaie.", "err");
+          setStatus(status, "Échec de l’envoi. Réessaie.", "err");
         }
       };
       xhr.onerror = () => {

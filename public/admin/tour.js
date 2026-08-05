@@ -1,13 +1,13 @@
 /* ============================================================
    LE VESTIAIRE — visites interactives & assistants.
-   Le moteur assombrit tout l'écran SAUF la cible (4 panneaux
-   autour d'un trou : la cible reste cliquable, le reste est
-   bloqué). Deux types d'étapes :
+   Le moteur assombrit tout l’écran SAUF la cible (4 panneaux
+   autour d’un trou : la cible reste cliquable, le reste est
+   bloqué). Deux types d’étapes :
      - info   : bouton « Compris » pour avancer ;
-     - action : PAS de bouton — l'utilisateur fait le geste
+     - action : PAS de bouton — l’utilisateur fait le geste
                 demandé (clic, saisie) et la visite avance seule.
-   `runFlow(steps)` exécute n'importe quel parcours : la grande
-   visite du premier login comme les assistants de l'accueil.
+   `runFlow(steps)` exécute n’importe quel parcours : la grande
+   visite du premier login comme les assistants de l’accueil.
    ============================================================ */
 
 const TOUR_KEY = "bcp:tour:v2";
@@ -45,19 +45,19 @@ function targetOf(step){ return step.sel ? document.querySelector(step.sel) : nu
 
 function showStep(){
   const step = FLOW.steps[FLOW.i];
-  step.do?.(); // prépare l'écran (changer de section, etc.)
+  step.do?.(); // prépare l’écran (changer de section, etc.)
 
   const { card } = FLOW;
   card.innerHTML = "";
   card.append(el("h3", {}, step.t), el("p", {}, step.b));
   const acts = el("div", { class:"acts" });
   if (step.advanceOn){
-    // étape action : on attend le geste de l'utilisateur, pas un clic « Suivant »
+    // étape action : on attend le geste de l’utilisateur, pas un clic « Suivant »
     card.append(el("span", { class:"tour-hint" }, step.hint || "À toi de jouer"));
     acts.append(el("button", { class:"tour-skip", type:"button", onclick:nextStep }, "Passer cette étape"));
     const h = (e) => {
       if (!e.target.closest(step.advanceOn.sel)) return;
-      // petit délai : on laisse l'interface réagir au geste avant d'enchaîner
+      // petit délai : on laisse l’interface réagir au geste avant d’enchaîner
       FLOW.off?.(); FLOW.off = null;
       setTimeout(nextStep, step.advanceOn.delay ?? 400);
     };
@@ -107,25 +107,25 @@ function placeFlow(){
 
 /* ---------- la grande visite (premier login) ---------- */
 const FLOW_MAIN = [
-  { sel:null, t:"Bienvenue dans le vestiaire", ok:"C'est parti",
-    b:"Ici tu modifies TOUT le site : textes, photos, tarifs, planning… Pas besoin de connaissances techniques — et c'est toi qui pilotes cette visite : tu vas faire les gestes toi-même." },
+  { sel:null, t:"Bienvenue dans le vestiaire", ok:"C’est parti",
+    b:"Ici tu modifies TOUT le site : textes, photos, tarifs, planning… Pas besoin de connaissances techniques — et c’est toi qui pilotes cette visite : tu vas faire les gestes toi-même." },
   { sel:'#nav .navbtn[data-k="gallery"]', t:"1 · Le menu",
     b:"Chaque bouton du menu correspond à une partie du site. À toi : clique sur « Galerie ».",
     hint:"Clique sur « Galerie »", advanceOn:{ ev:"click", sel:'#nav .navbtn[data-k="gallery"]' } },
   { sel:"#pane .galgrid", t:"2 · Les photos",
-    b:"Chaque vignette est une photo du site. Tu peux les glisser pour changer l'ordre, déposer des images depuis ton ordinateur pour en ajouter, et la croix (au survol) les supprime." },
-  { sel:"#pane .field", t:"3 · Modifier, c'est écrire",
+    b:"Chaque vignette est une photo du site. Tu peux les glisser pour changer l’ordre, déposer des images depuis ton ordinateur pour en ajouter, et la croix (au survol) les supprime." },
+  { sel:"#pane .field", t:"3 · Modifier, c’est écrire",
     do:() => renderSection("hero"),
-    b:"Un texte se change en écrivant dans sa case, comme dans un document. Essaie : ajoute une lettre dans la phrase d'accueil.",
+    b:"Un texte se change en écrivant dans sa case, comme dans un document. Essaie : ajoute une lettre dans la phrase d’accueil.",
     hint:"Écris dans une case", advanceOn:{ ev:"input", sel:"#pane input, #pane textarea" } },
-  { sel:"#status", t:"4 · Rien n'est en ligne",
-    b:"Tu vois « Modifications non publiées » ? Tes essais sont gardés ici, mais le vrai site n'a pas bougé. « Annuler tout » ramène à la version publiée quand tu veux." },
-  { sel:"#preview", t:"5 · Vérifier d'abord",
+  { sel:"#status", t:"4 · Rien n’est en ligne",
+    b:"Tu vois « Modifications non publiées » ? Tes essais sont gardés ici, mais le vrai site n’a pas bougé. « Annuler tout » ramène à la version publiée quand tu veux." },
+  { sel:"#preview", t:"5 · Vérifier d’abord",
     b:"« Aperçu » ouvre le site avec TES modifications — visible par toi seul, dans un autre onglet." },
   { sel:"#publish", t:"6 · Publier",
     b:"Quand tout te plaît : « Publier ». Le site se met à jour tout seul en une minute environ. (Pas maintenant !)" },
-  { sel:'#nav .navbtn[data-k="dashboard"]', t:"Besoin d'être guidé ?",
-    b:"L'Accueil propose des assistants pas à pas pour chaque tâche courante : ajouter une photo, changer un tarif, modifier le planning… Bon entraînement !" },
+  { sel:'#nav .navbtn[data-k="dashboard"]', t:"Besoin d’être guidé ?",
+    b:"L’Accueil propose des assistants pas à pas pour chaque tâche courante : ajouter une photo, changer un tarif, modifier le planning… Bon entraînement !" },
 ];
 
 /** Lance la grande visite ; sa fin (même quittée) vaut « vue ». */
@@ -133,7 +133,7 @@ function startTour(){
   runFlow(FLOW_MAIN, { onEnd:() => { try{ localStorage.setItem(TOUR_KEY, "1"); }catch(e){} } });
 }
 
-/* ---------- les assistants de l'accueil : des mains qui guident ---------- */
+/* ---------- les assistants de l’accueil : des mains qui guident ---------- */
 const FLOWS = {
   addPhoto: [
     { sel:".gadd", t:"Ajouter une photo",
@@ -141,12 +141,12 @@ const FLOWS = {
       b:"Clique sur « + Ajouter une photo », puis choisis une image sur ton ordinateur.",
       hint:"Clique sur la case en pointillés", advanceOn:{ ev:"click", sel:".gadd", delay:600 } },
     { sel:null, t:"Choisis ton image", ok:"Elle est là !",
-      b:"Sélectionne la photo dans la fenêtre qui s'est ouverte. Dès que l'envoi est terminé, elle apparaît au bout de la grille." },
+      b:"Sélectionne la photo dans la fenêtre qui s’est ouverte. Dès que l’envoi est terminé, elle apparaît au bout de la grille." },
     { sel:".galgrid .gitem:last-of-type", t:"Donne-lui une légende",
-      b:"Écris une courte légende sous ta photo — elle s'affichera sur le site.",
+      b:"Écris une courte légende sous ta photo — elle s’affichera sur le site.",
       hint:"Écris la légende", advanceOn:{ ev:"input", sel:".gitem input" } },
     { sel:"#publish", t:"Et pour la mettre en ligne ?",
-      b:"« Aperçu » pour vérifier le rendu, puis « Publier » quand tu es content. C'est tout !" },
+      b:"« Aperçu » pour vérifier le rendu, puis « Publier » quand tu es content. C’est tout !" },
   ],
   editTarif: [
     { sel:"#pane .card", t:"Changer un tarif",
@@ -156,7 +156,7 @@ const FLOWS = {
     { sel:"#preview", t:"Vérifie le rendu",
       b:"« Aperçu » te montre la page Tarifs avec ton nouveau prix, sans rien publier." },
     { sel:"#publish", t:"Mets-le en ligne",
-      b:"Quand c'est bon : « Publier ». Le site est à jour en une minute." },
+      b:"Quand c’est bon : « Publier ». Le site est à jour en une minute." },
   ],
   editPlanning: [
     { sel:"#pane .card", t:"Le planning",
@@ -168,13 +168,13 @@ const FLOWS = {
       b:"À toi : clique sur « + Créneau » pour en ajouter un au premier jour.",
       hint:"Clique sur « + Créneau »", advanceOn:{ ev:"click", sel:"#pane .card .btn.ghost" } },
     { sel:"#pane .slot:last-of-type", t:"Remplis-le",
-      b:"Écris l'heure (ex. 18:30) et le nom du cours. Puis « Publier » quand le planning te plaît." },
+      b:"Écris l’heure (ex. 18:30) et le nom du cours. Puis « Publier » quand le planning te plaît." },
   ],
   editText: [
     { sel:"#nav", t:"Changer un texte",
-      b:"Choisis dans le menu la partie du site à modifier — par exemple « Coordonnées & club » ou « Phrase d'accueil ».",
+      b:"Choisis dans le menu la partie du site à modifier — par exemple « Coordonnées & club » ou « Phrase d’accueil ».",
       hint:"Clique une section du menu", advanceOn:{ ev:"click", sel:"#nav .navbtn" } },
-    { sel:"#pane", t:"Écris, c'est tout",
+    { sel:"#pane", t:"Écris, c’est tout",
       b:"Modifie le texte directement dans les cases. Ce que tu écris ici est ce que les visiteurs liront.",
       hint:"Modifie une case", advanceOn:{ ev:"input", sel:"#pane input, #pane textarea" } },
     { sel:"#publish", t:"En ligne en une minute",

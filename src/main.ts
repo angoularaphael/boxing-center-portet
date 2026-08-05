@@ -107,7 +107,7 @@ function renderMedia() {
       const sizes = g.span === "wide" ? "(max-width: 760px) 100vw, 66vw" : "(max-width: 760px) 100vw, 33vw";
       // ratio ≈ celui de la cellule (12 col × rangées fixes) → crop serveur intelligent
       const ar = g.span === "wide" ? "16:9" : g.span === "tall" ? "4:5" : "3:2";
-      // the first shots are the page's LCP — fetch them eagerly and first
+      // the first shots are the page’s LCP — fetch them eagerly and first
       const prio = i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`;
       return `<figure class="shot ${cls}" data-gal-idx="${i}"><img ${imgAttrs(g.src, sizes, ar)} alt="${g.label}" ${prio} decoding="async" />
         <figcaption class="shot__label">${g.label}</figcaption></figure>`;
@@ -181,7 +181,7 @@ function initLightbox(gal: HTMLElement) {
     const img = overlay.querySelector<HTMLImageElement>(".lightbox__img")!;
     const cap = overlay.querySelector<HTMLElement>(".lightbox__cap")!;
     const counter = overlay.querySelector<HTMLElement>(".lightbox__counter")!;
-    img.src = optUrl(g.src, 1440); // variante WebP 1440 — jamais l'original de plusieurs Mo
+    img.src = optUrl(g.src, 1440); // variante WebP 1440 — jamais l’original de plusieurs Mo
     img.alt = g.label;
     cap.textContent = g.label;
     counter.textContent = `${current + 1} / ${GALLERY.length}`;
@@ -228,7 +228,7 @@ function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) =>
   }
 }
 
-/** Everything bound to the current page's DOM. Re-run after a soft swap. */
+/** Everything bound to the current page’s DOM. Re-run after a soft swap. */
 function bootPage() {
   const page = document.body.dataset.page;
   if (page === "home") renderHomeGrids();

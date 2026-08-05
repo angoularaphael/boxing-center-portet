@@ -1,11 +1,11 @@
 /**
- * Assistant du Boxing Center Portet — conversationnel, IA d'abord.
+ * Assistant du Boxing Center Portet — conversationnel, IA d’abord.
  *
  * Philosophie (≠ formulaire) : dès le premier message, on RÉPOND. Le bot
  * comprend le langage naturel (via /api/chat, grounded), répond à toute
  * question sur le club ou une salle sœur, et capte AU VOL les coordonnées
  * (prénom, email, téléphone, salle) quand le visiteur les donne — sans
- * jamais l'interroger de force. Chaque coordonnée récupérée part vers le
+ * jamais l’interroger de force. Chaque coordonnée récupérée part vers le
  * CRM (submitLead) pour nourrir la liste de contacts.
  */
 import { submitLead, askAi } from "./api";
@@ -19,8 +19,8 @@ const BOT_AVATAR = "/logo.png";
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
 // numéro FR : +33 ou 0, puis 9 chiffres groupés librement (espaces, points, tirets)
 const PHONE_RE = /(?:\+33|0)\s?[1-9](?:[\s.-]?\d{2}){4}/;
-// « je m'appelle X », « moi c'est X », « mon prénom est X »… (déclencheurs
-// SPÉCIFIQUES à un prénom — pas de « c'est » nu qui capterait « c'est ouvert »)
+// « je m’appelle X », « moi c’est X », « mon prénom est X »… (déclencheurs
+// SPÉCIFIQUES à un prénom — pas de « c’est » nu qui capterait « c’est ouvert »)
 const NAME_RE = /(?:je m['’ ]?appelle|moi c['’ ]?est|mon nom est|mon pr[ée]nom (?:est|c['’ ]?est)|je me nomme)\s+([a-zà-öø-ÿ][a-zà-öø-ÿ'’-]+)/i;
 const STOP_NAMES = /^(bonjour|salut|coucou|hello|merci|oui|non|ok|d['’]accord|bien|super|cool|pas|ouvert|ferm|combien|quoi|rien|voir|bof)$/i;
 
@@ -45,7 +45,7 @@ export function initChatbot() {
   let opened = false;
   let typing = false;
   let exchanges = 0;      // nombre de réponses IA données
-  let nudged = false;     // l'invitation douce à laisser un contact a-t-elle été faite ?
+  let nudged = false;     // l’invitation douce à laisser un contact a-t-elle été faite ?
   let expectName = false; // le bot vient de demander le prénom
   let leadSig = "";       // signature du dernier lead envoyé (anti-doublon)
   let callbackAsked = false;
@@ -54,7 +54,7 @@ export function initChatbot() {
   root.id = "bcp-chat-root";
   root.className = "bcp-chat";
   root.innerHTML = `
-    <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l'assistant Boxing Center">
+    <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l’assistant Boxing Center">
       <span class="bcp-chat__launcher-icon" aria-hidden="true">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H17.5A2.5 2.5 0 0 1 20 5.5V14a2.5 2.5 0 0 1-2.5 2.5H9l-4.2 3.15A.8.8 0 0 1 3.5 19.2V16.5A2.5 2.5 0 0 1 5.5 14H6.5A2.5 2.5 0 0 1 4 11.5V5.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
       </span>
@@ -143,7 +143,7 @@ export function initChatbot() {
   }
   function hideChips() { suggestionsEl.hidden = true; suggestionsEl.innerHTML = ""; }
 
-  // ---------- capture de coordonnées au fil de l'eau ----------
+  // ---------- capture de coordonnées au fil de l’eau ----------
   function contextString() {
     const bits: string[] = [];
     if (profile.prenom) bits.push(`Prénom : ${profile.prenom}`);
@@ -153,7 +153,7 @@ export function initChatbot() {
     return bits.join(". ");
   }
   function maybeSubmitLead(event: string) {
-    // on n'envoie que si on a un moyen de recontact, et une seule fois par état
+    // on n’envoie que si on a un moyen de recontact, et une seule fois par état
     if (!profile.email && !profile.phone) return;
     const sig = JSON.stringify(profile);
     if (sig === leadSig) return;
@@ -207,12 +207,12 @@ export function initChatbot() {
     // remerciement discret quand on vient de récupérer un contact
     if (gotNew && (profile.email || profile.phone) && callbackAsked) {
       callbackAsked = false;
-      await botSay(`C'est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500);
+      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500);
     }
     // invitation douce (une seule fois) à laisser un contact
     else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
       nudged = true;
-      await botSay("Au fait — si tu veux qu'un coach te rappelle ou t'envoie le planning, laisse-moi ton prénom et un numéro ou un email, quand tu veux. 😉", 500);
+      await botSay("Au fait — si tu veux qu’un coach te rappelle ou t’envoie le planning, laisse-moi ton prénom et un numéro ou un email, quand tu veux. 😉", 500);
     }
     showChips();
   }
@@ -240,10 +240,10 @@ export function initChatbot() {
     panel.classList.add("bcp-chat__panel--open");
     root.classList.add("bcp-chat--open");
     launcher.setAttribute("aria-expanded", "true");
-    launcher.setAttribute("aria-label", "Fermer l'assistant Boxing Center");
+    launcher.setAttribute("aria-label", "Fermer l’assistant Boxing Center");
     if (!opened) {
       opened = true;
-      await botSay("Salut ! 👋 Je suis l'assistant du Boxing Center Portet. L'offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.", 800);
+      await botSay("Salut ! 👋 Je suis l’assistant du Boxing Center Portet. L’offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.", 800);
       showChips();
     }
     input.focus();
@@ -253,7 +253,7 @@ export function initChatbot() {
     panel.classList.remove("bcp-chat__panel--open");
     root.classList.remove("bcp-chat--open");
     launcher.setAttribute("aria-expanded", "false");
-    launcher.setAttribute("aria-label", "Ouvrir l'assistant Boxing Center");
+    launcher.setAttribute("aria-label", "Ouvrir l’assistant Boxing Center");
   }
 
   // ---------- événements ----------

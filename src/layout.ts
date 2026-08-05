@@ -27,7 +27,7 @@ function navMarkup(path: string) {
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>
-        <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promotions" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
+        <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promo" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -47,7 +47,7 @@ function navMarkup(path: string) {
     <div class="menu__foot">
       <a class="menu__ext" href="${GROUP}" target="_blank" rel="noopener">Le groupe Boxing Center ${svgExt}</a>
       <a class="menu__ext" href="${SHOP}" target="_blank" rel="noopener">Boutique ${svgExt}</a>
-      <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promotions" target="_blank" rel="noopener">Je profite de l'offre · 29€ ${svgArrow}</a>
+      <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promo" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -102,7 +102,7 @@ export function mountLayout() {
     g.setAttribute("aria-hidden", "true");
     document.body.appendChild(g);
   }
-  // backoffice draft preview — make it unmistakable that this isn't the live site
+  // backoffice draft preview — make it unmistakable that this isn’t the live site
   if (PREVIEW && !document.querySelector(".preview-banner")) {
     const b = document.createElement("div");
     b.className = "preview-banner";

@@ -19,5 +19,5 @@
   <text x="80" y="300" font-family="'Arial Narrow', 'Helvetica Neue Condensed', sans-serif" font-size="118" fill="#eef1f6" font-weight="700" letter-spacing="-2">BOXING</text>
   <text x="80" y="420" font-family="'Arial Narrow', 'Helvetica Neue Condensed', sans-serif" font-size="118" fill="url(#accent)" font-weight="700" letter-spacing="-2">CENTER</text>
   <line x1="80" y1="448" x2="340" y2="448" stroke="#9aa8bc" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-  <text x="86" y="500" font-family="Inter, Arial, sans-serif" font-size="32" fill="#9aa8bc" letter-spacing="5">PORTET-SUR-GARONNE · 800 M² DE COMBAT</text>
+  <text x="86" y="500" font-family="Inter, Arial, sans-serif" font-size="32" fill="#9aa8bc" letter-spacing="5">PORTET-SUR-GARONNE · 600 M² DE COMBAT</text>
 </svg>

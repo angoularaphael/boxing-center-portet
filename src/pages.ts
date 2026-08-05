@@ -19,7 +19,7 @@ async function solvePow(challenge: string, difficulty: number): Promise<string> 
   const prefix = "0".repeat(difficulty);
   for (let nonce = 0; ; nonce++) {
     if ((await sha256Hex(`${challenge}:${nonce}`)).startsWith(prefix)) return String(nonce);
-    if (nonce % 2000 === 1999) await new Promise((r) => setTimeout(r)); // ne fige jamais l'UI
+    if (nonce % 2000 === 1999) await new Promise((r) => setTimeout(r)); // ne fige jamais l’UI
   }
 }
 function initPartnerForm() {
@@ -47,9 +47,9 @@ function initPartnerForm() {
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error((j as any).error || "envoi refusé");
       form.reset();
-      status.textContent = "C'est envoyé ! On vous répond très vite — merci pour votre confiance. 🥊";
+      status.textContent = "C’est envoyé ! On vous répond très vite — merci pour votre confiance. 🥊";
     } catch {
-      status.textContent = "L'envoi n'est pas passé. Réessayez dans un instant, ou appelez-nous au 05 62 24 46 82.";
+      status.textContent = "L’envoi n’est pas passé. Réessayez dans un instant, ou appelez-nous au 06 87 90 02 16.";
     } finally {
       if (btn) btn.disabled = false;
     }
@@ -109,7 +109,7 @@ export function renderPage(page: string | undefined) {
   if (page === "salles") {
     // Slider « Le terrain » : flèches ← → sur la piste scroll-snap.
     // Le snap mandatory casse les défilements programmés (Chromium les
-    // renvoie au point de départ) → on coupe le snap le temps d'un tween
+    // renvoie au point de départ) → on coupe le snap le temps d’un tween
     // rAF vers la diapo cible, puis on le rétablit. Le doigt garde le snap.
     const track = el("terrain-track");
     if (track) {
