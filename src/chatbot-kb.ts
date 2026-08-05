@@ -56,15 +56,18 @@ export const QUICKS: Quick[] = [
     actions: ["partenaires"] },
 ];
 
+/* « partenar » et non « partenair » : il faut attraper partenaire(s) ET
+   partenariat(s) — le second n'était pas couvert et tombait dans la réponse
+   générique. Idem : école/association/b2b routent vers les projets. */
 const RULES: [RegExp, number][] = [
-  [/privatis|r[ée]serv.*salle|team ?building|partenair|sponsor|collab|entreprise|tournage|m[ée]dia/i, 8],
+  [/privatis|r[ée]serv.*salle|team ?building|partenar|sponsor|collab|entrepri|tournage|m[ée]dia|[ée]cole|associat|b2b|louer|location.*salle/i, 8],
   [/offre|rentr[ée]e|promo|duo|bin[ôo]me|29/i, 0],
-  [/tarif|prix|co[ûu]te|combien|abonn|mensuel|annuel|saison|badge|259/i, 1],
-  [/horaire|ouvert|ferm|heure|dimanche/i, 2],
-  [/adresse|o[ùu]\b|situ|acc[èe]s|parking|venir|plan|route/i, 3],
-  [/discipline|mma|kick|jjb|jiu|prépa|prepa|cardio|lady|enfant|baby|grappling|cours|boxe/i, 4],
+  [/tarif|prix|co[ûu]te|combien|abonn|mensuel|annuel|saison|badge|259|paiement|payer/i, 1],
+  [/horaire|ouvert|ferm|heure|dimanche|quand/i, 2],
+  [/adresse|o[ùu]\b|situ|acc[èe]s|parking|venir|plan\b|route|m[ée]tro|bus/i, 3],
+  [/discipline|mma|kick|jjb|jiu|prépa|prepa|cardio|lady|enfant|gamin|fil(le|s)\b|baby|grappling|cours|boxe|sport/i, 4],
   [/inscri|adh[ée]r|certificat|m[ée]dical|document|dossier/i, 5],
-  [/coach|entra[îi]neur|prof|encadr|[ée]quipe|tapia|pinto|pioppo|berraho/i, 6],
+  [/coach|entra[îi]neur|prof\b|encadr|[ée]quipe|tapia|pinto|pioppo|trama[çc]on|mourad|ingrid/i, 6],
   [/essai|d[ée]couvr|tester|premi[èe]re|gratuit|offert/i, 7],
 ];
 
