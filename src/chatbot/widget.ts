@@ -9,11 +9,46 @@
  * CRM (submitLead) pour nourrir la liste de contacts.
  */
 import { submitLead, askAi } from "./api";
-import { QUICKS, fallbackAnswer } from "../chatbot-kb";
+import { QUICKS, fallbackAnswer, ACTIONS, type ActionDef } from "../chatbot-kb";
 import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
-type Msg = { role: "bot" | "user"; text: string; html?: boolean };
+type Msg = { role: "bot" | "user"; text: string; html?: boolean; actions?: ActionDef[] };
+
+/** Clés → boutons (labels personnalisables : « clé:Label » pour les réponses non-FR). */
+function resolveActions(keys: string[]): ActionDef[] {
+  const out: ActionDef[] = [];
+  for (const k of keys) {
+    const [key, ...rest] = k.split(":");
+    const def = ACTIONS[key.trim()];
+    if (!def) continue; // clé inconnue = lien halluciné → ignoré
+    const label = rest.join(":").trim();
+    if (!out.some((a) => a.href === def.href)) out.push(label ? { ...def, label } : def);
+    if (out.length >= 3) break;
+  }
+  return out;
+}
+
+/** Extrait le marqueur [boutons: …] de la réponse IA, et convertit en boutons
+ *  toute URL connue restée en clair (filet pour les réponses hors protocole). */
+function parseReply(raw: string): { text: string; actions: ActionDef[] } {
+  let text = raw;
+  const keys: string[] = [];
+  text = text.replace(/\[\s*(?:boutons|buttons)\s*:\s*([^\]]+)\]/gi, (_, list: string) => {
+    keys.push(...list.split(",").map((s) => s.trim()).filter(Boolean));
+    return "";
+  });
+  // URLs connues écrites en clair → bouton correspondant, URL retirée du texte
+  const byHref = Object.entries(ACTIONS);
+  text = text.replace(/(?:https?:\/\/)?box-plus\.vercel\.app[\w\/#-]*/gi, (u) => {
+    const href = (u.startsWith("http") ? u : `https://${u}`).replace(/\/$/, "");
+    const hit = byHref.find(([, d]) => d.href.replace(/\/$/, "") === href);
+    if (hit && !keys.some((k) => k.split(":")[0] === hit[0])) keys.push(hit[0]);
+    return hit ? "la boutique en ligne" : u;
+  });
+  text = text.replace(/\s{2,}/g, " ").replace(/\s+([.,!?])/g, "$1").trim();
+  return { text, actions: resolveActions(keys) };
+}
 
 const BOT_AVATAR = "/logo.png";
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
@@ -109,7 +144,18 @@ export function initChatbot() {
         const avatar = m.role === "bot"
           ? `<img class="bcp-chat__msg-avatar" src="${BOT_AVATAR}" alt="" width="26" height="26" decoding="async" />`
           : "";
-        return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__bubble">${m.html ? m.text : escapeHtml(m.text)}</div></div>`;
+        const bubble = `<div class="bcp-chat__bubble">${m.html ? m.text : escapeHtml(m.text)}</div>`;
+        const actions = m.actions?.length
+          ? `<div class="bcp-chat__actions">${m.actions
+              .map((a) => {
+                const ext = /^https?:/i.test(a.href);
+                return `<a class="bcp-chat__action${ext ? " bcp-chat__action--ext" : ""}" href="${escapeAttr(a.href)}"${
+                  ext ? ` target="_blank" rel="noopener"` : ` data-nav`
+                }><span>${escapeHtml(a.label)}</span>${ext ? `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ""}</a>`;
+              })
+              .join("")}</div>`
+          : "";
+        return `<div class="bcp-chat__msg bcp-chat__msg--${m.role}">${avatar}<div class="bcp-chat__stack">${bubble}${actions}</div></div>`;
       })
       .join("");
     if (typing) {
@@ -122,11 +168,11 @@ export function initChatbot() {
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  async function botSay(text: string, pause = 600) {
+  async function botSay(text: string, pause = 600, actions?: ActionDef[]) {
     typing = true; renderMessages();
     await delay(pause);
     typing = false;
-    messages.push({ role: "bot", text });
+    messages.push({ role: "bot", text, actions });
     renderMessages();
   }
   function userSay(text: string) { messages.push({ role: "user", text }); renderMessages(); }
@@ -195,13 +241,19 @@ export function initChatbot() {
 
     hideChips();
     let reply = "";
+    let actions: ActionDef[] = [];
     try {
-      reply = await askAi(text, aiHistory.slice(-6), contextString());
+      const raw = await askAi(text, aiHistory.slice(-6), contextString());
+      const parsed = parseReply(raw);
+      reply = parsed.text;
+      actions = parsed.actions;
     } catch {
-      reply = fallbackAnswer(text); // hors-ligne / dev : repli mots-clés
+      const fb = fallbackAnswer(text); // hors-ligne / dev : repli mots-clés
+      reply = fb.text;
+      actions = resolveActions(fb.actions);
     }
     aiHistory.push({ role: "user", content: text }, { role: "assistant", content: reply });
-    await botSay(reply);
+    await botSay(reply, 600, actions);
     exchanges++;
 
     // remerciement discret quand on vient de récupérer un contact
@@ -243,7 +295,11 @@ export function initChatbot() {
     launcher.setAttribute("aria-label", "Fermer l’assistant Boxing Center");
     if (!opened) {
       opened = true;
-      await botSay("Salut ! 👋 Je suis l’assistant du Boxing Center Portet. L’offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.", 800);
+      await botSay(
+        "Salut ! 👋 Je suis l’assistant du Boxing Center Portet. L’offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.",
+        800,
+        resolveActions(["offre", "essai"])
+      );
       showChips();
     }
     input.focus();
@@ -264,6 +320,12 @@ export function initChatbot() {
     input.value = "";
     userSay(text);
     await answer(text);
+  });
+
+  // bouton d'action INTERNE : le routeur fait la navigation douce (capture),
+  // nous on referme le panneau pour laisser la page se montrer
+  messagesEl.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("a[data-nav]")) closePanel();
   });
 
   suggestionsEl.addEventListener("click", async (e) => {
