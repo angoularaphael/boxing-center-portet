@@ -76,6 +76,10 @@ export function initChatbot() {
 
   const sid = sessionId();
   const profile = { prenom: "", nom: "", email: "", phone: "", salle: "" };
+  // le profil survit à la navigation (même session) : jamais redemander, et
+  // les formulaires du site se préremplissent avec (voir initPartnerForm)
+  try { Object.assign(profile, JSON.parse(sessionStorage.getItem("bcp-chat-profile") || "{}")); } catch { /* profil vierge */ }
+  const saveProfile = () => { try { sessionStorage.setItem("bcp-chat-profile", JSON.stringify(profile)); } catch { /* stockage indispo */ } };
   const aiHistory: { role: string; content: string }[] = [];
   let opened = false;
   let typing = false;
@@ -84,6 +88,7 @@ export function initChatbot() {
   let expectName = false; // le bot vient de demander le prénom
   let leadSig = "";       // signature du dernier lead envoyé (anti-doublon)
   let callbackAsked = false;
+  let essaiAsked = false; // le visiteur réserve sa séance offerte dans le chat
 
   const root = document.createElement("div");
   root.id = "bcp-chat-root";
@@ -109,10 +114,10 @@ export function initChatbot() {
         </button>
       </header>
       <div class="bcp-chat__body">
-        <div class="bcp-chat__messages" id="bcp-chat-messages" role="log" aria-live="polite"></div>
+        <div class="bcp-chat__messages" id="bcp-chat-messages" role="log" aria-live="polite" data-lenis-prevent></div>
       </div>
       <div class="bcp-chat__footer">
-        <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden></div>
+        <div class="bcp-chat__suggestions" id="bcp-chat-suggestions" hidden data-lenis-prevent></div>
         <form class="bcp-chat__form" id="bcp-chat-form">
           <input class="bcp-chat__input" id="bcp-chat-input" type="text" autocomplete="off" placeholder="Écrivez votre message…" />
           <button class="bcp-chat__send" type="submit" aria-label="Envoyer">

@@ -4,14 +4,18 @@
  *  L’ORDRE VEND : l’offre d’abord, l’essai (offert) en dernier. */
 export type Quick = { label: string; q: string; a: string; actions?: string[] };
 
-/** Destinations que le bot propose en BOUTONS sous ses messages.
+/** Destinations et ACTIONS que le bot propose en BOUTONS sous ses messages.
  *  L’IA ne fournit que des CLÉS de ce catalogue — jamais d’URL libre :
- *  une clé inconnue est ignorée, un lien halluciné est impossible. */
-export type ActionDef = { label: string; href: string };
+ *  une clé inconnue est ignorée, un lien halluciné est impossible.
+ *  `act` = le bot FAIT la tâche dans le chat (réservation d’essai, rappel)
+ *  au lieu de renvoyer vers un formulaire — zéro re-saisie pour le visiteur. */
+export type ActionDef = { label: string; href?: string; act?: "essai" | "rappel" };
 export const ACTIONS: Record<string, ActionDef> = {
   offre:       { label: "Je profite de l’offre · 29€", href: "https://box-plus.vercel.app/abonnements#promo" },
   saison:      { label: "Je prends ma saison · 259€", href: "https://box-plus.vercel.app/abonnements#promo" },
-  essai:       { label: "Je réserve mon essai offert", href: "https://box-plus.vercel.app/seance-essai" },
+  essai:       { label: "Réserver ma séance offerte", act: "essai" },
+  rappel:      { label: "Être rappelé par un coach", act: "rappel" },
+  appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
   abonnements: { label: "Voir les abonnements", href: "https://box-plus.vercel.app/abonnements" },
   enfants:     { label: "J’inscris mon enfant", href: "https://box-plus.vercel.app/abonnements#enfants" },
   boutique:    { label: "La boutique du club", href: "https://box-plus.vercel.app/" },
