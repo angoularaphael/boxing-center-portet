@@ -149,19 +149,50 @@ export function renderPage(page: string | undefined) {
 
   if (page === "plannings") {
     const g = el("planning-grid");
-    if (g)
-      g.innerHTML = PLANNING.map(
+    /* Couleur par DISCIPLINE (jamais par coach) — demande du coach : savoir
+       quel sport a lieu quel jour d'un coup d'oeil. */
+    const famOf = (n: string) => {
+      const s = n.toLowerCase();
+      if (/amateur|pros/.test(s)) return "pros";
+      if (/baby/.test(s)) return "baby";
+      if (/[ée]ducative/.test(s)) return "edu";
+      if (/lady/.test(s)) return "lady";
+      if (/pr[ée]pa|physique/.test(s)) return "prepa";
+      if (/sparring|open mat/.test(s)) return "sparring";
+      if (/kick/.test(s)) return "kick";
+      if (/mma/.test(s)) return "mma";
+      if (/grappling|jjb|jiu/.test(s)) return "grappling";
+      if (/fran[çc]aise/.test(s)) return "francaise";
+      if (/anglaise|boxe/.test(s)) return "anglaise";
+      return "autre";
+    };
+    const FAM_LABELS: Record<string, string> = {
+      anglaise: "Boxe Anglaise", pros: "Amateurs & Pros", edu: "Boxe Éducative",
+      baby: "Baby Boxe", lady: "Lady Boxing", prepa: "Prépa Physique", sparring: "Open Sparring",
+      kick: "Kick-Boxing", mma: "MMA", grappling: "Grappling & JJB", francaise: "Boxe Française",
+    };
+    if (g) {
+      const fams: string[] = [];
+      const seen = new Set<string>();
+      PLANNING.forEach((col: any) => col.items.forEach(([, name]: [string, string]) => {
+        const f = famOf(name);
+        if (!seen.has(f) && FAM_LABELS[f]) { seen.add(f); fams.push(f); }
+      }));
+      g.innerHTML = `<div class="plan-legend" aria-hidden="true">${fams
+        .map((f) => `<span class="plan-legend__item plan--${f}"><i></i>${FAM_LABELS[f]}</span>`)
+        .join("")}</div>` + PLANNING.map(
         (col) => `
         <div class="plan-col" data-reveal>
           <h3 class="plan-col__day">${col.day}</h3>
           ${col.items
             .map(
               ([time, name]) =>
-                `<div class="plan-slot"><span class="plan-slot__t">${time}</span><span class="plan-slot__n">${name}</span></div>`
+                `<div class="plan-slot plan--${famOf(name)}"><span class="plan-slot__t">${time}</span><span class="plan-slot__n">${name}</span></div>`
             )
             .join("")}
         </div>`
       ).join("");
+    }
   }
 
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.

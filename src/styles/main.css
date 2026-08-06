@@ -1237,3 +1237,21 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .section.has-bg .lead, .cta-block.has-cta-bg .lead { color: #dbe3f0; }
 .section.has-bg .muted { color: #b7c2d6; }
 .cta-block.has-cta-bg .sec-bg::before { filter: grayscale(1) contrast(1.15) brightness(0.26); }
+
+/* ---------- Planning : couleur par DISCIPLINE (retour du coach) ---------- */
+.plan-legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; padding: 1rem 1.4rem; background: var(--bg-1); }
+.plan-legend__item { display: inline-flex; align-items: center; gap: 0.45em; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); }
+.plan-legend__item i { width: 10px; height: 10px; border-radius: 3px; background: var(--fam, #8ca0b8); }
+.plan-slot { border-left: 3px solid var(--fam, transparent); padding-left: 0.7rem; }
+.plan-slot__n { color: color-mix(in srgb, var(--fam, var(--fg)) 60%, var(--fg)); }
+.plan--anglaise  { --fam: #4a8fe8; }
+.plan--pros      { --fam: #2b5fd4; }
+.plan--edu       { --fam: #d9a441; }
+.plan--baby      { --fam: #e8c04a; }
+.plan--lady      { --fam: #d465a8; }
+.plan--prepa     { --fam: #46b87a; }
+.plan--sparring  { --fam: #54c8e8; }
+.plan--kick      { --fam: #e8734a; }
+.plan--mma       { --fam: #8a63e8; }
+.plan--grappling { --fam: #46b8a8; }
+.plan--francaise { --fam: #c04a5e; }
