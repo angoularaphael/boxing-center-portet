@@ -298,11 +298,11 @@
     },
     {
       "name": "Séance d’essai",
-      "price": "Offerte",
-      "unit": "ta première séance",
-      "note": "Toujours pas décidé ? Ta première séance est offerte : gants prêtés, aucun niveau demandé, pas de sparring. Tu viens, tu testes, tu vois.",
+      "price": "10€",
+      "unit": "toutes disciplines",
+      "note": "Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.",
       "feature": false,
-      "cta": "Je réserve mon essai offert",
+      "cta": "Je réserve ma séance d’essai",
       "href": "https://box-plus.vercel.app/seance-essai"
     }
   ],
@@ -660,7 +660,7 @@
   "seo": {
     "home": {
       "title": "Boxing Center Portet — Club de boxe & MMA à Portet-sur-Garonne (31120) | Toulouse sud",
-      "description": "Club de boxe et sports de combat à Portet-sur-Garonne, Toulouse sud (31120). 600 m², ring de boxe anglaise, cage MMA, kick-boxing, grappling & JJB, baby boxe. Offre rentrée 29€, essai offert."
+      "description": "Club de boxe et sports de combat à Portet-sur-Garonne, Toulouse sud (31120). 600 m², ring de boxe anglaise, cage MMA, kick-boxing, grappling & JJB, baby boxe. Offre rentrée 29€, essai 10€."
     },
     "activites": {
       "title": "Boxe anglaise, kick-boxing, MMA & JJB — Activités | Boxing Center Portet (31120)",
@@ -688,11 +688,11 @@
     },
     "tarifs": {
       "title": "Tarifs & offres — rentrée 29€, saison 259€ | Boxing Center Portet (31120)",
-      "description": "Les offres Boxing Center à Portet-sur-Garonne : rentrée 29€ par personne (4 semaines), saison 259€ en 4× sans frais, adulte 44€, étudiants 36€, enfants/ados 295€/an (t-shirt inclus), baby boxe 250€/an. Séance d’essai offerte."
+      "description": "Les offres Boxing Center à Portet-sur-Garonne : rentrée 29€ par personne (4 semaines), saison 259€ en 4× sans frais, adulte 44€, étudiants 36€, enfants/ados 295€/an (t-shirt inclus), baby boxe 250€/an. Séance d’essai 10€."
     },
     "contact": {
       "title": "Contact & accès — Boxing Center Portet | 61 route d’Espagne, 31120",
-      "description": "Boxing Center Portet, club de boxe à Portet-sur-Garonne (31120), Toulouse sud — 61 route d’Espagne. Téléphone, horaires, accès. Séance d’essai offerte, offre rentrée 29€."
+      "description": "Boxing Center Portet, club de boxe à Portet-sur-Garonne (31120), Toulouse sud — 61 route d’Espagne. Téléphone, horaires, accès. Séance d’essai 10€, offre rentrée 29€."
     },
     "partenaires": {
       "title": "Nos partenaires — KFC, O2, Karting 2 Muret | Boxing Center Portet",
