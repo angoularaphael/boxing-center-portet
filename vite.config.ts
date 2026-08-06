@@ -100,6 +100,7 @@ export default defineConfig({
         plannings: page("plannings/index.html"),
         tarifs: page("tarifs/index.html"),
         contact: page("contact/index.html"),
+        "seance-offerte": page("seance-offerte/index.html"),
       },
     },
   },

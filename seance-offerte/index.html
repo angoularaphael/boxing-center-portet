@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Ta séance offerte — Boxing Center Portet</title>
+  <meta name="description" content="Sur invitation de l'assistant du club : ta première séance au Boxing Center Portet est offerte." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a1020" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+</head>
+
+<body data-page="seance-offerte">
+  <div class="curtain" id="curtain" aria-hidden="true"></div>
+  <div id="site-nav"></div>
+  <main id="page">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Sur invitation</span>
+      <h1 class="display"><span class="reveal-line"><span>Ta séance</span></span><span class="reveal-line"><span>est <span class="tint">offerte.</span></span></span></h1>
+      <p class="lead" style="max-width:52ch">Ce lien est un geste de l’assistant du club : ta première séance au Boxing Center Portet est pour nous. Remplis, et un coach te contacte pour caler ton créneau idéal. Gants prêtés, aucun niveau demandé, pas de sparring.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="max-width:720px">
+      <form class="pform" id="essai-form" novalidate>
+        <div class="pform__row">
+          <label class="pform__field"><span>Ton prénom *</span>
+            <input type="text" name="first_name" required autocomplete="given-name" placeholder="Prénom" /></label>
+          <label class="pform__field"><span>Ton nom *</span>
+            <input type="text" name="last_name" required autocomplete="family-name" placeholder="Nom" /></label>
+        </div>
+        <div class="pform__row">
+          <label class="pform__field"><span>Email *</span>
+            <input type="email" name="email" required autocomplete="email" placeholder="toi@exemple.fr" /></label>
+          <label class="pform__field"><span>Téléphone *</span>
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" /></label>
+        </div>
+        <div class="pform__row">
+          <label class="pform__field"><span>C’est pour qui ? *</span>
+            <select name="pour_qui" required>
+              <option value="Pour moi" selected>Pour moi</option>
+              <option value="Pour mon enfant">Pour mon enfant</option>
+              <option value="Pour nous deux">Pour nous deux (parent + enfant)</option>
+            </select></label>
+          <label class="pform__field"><span>La discipline qui te tente</span>
+            <select name="discipline">
+              <option value="" selected>Je ne sais pas encore — conseillez-moi</option>
+              <option>Boxe Anglaise</option>
+              <option>Kick-Boxing</option>
+              <option>MMA</option>
+              <option>Grappling &amp; JJB</option>
+              <option>Lady Boxing</option>
+              <option>Préparation Physique</option>
+              <option>Baby Boxe (3–6 ans)</option>
+              <option>Boxe Éducative (7–16 ans)</option>
+              <option>Kick-Boxing Enfants / Ados</option>
+            </select></label>
+        </div>
+        <div class="pform__row">
+          <label class="pform__field"><span>Tes disponibilités</span>
+            <input type="text" name="disponibilites" placeholder="ex. les soirs en semaine, le samedi matin…" /></label>
+          <label class="pform__field"><span>Comment nous as-tu connus ?</span>
+            <select name="source_connaissance">
+              <option value="" disabled selected>Choisis…</option>
+              <option>L’assistant du site</option>
+              <option>Instagram / Facebook</option>
+              <option>Google</option>
+              <option>Le bouche-à-oreille</option>
+              <option>Autre</option>
+            </select></label>
+        </div>
+        <label class="pform__field pform__consent"><span style="display:flex;gap:.6em;align-items:flex-start;font-weight:400;text-transform:none;letter-spacing:0">
+          <input type="checkbox" name="consentement" value="oui" required style="margin-top:.25em" />
+          <span>J’accepte que le Boxing Center me contacte pour organiser ma séance et me tenir au courant de ses offres. *</span></span></label>
+        <input type="hidden" name="salle" value="Portet-sur-Garonne" />
+        <input type="hidden" name="offre" value="Séance d’essai offerte — invitation de l’assistant" />
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
+        <button class="btn btn--primary pform__submit" type="submit"><span>Je réserve ma séance offerte</span></button>
+        <p class="pform__status" id="essai-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+  </main>
+  <div id="site-footer"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

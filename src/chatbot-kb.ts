@@ -15,6 +15,7 @@ export const ACTIONS: Record<string, ActionDef> = {
   saison:      { label: "Je prends ma saison · 259€", href: "https://box-plus.vercel.app/abonnements#promo" },
   essai:       { label: "Réserver ma séance d’essai", href: "https://box-plus.vercel.app/seance-essai" },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
+  offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
   abonnements: { label: "Voir les abonnements", href: "https://box-plus.vercel.app/abonnements" },
   enfants:     { label: "J’inscris mon enfant", href: "https://box-plus.vercel.app/abonnements#enfants" },
