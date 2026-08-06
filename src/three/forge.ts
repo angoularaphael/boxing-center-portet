@@ -81,7 +81,7 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
   group.position.set(mobile ? 0 : 1.3, mobile ? -0.9 : -0.6, 0); // desktop: bias right of text; mobile: centred + lower
 
   // capped height so tall (narrow) cut-outs don't reach the header (smaller on mobile)
-  const targetH = crop === "face" ? (mobile ? 5.2 : 6.0) : (mobile ? 6.0 : 7.0);
+  const targetH = crop === "face" ? (mobile ? 5.8 : 6.6) : (mobile ? 6.0 : 7.0);
   const planeGeo = new THREE.PlaneGeometry(1, 1);
   const planes: THREE.Mesh[] = [];
   const shadows: THREE.Mesh[] = [];
@@ -97,6 +97,7 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
     sh.position.y = -targetH * 0.52;
     group.add(sh); shadows.push(sh);
     loadTex(cutoutUrl(m.img), m.img).then((tex) => {
+      tex.anisotropy = renderer.capabilities.getMaxAnisotropy(); // nette meme inclinee
       const im = tex.image as HTMLImageElement; const a = im && im.width ? im.width / im.height : 0.7;
       mesh.userData.aw = targetH * a;            // base width for the scale animation
       mesh.scale.set(targetH * a, targetH, 1);
@@ -140,7 +141,7 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
       (mesh.material as THREE.MeshBasicMaterial).opacity = op;
       mesh.position.x = -clamp(d, -1.3, 1.3) * 5.0;  // slide
       mesh.position.z = -ad * 0.6;
-      const s = 1 - ad * 0.07;
+      const s = 1.07 - ad * 0.18; // centree : 7% plus grande ; voisines : en retrait franc
       if (mesh.userData.aw) { mesh.scale.x = mesh.userData.aw * s; mesh.scale.y = targetH * s; }
       mesh.renderOrder = -ad;
       const sh = shadows[i];

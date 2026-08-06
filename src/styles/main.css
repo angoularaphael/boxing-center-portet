@@ -971,10 +971,12 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 
   /* forge: legibility scrims top & bottom so the text doesn't fight the figure */
   .forge__overlay { padding-block: clamp(1.3rem, 5vh, 3rem); }
-  .forge__overlay::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 40%; z-index: -1; pointer-events: none;
-    background: linear-gradient(to bottom, var(--hero-bg) 15%, rgba(10, 16, 32, 0.8) 60%, transparent); }
-  .forge__overlay::after { content: ""; position: absolute; inset: auto 0 0 0; height: 48%; z-index: -1; pointer-events: none;
-    background: linear-gradient(to top, var(--hero-bg) 25%, rgba(10, 16, 32, 0.75) 65%, transparent); }
+  /* voiles allégés : les cartes officielles (partie haute) doivent rester
+     FRANCHEMENT visibles au centre — le texte garde son propre fond */
+  .forge__overlay::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 26%; z-index: -1; pointer-events: none;
+    background: linear-gradient(to bottom, var(--hero-bg) 10%, rgba(10, 16, 32, 0.55) 55%, transparent); }
+  .forge__overlay::after { content: ""; position: absolute; inset: auto 0 0 0; height: 34%; z-index: -1; pointer-events: none;
+    background: linear-gradient(to top, var(--hero-bg) 18%, rgba(10, 16, 32, 0.5) 60%, transparent); }
   .forge__head .display { font-size: clamp(1.8rem, 7vw, 2.5rem); }
   .forge__head .forge__lead { display: none; } /* keep the figure clear; bio stays in the card */
   .forge__word { opacity: 0.28; }
