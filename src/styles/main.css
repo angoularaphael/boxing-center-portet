@@ -1218,3 +1218,20 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 /* fallback reduced-motion de la forge : portraits stables, une colonne sur petit ecran */
 .forge__static img { aspect-ratio: 3 / 4; object-fit: cover; }
 @media (max-width: 560px){ .forge__static { width: 98%; } }
+
+/* ---------- Sections a fond photo : texte TOUJOURS clair ----------
+   Le fond .sec-bg est sombre par construction (brightness .34 + voile navy),
+   mais le texte suivait le theme : en theme clair, titres navy sur photo
+   sombre = illisible (retour du coach). On force le clair, quel que soit
+   le theme, avec une ombre portee qui decolle du fond. */
+.section.has-bg, .cta-block.has-cta-bg { color: #eef1f6; }
+.section.has-bg .display, .cta-block.has-cta-bg .display {
+  color: #f2f5fa;
+  text-shadow: 0 2px 30px rgba(4, 8, 18, 0.65), 0 1px 4px rgba(4, 8, 18, 0.4);
+}
+.section.has-bg .display .tint, .cta-block.has-cta-bg .display .tint { color: #8bb4ff; }
+.section.has-bg .eyebrow, .cta-block.has-cta-bg .eyebrow { color: #9fc0ff; text-shadow: 0 1px 12px rgba(4, 8, 18, 0.6); }
+.section.has-bg .eyebrow::before, .cta-block.has-cta-bg .eyebrow::before { background: #9fc0ff; }
+.section.has-bg .lead, .cta-block.has-cta-bg .lead { color: #dbe3f0; }
+.section.has-bg .muted { color: #b7c2d6; }
+.cta-block.has-cta-bg .sec-bg::before { filter: grayscale(1) contrast(1.15) brightness(0.26); }

@@ -13,7 +13,7 @@ export type ActionDef = { label: string; href?: string; act?: "essai" | "rappel"
 export const ACTIONS: Record<string, ActionDef> = {
   offre:       { label: "Je profite de l’offre · 29€", href: "https://box-plus.vercel.app/abonnements#promo" },
   saison:      { label: "Je prends ma saison · 259€", href: "https://box-plus.vercel.app/abonnements#promo" },
-  essai:       { label: "Réserver ma séance offerte", act: "essai" },
+  essai:       { label: "Réserver ma séance d’essai", href: "https://box-plus.vercel.app/seance-essai" },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
   abonnements: { label: "Voir les abonnements", href: "https://box-plus.vercel.app/abonnements" },

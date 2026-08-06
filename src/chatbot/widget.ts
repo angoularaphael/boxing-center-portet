@@ -88,7 +88,6 @@ export function initChatbot() {
   let expectName = false; // le bot vient de demander le prénom
   let leadSig = "";       // signature du dernier lead envoyé (anti-doublon)
   let callbackAsked = false;
-  let essaiAsked = false; // le visiteur réserve sa séance offerte dans le chat
 
   const root = document.createElement("div");
   root.id = "bcp-chat-root";
@@ -143,6 +142,21 @@ export function initChatbot() {
   }
   function escapeAttr(s: string) { return s.replace(/"/g, "&quot;"); }
 
+  function withPrefill(href: string): string {
+    if (!/box-plus\.vercel\.app/.test(href)) return href;
+    const p: Record<string, string> = {};
+    if (profile.prenom) p.first_name = profile.prenom;
+    if (profile.nom) p.last_name = profile.nom;
+    if (profile.email) p.email = profile.email;
+    if (profile.phone) p.phone = profile.phone;
+    if (!Object.keys(p).length) return href;
+    try {
+      const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(p))))
+        .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+      return href + (href.includes("#") ? "&" : "#") + "bcp=" + b64;
+    } catch { return href; }
+  }
+
   function renderMessages() {
     messagesEl.innerHTML = messages
       .map((m) => {
@@ -153,9 +167,13 @@ export function initChatbot() {
         const actions = m.actions?.length
           ? `<div class="bcp-chat__actions">${m.actions
               .map((a) => {
-                const ext = /^https?:/i.test(a.href);
-                return `<a class="bcp-chat__action${ext ? " bcp-chat__action--ext" : ""}" href="${escapeAttr(a.href)}"${
-                  ext ? ` target="_blank" rel="noopener"` : ` data-nav`
+                if (a.act)
+                  return `<button type="button" class="bcp-chat__action bcp-chat__action--act" data-act="${escapeAttr(a.act)}"><span>${escapeHtml(a.label)}</span></button>`;
+                const href = withPrefill(a.href || "");
+                const ext = /^https?:/i.test(href);
+                const tel = href.startsWith("tel:");
+                return `<a class="bcp-chat__action${ext ? " bcp-chat__action--ext" : ""}" href="${escapeAttr(href)}"${
+                  ext ? ` target="_blank" rel="noopener"` : tel ? "" : ` data-nav`
                 }><span>${escapeHtml(a.label)}</span>${ext ? `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ""}</a>`;
               })
               .join("")}</div>`
@@ -264,12 +282,12 @@ export function initChatbot() {
     // remerciement discret quand on vient de récupérer un contact
     if (gotNew && (profile.email || profile.phone) && callbackAsked) {
       callbackAsked = false;
-      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500);
+      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["offre", "planning"]));
     }
     // invitation douce (une seule fois) à laisser un contact
     else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
       nudged = true;
-      await botSay("Au fait — si tu veux qu’un coach te rappelle ou t’envoie le planning, laisse-moi ton prénom et un numéro ou un email, quand tu veux. 😉", 500);
+      await botSay("Au fait — si tu veux qu’un coach te rappelle ou t’envoie le planning, laisse-moi ton prénom et un numéro ou un email, quand tu veux. 😉", 500, resolveActions(["rappel"]));
     }
     showChips();
   }
@@ -300,11 +318,22 @@ export function initChatbot() {
     launcher.setAttribute("aria-label", "Fermer l’assistant Boxing Center");
     if (!opened) {
       opened = true;
-      await botSay(
+      const page = document.body.dataset.page || "";
+      const WELCOMES: Record<string, [string, string[]]> = {
+        tarifs: ["Tu regardes les offres 👀 La rentrée est à 29 € par personne, 4 semaines, sans engagement — la meilleure porte d’entrée. Une question sur une formule ?", ["offre", "tarifs"]],
+        activites: ["Tu cherches ta discipline ? Dis-moi ce qui t’attire — boxe, MMA, grappling, pour toi ou pour ton enfant — et je te guide vers le bon cours.", ["planning", "offre"]],
+        plannings: ["Besoin d’aide pour choisir un créneau ? Dis-moi ta discipline et tes dispos, je te dis exactement où aller. 🗓️", ["offre", "disciplines"]],
+        coachs: ["Tu veux savoir avec qui tu vas t’entraîner ? Demande-moi — Tapia, Pinto, Pioppo, Tramaçon, Mourad & Ingrid. Et l’offre de la rentrée est à 29 € par personne. 🥊", ["offre", "boxeurs"]],
+        boxeurs: ["Eux, ils ont commencé exactement comme toi — un premier cours. L’offre de la rentrée est à 29 € par personne si tu veux écrire la suite.", ["offre", "coachs"]],
+        partenaires: ["Un projet d’entreprise, une privatisation, un partenariat ? Décris-le-moi ici — et si on a déjà discuté, le formulaire juste en dessous est même prérempli. 😉", ["appeler", "contact"]],
+        contact: ["Le plus simple : appelle-nous — ou laisse-moi ton numéro et un coach te rappelle dans la journée.", ["appeler", "rappel"]],
+        galerie: ["Bienvenue dans la galerie ! Si une image te donne envie de pousser la porte : l’offre de la rentrée est à 29 € par personne. 🥊", ["offre", "disciplines"]],
+      };
+      const [wTxt, wKeys] = WELCOMES[page] || [
         "Salut ! 👋 Je suis l’assistant du Boxing Center Portet. L’offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.",
-        800,
-        resolveActions(["offre", "essai"])
-      );
+        ["offre", "tarifs"],
+      ];
+      await botSay(wTxt, 800, resolveActions(wKeys));
       showChips();
     }
     input.focus();
@@ -330,6 +359,11 @@ export function initChatbot() {
   // bouton d'action INTERNE : le routeur fait la navigation douce (capture),
   // nous on referme le panneau pour laisser la page se montrer
   messagesEl.addEventListener("click", (e) => {
+    const act = (e.target as Element).closest<HTMLElement>("button[data-act]");
+    if (act) {
+      if (act.dataset.act === "rappel") void startCallback();
+      return;
+    }
     if ((e.target as Element).closest("a[data-nav]")) closePanel();
   });
 

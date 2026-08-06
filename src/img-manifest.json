@@ -468,12 +468,26 @@
   ],
   "ar": 1.3333
  },
+ "/img/team/cards/card-enzo-pioppo-haut.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.1961
+ },
  "/img/team/cards/card-enzo-pioppo.jpg": {
   "w": [
    480,
    960
   ],
   "ar": 0.7583
+ },
+ "/img/team/cards/card-mourad-ingrid-haut.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.4805
  },
  "/img/team/cards/card-mourad-ingrid.jpg": {
   "w": [
@@ -482,6 +496,13 @@
   ],
   "ar": 1
  },
+ "/img/team/cards/card-nicolas-tramacon-haut.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.1592
+ },
  "/img/team/cards/card-nicolas-tramacon.jpg": {
   "w": [
    480,
@@ -489,12 +510,26 @@
   ],
   "ar": 0.7583
  },
+ "/img/team/cards/card-samuel-pinto-haut.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.1316
+ },
  "/img/team/cards/card-samuel-pinto.jpg": {
   "w": [
    480,
    960
   ],
   "ar": 0.7583
+ },
+ "/img/team/cards/card-valentin-tapia-haut.jpg": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.1767
  },
  "/img/team/cards/card-valentin-tapia.jpg": {
   "w": [
