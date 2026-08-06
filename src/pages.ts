@@ -48,6 +48,13 @@ function initPartnerForm() {
       });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error((j as any).error || "envoi refusé");
+      // même base que les contacts du chatbot : TOUT formulaire y verse son lead
+      submitLead({
+        event: "partenaire_form",
+        name: payload.name || "", email: payload.email || "", phone: payload.phone || "",
+        salle: "Portet", organisation: payload.organisation || "",
+        type: payload.type || "", message: (payload.message || "").slice(0, 500),
+      }).catch(() => { /* Inlett a déjà la demande — jamais bloquant */ });
       form.reset();
       status.textContent = "C’est envoyé ! On vous répond très vite — merci pour votre confiance. 🥊";
     } catch {
