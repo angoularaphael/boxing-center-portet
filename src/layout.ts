@@ -7,7 +7,7 @@ const SHOP = "https://box-plus.vercel.app/";
 const GROUP = "https://boxingcenter.fr/";
 
 function navMarkup(path: string) {
-  const links = NAV.map((n) => {
+  const links = NAV.filter((n) => (n as any).top !== false).map((n) => {
     const current = n.href === path ? ' aria-current="page"' : "";
     return `<a href="${n.href}"${current}>${n.label}</a>`;
   }).join("");

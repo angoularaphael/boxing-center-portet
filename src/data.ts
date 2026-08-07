@@ -70,15 +70,20 @@ export const SITE: typeof DEF_SITE = {
 export const HERO = { hookLine1: "Ici, le sport devient une passion.", hookLine2: "La passion devient un mode de vie.", ...(C.hero || {}) };
 export const SEO = C.seo || {};
 
+/* `top: false` = la page reste dans le MENU (et dans le pied de page), mais
+   quitte la barre du haut. Onze entrées ne tiennent sur aucun écran : les
+   libellés se cassaient en deux lignes et la barre devenait illisible. On
+   garde en haut les sept qui portent la décision — découvrir, se rassurer,
+   choisir un créneau, voir le prix, venir. */
 export const NAV = [
   { href: "/", label: "Accueil" },
   { href: "/premiere-seance/", label: "1re séance" },
   { href: "/activites/", label: "Activités" },
-  { href: "/salles/", label: "Le club" },
+  { href: "/salles/", label: "Le club", top: false },
   { href: "/coachs/", label: "Coachs" },
-  { href: "/boxeurs/", label: "Nos Boxeurs" },
-  { href: "/partenaires/", label: "Partenaires" },
-  { href: "/galerie/", label: "Galerie" },
+  { href: "/boxeurs/", label: "Nos Boxeurs", top: false },
+  { href: "/partenaires/", label: "Partenaires", top: false },
+  { href: "/galerie/", label: "Galerie", top: false },
   { href: "/plannings/", label: "Planning" },
   { href: "/tarifs/", label: "Tarifs" },
   { href: "/contact/", label: "Contact" },

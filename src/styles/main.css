@@ -84,7 +84,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 @keyframes pulse { 0%,100%{ opacity: 1; transform: scale(1);} 50%{ opacity: .45; transform: scale(.7);} }
 
 .nav__links { display: flex; gap: clamp(0.9rem, 1.5vw, 1.7rem); align-items: center; flex-wrap: nowrap; }
-.nav__links a { font-size: 0.92rem; color: var(--fg-soft); position: relative; padding: 4px 0; }
+.nav__links a { font-size: 0.92rem; color: var(--fg-soft); position: relative; padding: 4px 0; white-space: nowrap; }
 .nav__links a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 0;
   background: var(--accent); transition: width var(--t-fast) var(--ease-out); }
 .nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--fg); }
