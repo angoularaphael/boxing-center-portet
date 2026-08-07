@@ -57,6 +57,19 @@ function seoBakePlugin() {
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
             + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
             + `</div>`).join(""));
+
+          /* LA GALERIE — la dernière grille encore vide, et la plus coûteuse.
+             La page qui existe pour MONTRER la salle ne contenait pas une
+             balise <img> : quarante-cinq clichés que Google Images ne pouvait
+             pas indexer, faute d'exister dans le HTML. Le JS les peint ensuite
+             avec leur srcset complet (imgAttrs) — on ne cuit ici que le
+             strict nécessaire : la source, la légende en alt, les dimensions.
+             Deux photos en `eager` : ce sont elles que le visiteur voit en
+             premier, et le plus gros élément de la page. */
+          remplir("gallery", "gallery", (content.gallery || []).map((g: any, i: number) =>
+            `<figure class="shot ${g.span === "wide" ? "shot--wide" : g.span === "tall" ? "shot--tall" : ""}" data-gal-idx="${i}">`
+            + `<img src="${e(g.src)}" alt="${e(g.label)}" ${i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`} decoding="async" />`
+            + `<figcaption class="shot__label">${e(g.label)}</figcaption></figure>`).join(""));
         }
 
         /* LES PRIX CUITS DANS LE HTML — les robots des IA (GPTBot,
