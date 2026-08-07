@@ -1,0 +1,89 @@
+/**
+ * Le sitemap d'images, reconstruit depuis le contenu éditable.
+ *
+ * Pourquoi ce script existe : les photos du site vivent en fonds CSS et en
+ * grilles rendues par JavaScript. Google Images n'indexe QUE ce qu'il voit —
+ * une image de fond ne rapporte aucun jus. Le sitemap d'images est le seul
+ * moyen officiel de déclarer ces photos, avec leur titre et leur légende.
+ * Portet n'en déclarait que 4 alors qu'il en a plus de soixante.
+ *
+ * Lancé avant chaque build (npm run build) : le jour où le patron ajoute une
+ * photo au vestiaire, elle entre dans le sitemap toute seule.
+ */
+import { readFileSync, writeFileSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const SITE = "https://www.boxing-center-portet.fr";
+const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
+const jour = new Date().toISOString().slice(0, 10);
+
+const esc = (s) =>
+  String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** Une image déclarée : l'URL absolue, un titre court, une légende qui situe. */
+const img = (src, titre, legende) =>
+  `    <image:image>\n      <image:loc>${SITE}${esc(src)}</image:loc>\n` +
+  `      <image:title>${esc(titre)}</image:title>\n` +
+  (legende ? `      <image:caption>${esc(legende)}</image:caption>\n` : "") +
+  `    </image:image>`;
+
+const LIEU = "Boxing Center Portet-sur-Garonne, Toulouse sud";
+
+// Les disciplines illustrées (page d'accueil + page activités)
+const disciplines = (C.disciplines || [])
+  .filter((d) => d.img)
+  .map((d) => img(d.img, `${d.name} — ${LIEU}`, `${d.name} : ${String(d.desc || "").slice(0, 150)}`));
+
+// L'équipe : les cartes officielles de la saison
+const equipe = (C.team || [])
+  .filter((m) => m.img)
+  .map((m) => img(m.img, `${m.name} — ${m.role || "coach"} au ${LIEU}`, `${String(m.desc || "").slice(0, 150)}`));
+
+// La galerie : chaque photo porte déjà sa légende dans le backoffice
+const galerie = (C.gallery || [])
+  .filter((g) => g.src)
+  .map((g) => img(g.src, `${g.label} — ${LIEU}`, `${g.label}, photographié au Boxing Center Portet, 61 route d'Espagne.`));
+
+const PAGES = [
+  { url: "/", freq: "weekly", prio: "1.0", images: [
+      img("/img/gym-21.jpg", `Le ring de boxe anglaise — ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat."),
+      img("/og.png", "Boxing Center Portet — club de boxe et MMA 31120", "Boxing Center Portet-sur-Garonne, la salle phare du groupe."),
+      ...disciplines.slice(0, 4)] },
+  { url: "/premiere-seance/", freq: "monthly", prio: "0.9", images: [
+      img("/img/gym-01.jpg", `L'entrée du club — ${LIEU}`, "Ce que tu vois en poussant la porte du Boxing Center Portet.")] },
+  { url: "/activites/", freq: "monthly", prio: "0.9", images: disciplines },
+  { url: "/salles/", freq: "monthly", prio: "0.8", images: [
+      img("/img/gym-21.jpg", `Le ring — ${LIEU}`, "La salle de boxe anglaise et son ring."),
+      img("/img/gym-24.jpg", `La cage MMA — ${LIEU}`, "L'espace combat et sa cage de MMA."),
+      img("/img/gym-03.jpg", `Les sacs de frappe — ${LIEU}`, "Les 24 sacs de frappe du Boxing Center Portet.")] },
+  { url: "/coachs/", freq: "monthly", prio: "0.8", images: equipe },
+  { url: "/boxeurs/", freq: "monthly", prio: "0.7", images: [
+      img("/img/team/podium-ffboxe.jpg", `Champions de France — la Team Tapia du ${LIEU}`, "Les boxeurs formés au Boxing Center Portet sur le podium."),
+      img("/img/team/walkout-gala.jpg", `Soir de gala — ${LIEU}`, "Le walk-out d'un boxeur de la Team Tapia.")] },
+  { url: "/galerie/", freq: "weekly", prio: "0.8", images: galerie },
+  { url: "/plannings/", freq: "weekly", prio: "0.8", images: [] },
+  { url: "/tarifs/", freq: "monthly", prio: "0.9", images: [] },
+  { url: "/partenaires/", freq: "monthly", prio: "0.6", images: [
+      img("/img/partners/kfc.jpg", "KFC — partenaire du Boxing Center Portet", "KFC, partenaire du club de boxe de Portet-sur-Garonne."),
+      img("/img/partners/o2.jpg", "O2 Portet-sur-Garonne — partenaire du club", "O2 Portet-sur-Garonne accompagne le Boxing Center."),
+      img("/img/partners/karting-muret.png", "Karting 2 Muret — partenaire du club", "Karting 2 Muret, dont le logo est peint sur la toile du ring.")] },
+  { url: "/contact/", freq: "monthly", prio: "0.7", images: [] },
+];
+
+const xml =
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n` +
+  `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n` +
+  PAGES.map((p) =>
+    `  <url>\n    <loc>${SITE}${p.url}</loc>\n    <lastmod>${jour}</lastmod>\n` +
+    `    <changefreq>${p.freq}</changefreq>\n    <priority>${p.prio}</priority>\n` +
+    (p.images.length ? p.images.join("\n") + "\n" : "") +
+    `  </url>`
+  ).join("\n") +
+  `\n</urlset>\n`;
+
+writeFileSync(join(ROOT, "public/sitemap.xml"), xml, "utf8");
+const total = PAGES.reduce((n, p) => n + p.images.length, 0);
+console.log(`[sitemap] ${PAGES.length} pages · ${total} images déclarées`);

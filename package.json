@@ -6,7 +6,7 @@
   "description": "Site vitrine immersif — Boxing Center Portet-sur-Garonne",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/optimize-images.mjs && vite build",
+    "build": "node scripts/optimize-images.mjs && node scripts/sitemap-images.mjs && vite build",
     "preview": "vite preview --port 4173",
     "generate:favicons": "node scripts/generate-favicons.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
