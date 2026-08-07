@@ -25,6 +25,29 @@ function seoBakePlugin() {
         const m = file.match(/\/([a-z0-9-]+)\/index\.html$/);
         const key = m ? m[1] : /(^|\/)index\.html$/.test(file) ? "home" : "";
 
+        /* LES PRIX CUITS DANS LE HTML — les robots des IA (GPTBot,
+           PerplexityBot, ClaudeBot) n'exécutent PAS le JavaScript : la grille
+           des tarifs, rendue côté client, leur apparaissait VIDE. Ils
+           citaient donc le club sans jamais connaître une seule offre. On
+           écrit les cartes au build ; le JS réécrit ensuite le même contenu
+           (idempotent), et le visiteur sans JavaScript voit les prix. */
+        if (Array.isArray(content.tarifs) && content.tarifs.length) {
+          const esc = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          const cartes = content.tarifs.map((t: any) => {
+            const badge = t.badge ? `<span class="tarif__badge">${esc(t.badge)}</span>`
+              : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : "";
+            const vieux = t.old ? `<s class="tarif__old">${esc(t.old)}</s> ` : "";
+            const cta = t.href
+              ? `<a class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta" href="${esc(t.href)}" target="_blank" rel="noopener">${esc(t.cta || "Je choisis cette formule")}</a>`
+              : "";
+            return `<div class="tarif ${t.feature ? "tarif--feature" : ""}" data-reveal>${badge}`
+              + `<span class="tarif__name">${esc(t.name)}</span>`
+              + `<span class="tarif__price">${vieux}${esc(t.price)}<small> ${esc(t.unit || "")}</small></span>`
+              + `<p class="tarif__note">${esc(t.note || "")}</p>${cta}</div>`;
+          }).join("");
+          html = html.replace(/(<div class="tarifs" id="tarifs-grid"[^>]*>)\s*(<\/div>)/, `$1${cartes}$2`);
+        }
+
         // Preload the gallery's first (LCP) image with its responsive variants,
         // kept in sync with the editable content at every publish/rebuild.
         if (key === "galerie") {
