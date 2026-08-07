@@ -42,7 +42,7 @@ function parseReply(raw: string): { text: string; actions: ActionDef[] } {
   const byHref = Object.entries(ACTIONS);
   text = text.replace(/(?:https?:\/\/)?box-plus\.vercel\.app[\w\/#-]*/gi, (u) => {
     const href = (u.startsWith("http") ? u : `https://${u}`).replace(/\/$/, "");
-    const hit = byHref.find(([, d]) => d.href.replace(/\/$/, "") === href);
+    const hit = byHref.find(([, d]) => (d.href || "").replace(/\/$/, "") === href);
     if (hit && !keys.some((k) => k.split(":")[0] === hit[0])) keys.push(hit[0]);
     return hit ? "la boutique en ligne" : u;
   });
@@ -364,7 +364,14 @@ export function initChatbot() {
       if (act.dataset.act === "rappel") void startCallback();
       return;
     }
-    if ((e.target as Element).closest("a[data-nav]")) closePanel();
+    const lien = (e.target as Element).closest<HTMLAnchorElement>("a[data-nav]");
+    if (!lien) return;
+    /* Le laissez-passer de la seance offerte : le bot OUVRE la porte, la page
+       la referme derriere lui — sans ce jeton, l'URL rend une 404. */
+    if ((lien.getAttribute("href") || "").startsWith("/seance-offerte")) {
+      try { sessionStorage.setItem("bcp-offert-pass", String(Date.now())); } catch { /* stockage indispo */ }
+    }
+    closePanel();
   });
 
   suggestionsEl.addEventListener("click", async (e) => {

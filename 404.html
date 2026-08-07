@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Page introuvable — Boxing Center Portet</title>
+  <meta name="description" content="Cette page n’existe pas (ou plus). Retour au ring : accueil, planning, tarifs ou un appel au club." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0a1020" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    /* Page autonome : aucune dépendance au bundle. Une 404 doit s’afficher
+       même le jour où le build casse — c’est précisément ce jour-là qu’elle sert. */
+    @font-face { font-family: Oswald; src: url(/fonts/oswald-latin.woff2) format("woff2"); font-weight: 200 700; font-display: swap; }
+    @font-face { font-family: Inter; src: url(/fonts/inter-latin.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 2rem 1.25rem;
+      background: radial-gradient(120% 90% at 50% 0%, #16223f 0%, #0a1020 55%, #070c18 100%);
+      color: #eef1f6; font-family: Inter, system-ui, sans-serif; text-align: center; }
+    .nf { max-width: 46rem; }
+    .code { font-family: Oswald, sans-serif; font-size: clamp(5rem, 22vw, 11rem); line-height: .85;
+      letter-spacing: -.02em; margin: 0; color: transparent; -webkit-text-stroke: 2px rgba(174,188,207,.35); }
+    .ko { display: block; margin-top: .4rem; font-family: Oswald, sans-serif; font-size: clamp(1rem, 3.4vw, 1.4rem);
+      letter-spacing: .5em; text-indent: .5em; color: #4a8fe8; }
+    h1 { font-family: Oswald, sans-serif; text-transform: uppercase; font-size: clamp(1.7rem, 6vw, 3rem);
+      line-height: 1.02; margin: 1.6rem 0 .9rem; }
+    h1 .tint { color: #8bb4ff; }
+    p { margin: 0 auto 2rem; max-width: 46ch; line-height: 1.6; color: #aeb8c8; }
+    .cta { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; min-height: 46px; padding: .8rem 1.4rem; border-radius: 12px;
+      font-weight: 700; font-size: .92rem; text-decoration: none; border: 1px solid rgba(174,188,207,.28);
+      color: #dbe4f2; transition: transform .15s, background .2s, border-color .2s; }
+    .btn:hover { transform: translateY(-1px); background: rgba(174,188,207,.12); border-color: rgba(174,188,207,.5); }
+    .btn--primary { background: linear-gradient(145deg, #2b5fd4, #4a8fe8); border-color: transparent; color: #fff;
+      box-shadow: 0 6px 20px rgba(24,40,72,.4); }
+    nav { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: .3rem 1.4rem; justify-content: center;
+      font-family: Oswald, sans-serif; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+    nav a { color: #8f9cb0; text-decoration: none; padding: .45rem 0; }
+    nav a:hover { color: #fff; }
+    .adr { margin-top: 2rem; font-size: .78rem; letter-spacing: .06em; color: #6f7c92; }
+  </style>
+</head>
+<body>
+  <main class="nf">
+    <p class="code" aria-hidden="true">404<span class="ko">Hors des cordes</span></p>
+    <h1>Cette page a quitté<br>le <span class="tint">ring.</span></h1>
+    <p>Le lien s’est effacé — ou n’a jamais existé. Rien de grave : la salle, elle, est toujours au 61 route d’Espagne, et elle t’attend du lundi au samedi.</p>
+    <div class="cta">
+      <a class="btn btn--primary" href="/">Retour à l’accueil</a>
+      <a class="btn" href="tel:+33687900216">06 87 90 02 16</a>
+    </div>
+    <nav aria-label="Pages principales">
+      <a href="/activites/">Activités</a>
+      <a href="/salles/">Le club</a>
+      <a href="/coachs/">Coachs</a>
+      <a href="/plannings/">Planning</a>
+      <a href="/tarifs/">Tarifs</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <p class="adr">Boxing Center Portet · 61 route d’Espagne, 31120 Portet-sur-Garonne · lun–sam 10h–21h30</p>
+  </main>
+</body>
+</html>
