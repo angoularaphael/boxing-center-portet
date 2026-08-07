@@ -320,22 +320,42 @@ export function initChatbot() {
     if (!opened) {
       opened = true;
       const page = document.body.dataset.page || "";
-      const WELCOMES: Record<string, [string, string[]]> = {
-        tarifs: ["Tu regardes les offres 👀 La rentrée est à 29 € par personne, 4 semaines, sans engagement — la meilleure porte d’entrée. Une question sur une formule ?", ["offre", "tarifs"]],
-        activites: ["Tu cherches ta discipline ? Dis-moi ce qui t’attire — boxe, MMA, grappling, pour toi ou pour ton enfant — et je te guide vers le bon cours.", ["planning", "offre"]],
-        plannings: ["Besoin d’aide pour choisir un créneau ? Dis-moi ta discipline et tes dispos, je te dis exactement où aller. 🗓️", ["offre", "disciplines"]],
-        coachs: ["Tu veux savoir avec qui tu vas t’entraîner ? Demande-moi — Tapia, Pinto, Pioppo, Tramaçon, Mourad & Ingrid. Et l’offre de la rentrée est à 29 € par personne. 🥊", ["offre", "boxeurs"]],
-        boxeurs: ["Eux, ils ont commencé exactement comme toi — un premier cours. L’offre de la rentrée est à 29 € par personne si tu veux écrire la suite.", ["offre", "coachs"]],
-        partenaires: ["Un projet d’entreprise, une privatisation, un partenariat ? Décris-le-moi ici — et si on a déjà discuté, le formulaire juste en dessous est même prérempli. 😉", ["appeler", "contact"]],
-        contact: ["Le plus simple : appelle-nous — ou laisse-moi ton numéro et un coach te rappelle dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Tu prépares ton premier cours ? Dis-moi ton âge, ce qui t’attire et tes dispos — je te dis quel créneau prendre, et un coach t’attend à l’entrée. 🥊", ["offre", "essai"]],
-        galerie: ["Bienvenue dans la galerie ! Si une image te donne envie de pousser la porte : l’offre de la rentrée est à 29 € par personne. 🥊", ["offre", "disciplines"]],
+      /* ================================================================
+         L'ACCUEIL — on dit bonjour, on ne dit pas « je te regarde ».
+
+         Le premier message disait « Tu regardes les offres 👀 ». C'était
+         juste, et c'était le problème : annoncer à quelqu'un qu'on suit sa
+         navigation le fait reculer, même quand on a raison. Un vendeur qui
+         s'approche en disant « je vous ai vu regarder les gants » n'est pas
+         serviable, il est inquiétant.
+
+         La page reste connue — c'est ce qui rend l'aide utile — mais elle
+         n'est plus ANNONCÉE : elle décide seulement de quoi on parle.
+         Deux temps, comme quelqu'un qui aborde bien : d'abord bonjour et
+         qui on est, ensuite ce qu'on propose. Et on finit toujours par une
+         question ouverte, jamais par une offre.
+         ================================================================ */
+      const BONJOUR = "Bonjour 👋 Je suis l’assistant du Boxing Center Portet.";
+      const SUITES: Record<string, [string, string[]]> = {
+        tarifs: ["Je peux vous aider à y voir clair entre les formules — dites-moi juste pour qui et à quel rythme.", ["offre", "tarifs"]],
+        activites: ["Vous cherchez la discipline qui vous ira ? Dites-moi ce qui vous attire, pour vous ou pour votre enfant.", ["planning", "offre"]],
+        plannings: ["Si vous cherchez un créneau, donnez-moi vos disponibilités et je vous dis où aller.", ["offre", "disciplines"]],
+        coachs: ["Vous voulez savoir avec qui vous allez vous entraîner ? Demandez-moi.", ["offre", "boxeurs"]],
+        boxeurs: ["Ils ont tous commencé par un premier cours. Si vous voulez en savoir plus sur le club, je suis là.", ["offre", "coachs"]],
+        partenaires: ["Un projet d’entreprise, une privatisation, un partenariat ? Racontez-moi, je transmets au club.", ["appeler", "contact"]],
+        contact: ["Vous préférez qu’on vous rappelle ? Laissez-moi un numéro, un coach s’en occupe dans la journée.", ["appeler", "rappel"]],
+        "premiere-seance": ["Si c’est votre première fois, je peux vous dire exactement comment ça se passe.", ["offre", "essai"]],
+        galerie: ["Une question sur la salle ou sur les cours ? Je suis là.", ["offre", "disciplines"]],
       };
-      const [wTxt, wKeys] = WELCOMES[page] || [
-        "Salut ! 👋 Je suis l’assistant du Boxing Center Portet. L’offre de la rentrée est à 29 € par personne — et je peux tout te dire : horaires, offres, disciplines… Dis-moi ce que tu cherches (FR/EN), je te guide.",
+      const [suite, wKeys] = SUITES[page] || [
+        "Horaires, disciplines, tarifs — posez votre question, je vous réponds (FR/EN).",
         ["offre", "tarifs"],
       ];
-      await botSay(wTxt, 800, resolveActions(wKeys));
+      /* Deux bulles plutôt qu'un pavé : on laisse le bonjour arriver seul,
+         puis la proposition. C'est le rythme d'une conversation, et ça évite
+         le mur de texte qui tombe d'un bloc. */
+      await botSay(BONJOUR, 500);
+      await botSay(suite, 650, resolveActions(wKeys));
       showChips();
     }
     input.focus();
