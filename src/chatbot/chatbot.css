@@ -70,6 +70,78 @@ html.gated .bcp-chat {
   100% { opacity: 0; }
 }
 
+/* ================================================================
+   L'AMORCE — la première phrase du bot, posée à côté du lanceur.
+
+   Sur mobile, le panneau est une feuille qui prend l'écran : l'ouvrir
+   sans qu'on l'ait demandé volerait la lecture. Cette bulle dit la même
+   chose en trois lignes, laisse la page visible, et s'ouvre pour de bon
+   au premier doigt. Elle est aussi la réponse au « on ne voit pas le
+   bot » : un rond bleu muet ne se remarque pas, une phrase si.
+   ================================================================ */
+.bcp-chat__amorce {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  z-index: 2;
+  width: min(280px, calc(100vw - 40px));
+  padding: 14px 15px 12px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--bcp-chat-panel);
+  border: 1px solid var(--bcp-chat-line);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+  cursor: pointer;
+  text-align: left;
+  animation: bcp-chat-amorce-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bcp-chat__amorce-texte {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--bcp-chat-text, #eef2f8);
+}
+
+.bcp-chat__amorce-cta {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--bcp-chat-blue, #2b6fd4);
+}
+
+.bcp-chat__amorce-fermer {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.5;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bcp-chat__amorce-fermer:hover { opacity: 1; }
+
+@keyframes bcp-chat-amorce-in {
+  from { transform: translateY(10px) scale(0.96); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* Quelqu'un qui a demandé moins d'animation ne veut pas d'un rond qui
+   bat en permanence dans son coin d'écran. */
+@media (prefers-reduced-motion: reduce) {
+  .bcp-chat__launcher-pulse { animation: none; opacity: 0.35; }
+  .bcp-chat__amorce { animation: none; }
+}
+
 .bcp-chat__panel {
   position: absolute;
   z-index: 2;

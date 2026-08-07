@@ -13,6 +13,22 @@ import { PREVIEW } from "./data";
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let navigating = false;
 
+/**
+ * Le chemin RÉELLEMENT affiché à l'écran — qui n'est pas toujours
+ * `location.pathname`.
+ *
+ * C'est la correction du bouton « page précédente » (et d'Alt + ←). Au retour
+ * arrière, le navigateur met `location` à jour AVANT d'émettre `popstate` :
+ * quand notre écouteur se réveille, `location.pathname` vaut déjà la page
+ * demandée. La garde « on ne rejoue pas la page courante » comparait donc
+ * l'URL à elle-même, sortait à tous les coups, et rien ne changeait — la barre
+ * d'adresse reculait, le contenu restait. Le site paraissait bloqué.
+ *
+ * On garde donc notre propre repère : ce qui est monté dans le DOM. Il ne
+ * bouge qu'après un échange réussi.
+ */
+let cheminAffiche = location.pathname;
+
 export function initRouter(renderPage: () => void) {
   document.addEventListener(
     "click",
@@ -36,7 +52,7 @@ export function initRouter(renderPage: () => void) {
       if (PREVIEW) url.searchParams.set("apercu", "1"); // keep the draft preview alive across pages
       e.preventDefault();
       
-      if (url.pathname === location.pathname) {
+      if (url.pathname === cheminAffiche) {
         scrollToTop(true);
         return;
       }
@@ -53,7 +69,7 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function go(url: URL, renderPage: () => void, push: boolean) {
   if (navigating) return;
-  if (url.pathname === location.pathname) return;
+  if (url.pathname === cheminAffiche) return;   // et NON location.pathname : voir plus haut
   navigating = true;
   const curtain = document.getElementById("curtain");
   if (soundOn()) thud();
@@ -77,6 +93,7 @@ async function go(url: URL, renderPage: () => void, push: boolean) {
     document.body.dataset.page = doc.body.dataset.page || "";
     updateNavActive(url.pathname);
     if (push) history.pushState({}, "", url.href);
+    cheminAffiche = url.pathname;   // le DOM porte enfin cette page
     scrollToTop(false);
 
     renderPage(); // re-render + re-bind everything for the new content

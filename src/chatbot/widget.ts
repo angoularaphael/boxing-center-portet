@@ -384,8 +384,94 @@ export function initChatbot() {
   });
 
   launcher.addEventListener("click", () => {
+    congedierAmorce();
     if (root.classList.contains("bcp-chat--open")) closePanel();
     else void openPanel();
   });
   closeBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); closePanel(); });
+
+  /* ================================================================
+     L'ASSISTANT SE PRÉSENTE TOUT SEUL — une fois, au bon moment.
+
+     Le bot était une bulle muette dans un coin : il fallait deviner
+     qu'il servait à quelque chose, et personne ne clique sur ce qu'il
+     n'a pas compris. Il se présente donc de lui-même — mais seulement
+     quand le visiteur a montré qu'il lisait (il a fait défiler la page),
+     jamais à l'arrivée : s'ouvrir sur le nez de quelqu'un qui vient
+     d'atterrir, c'est le geste qui fait fermer l'onglet.
+
+     TROIS GARDE-FOUS, et ils comptent autant que l'ouverture :
+     · UNE SEULE FOIS par session — on note le passage, on ne recommence
+       pas de page en page (le routeur ne recharge pas le site) ;
+     · JAMAIS si le visiteur a déjà touché au bot — celui qui l'a fermé
+       a répondu, on ne redemande pas ;
+     · JAMAIS sur /seance-offerte/, page de conversion où le formulaire
+       ne doit rien avoir devant lui.
+
+     SUR MOBILE, le panneau est une feuille qui couvre l'écran : l'ouvrir
+     tout seul volerait la lecture en cours. Le téléphone reçoit donc une
+     AMORCE — une bulle posée à côté du lanceur, avec la première phrase
+     et un bouton ; le message est vu, la page reste au visiteur. Un doigt
+     dessus et le panneau s'ouvre pour de bon.
+     ================================================================ */
+  const CLE_AUTO = "bcp-chat-auto";
+  const SEUIL_PX = 900;          // « il a lu quelque chose »
+  const SEUIL_PART = 0.28;       // …ou 28 % d'une page courte
+  let amorceEl: HTMLElement | null = null;
+
+  function congedierAmorce() {
+    amorceEl?.remove();
+    amorceEl = null;
+  }
+
+  /** La bulle d'amorce du mobile : le message se voit, la page reste lisible. */
+  function poserAmorce(texte: string) {
+    if (amorceEl) return;
+    amorceEl = document.createElement("div");
+    amorceEl.className = "bcp-chat__amorce";
+    amorceEl.setAttribute("role", "status");
+    amorceEl.innerHTML =
+      `<button type="button" class="bcp-chat__amorce-fermer" aria-label="Masquer le message de l’assistant">` +
+      `<svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>` +
+      `<p class="bcp-chat__amorce-texte">${texte}</p>` +
+      `<span class="bcp-chat__amorce-cta">Discuter →</span>`;
+    amorceEl.addEventListener("click", (e) => {
+      if ((e.target as Element).closest(".bcp-chat__amorce-fermer")) { congedierAmorce(); return; }
+      congedierAmorce();
+      void openPanel();
+    });
+    root.appendChild(amorceEl);
+  }
+
+  function presentation() {
+    try { if (sessionStorage.getItem(CLE_AUTO)) return; } catch { /* stockage indispo */ }
+    if (location.pathname.startsWith("/seance-offerte")) return;
+
+    let fait = false;
+    const marquer = () => { try { sessionStorage.setItem(CLE_AUTO, "1"); } catch { /* stockage indispo */ } };
+
+    const regarder = () => {
+      if (fait || opened || root.classList.contains("bcp-chat--open")) return;
+      const h = document.documentElement;
+      const parcouru = h.scrollTop || window.scrollY || 0;
+      const total = Math.max(1, h.scrollHeight - h.clientHeight);
+      if (parcouru < SEUIL_PX && parcouru / total < SEUIL_PART) return;
+      fait = true;
+      marquer();
+      window.removeEventListener("scroll", regarder);
+      // un temps de respiration : on ne saute pas au visage au pixel près
+      setTimeout(() => {
+        if (opened || root.classList.contains("bcp-chat--open")) return;
+        if (window.matchMedia("(max-width: 480px)").matches) {
+          poserAmorce("Une question sur les offres ou les horaires ? Je réponds tout de suite.");
+        } else {
+          void openPanel();
+        }
+      }, 650);
+    };
+
+    window.addEventListener("scroll", regarder, { passive: true });
+    regarder();  // page déjà défilée (retour arrière, ancre) : on tranche tout de suite
+  }
+  presentation();
 }

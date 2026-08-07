@@ -170,7 +170,7 @@
     <div class="hero__inner wrap">
       <p class="hero__hook" data-reveal>Ici, le sport devient une passion.<br>La passion devient un <span class="tint">mode de vie.</span></p>
       <div class="hero__cta" data-reveal>
-        <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promo" target="_blank" rel="noopener"><span>Je profite de l’offre · 29€</span></a>
+        <a class="btn btn--primary" href="https://box-plus.vercel.app/inscription?product=offre-duo&step=1&utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener"><span>Je profite de l’offre · 29€</span></a>
         <a class="btn btn--ghost" href="/activites/">Découvrir les disciplines</a>
       </div>
     </div>
@@ -275,7 +275,7 @@
           <span class="eyebrow">03 · Ta place</span>
           <h2 class="display promo-blast" style="max-width:15ch">29€. <span class="tint promo-blast__accent">Par personne.</span></h2>
           <p class="lead" style="max-width:42ch;color:#cdd3df">L’offre de la rentrée : 4 semaines, 5 salles, toutes les disciplines, sans engagement. Viens avec ton binôme.</p>
-          <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promo" target="_blank" rel="noopener" style="pointer-events:auto;align-self:flex-start;margin-top:.5rem"><span>Je profite de l’offre</span></a>
+          <a class="btn btn--primary" href="https://box-plus.vercel.app/inscription?product=offre-duo&step=1&utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener" style="pointer-events:auto;align-self:flex-start;margin-top:.5rem"><span>Je profite de l’offre</span></a>
         </div>
       </div>
     </div>
@@ -399,9 +399,17 @@
   <!-- ===================== RÉFÉRENCEMENT LOCAL ===================== -->
   <section class="section local-ref" aria-labelledby="local-ref-title">
     <div class="wrap" style="max-width:72ch">
-      <h2 id="local-ref-title" class="display" style="font-size:clamp(1.9rem,4.5vw,3.2rem);margin-bottom:1rem">Salle de boxe à Portet-sur-Garonne — référence combat à Toulouse sud</h2>
-      <p class="lead">Boxing Center Portet est le <strong>club de boxe</strong> phare du réseau Boxing Center en Haute-Garonne (31120). À 10 minutes de <strong>Toulouse sud</strong>, nous accueillons débutants et confirmés pour la <strong>boxe anglaise</strong>, le <strong>kick-boxing</strong>, le <strong>MMA</strong>, le <strong>grappling & jiu-jitsu brésilien</strong> et la préparation physique — sur 600 m² avec ring de boxe anglaise, cage MMA et sacs de frappe. Baby boxe et boxe éducative dès le plus jeune âge.</p>
-      <p class="lead" style="margin-top:1rem">Première visite ? L'<strong>offre de la rentrée est à 29 € par personne</strong> (4 semaines, sans engagement) — et la <strong>séance d’essai est à 10 €</strong>. 61 route d’Espagne, Portet-sur-Garonne — ouvert du lundi au samedi, 10h–21h30.</p>
+      <!-- Ce bloc existe pour le référencement local. Il était écrit POUR le
+           moteur : une phrase de 58 mots, sept mises en gras à la file, trois
+           incises — illisible à voix haute, donc illisible tout court. Un
+           moteur classe mieux un texte que les gens lisent jusqu'au bout.
+           Mêmes mots-clés (salle de boxe, Portet-sur-Garonne, 31120, Toulouse,
+           les disciplines, l'adresse, les horaires), phrases courtes, un seul
+           gras : celui qui porte le prix. -->
+      <h2 id="local-ref-title" class="display" style="font-size:clamp(1.9rem,4.5vw,3.2rem);margin-bottom:1rem">Une salle de boxe à Portet-sur-Garonne, à dix minutes de Toulouse</h2>
+      <p class="lead">Boxing Center Portet est la salle phare du réseau : 600 m² au 61 route d’Espagne, à Portet-sur-Garonne (31120). On y pratique la boxe anglaise, le kick-boxing, le MMA, le grappling et le jiu-jitsu brésilien, avec un vrai ring, une cage et une ligne de sacs de frappe.</p>
+      <p class="lead" style="margin-top:1rem">Personne ne passe un test à l’entrée. Le débutant qui n’a jamais mis un gant et le compétiteur qui prépare un gala s’entraînent sur le même plateau, avec les mêmes coachs. Les enfants ont leurs créneaux : baby boxe dès 3 ans, boxe éducative dès 7 ans.</p>
+      <p class="lead" style="margin-top:1rem">Première fois ? La rentrée est à <strong>29 € par personne</strong> au lieu de <s class="was">44,99 €</s> — quatre semaines, sans engagement. Ouvert du lundi au samedi, de 10h à 21h30.</p>
     </div>
   </section>
 
@@ -411,9 +419,20 @@
       <div class="cta-block has-cta-bg" data-reveal>
         <div class="sec-bg" data-bg="/img/gym-13.jpg"></div>
         <span class="eyebrow" style="justify-content:center;position:relative;z-index:1">Le gong final</span>
-        <h2 class="display" style="margin:.8rem 0">Toujours là ?<br><span class="tint">Alors viens essayer.</span></h2>
-        <p class="lead" style="margin-inline:auto">La séance d’essai est à 10 € — toutes disciplines, matériel prêté, sans engagement. Tu viens, tu testes, tu décides sur le ring. 61 route d’Espagne, Portet-sur-Garonne.</p>
-        <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements?utm_source=site&utm_medium=cta&utm_campaign=portet#promo" target="_blank" rel="noopener"><span>Je prends ma place — 29€</span></a><a class="btn btn--ghost" href="https://box-plus.vercel.app/seance-essai?utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener"><span>Essayer d’abord · 10€</span></a>
+        <!-- Le compteur de places. Il arrive VIDE et masqué : c'est le
+             JavaScript qui l'ouvre, et seulement s'il a obtenu le nombre
+             réel de places encore libres auprès de la boutique. Pas de
+             nombre en dur ici — un compteur qu'on écrirait à la main
+             serait un compteur qui ment. Voir src/places.ts. -->
+        <p class="places" data-places hidden></p>
+        <h2 class="display" style="margin:.8rem 0">Toujours là ?<br><span class="tint">Alors prends ta place.</span></h2>
+        <!-- Le dernier bloc de la page disait l'inverse du bouton qu'il porte :
+             il vendait l'essai à 10 € pendant que le bouton principal mène à
+             l'offre à 29 €. Un visiteur qui lit une chose et clique sur une
+             autre n'achète ni l'une ni l'autre. Le texte dit désormais ce que
+             le bouton fait — et le prix barré donne à 29 € sa mesure. -->
+        <p class="lead" style="margin-inline:auto">Quatre semaines à <s class="was">44,99 €</s> <strong>29 € par personne</strong> : toutes les disciplines, le matériel prêté, les 5 salles du réseau, et aucun engagement à signer. C’est le prix de la rentrée — après, l’abonnement repasse à 44 €. Si tu préfères voir avant de t’engager, la séance d’essai reste à 10 €.</p>
+        <a class="btn btn--primary" href="https://box-plus.vercel.app/inscription?product=offre-duo&step=1&utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener"><span>Je prends ma place — 29€</span></a><a class="btn btn--ghost" href="https://box-plus.vercel.app/seance-essai?utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener"><span>Essayer d’abord · 10€</span></a>
       </div>
     </div>
   </section>

@@ -7,6 +7,7 @@ import { renderPage } from "./pages";
 import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { initCommunity } from "./community";
+import { initPlaces } from "./places";
 import { initChatbot } from "./chatbot/widget";
 import { injectSchema } from "./seo";
 import { imgAttrs, initLazyBackgrounds, optUrl } from "./img";
@@ -269,6 +270,10 @@ function bootPage() {
   }
 
   initCommunity();
+  /* « Plus que N places » — relancé à chaque page parce que les emplacements
+     changent avec le contenu. Le module ne parle que s'il connaît le VRAI
+     nombre restant ; sinon il se tait (voir places.ts). */
+  void initPlaces();
   injectSchema(document.body.dataset.page);
 }
 
