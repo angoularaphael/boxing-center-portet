@@ -20,7 +20,7 @@ export function cleanName(s, max) {
   const norm = value.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9\s]/g, " ");
   const bad =
     /(.)\1{6,}/.test(norm) ||
-    /https?:|www\.|\.[a-z]{2,}\/?/i.test(value) ||
+    /https?:|www\.|\.(?:com|fr|net|org|io|co|app|be|ch|eu|uk|us|shop|store|site|xyz|info|biz|link|me|tv)/i.test(value) || // vrais domaines seulement — « photo.jpg » n’est pas un lien
     BADWORDS.some((w) => new RegExp(`\\b${w}`, "i").test(norm));
   return { value, bad };
 }

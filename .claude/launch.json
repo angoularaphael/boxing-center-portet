@@ -111,6 +111,12 @@
         "C:/Users/Mommy Jayce/Desktop/Boxing Center/sites/bc-minimes"
       ],
       "port": 6902
+    },
+    {
+      "name": "plannings",
+      "runtimeExecutable": "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Plannings\\bc-plannings\\dev3001.cmd",
+      "runtimeArgs": [],
+      "port": 3001
     }
   ]
 }

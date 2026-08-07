@@ -10,7 +10,7 @@
 import { cloudinary, FOLDER, cleanName, ipOf, allowCors, issuePow, verifyPow, memoryLimit } from "../_lib/util.js";
 
 const LIMITS = [
-  { max: +(process.env.RATE_PER_MIN || 1), windowMs: 60_000, label: "une minute" },
+  { max: +(process.env.RATE_PER_MIN || 2), windowMs: 60_000, label: "une minute" }, // 2 et non 1 : un premier envoi raté mérite un second essai immédiat
   { max: +(process.env.RATE_PER_HOUR || 3), windowMs: 3_600_000, label: "une heure" },
   { max: +(process.env.RATE_PER_DAY || 6), windowMs: 86_400_000, label: "24 heures" },
 ];

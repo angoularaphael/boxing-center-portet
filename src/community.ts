@@ -25,7 +25,7 @@ const BADWORDS = [
 function isInappropriate(s: string) {
   const norm = s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9\s]/g, " ");
   if (/(.)\1{6,}/.test(norm)) return true;          // spam (aaaaaaa)
-  if (/https?:|www\.|\.[a-z]{2,}\/?/i.test(s)) return true; // links
+  if (/https?:|www\.|\.(?:com|fr|net|org|io|co|app|be|ch|eu|uk|us|shop|store|site|xyz|info|biz|link|me|tv)/i.test(s)) return true; // vrais liens seulement
   return BADWORDS.some((w) => new RegExp(`\\b${w}`, "i").test(norm));
 }
 
@@ -141,6 +141,7 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
       const nonce = powRes?.challenge ? await solvePowC(powRes.challenge, powRes.difficulty || 4) : "";
       const website = (form.querySelector<HTMLInputElement>('input[name="website"]')?.value || "");
       const kind = file.type.startsWith("image/") ? "image" : "video";
+      const upload = kind === "image" ? await prepareImage(file) : file;
 
       // 1) ask our function to validate + sign (file bytes never pass through Vercel)
       const signRes = await fetch(`${API}/api/community/sign`, {
@@ -152,7 +153,7 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
 
       // 2) upload the video DIRECTLY to Cloudinary with the signed params
       const fd = new FormData();
-      fd.append("file", file);
+      fd.append("file", upload);
       fd.append("api_key", sign.apiKey);
       fd.append("timestamp", String(sign.timestamp));
       fd.append("folder", sign.folder);
@@ -179,7 +180,9 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
           form.reset();
           if (soundOn()) punch();
         } else {
-          setStatus(status, "Échec de l’envoi. Réessaie.", "err");
+          let msg = "Échec de l’envoi. Réessaie.";
+          try { msg = JSON.parse(xhr.responseText)?.error?.message ? `Refusé : ${JSON.parse(xhr.responseText).error.message}` : msg; } catch { /* réponse illisible */ }
+          setStatus(status, msg, "err");
         }
       };
       xhr.onerror = () => {
@@ -208,6 +211,27 @@ async function solvePowC(challenge: string, difficulty: number): Promise<string>
     if ((await sha256HexC(`${challenge}:${nonce}`)).startsWith(prefix)) return String(nonce);
     if (nonce % 2000 === 1999) await new Promise((r) => setTimeout(r));
   }
+}
+
+/* Une photo de téléphone (HEIC, 8 Mo, de travers) devient un WebP léger AVANT
+   l'envoi — même recette que le vestiaire : jamais de format refusé par
+   Cloudinary, jamais d'upload de 8 Mo sur la 4G de la salle. */
+async function prepareImage(file: File): Promise<File> {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" } as any);
+    const MAX = 2000;
+    const s = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * s);
+    canvas.height = Math.round(bmp.height * s);
+    canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.85));
+    if (blob && blob.size < file.size) {
+      return new File([blob], file.name.replace(/\.\w+$/, "") + ".webp", { type: "image/webp" });
+    }
+  } catch { /* format indécodable ici : on tente l'original, Cloudinary convertira */ }
+  return file;
 }
 
 function videoDuration(file: File): Promise<number> {
