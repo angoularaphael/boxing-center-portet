@@ -25,6 +25,40 @@ function seoBakePlugin() {
         const m = file.match(/\/([a-z0-9-]+)\/index\.html$/);
         const key = m ? m[1] : /(^|\/)index\.html$/.test(file) ? "home" : "";
 
+        /* TOUT LE CONTENU CUIT DANS LE HTML — même raison que les prix :
+           les robots des IA n'exécutent pas le JavaScript. Sans ça, ils
+           lisaient un site sans disciplines, sans publics, sans planning,
+           sans page activités, et SANS LES QUATRE VALEURS DU CLUB. Le JS
+           réécrit ensuite chaque grille à l'identique (innerHTML), donc
+           aucun doublon ; et si le JS tombe, la page reste lisible. */
+        {
+          const e = (s: any) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          const remplir = (id: string, cls: string, dedans: string) => {
+            const rx = new RegExp(`(<div class="${cls}" id="${id}"[^>]*>|<div id="${id}"[^>]*class="${cls}"[^>]*>)\s*(</div>)`);
+            if (dedans) html = html.replace(rx, `$1${dedans}$2`);
+          };
+          const D: any[] = content.disciplines || [];
+          const n = String(D.length).padStart(2, "0");
+          remplir("reel-track", "reel__track", D.map((d) => `<article class="reel__frame">`
+            + `<span class="reel__num">${e(d.key)} / ${n}</span><span class="reel__tag">${e(d.tag)}</span>`
+            + `<div class="reel__body"><h3 class="reel__name">${e(d.name)}</h3><p class="reel__desc">${e(d.desc)}</p></div></article>`).join(""));
+          const carteDisc = (d: any, extra = "") => `<article class="disc${extra}" data-reveal>`
+            + `<div class="disc__top"><span class="disc__key">${e(d.key)}</span><span class="disc__tag">${e(d.tag)}</span></div>`
+            + `<div><h3 class="disc__name">${e(d.name)}</h3><p class="disc__desc">${e(d.desc)}</p></div></article>`;
+          remplir("disc-grid", "disc-grid", D.map((d) => carteDisc(d)).join(""));
+          remplir("act-grid", "disc-grid", D.map((d) => carteDisc(d, " disc--img")).join(""));
+          remplir("aud-grid", "aud-grid", (content.audiences || []).map((a: any) =>
+            `<article class="aud" data-reveal><span class="aud__tag">${e(a.tag)}</span>`
+            + `<h3 class="aud__title">${e(a.title)}</h3><p class="aud__desc">${e(a.desc)}</p></article>`).join(""));
+          remplir("values-grid", "values", (content.values || []).map((v: any) =>
+            `<article class="value" data-reveal><span class="value__n">${e(v.n)}</span>`
+            + `<h3 class="value__title">${e(v.title)}</h3><p class="value__desc">${e(v.desc)}</p></article>`).join(""));
+          remplir("planning-grid", "planning", (content.planning || []).map((c: any) =>
+            `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
+            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
+            + `</div>`).join(""));
+        }
+
         /* LES PRIX CUITS DANS LE HTML — les robots des IA (GPTBot,
            PerplexityBot, ClaudeBot) n'exécutent PAS le JavaScript : la grille
            des tarifs, rendue côté client, leur apparaissait VIDE. Ils
