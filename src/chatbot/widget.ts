@@ -335,20 +335,29 @@ export function initChatbot() {
          qui on est, ensuite ce qu'on propose. Et on finit toujours par une
          question ouverte, jamais par une offre.
          ================================================================ */
-      const BONJOUR = "Bonjour 👋 Je suis l’assistant du Boxing Center Portet.";
-      const SUITES: Record<string, [string, string[]]> = {
-        tarifs: ["Je peux vous aider à y voir clair entre les formules — dites-moi juste pour qui et à quel rythme.", ["offre", "tarifs"]],
-        activites: ["Vous cherchez la discipline qui vous ira ? Dites-moi ce qui vous attire, pour vous ou pour votre enfant.", ["planning", "offre"]],
-        plannings: ["Si vous cherchez un créneau, donnez-moi vos disponibilités et je vous dis où aller.", ["offre", "disciplines"]],
-        coachs: ["Vous voulez savoir avec qui vous allez vous entraîner ? Demandez-moi.", ["offre", "boxeurs"]],
-        boxeurs: ["Ils ont tous commencé par un premier cours. Si vous voulez en savoir plus sur le club, je suis là.", ["offre", "coachs"]],
-        partenaires: ["Un projet d’entreprise, une privatisation, un partenariat ? Racontez-moi, je transmets au club.", ["appeler", "contact"]],
-        contact: ["Vous préférez qu’on vous rappelle ? Laissez-moi un numéro, un coach s’en occupe dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Si c’est votre première fois, je peux vous dire exactement comment ça se passe.", ["offre", "essai"]],
-        galerie: ["Une question sur la salle ou sur les cours ? Je suis là.", ["offre", "disciplines"]],
+      /* Trois temps, dans cet ordre, et jamais plus long que ça :
+         1. bonjour + JE VOIS OÙ VOUS ÊTES — le dire simplement, sans
+            emoji d'œil ni formule qui sonne comme de la surveillance ;
+         2. UN fait vrai et utile sur cette page-là — c'est ce qui fait la
+            différence entre un assistant et un pop-up ;
+         3. une question ouverte, pour qu'on regarde ensemble.
+         Chaque bulle tient en une ligne : plus c'est court et plus c'est
+         informatif, plus c'est lu. Les chiffres viennent de content.json —
+         neuf disciplines, cinq coachs, sept formules, six boxeurs. */
+      const ACCUEILS: Record<string, [string, string, string[]]> = {
+        tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise. Je vous aide à choisir ?", ["offre", "tarifs"]],
+        activites: ["Bonjour 👋 Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
+        plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["offre", "disciplines"]],
+        coachs: ["Bonjour 👋 Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
+        boxeurs: ["Bonjour 👋 Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["offre", "coachs"]],
+        partenaires: ["Bonjour 👋 Vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
+        contact: ["Bonjour 👋 Vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
+        "premiere-seance": ["Bonjour 👋 Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["offre", "essai"]],
+        galerie: ["Bonjour 👋 Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["offre", "disciplines"]],
       };
-      const [suite, wKeys] = SUITES[page] || [
-        "Horaires, disciplines, tarifs — posez votre question, je vous réponds (FR/EN).",
+      const [BONJOUR, suite, wKeys] = ACCUEILS[page] || [
+        "Bonjour 👋 Je suis l’assistant du club.",
+        "Horaires, disciplines, tarifs — posez votre question (FR/EN).",
         ["offre", "tarifs"],
       ];
       /* Deux bulles plutôt qu'un pavé : on laisse le bonjour arriver seul,
@@ -356,6 +365,15 @@ export function initChatbot() {
          le mur de texte qui tombe d'un bloc. */
       await botSay(BONJOUR, 500);
       await botSay(suite, 650, resolveActions(wKeys));
+      /* Le prénom en TROISIÈME bulle, jamais avant : après deux messages qui
+         ont déjà rendu service, ce n'est plus une exigence posée à l'entrée,
+         c'est une conversation qui commence. Et on ne le redemande jamais à
+         quelqu'un qui l'a déjà donné — c'est la première chose qui trahit
+         un robot. */
+      if (!profile.prenom) {
+        expectName = true;
+        await botSay("Et vous, comment vous appelez-vous ?", 420);
+      }
       showChips();
     }
     input.focus();
