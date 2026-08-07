@@ -72,6 +72,7 @@ export const SEO = C.seo || {};
 
 export const NAV = [
   { href: "/", label: "Accueil" },
+  { href: "/premiere-seance/", label: "1re séance" },
   { href: "/activites/", label: "Activités" },
   { href: "/salles/", label: "Le club" },
   { href: "/coachs/", label: "Coachs" },

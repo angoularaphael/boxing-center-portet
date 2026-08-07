@@ -1,6 +1,6 @@
 # Boxing Center Portet — https://www.boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-08-05
+# Dernière mise à jour : 2026-08-07
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
 
@@ -26,6 +26,15 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 
 **Est-ce adapté aux débutants ?**
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai à 10 €.
+
+**Comment se passe une première séance ?**
+On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé complet : https://www.boxing-center-portet.fr/premiere-seance/
+
+**Quels créneaux pour débuter ?**
+Boxe Anglaise Loisirs : mardi 20h00–21h30, mercredi 19h00–20h00, jeudi 20h00–21h30. Séance de midi : lundi, jeudi, vendredi et samedi 12h30–13h30. Lady Boxing (100 % féminin) : mercredi 18h00–19h00. Baby Boxe (3/6 ans) : samedi 15h15–16h00.
+
+**Quelle est la note du club ?**
+4,3 sur 5 sur Google, sur 107 avis (fiche Google du club, relevé le 6 août 2026).
 
 **Distance depuis Toulouse ?**
 Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
@@ -66,6 +75,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 ## Pages du site
 
 - Accueil : https://www.boxing-center-portet.fr/
+- Ta première séance (déroulé, tenue, créneaux débutants) : https://www.boxing-center-portet.fr/premiere-seance/
 - Activités : https://www.boxing-center-portet.fr/activites/
 - Le club : https://www.boxing-center-portet.fr/salles/
 - Coachs : https://www.boxing-center-portet.fr/coachs/

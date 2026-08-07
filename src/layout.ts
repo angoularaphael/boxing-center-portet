@@ -60,7 +60,11 @@ function footerMarkup() {
       <div class="footer__grid">
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
-          <a class="btn btn--primary" href="https://box-plus.vercel.app/seance-essai" target="_blank" rel="noopener">Mon essai offert ${svgArrow}</a>
+          <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+            <a class="btn btn--primary" href="https://box-plus.vercel.app/abonnements#promo" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
+            <a class="btn btn--ghost" href="https://box-plus.vercel.app/seance-essai" target="_blank" rel="noopener">Ma séance d’essai · 10€</a>
+          </div>
+          <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>
         </div>
         <div>
           <h4>Le club</h4>

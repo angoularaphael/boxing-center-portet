@@ -1,7 +1,7 @@
 /** Client-side knowledge for the chatbot: quick-button canned answers (instant,
  *  no API) + a keyword fallback used when the AI endpoint is unavailable. The
  *  full grounding for the LLM lives server-side in api/chat.js.
- *  L’ORDRE VEND : l’offre d’abord, l’essai (offert) en dernier. */
+ *  L’ORDRE VEND : l’offre à 29 € d’abord, la séance d’essai à 10 € en dernier. */
 export type Quick = { label: string; q: string; a: string; actions?: string[] };
 
 /** Destinations et ACTIONS que le bot propose en BOUTONS sous ses messages.
@@ -10,16 +10,28 @@ export type Quick = { label: string; q: string; a: string; actions?: string[] };
  *  `act` = le bot FAIT la tâche dans le chat (réservation d’essai, rappel)
  *  au lieu de renvoyer vers un formulaire — zéro re-saisie pour le visiteur. */
 export type ActionDef = { label: string; href?: string; act?: "essai" | "rappel" };
+
+/** MESURE — chaque lien boutique sortant de l’assistant est tracé, sinon on ne
+ *  peut pas prouver que le bot vend. Les UTM se posent AVANT l’ancre : la
+ *  boutique lit `#promo` (et `#bcp=` du préremplissage) sur le fragment, un
+ *  `?utm…` collé après le `#` casserait l’onglet ouvert à l’arrivée. */
+const SHOP = "https://box-plus.vercel.app";
+const UTM = "utm_source=chatbot&utm_medium=bouton&utm_campaign=portet";
+const shop = (path: string, hash = "") => `${SHOP}${path}?${UTM}${hash}`;
+/** Compare deux URL boutique sans leur traçage (voir parseReply). */
+export const sansUtm = (u: string) => u.replace(/\?[^#]*/, "").replace(/\/(?=#|$)/, "");
+
 export const ACTIONS: Record<string, ActionDef> = {
-  offre:       { label: "Je profite de l’offre · 29€", href: "https://box-plus.vercel.app/abonnements#promo" },
-  saison:      { label: "Je prends ma saison · 259€", href: "https://box-plus.vercel.app/abonnements#promo" },
-  essai:       { label: "Réserver ma séance d’essai", href: "https://box-plus.vercel.app/seance-essai" },
+  offre:       { label: "Je profite de l’offre · 29€", href: shop("/abonnements", "#promo") },
+  saison:      { label: "Je prends ma saison · 259€", href: shop("/abonnements", "#promo") },
+  essai:       { label: "Réserver ma séance d’essai", href: shop("/seance-essai") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
-  abonnements: { label: "Voir les abonnements", href: "https://box-plus.vercel.app/abonnements" },
-  enfants:     { label: "J’inscris mon enfant", href: "https://box-plus.vercel.app/abonnements#enfants" },
-  boutique:    { label: "La boutique du club", href: "https://box-plus.vercel.app/" },
+  abonnements: { label: "Voir les abonnements", href: shop("/abonnements") },
+  enfants:     { label: "J’inscris mon enfant", href: shop("/abonnements", "#enfants") },
+  boutique:    { label: "La boutique du club", href: shop("/") },
+  premiere:    { label: "Comment se passe la 1re séance", href: "/premiere-seance/" },
   tarifs:      { label: "Les tarifs en détail", href: "/tarifs/" },
   planning:    { label: "Voir le planning", href: "/plannings/" },
   disciplines: { label: "Découvrir les disciplines", href: "/activites/" },
@@ -33,7 +45,7 @@ export const ACTIONS: Record<string, ActionDef> = {
 
 export const QUICKS: Quick[] = [
   { label: "L’offre 29€", q: "C’est quoi l’offre de la rentrée ?",
-    a: "L’offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Viens avec ton binôme — ça se prend en ligne en deux minutes. Tu veux qu’un coach te rappelle pour en parler ?",
+    a: "L’offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Tu peux venir accompagné — chacun prend son abonnement à 29 €. Ça se fait en ligne en deux minutes. Tu veux qu’un coach te rappelle pour en parler ?",
     actions: ["offre", "tarifs"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
     a: "Les offres du moment : rentrée 29 € par personne (4 semaines) · saison 259 € l’année en 4× sans frais · adulte 44 € / étudiants 36 € par 4 semaines · enfants/ados 295 €/an avec t-shirt du club inclus · baby boxe 250 €/an. Badge d’accès : 34 € à l’inscription.",
@@ -54,8 +66,8 @@ export const QUICKS: Quick[] = [
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
   { label: "Séance d’essai", q: "Comment se passe la séance d’essai ?",
-    a: "La séance d’essai est à 10 € : toutes disciplines, matériel prêté, sans engagement. Tu viens, tu testes, tu décides. Réserve en un clic — ou passe directement au club, 61 route d’Espagne.",
-    actions: ["essai"] },
+    a: "La séance d’essai est à 10 € : toutes disciplines, matériel prêté, sans engagement. Tu arrives, tu dis que c’est ta première fois, un coach t’accueille et te prête les gants — pas de sparring imposé, pas de test. Réserve en un clic, ou passe directement au club, 61 route d’Espagne.",
+    actions: ["premiere", "essai"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
     actions: ["partenaires"] },

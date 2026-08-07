@@ -17,8 +17,13 @@ function seoBakePlugin() {
         try { content = JSON.parse(readFileSync(page("src/content.json"), "utf8")); } catch { return html; }
         const seo: Record<string, { title?: string; description?: string }> = content.seo || {};
         const file = (ctx.path || ctx.filename || "").replace(/\\/g, "/");
-        const m = file.match(/\/([a-z]+)\/index\.html$/);
-        const key = m ? m[1] : "home";
+        // Les dossiers à trait d'union comptent aussi (premiere-seance,
+        // seance-offerte) : sans le tiret, la clé retombait sur « home ».
+        // Et seul /index.html est l'accueil : 404.html (ou toute autre page
+        // à la racine) n'a pas de clé — on ne touche pas à ses métas, sinon
+        // la page « introuvable » s'annonçait comme la page d'accueil.
+        const m = file.match(/\/([a-z0-9-]+)\/index\.html$/);
+        const key = m ? m[1] : /(^|\/)index\.html$/.test(file) ? "home" : "";
 
         // Preload the gallery's first (LCP) image with its responsive variants,
         // kept in sync with the editable content at every publish/rebuild.
@@ -91,6 +96,7 @@ export default defineConfig({
       },
       input: {
         main: page("index.html"),
+        "premiere-seance": page("premiere-seance/index.html"),
         activites: page("activites/index.html"),
         salles: page("salles/index.html"),
         coachs: page("coachs/index.html"),

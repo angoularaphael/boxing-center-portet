@@ -156,7 +156,7 @@ html.gated .bcp-chat {
 .bcp-chat__status {
   display: block;
   margin-top: 2px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--bcp-chat-muted);
   font-weight: 400;
 }
@@ -167,8 +167,8 @@ html.gated .bcp-chat {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.07);
@@ -320,6 +320,7 @@ html.gated .bcp-chat {
   color: #c8d4e8;
   border-radius: 12px;
   padding: 8px 14px;
+  min-height: 44px; /* cible tactile */
   font-size: 0.76rem;
   line-height: 1.35;
   text-align: center;
@@ -457,7 +458,7 @@ html.gated .bcp-chat {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 40px;
+  min-height: 44px; /* cible tactile : ce sont les boutons qui vendent */
   padding: 8px 14px;
   border-radius: 11px;
   font-size: 0.78rem;

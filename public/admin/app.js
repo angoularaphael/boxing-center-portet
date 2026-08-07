@@ -100,7 +100,7 @@ const SCHEMA = {
   gallery: { label:"Galerie", intro:"Les photos du site. Glisse une vignette pour changer l’ordre, dépose des images depuis ton ordinateur pour en ajouter. Aucune taille à respecter : chaque photo est compressée et recadrée automatiquement selon son format.", type:"gallery" },
   seo: { label:"Référencement Google", intro:"Le titre et la petite description de chaque page telle qu’elle apparaît sur Google.", type:"seo" },
 };
-const PAGE_LABELS = {home:"Accueil",activites:"Activités",salles:"Le club",coachs:"Coachs",boxeurs:"Boxeurs",galerie:"Galerie",plannings:"Planning",tarifs:"Tarifs",partenaires:"Partenaires",contact:"Contact"};
+const PAGE_LABELS = {home:"Accueil","premiere-seance":"Ta première séance",activites:"Activités",salles:"Le club",coachs:"Coachs",boxeurs:"Boxeurs",galerie:"Galerie",plannings:"Planning",tarifs:"Tarifs",partenaires:"Partenaires",contact:"Contact"};
 
 /* ---------- 3. brouillon local, état "modifié", aperçu ---------- */
 const DRAFT_KEY = "bcp:draft";

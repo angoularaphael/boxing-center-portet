@@ -239,12 +239,12 @@
   ],
   "tarifs": [
     {
-      "name": "Offre Rentrée · Duo",
+      "name": "Offre Rentrée",
       "price": "29€",
       "unit": "par personne / 4 semaines",
       "old": "44,99€",
       "badge": "Promo rentrée 2026",
-      "note": "29 € par personne, sans engagement. Viens avec ton binôme : la rentrée se boxe à deux, dans les 5 salles du réseau.",
+      "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
       "feature": true,
       "cta": "Je profite de l’offre",
       "href": "https://box-plus.vercel.app/abonnements#promo"
@@ -661,6 +661,10 @@
     "home": {
       "title": "Boxing Center Portet — Club de boxe & MMA à Portet-sur-Garonne (31120) | Toulouse sud",
       "description": "Club de boxe et sports de combat à Portet-sur-Garonne, Toulouse sud (31120). 600 m², ring de boxe anglaise, cage MMA, kick-boxing, grappling & JJB, baby boxe. Offre rentrée 29€, essai 10€."
+    },
+    "premiere-seance": {
+      "title": "Ta première séance — comment ça se passe | Boxing Center Portet (31120)",
+      "description": "Ce qui se passe vraiment quand tu pousses la porte du Boxing Center, 61 route d’Espagne à Portet-sur-Garonne : l’accueil, les gants prêtés, l’échauffement, le sac. Pas de sparring imposé, pas de test, pas d’engagement. Offre rentrée 29€ par personne, séance d’essai 10€."
     },
     "activites": {
       "title": "Boxe anglaise, kick-boxing, MMA & JJB — Activités | Boxing Center Portet (31120)",

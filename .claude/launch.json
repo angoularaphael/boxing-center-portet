@@ -117,6 +117,18 @@
       "runtimeExecutable": "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Plannings\\bc-plannings\\dev3001.cmd",
       "runtimeArgs": [],
       "port": 3001
+    },
+    {
+      "name": "portet-dist",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "6911",
+        "--directory",
+        "C:/Users/Mommy Jayce/Desktop/Boxing Center/Portet/boxing-center-portet/dist"
+      ],
+      "port": 6911
     }
   ]
 }

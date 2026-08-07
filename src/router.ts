@@ -108,11 +108,16 @@ function syncHead(doc: Document) {
   copy('meta[property="og:title"]', "content");
   copy('meta[property="og:description"]', "content");
   copy('meta[property="og:url"]', "content");
-  // replace JSON-LD structured data
-  const newLd = doc.querySelector('script[type="application/ld+json"]');
-  const curLd = document.querySelector('script[type="application/ld+json"]');
-  if (newLd && curLd) curLd.textContent = newLd.textContent;
-  else if (newLd) document.head.appendChild(newLd.cloneNode(true));
+  // Données structurées : on échange TOUTES les balises statiques de la page
+  // (l'accueil et /premiere-seance/ en ont deux — LocalBusiness + FAQ). On ne
+  // touche pas à celles posées par seo.ts (data-seo), qu'injectSchema gère :
+  // l'ancien code n'échangeait que la première et faisait disparaître la FAQ.
+  document.head
+    .querySelectorAll('script[type="application/ld+json"]:not([data-seo])')
+    .forEach((s) => s.remove());
+  doc.head
+    .querySelectorAll('script[type="application/ld+json"]')
+    .forEach((s) => document.head.appendChild(s.cloneNode(true)));
 }
 
 function updateNavActive(path: string) {

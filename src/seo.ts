@@ -5,7 +5,10 @@ import { SITE, DISCIPLINES, TARIFS } from "./data";
 
 const ORIGIN = "https://www.boxing-center-portet.fr";
 const PAGE: Record<string, [string, string]> = {
+  "premiere-seance": ["Ta première séance", "/premiere-seance/"],
   activites: ["Activités", "/activites/"],
+  boxeurs: ["Nos Boxeurs", "/boxeurs/"],
+  partenaires: ["Partenaires", "/partenaires/"],
   salles: ["Le club", "/salles/"],
   coachs: ["Coachs", "/coachs/"],
   galerie: ["Galerie", "/galerie/"],

@@ -9,7 +9,7 @@
  * CRM (submitLead) pour nourrir la liste de contacts.
  */
 import { submitLead, askAi } from "./api";
-import { QUICKS, fallbackAnswer, ACTIONS, type ActionDef } from "../chatbot-kb";
+import { QUICKS, fallbackAnswer, ACTIONS, sansUtm, type ActionDef } from "../chatbot-kb";
 import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
@@ -42,7 +42,8 @@ function parseReply(raw: string): { text: string; actions: ActionDef[] } {
   const byHref = Object.entries(ACTIONS);
   text = text.replace(/(?:https?:\/\/)?box-plus\.vercel\.app[\w\/#-]*/gi, (u) => {
     const href = (u.startsWith("http") ? u : `https://${u}`).replace(/\/$/, "");
-    const hit = byHref.find(([, d]) => (d.href || "").replace(/\/$/, "") === href);
+    // le catalogue porte ses UTM ; l’IA écrit l’URL nue → on compare sans traçage
+    const hit = byHref.find(([, d]) => sansUtm(d.href || "") === href);
     if (hit && !keys.some((k) => k.split(":")[0] === hit[0])) keys.push(hit[0]);
     return hit ? "la boutique en ligne" : u;
   });
@@ -327,6 +328,7 @@ export function initChatbot() {
         boxeurs: ["Eux, ils ont commencé exactement comme toi — un premier cours. L’offre de la rentrée est à 29 € par personne si tu veux écrire la suite.", ["offre", "coachs"]],
         partenaires: ["Un projet d’entreprise, une privatisation, un partenariat ? Décris-le-moi ici — et si on a déjà discuté, le formulaire juste en dessous est même prérempli. 😉", ["appeler", "contact"]],
         contact: ["Le plus simple : appelle-nous — ou laisse-moi ton numéro et un coach te rappelle dans la journée.", ["appeler", "rappel"]],
+        "premiere-seance": ["Tu prépares ton premier cours ? Dis-moi ton âge, ce qui t’attire et tes dispos — je te dis quel créneau prendre, et un coach t’attend à l’entrée. 🥊", ["offre", "essai"]],
         galerie: ["Bienvenue dans la galerie ! Si une image te donne envie de pousser la porte : l’offre de la rentrée est à 29 € par personne. 🥊", ["offre", "disciplines"]],
       };
       const [wTxt, wKeys] = WELCOMES[page] || [
