@@ -345,6 +345,9 @@ export function initChatbot() {
          informatif, plus c'est lu. Les chiffres viennent de content.json —
          neuf disciplines, cinq coachs, sept formules, six boxeurs. */
       const ACCUEILS: Record<string, [string, string, string[]]> = {
+        home: ["Bonjour 👋 Vous découvrez la salle.",
+          "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
+          ["offre", "disciplines"]],
         tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise. Je vous aide à choisir ?", ["offre", "tarifs"]],
         activites: ["Bonjour 👋 Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
         plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["offre", "disciplines"]],
@@ -488,16 +491,34 @@ export function initChatbot() {
     let fait = false;
     const marquer = () => { try { sessionStorage.setItem(CLE_AUTO, "1"); } catch { /* stockage indispo */ } };
 
-    const regarder = () => {
-      if (fait || opened || root.classList.contains("bcp-chat--open")) return;
+    /* Le morceau de bravoure de la page : le premier portail. Tant qu'il
+       occupe l'ecran, on ne parle pas par-dessus. */
+    const vortex = document.querySelector<HTMLElement>(".portal");
+
+    const momentVenu = () => {
+      if (vortex) {
+        /* On attend que le BAS du vortex soit passe au-dessus du regard :
+           le visiteur en est sorti, l'effet a joue, il redescend vers le
+           contenu. C'est la seconde ou il est disponible. */
+        const bas = vortex.getBoundingClientRect().bottom;
+        return bas < window.innerHeight * 0.25;
+      }
+      /* Pas de portail sur cette page : on retombe sur la distance lue. */
       const h = document.documentElement;
       const parcouru = h.scrollTop || window.scrollY || 0;
       const total = Math.max(1, h.scrollHeight - h.clientHeight);
-      if (parcouru < SEUIL_PX && parcouru / total < SEUIL_PART) return;
+      return parcouru >= SEUIL_PX || parcouru / total >= SEUIL_PART;
+    };
+
+    const regarder = () => {
+      if (fait || opened || root.classList.contains("bcp-chat--open")) return;
+      if (!momentVenu()) return;
       fait = true;
       marquer();
-      window.removeEventListener("scroll", regarder);
-      // un temps de respiration : on ne saute pas au visage au pixel près
+      /* Une vraie respiration. 650 ms, c'etait le temps d'un reflexe :
+         le panneau s'ouvrait pendant que l'oeil cherchait encore ou se
+         poser apres l'animation. 1,6 s, c'est le temps de reprendre sa
+         lecture — et l'assistant arrive dans un moment calme. */
       setTimeout(() => {
         if (opened || root.classList.contains("bcp-chat--open")) return;
         if (window.matchMedia("(max-width: 480px)").matches) {
@@ -505,10 +526,19 @@ export function initChatbot() {
         } else {
           void openPanel();
         }
-      }, 650);
+      }, 1600);
     };
 
-    window.addEventListener("scroll", regarder, { passive: true });
+    /* On LIT la position, on n'attend pas qu'on nous la signale : Lenis
+       absorbe les evenements `scroll` de cette page, l'ecouteur ne se
+       reveillait donc jamais. Un intervalle plutot qu'une image — rAF gele
+       des que l'onglet passe en arriere-plan, et quelqu'un qui ouvre le site
+       dans un onglet pour y revenir n'aurait jamais vu l'assistant. */
+    const minuteur = setInterval(() => {
+      regarder();
+      if (fait) clearInterval(minuteur);
+    }, 300);
+    setTimeout(() => clearInterval(minuteur), 180000);
     regarder();  // page déjà défilée (retour arrière, ancre) : on tranche tout de suite
   }
   presentation();
