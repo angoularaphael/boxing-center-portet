@@ -11,6 +11,9 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const cfg = cloudinary.config();
+  // même garde-fou que le mur communauté : une variable manquante doit produire
+  // un message lisible, jamais un crash 500 illisible
+  if (!cfg.api_secret) return res.status(503).json({ error: "CLOUDINARY_URL non configuré sur Vercel — l'envoi d'images est désactivé." });
   const timestamp = Math.round(Date.now() / 1000);
   const folder = "bcp-site";
   const params = { folder, timestamp };

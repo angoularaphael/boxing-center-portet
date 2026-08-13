@@ -24,6 +24,13 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
+  // Sans identifiants Cloudinary, la signature lèverait une exception et Vercel
+  // renverrait une page d'erreur HTML : le visiteur ne voyait qu'un « Envoi
+  // refusé. » muet, impossible à diagnostiquer. On le dit franchement.
+  if (!cloudinary.config().api_secret) {
+    return res.status(503).json({ error: "Service d'envoi non configuré côté serveur (CLOUDINARY_URL). Préviens le club." });
+  }
+
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
   const ip = ipOf(req);
 

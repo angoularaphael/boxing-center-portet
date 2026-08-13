@@ -148,8 +148,20 @@ function bindForm(form: HTMLFormElement, status: HTMLElement, grid: HTMLElement)
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, author, website, kind, pow: powRes ? { challenge: powRes.challenge, ts: powRes.ts, sig: powRes.sig, nonce } : {} }),
       });
+      /* Un refus doit DIRE pourquoi. L'ancien message générique (« Envoi
+         refusé. ») masquait aussi bien un filtre réseau qu'une panne serveur :
+         personne, ni le visiteur ni nous, ne pouvait savoir. On lit le message
+         du serveur ; à défaut on donne au moins le code HTTP. */
       const sign = await signRes.json().catch(() => ({}));
-      if (!signRes.ok) { submit.disabled = false; return setStatus(status, sign.error || "Envoi refusé.", "err"); }
+      if (!signRes.ok) {
+        submit.disabled = false;
+        const raison = sign.error
+          || (signRes.status === 413 ? "Fichier trop lourd."
+            : signRes.status === 429 ? "Trop d'envois d'affilée — réessaie dans une minute."
+            : signRes.status >= 500 ? `Service momentanément indisponible (erreur ${signRes.status}).`
+            : `Envoi refusé (erreur ${signRes.status}).`);
+        return setStatus(status, raison, "err");
+      }
 
       // 2) upload the video DIRECTLY to Cloudinary with the signed params
       const fd = new FormData();
