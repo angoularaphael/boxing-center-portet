@@ -30,6 +30,11 @@ let navigating = false;
 let cheminAffiche = location.pathname;
 
 export function initRouter(renderPage: () => void) {
+  // Le navigateur restaure la position de défilement au retour arrière et au
+  // rechargement : sur un site à navigation douce, ça rouvre une page en plein
+  // milieu (souvent le pied de page). On garde la main.
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
   document.addEventListener(
     "click",
     (e) => {
@@ -98,6 +103,14 @@ async function go(url: URL, renderPage: () => void, push: boolean) {
 
     renderPage(); // re-render + re-bind everything for the new content
     applyTheme(systemTheme(), false);
+
+    /* On réaffirme le haut de page APRÈS le rendu. Sans ça, un clic depuis le
+       pied de page ouvrait la nouvelle page… au pied de page : le contenu et
+       les épingles (ScrollTrigger.refresh) ne sont mesurés qu'ici, et cette
+       mesure restaure la position précédente. Deux passes suffisent : une après
+       le rendu, une après la frame de mise en page. */
+    scrollToTop(false);
+    requestAnimationFrame(() => scrollToTop(false));
 
     if (curtain && !reduced) {
       curtain.classList.remove("curtain--in");

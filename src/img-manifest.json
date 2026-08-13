@@ -184,11 +184,13 @@
   ],
   "ar": 0.75
  },
- "/img/disc/showcase-ring.webp": {
+ "/img/disc/showcase-gala.jpg": {
   "w": [
-   480
+   480,
+   960,
+   1440
   ],
-  "ar": 1.5
+  "ar": 1.3333
  },
  "/img/gym-01.jpg": {
   "w": [

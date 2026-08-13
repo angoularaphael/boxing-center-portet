@@ -15,7 +15,7 @@ const frag = /* glsl */ `
   precision highp float;
   varying vec2 vUv;
   uniform sampler2D uTex;
-  uniform float uTime, uHover;
+  uniform float uTime, uHover, uFocus;
   uniform vec2 uMouse, uRes, uImg;
 
   float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -28,9 +28,16 @@ const frag = /* glsl */ `
   vec2 cover(vec2 uv){
     float ca = uRes.x / uRes.y, ia = uImg.x / uImg.y;
     vec2 st = uv;
-    // keep the subjects centred on a wide crop (legible, not cropped to limbs)
-    if (ca > ia) st.y = (uv.y - 0.5) * (ia / ca) + 0.5;
-    else         st.x = (uv.x - 0.5) * (ca / ia) + 0.5;
+    // Recadrage vertical ancré par uFocus (0 = haut de la photo, comme
+    // object-position). Un cadrage centré rognait la tête de l'arbitre en haut
+    // ET l'impact en bas : on ancre juste au-dessus des têtes et tout ce qui
+    // reste de marge est donné au bas de l'image (les gants).
+    if (ca > ia) {
+      float f = ia / ca;                                   // part de hauteur visible
+      st.y = (uv.y - 0.5) * f + (1.0 - uFocus * (1.0 - f) - f * 0.5);
+    } else {
+      st.x = (uv.x - 0.5) * (ca / ia) + 0.5;
+    }
     return st;
   }
   void main(){
@@ -93,6 +100,9 @@ export async function initShowcaseGL(frame: HTMLElement) {
     uTex: { value: tex },
     uTime: { value: 0 },
     uHover: { value: 0 },
+    // ancrage vertical du cadrage : 0.40 place le haut du cadre juste au-dessus
+    // de la tête de l'arbitre, le reste de la marge allant au bas de l'image
+    uFocus: { value: 0.4 },
     uMouse: { value: new THREE.Vector2(0.5, 0.5) },
     uRes: { value: new THREE.Vector2(1, 1) },
     uImg: { value: new THREE.Vector2((tex.image as HTMLImageElement).width, (tex.image as HTMLImageElement).height) },

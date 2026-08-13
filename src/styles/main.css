@@ -183,6 +183,11 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 [data-theme="light"] .stats-band,
 [data-theme="light"] .has-bg,
 [data-theme="light"] .has-cta-bg {
+  /* Ces sections restent sombres en thème clair. Redéfinir les jetons ne
+     suffit pas : `color` est calculé sur <body> avec l'ancien --fg, donc tout
+     texte sans couleur propre (les chiffres de la toise) héritait du navy —
+     navy sur navy, invisible. On repose donc la couleur ici. */
+  color: var(--fg);
   --hero-bg: #0a1020;
   --bg: #0a1020;
   --bg-1: #0e1628;
@@ -562,10 +567,15 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .menu__foot .btn--primary { margin-top: 1rem; align-self: flex-start; }
 
 /* ============================== SHOWCASE PHOTO ============================== */
-.showcase { position: relative; height: clamp(60vh, 78vh, 820px); overflow: hidden; display: flex;
+/* La hauteur est pilotée par la LARGEUR (54vw) : en pleine largeur, la part de
+   photo visible vaut 1600 × hauteur ÷ largeur — un bandeau trop plat jetterait
+   la moitié de l'image. Plancher 62vh (mobile : plus la section est courte,
+   plus la tranche horizontale est large), plafond 100vh pour ne jamais dépasser
+   l'écran. Cadrage vertical : voir uFocus dans three/showcase.ts. */
+.showcase { position: relative; height: clamp(62vh, 54vw, 100vh); overflow: hidden; display: flex;
   align-items: flex-end; }
 .showcase__frame { position: absolute; inset: -8% 0; overflow: hidden; }
-.showcase__img { width: 100%; height: 116%; object-fit: cover; object-position: 50% 28%;
+.showcase__img { width: 100%; height: 116%; object-fit: cover; object-position: 50% 35%;
   filter: grayscale(0.25) contrast(1.08) brightness(0.78); will-change: transform; }
 .showcase__gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .showcase::after { content: ""; position: absolute; inset: 0;

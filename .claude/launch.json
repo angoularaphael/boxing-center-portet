@@ -119,6 +119,14 @@
       "port": 3001
     },
     {
+      "name": "boxplus",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Plannings\\box-plus\\storefront\\server.js"
+      ],
+      "port": 3040
+    },
+    {
       "name": "portet-dist",
       "runtimeExecutable": "python",
       "runtimeArgs": [
