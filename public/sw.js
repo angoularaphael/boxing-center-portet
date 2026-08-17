@@ -5,7 +5,7 @@
  * cache-first (they are immutable or change rarely). /api, /admin and /media
  * (range requests) are never intercepted.
  */
-const VERSION = "bcp-v1";
+const VERSION = "bcp-v4";
 const PAGES = `${VERSION}-pages`;
 const ASSETS = `${VERSION}-assets`;
 const IMAGES = `${VERSION}-images`;
@@ -37,6 +37,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
   if (/^\/(api|admin|media)(\/|$)/.test(url.pathname)) return;
+  if (/favicon/i.test(url.pathname) || url.pathname === "/apple-touch-icon.png") return;
 
   if (req.mode === "navigate") {
     event.respondWith(
