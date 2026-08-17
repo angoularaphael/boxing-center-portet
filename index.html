@@ -55,12 +55,7 @@
         "name": "Boxing Center Portet",
         "description": "Club de boxe anglaise, kick-boxing, MMA et grappling & JJB à Portet-sur-Garonne — Toulouse sud, 31120. Salle phare Boxing Center, 600 m², ring de boxe anglaise, cage MMA.",
         "inLanguage": "fr-FR",
-        "publisher": { "@id": "https://www.boxing-center-portet.fr/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.boxing-center-portet.fr/activites/?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        "publisher": { "@id": "https://www.boxing-center-portet.fr/#organization" }
       },
       {
         "@type": "Organization",
@@ -69,9 +64,7 @@
         "url": "https://www.boxing-center-portet.fr/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://www.boxing-center-portet.fr/favicon-192.png",
-          "width": 192,
-          "height": 192
+          "url": "https://www.boxing-center-portet.fr/logo.png"
         },
         "image": [
           "https://www.boxing-center-portet.fr/og.jpg",
@@ -83,7 +76,8 @@
         "sameAs": [
           "https://www.facebook.com/BoxingCenterToulouse/",
           "https://www.instagram.com/boxingcenter_toulouse/",
-          "https://boxingcenter.fr/"
+          "https://boxingcenter.fr/",
+          "https://maps.google.com/?q=Boxing+Center+Portet+61+route+d%27Espagne+31120+Portet-sur-Garonne"
         ],
         "parentOrganization": { "@type": "Organization", "name": "Boxing Center", "url": "https://boxingcenter.fr/" }
       },
@@ -95,19 +89,13 @@
           "https://www.boxing-center-portet.fr/og.jpg",
           "https://www.boxing-center-portet.fr/og-square.jpg",
           "https://www.boxing-center-portet.fr/img/gym-04.jpg",
-          "https://www.boxing-center-portet.fr/img/gym-21.jpg"
+          "https://www.boxing-center-portet.fr/img/gym-21.jpg",
+          "https://www.boxing-center-portet.fr/img/gym-24.jpg"
         ],
         "url": "https://www.boxing-center-portet.fr/",
         "telephone": "+33687900216",
         "email": "boxingcenterportet@gmail.com",
         "priceRange": "€€",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.3",
-          "reviewCount": "107",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
         "currenciesAccepted": "EUR",
         "paymentAccepted": "Cash, Credit Card",
         "address": {
@@ -119,7 +107,7 @@
           "addressCountry": "FR"
         },
         "geo": { "@type": "GeoCoordinates", "latitude": 43.5236, "longitude": 1.4053 },
-        "hasMap": "https://maps.google.com/?q=61+route+d’Espagne+31120+Portet-sur-Garonne",
+        "hasMap": "https://maps.google.com/?q=61+route+d%27Espagne+31120+Portet-sur-Garonne",
         "areaServed": [
           { "@type": "City", "name": "Portet-sur-Garonne" },
           { "@type": "City", "name": "Toulouse" },
@@ -186,9 +174,11 @@
 
   <!-- ===================== WALK-OUT (hero) ===================== -->
   <header class="hero" data-round="0" data-round-name="Le walk-out">
+    <img class="hero__photo" src="/img/gym-21.jpg" alt="Ring de boxe anglaise du Boxing Center Portet-sur-Garonne" width="1600" height="1067" fetchpriority="high" decoding="async" />
     <div class="hero__canvas" id="hero-canvas" aria-hidden="true"></div>
-    <h1 class="sr-only">Boxing Center Portet</h1>
     <div class="hero__inner wrap">
+      <h1 class="hero__title">Club de boxe à <span class="tint">Portet-sur-Garonne</span></h1>
+      <p class="hero__place">Boxing Center Portet · 31120 · 10 min de Toulouse sud</p>
       <p class="hero__hook" data-reveal>Ici, le sport devient une passion.<br>La passion devient un <span class="tint">mode de vie.</span></p>
       <div class="hero__cta" data-reveal>
         <a class="btn btn--primary" href="https://box-plus.vercel.app/inscription?product=offre-duo&step=1&utm_source=site&utm_medium=cta&utm_campaign=portet" target="_blank" rel="noopener"><span>Je profite de l’offre · 29€</span></a>
@@ -204,11 +194,18 @@
       alt="Espace cross-training du Boxing Center Portet-sur-Garonne : cages, rameurs, air bike et mur rouge"
       width="1600"
       height="1067"
-      fetchpriority="high"
       decoding="async"
     />
     <figcaption class="sr-only">La salle de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120).</figcaption>
   </figure>
+  <div class="salle-strip wrap">
+    <figure>
+      <img src="/img/gym-21.jpg" alt="Le ring de boxe anglaise au Boxing Center Portet, 61 route d’Espagne" width="800" height="533" loading="lazy" decoding="async" />
+    </figure>
+    <figure>
+      <img src="/img/gym-24.jpg" alt="La cage MMA du Boxing Center Portet-sur-Garonne" width="800" height="533" loading="lazy" decoding="async" />
+    </figure>
+  </div>
 
   <!-- ===================== LA TOISE (stats) ===================== -->
   <section class="stats-band">
@@ -443,6 +440,48 @@
       <p class="lead">Boxing Center Portet est la salle phare du réseau : 600 m² au 61 route d’Espagne, à Portet-sur-Garonne (31120). On y pratique la boxe anglaise, le kick-boxing, le MMA, le grappling et le jiu-jitsu brésilien, avec un vrai ring, une cage et une ligne de sacs de frappe.</p>
       <p class="lead" style="margin-top:1rem">Personne ne passe un test à l’entrée. Le débutant qui n’a jamais mis un gant et le compétiteur qui prépare un gala s’entraînent sur le même plateau, avec les mêmes coachs. Les enfants ont leurs créneaux : baby boxe dès 3 ans, boxe éducative dès 7 ans.</p>
       <p class="lead" style="margin-top:1rem">Première fois ? La rentrée est à <strong>29 € par personne</strong> au lieu de <s class="was">44 €</s> — quatre semaines, sans engagement. Ouvert du lundi au samedi, de 10h à 21h30.</p>
+    </div>
+  </section>
+
+  <section class="section faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap" style="max-width:72ch">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2 id="faq-title" class="display" style="margin-top:1rem">Avant de pousser la porte</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Où se trouve Boxing Center Portet ?</summary>
+          <p>Au 61 route d’Espagne, 31120 Portet-sur-Garonne — la salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat.</p>
+        </details>
+        <details>
+          <summary>Combien coûte une séance d’essai ?</summary>
+          <p>La séance d’essai est à 10 €, toutes disciplines, matériel prêté, sans engagement. L’offre de la rentrée est à 29 € par personne les 4 premières semaines.</p>
+        </details>
+        <details>
+          <summary>Quelles disciplines sont proposées ?</summary>
+          <p>Boxe anglaise, kick-boxing, MMA, grappling &amp; jiu-jitsu brésilien, Lady Boxing, préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados.</p>
+        </details>
+        <details>
+          <summary>Quels sont les horaires d’ouverture ?</summary>
+          <p>Du lundi au samedi, de 10h00 à 21h30 ; fermé le dimanche. L’abonnement ouvre les 5 salles du réseau.</p>
+        </details>
+        <details>
+          <summary>Faut-il de l’expérience pour commencer la boxe ?</summary>
+          <p>Non. Tous les niveaux sont accueillis, avec des créneaux débutants et des coachs diplômés FFBoxe, FFKMDA et FMMAF.</p>
+        </details>
+        <details>
+          <summary>Boxing Center Portet est-il accessible depuis Toulouse ?</summary>
+          <p>Oui. La salle est à Portet-sur-Garonne (31120), à environ 10 minutes de Toulouse sud via la route d’Espagne.</p>
+        </details>
+        <details>
+          <summary>Peut-on faire du MMA ou du jiu-jitsu brésilien à Portet-sur-Garonne ?</summary>
+          <p>Oui. Boxing Center Portet propose MMA, grappling &amp; jiu-jitsu brésilien, kick-boxing, boxe anglaise, Lady Boxing et préparation physique dans une salle de 600 m² avec ring de boxe anglaise et cage MMA.</p>
+        </details>
+        <details>
+          <summary>Y a-t-il des cours de boxe pour enfants ?</summary>
+          <p>Oui. Baby boxe dès 3 ans (250 € par an) et boxe éducative dès 7 ans (295 € par an, t-shirt officiel du club inclus), avec un encadrement diplômé.</p>
+        </details>
+      </div>
+      <p class="faq-avis">Les visiteurs notent le club <strong>4,3 / 5</strong> sur 107 avis Google. <a href="https://maps.google.com/?q=Boxing+Center+Portet+61+route+d%27Espagne+31120+Portet-sur-Garonne" rel="noopener">Voir les avis</a></p>
     </div>
   </section>
 
