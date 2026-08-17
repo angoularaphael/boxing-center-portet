@@ -57,6 +57,10 @@ function seoBakePlugin() {
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
             + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
             + `</div>`).join(""));
+          remplir("planning-mma-grid", "planning", (content.planningMma || []).map((c: any) =>
+            `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
+            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
+            + `</div>`).join(""));
 
           /* LA GALERIE — la dernière grille encore vide, et la plus coûteuse.
              La page qui existe pour MONTRER la salle ne contenait pas une
@@ -121,15 +125,101 @@ function seoBakePlugin() {
         }
 
         const meta = seo[key];
-        if (!meta) return html;
-        if (meta.title) {
-          html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escAttr(meta.title)}</title>`);
-          html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escAttr(meta.title)}$2`);
+        if (meta) {
+          if (meta.title) {
+            html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escAttr(meta.title)}</title>`);
+            html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escAttr(meta.title)}$2`);
+          }
+          if (meta.description) {
+            html = html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${escAttr(meta.description)}$2`);
+            html = html.replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${escAttr(meta.description)}$2`);
+          }
         }
-        if (meta.description) {
-          html = html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${escAttr(meta.description)}$2`);
-          html = html.replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${escAttr(meta.description)}$2`);
+
+        /* GEO : les crawlers IA (GPTBot, Perplexity, Claude) n'exécutent pas
+           le JS. On cuit NAP, liens llms.txt et schémas de page dans le HTML. */
+        if (!html.includes('href="/llms.txt"')) {
+          html = html.replace("</head>", `  <link rel="alternate" type="text/plain" href="/llms.txt" title="Informations pour assistants IA" />\n  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />\n</head>`);
+        } else if (!html.includes('href="/llms-full.txt"')) {
+          html = html.replace("</head>", `  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />\n</head>`);
         }
+        const site = content.site || {};
+        const addr = site.address || {};
+        const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33687900216">${site.phone || "06 87 90 02 16"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;
+        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address></div>`);
+
+        const ORIGIN = "https://www.boxing-center-portet.fr";
+        const PAGE: Record<string, [string, string]> = {
+          "premiere-seance": ["Ta première séance", "/premiere-seance/"],
+          activites: ["Activités", "/activites/"],
+          boxeurs: ["Nos Boxeurs", "/boxeurs/"],
+          partenaires: ["Partenaires", "/partenaires/"],
+          salles: ["Le club", "/salles/"],
+          coachs: ["Coachs", "/coachs/"],
+          galerie: ["Galerie", "/galerie/"],
+          plannings: ["Planning", "/plannings/"],
+          tarifs: ["Tarifs", "/tarifs/"],
+          contact: ["Contact", "/contact/"],
+        };
+        const ld = (obj: unknown) => `<script type="application/ld+json" data-seo="1">${JSON.stringify(obj)}</script>\n`;
+        let extraLd = "";
+        const crumb = PAGE[key];
+        if (crumb) {
+          extraLd += ld({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: `${ORIGIN}/` },
+              { "@type": "ListItem", position: 2, name: crumb[0], item: `${ORIGIN}${crumb[1]}` },
+            ],
+          });
+        }
+        if (key === "tarifs") {
+          extraLd += ld({
+            "@context": "https://schema.org",
+            "@type": "OfferCatalog",
+            "@id": `${ORIGIN}/tarifs/#catalog`,
+            name: "Tarifs — Boxing Center Portet",
+            url: `${ORIGIN}/tarifs/`,
+            itemListElement: (content.tarifs || []).map((t: any) => ({
+              "@type": "Offer",
+              name: t.name,
+              price: String(t.price || "").replace(/\D/g, "") || "0",
+              priceCurrency: "EUR",
+              description: t.note,
+              url: t.href || `${ORIGIN}/tarifs/`,
+              availability: "https://schema.org/InStock",
+            })),
+          });
+        } else if (key === "activites") {
+          extraLd += ld({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Disciplines — Boxing Center Portet",
+            itemListElement: (content.disciplines || []).map((d: any, i: number) => ({
+              "@type": "ListItem", position: i + 1, name: d.name, description: d.desc,
+            })),
+          });
+        } else if (key === "coachs") {
+          extraLd += ld({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Coachs — Boxing Center Portet",
+            itemListElement: (content.team || []).map((m: any, i: number) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Person",
+                name: m.name,
+                jobTitle: m.role,
+                description: m.desc,
+                worksFor: { "@id": `${ORIGIN}/#organization` },
+              },
+            })),
+          });
+        }
+        if (extraLd) html = html.replace("</head>", extraLd + "</head>");
+
         return html;
       },
     },

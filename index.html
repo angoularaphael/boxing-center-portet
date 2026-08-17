@@ -17,6 +17,7 @@
   <link rel="canonical" href="https://www.boxing-center-portet.fr/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Informations pour assistants IA" />
+  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />
   <meta name="theme-color" content="#0a1020" />
 
   <!-- Open Graph / Twitter -->
@@ -119,6 +120,7 @@
           "opens": "10:00", "closes": "21:30"
         }],
         "sport": ["Boxing","Kickboxing","Mixed Martial Arts","Brazilian Jiu-Jitsu","Physical Conditioning"],
+        "hasOfferCatalog": { "@id": "https://www.boxing-center-portet.fr/tarifs/#catalog" },
         "description": "Club de boxe et salle de sports de combat à Portet-sur-Garonne (31120), Toulouse sud. La salle phare du groupe Boxing Center : 600 m², ring de boxe anglaise, cage MMA, sacs de frappe. Boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Offre rentrée 29€, séance d’essai 10€.",
         "keywords": "boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe, kick-boxing, MMA, grappling, jiu-jitsu brésilien, baby boxe, séance d’essai"
       },
@@ -141,7 +143,21 @@
         "provider": { "@id": "https://www.boxing-center-portet.fr/#localbusiness" },
         "areaServed": "Portet-sur-Garonne, Toulouse, Haute-Garonne, Occitanie",
         "serviceType": ["Boxe anglaise", "Kick-boxing", "MMA", "Grappling & Jiu-Jitsu Brésilien", "Lady Boxing", "Préparation physique", "Baby boxe", "Boxe éducative", "Kick-boxing enfants/ados"],
-        "offers": { "@id": "https://www.boxing-center-portet.fr/#seance-essai" }
+        "offers": [
+          { "@id": "https://www.boxing-center-portet.fr/#seance-essai" },
+          { "@id": "https://www.boxing-center-portet.fr/#offre-rentree" }
+        ]
+      },
+      {
+        "@type": "Offer",
+        "@id": "https://www.boxing-center-portet.fr/#offre-rentree",
+        "name": "Offre rentrée Boxing Center Portet",
+        "description": "29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles du réseau Boxing Center.",
+        "price": "29",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://box-plus.vercel.app/abonnements#promo",
+        "seller": { "@id": "https://www.boxing-center-portet.fr/#organization" }
       }
     ]
   }

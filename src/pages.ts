@@ -1,4 +1,4 @@
-import { DISCIPLINES, TARIFS, PLANNING, SITE, NETWORK_SALLES } from "./data";
+import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, SITE, NETWORK_SALLES } from "./data";
 import { submitLead } from "./chatbot/api";
 import { optUrl } from "./img";
 
@@ -155,7 +155,6 @@ export function renderPage(page: string | undefined) {
   }
 
   if (page === "plannings") {
-    const g = el("planning-grid");
     /* Couleur par DISCIPLINE (jamais par coach) — demande du coach : savoir
        quel sport a lieu quel jour d'un coup d'oeil. */
     const famOf = (n: string) => {
@@ -178,16 +177,18 @@ export function renderPage(page: string | undefined) {
       baby: "Baby Boxe", lady: "Lady Boxing", prepa: "Prépa Physique", sparring: "Open Sparring",
       kick: "Kick-Boxing", mma: "MMA", grappling: "Grappling & JJB", francaise: "Boxe Française",
     };
-    if (g) {
+    const paint = (id: string, days: typeof PLANNING) => {
+      const g = el(id);
+      if (!g || !days.length) return;
       const fams: string[] = [];
       const seen = new Set<string>();
-      PLANNING.forEach((col: any) => col.items.forEach(([, name]: [string, string]) => {
+      days.forEach((col) => col.items.forEach(([, name]) => {
         const f = famOf(name);
         if (!seen.has(f) && FAM_LABELS[f]) { seen.add(f); fams.push(f); }
       }));
       g.innerHTML = `<div class="plan-legend" aria-hidden="true">${fams
         .map((f) => `<span class="plan-legend__item plan--${f}"><i></i>${FAM_LABELS[f]}</span>`)
-        .join("")}</div>` + PLANNING.map(
+        .join("")}</div>` + days.map(
         (col) => `
         <div class="plan-col" data-reveal>
           <h3 class="plan-col__day">${col.day}</h3>
@@ -199,7 +200,9 @@ export function renderPage(page: string | undefined) {
             .join("")}
         </div>`
       ).join("");
-    }
+    };
+    paint("planning-grid", PLANNING);
+    paint("planning-mma-grid", PLANNING_MMA);
   }
 
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.

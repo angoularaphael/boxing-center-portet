@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.boxing-center-portet.fr/</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -18,7 +18,7 @@
     </image:image>
     <image:image>
       <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
-      <image:title>Le ring de boxe anglaise | Boxing Center Portet-sur-Garonne</image:title>
+      <image:title>Le ring de boxe anglaise | Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.</image:caption>
     </image:image>
     <image:image>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/premiere-seance/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -55,7 +55,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/activites/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -106,7 +106,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/salles/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -127,7 +127,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/coachs/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -158,7 +158,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/boxeurs/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -174,7 +174,7 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/galerie/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -405,19 +405,19 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/plannings/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/tarifs/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/partenaires/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -438,8 +438,20 @@
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/contact/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.boxing-center-portet.fr/llms.txt</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.boxing-center-portet.fr/llms-full.txt</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

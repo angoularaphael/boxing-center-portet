@@ -1,6 +1,7 @@
 # Boxing Center Portet — https://www.boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-08-07
+# Dernière mise à jour : 2026-08-17
+# Version étendue : https://www.boxing-center-portet.fr/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
 
@@ -13,10 +14,10 @@
 10 € — toutes disciplines, matériel prêté, sans engagement. Réservation : https://box-plus.vercel.app/seance-essai
 
 **Quelle est l’offre du moment ?**
-Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44,99 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://box-plus.vercel.app/abonnements#promo
+Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://box-plus.vercel.app/abonnements#promo
 
 **Quelles disciplines sont enseignées ?**
-Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe (dès 3 ans), boxe éducative (dès 7 ans), kick-boxing enfants/ados.
+Boxe Anglaise, Kick-Boxing, MMA, Grappling & Jiu-Jitsu Brésilien, Lady Boxing, Préparation Physique, Baby Boxe, Boxe Éducative, Kick-Boxing Enfants / Ados.
 
 **Horaires d’ouverture ?**
 Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
@@ -28,13 +29,16 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai à 10 €.
 
 **Comment se passe une première séance ?**
-On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé complet : https://www.boxing-center-portet.fr/premiere-seance/
+On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : https://www.boxing-center-portet.fr/premiere-seance/
 
 **Quels créneaux pour débuter ?**
 Boxe Anglaise Loisirs : mardi 20h00–21h30, mercredi 19h00–20h00, jeudi 20h00–21h30. Séance de midi : lundi, jeudi, vendredi et samedi 12h30–13h30. Lady Boxing (100 % féminin) : mercredi 18h00–19h00. Baby Boxe (3/6 ans) : samedi 15h15–16h00.
 
+**Y a-t-il des cours de MMA / kick-boxing / grappling ?**
+Oui. Planning combat (cage + tatamis) : MMA lundi 19h–20h, mardi 12h30–13h30, mercredi 19h–20h, vendredi 19h–20h, samedi 12h30–13h30. Grappling lundi 18h–19h, mercredi 18h–19h, jeudi 12h30–13h30, vendredi 18h–19h, samedi 14h–15h. Kick-Boxing / K1 mardi 20h–21h30, mercredi 20h–21h30, jeudi 20h–21h30. Détail : https://www.boxing-center-portet.fr/plannings/
+
 **Quelle est la note du club ?**
-4,3 sur 5 sur Google, sur 107 avis (fiche Google du club, relevé le 6 août 2026).
+4,3 sur 5 sur Google, sur 107 avis (fiche Google du club).
 
 **Distance depuis Toulouse ?**
 Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
@@ -52,7 +56,11 @@ Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
 
 ## L’équipe (saison 2026/2027)
 
-Valentin Tapia (Head Coach, responsable sportif), Samuel Pinto, Enzo Pioppo, Nicolas Tramaçon, Mourad Berraho et Ingrid — coachs diplômés et champions, de la baby boxe au haut niveau.
+- **Valentin Tapia** (Head Coach) — Head Coach · Responsable sportif — Boxe Loisirs · Éducative · Compétiteurs. Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l’Équipe de France. Du débutant au compétiteur, il accompagne chacun avec la même exigence. « Le talent te fait commencer. L’exigence te fait gagner. »
+- **Samuel Pinto** (Coach) — Kick Boxing / K1 · Boxe Française · Lady Boxing · Kick Enfants/Ados · Prépa Physique. Double licence STAPS. Vice-champion d’Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensemble, on va plus loin, on va plus haut. »
+- **Enzo Pioppo** (Coach) — Grappling & MMA. Ceinture noire de Luta Livre. Champion de France, vice-champion d’Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l’écoute — il te rend plus fort, plus complet, plus confiant.
+- **Nicolas Tramaçon** (Coach) — Grappling & MMA. BPJEPS sport de contact. Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage.
+- **Mourad & Ingrid** (Coachs) — Boxe Anglaise & Kick Boxing — Enfants / Ados. Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Valentin et Samuel, accompagnent vos enfants pour les aider à devenir meilleurs dans le sport comme dans la vie. Mourad : triple champion de France, membre de l’Équipe de France — formé ici, par Valentin Tapia.
 
 ## Équipements
 
@@ -60,13 +68,92 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 
 ## Tarifs
 
-- Offre rentrée : 29 € par personne / 4 semaines (au lieu de 44,99 €), sans engagement
-- Saison 12 mois : 259 € l’année (au lieu de 400 €), payable en 4× sans frais
-- Adulte : 44 € / 4 semaines · Étudiants : 36 € / 4 semaines
-- Enfants/Ados : 295 € / an (t-shirt du club inclus) · Baby Boxe : 250 € / an
-- Séance d’essai : 10 €
+- Offre Rentrée : 29€ par personne / 4 semaines (au lieu de 44€) — 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
+- Saison · 12 mois : 259€ l’année · 4× sans frais (au lieu de 400€) — Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.
+- Adulte : 44€ / 4 semaines — L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
+- Étudiants : 36€ / 4 semaines — Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.
+- Enfants / Ados : 295€ / an — T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
+- Baby Boxe : 250€ / an — Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
+- Séance d’essai : 10€ toutes disciplines — Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.
 - Badge d’accès : 34 € à l’inscription (aucun autre frais)
 - Boutique officielle : https://box-plus.vercel.app
+
+## Planning boxe anglaise
+
+### Lundi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 19:00 — Boxe Éducative Confirmés
+- 19:00 – 21:30 — Boxe Amateurs & Pros
+
+### Mardi
+- 12:30 – 13:30 — Préparation Physique
+- 18:00 – 19:00 — Boxe Amateurs & Pros
+- 19:00 – 20:00 — Préparation Physique
+- 20:00 – 21:30 — Boxe Anglaise Loisirs
+
+### Mercredi
+- 16:00 – 17:00 — Boxe Éducative 7/11 ans
+- 17:00 – 18:00 — Boxe Éducative 12/16 ans
+- 18:00 – 19:00 — Lady Boxing
+- 19:00 – 20:00 — Boxe Anglaise Loisirs
+- 20:00 – 21:30 — Boxe Amateurs & Pros
+
+### Jeudi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 20:00 — Boxe Amateurs & Pros
+- 20:00 – 21:30 — Boxe Anglaise Loisirs
+
+### Vendredi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 20:00 — Boxe Amateurs & Pros
+- 20:00 – 21:30 — Open Sparring
+
+### Samedi
+- 10:00 – 12:00 — Boxe Amateurs & Pros
+- 12:30 – 13:30 — Boxe Anglaise
+- 15:15 – 16:00 — Baby Boxe (3/6 ans)
+- 16:00 – 17:00 — Boxe Éducative 7/11 ans
+- 17:00 – 18:00 — Boxe Éducative 12/16 ans
+
+## Planning combat (MMA, kick-boxing, grappling, boxe française)
+
+### Lundi
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+
+### Mardi
+- 12:30 – 13:30 — MMA
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Préparation Physique
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Mercredi
+- 12:30 – 13:30 — Kick / K1
+- 15:00 – 16:00 — Kick Enfants
+- 16:00 – 17:00 — Kick Ados
+- 17:00 – 18:00 — MMA Ados
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Jeudi
+- 12:30 – 13:30 — Grappling
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Boxe Française
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Vendredi
+- 12:30 – 13:30 — Kick / K1
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+- 20:00 – 21:30 — Open Sparring
+
+### Samedi
+- 10:00 – 11:30 — Boxe Française + Kick Enfants
+- 11:30 – 12:30 — Prépa Physique + Kick Ados
+- 12:30 – 13:30 — MMA
+- 14:00 – 15:00 — Grappling
+- 15:00 – 16:00 — MMA Ados
 
 ## Partenaires
 
@@ -75,7 +162,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 ## Pages du site
 
 - Accueil : https://www.boxing-center-portet.fr/
-- Ta première séance (déroulé, tenue, créneaux débutants) : https://www.boxing-center-portet.fr/premiere-seance/
+- Ta première séance : https://www.boxing-center-portet.fr/premiere-seance/
 - Activités : https://www.boxing-center-portet.fr/activites/
 - Le club : https://www.boxing-center-portet.fr/salles/
 - Coachs : https://www.boxing-center-portet.fr/coachs/
@@ -85,6 +172,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 - Tarifs : https://www.boxing-center-portet.fr/tarifs/
 - Partenaires : https://www.boxing-center-portet.fr/partenaires/
 - Contact : https://www.boxing-center-portet.fr/contact/
+- Fiche IA étendue : https://www.boxing-center-portet.fr/llms-full.txt
 
 ## Mots-clés locaux (SEO)
 

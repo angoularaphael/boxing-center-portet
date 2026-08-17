@@ -71,6 +71,8 @@ const PAGES = [
       img("/img/partners/o2.jpg", "O2 Portet-sur-Garonne — partenaire du club", "O2 Portet-sur-Garonne accompagne le Boxing Center."),
       img("/img/partners/karting-muret.png", "Karting 2 Muret — partenaire du club", "Karting 2 Muret, dont le logo est peint sur la toile du ring.")] },
   { url: "/contact/", freq: "monthly", prio: "0.7", images: [] },
+  { url: "/llms.txt", freq: "weekly", prio: "0.4", images: [] },
+  { url: "/llms-full.txt", freq: "weekly", prio: "0.3", images: [] },
 ];
 
 const xml =

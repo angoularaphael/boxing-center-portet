@@ -1,7 +1,7 @@
 /** Per-page structured data (JSON-LD) for SEO + GEO. Home and Contact already
  *  carry static LD in their HTML; this adds BreadcrumbList everywhere else plus
  *  rich types (Offers, SportsActivityLocation, ItemList) sourced from data.ts. */
-import { SITE, DISCIPLINES, TARIFS } from "./data";
+import { SITE, DISCIPLINES, TARIFS, TEAM } from "./data";
 
 const ORIGIN = "https://www.boxing-center-portet.fr";
 const PAGE: Record<string, [string, string]> = {
@@ -79,6 +79,23 @@ export function injectSchema(page?: string) {
       "@type": "ItemList",
       name: "Disciplines — Boxing Center Portet",
       itemListElement: DISCIPLINES.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: d.name, description: d.desc })),
+    });
+  } else if (page === "coachs") {
+    add({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Coachs — Boxing Center Portet",
+      itemListElement: TEAM.map((m, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Person",
+          name: m.name,
+          jobTitle: m.role,
+          description: m.desc,
+          worksFor: { "@id": `${ORIGIN}/#organization` },
+        },
+      })),
     });
   }
 }

@@ -111,6 +111,7 @@ export const TARIFS: Tarif[] = C.tarifs || [];
 
 export type PlanningDay = { day: string; items: [string, string][] };
 export const PLANNING: PlanningDay[] = C.planning || [];
+export const PLANNING_MMA: PlanningDay[] = C.planningMma || [];
 
 export type GalleryItem = { src: string; label: string; span?: string };
 export const GALLERY: GalleryItem[] = C.gallery || [];

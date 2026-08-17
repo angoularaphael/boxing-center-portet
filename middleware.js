@@ -13,7 +13,7 @@ export const config = {
 };
 
 const SEARCH_CRAWLER =
-  /Googlebot|Google-InspectionTool|Google-Extended|Googlebot-Image|Googlebot-Video|Google-Favicon|Storebot-Google|AdsBot-Google|Bingbot|DuckDuckBot|Applebot|Yandex|GPTBot|ClaudeBot|PerplexityBot|ChatGPT-User|anthropic-ai|facebookexternalhit|Twitterbot|LinkedInBot/i;
+  /Googlebot|Google-InspectionTool|Google-Extended|Googlebot-Image|Googlebot-Video|Google-Favicon|Storebot-Google|AdsBot-Google|Bingbot|DuckDuckBot|Applebot|Yandex|GPTBot|OAI-SearchBot|ClaudeBot|Claude-SearchBot|Claude-User|PerplexityBot|ChatGPT-User|anthropic-ai|facebookexternalhit|FacebookBot|meta-externalagent|Amazonbot|Twitterbot|LinkedInBot/i;
 
 const SCRAPER_UA =
   /curl|wget|python-requests|python-urllib|aiohttp|httpx|scrapy|go-http-client|libwww|winhttp|httrack|nikto|sqlmap|masscan|zgrab|node-fetch|undici|axios\/|phantomjs|puppeteer|playwright|selenium/i;

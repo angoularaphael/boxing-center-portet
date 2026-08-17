@@ -1,0 +1,199 @@
+# Boxing Center Portet — fiche complète pour assistants IA
+# https://www.boxing-center-portet.fr/llms-full.txt · généré le 2026-08-17
+# Résumé : https://www.boxing-center-portet.fr/llms.txt
+
+## Identité
+
+Boxing Center Portet est un club de boxe et une salle de sports de combat à Portet-sur-Garonne (31120), à 10 minutes de Toulouse sud. Salle phare du groupe Boxing Center. 600 m², ring de boxe anglaise, cage MMA, 24 sacs de frappe. Ouvert lundi–samedi 10h00–21h30, fermé dimanche.
+
+NAP : Boxing Center Portet, 61 route d’Espagne, 31120 Portet-sur-Garonne, France. Tél. +33 6 87 90 02 16. E-mail boxingcenterportet@gmail.com. GPS 43.5236, 1.4053.
+
+## Disciplines (descriptions)
+
+### Boxe Anglaise (Poings)
+Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round. Chacun à son rythme, dès le premier cours.
+
+### Kick-Boxing (Pieds-poings)
+Le tempo le plus électrique du ring. Pieds-poings, cardio et précision — chacun à son rythme, du premier cours au plateau.
+
+### MMA (La cage)
+Debout, au sol, dans la cage. On t’apprend tout, étape par étape — encadré, progressif, sans ego. Débutants bienvenus.
+
+### Grappling & Jiu-Jitsu Brésilien (Le sol)
+Contrôles, passages, soumissions. Ici l’erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.
+
+### Lady Boxing (100% femmes)
+Un créneau, une communauté, zéro complexe. La force et la confiance, à ton rythme.
+
+### Préparation Physique (Le moteur)
+Force, cardio, explosivité — et aucun coup à recevoir. Le moteur qui te fait tenir trois rounds sans baisser la garde, quel que soit ton niveau.
+
+### Baby Boxe (Les petits)
+Motricité, confiance, respect des règles. Le premier gant, à hauteur d’enfant.
+
+### Boxe Éducative (Dès 7 ans)
+Respect, discipline, énergie canalisée. Le ring qui construit des enfants debout.
+
+### Kick-Boxing Enfants / Ados (La relève)
+Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l’école de la relève.
+
+## Publics
+
+- **Les enfants** (Dès 3 ans) — Baby boxe et boxe éducative : on touche, on ne frappe pas. Confiance, respect, énergie bien dépensée — ils repartent plus grands.
+- **Les femmes** (Lady Boxing) — Des créneaux 100% féminins avec Samuel et Ingrid. Une communauté qui pousse, jamais qui juge.
+- **Les débutants** (Premier gant) — Aucun niveau demandé, gants prêtés, pas de sparring imposé. Tout le monde a commencé un jour — ici, on t’apprend.
+- **Les parents** (On s’y remet) — Vous accompagnez votre enfant ? Restez. Un créneau pour vous pendant le sien, et la famille transpire ensemble.
+- **Les compétiteurs** (La Team Compétition) — Quand tu seras prêt — et seulement si tu en as envie — la Team Tapia t’amène du sparring au gala, préparé.
+
+## Valeurs
+
+- Inclusion : Une place pour chacun, sans distinction d’âge, de niveau ou d’objectif.
+- Respect : Respect de soi, des autres et des valeurs du sport.
+- Dépassement : Donner le meilleur de soi, un entraînement après l’autre.
+- Esprit de famille : Une communauté soudée où chacun progresse.
+
+## Coachs
+
+### Valentin Tapia
+Poste : Head Coach · Responsable sportif — Boxe Loisirs · Éducative · Compétiteurs
+Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l’Équipe de France. Du débutant au compétiteur, il accompagne chacun avec la même exigence. « Le talent te fait commencer. L’exigence te fait gagner. »
+
+### Samuel Pinto
+Poste : Kick Boxing / K1 · Boxe Française · Lady Boxing · Kick Enfants/Ados · Prépa Physique
+Double licence STAPS. Vice-champion d’Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensemble, on va plus loin, on va plus haut. »
+
+### Enzo Pioppo
+Poste : Grappling & MMA
+Ceinture noire de Luta Livre. Champion de France, vice-champion d’Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l’écoute — il te rend plus fort, plus complet, plus confiant.
+
+### Nicolas Tramaçon
+Poste : Grappling & MMA
+BPJEPS sport de contact. Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage.
+
+### Mourad & Ingrid
+Poste : Boxe Anglaise & Kick Boxing — Enfants / Ados
+Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Valentin et Samuel, accompagnent vos enfants pour les aider à devenir meilleurs dans le sport comme dans la vie. Mourad : triple champion de France, membre de l’Équipe de France — formé ici, par Valentin Tapia.
+
+## Offres et prix
+
+### Offre Rentrée — 29€ par personne / 4 semaines
+Prix barré : 44€. 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
+Réserver : https://box-plus.vercel.app/abonnements#promo
+
+### Saison · 12 mois — 259€ l’année · 4× sans frais
+Prix barré : 400€. Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.
+Réserver : https://box-plus.vercel.app/abonnements#promo
+
+### Adulte — 44€ / 4 semaines
+L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
+Réserver : https://box-plus.vercel.app/abonnements#prelevement
+
+### Étudiants — 36€ / 4 semaines
+Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.
+Réserver : https://box-plus.vercel.app/abonnements#prelevement
+
+### Enfants / Ados — 295€ / an
+T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
+Réserver : https://box-plus.vercel.app/abonnements#enfants
+
+### Baby Boxe — 250€ / an
+Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
+Réserver : https://box-plus.vercel.app/abonnements#enfants
+
+### Séance d’essai — 10€ toutes disciplines
+Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.
+Réserver : https://box-plus.vercel.app/seance-essai
+
+Badge d’accès : 34 € à l’inscription. Aucun autre frais caché.
+
+## Planning boxe anglaise (salle ring)
+
+### Lundi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 19:00 — Boxe Éducative Confirmés
+- 19:00 – 21:30 — Boxe Amateurs & Pros
+
+### Mardi
+- 12:30 – 13:30 — Préparation Physique
+- 18:00 – 19:00 — Boxe Amateurs & Pros
+- 19:00 – 20:00 — Préparation Physique
+- 20:00 – 21:30 — Boxe Anglaise Loisirs
+
+### Mercredi
+- 16:00 – 17:00 — Boxe Éducative 7/11 ans
+- 17:00 – 18:00 — Boxe Éducative 12/16 ans
+- 18:00 – 19:00 — Lady Boxing
+- 19:00 – 20:00 — Boxe Anglaise Loisirs
+- 20:00 – 21:30 — Boxe Amateurs & Pros
+
+### Jeudi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 20:00 — Boxe Amateurs & Pros
+- 20:00 – 21:30 — Boxe Anglaise Loisirs
+
+### Vendredi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 20:00 — Boxe Amateurs & Pros
+- 20:00 – 21:30 — Open Sparring
+
+### Samedi
+- 10:00 – 12:00 — Boxe Amateurs & Pros
+- 12:30 – 13:30 — Boxe Anglaise
+- 15:15 – 16:00 — Baby Boxe (3/6 ans)
+- 16:00 – 17:00 — Boxe Éducative 7/11 ans
+- 17:00 – 18:00 — Boxe Éducative 12/16 ans
+
+## Planning combat (cage, tatamis, kick)
+
+### Lundi
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+
+### Mardi
+- 12:30 – 13:30 — MMA
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Préparation Physique
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Mercredi
+- 12:30 – 13:30 — Kick / K1
+- 15:00 – 16:00 — Kick Enfants
+- 16:00 – 17:00 — Kick Ados
+- 17:00 – 18:00 — MMA Ados
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Jeudi
+- 12:30 – 13:30 — Grappling
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Boxe Française
+- 20:00 – 21:30 — Kick Boxing / K1
+
+### Vendredi
+- 12:30 – 13:30 — Kick / K1
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+- 20:00 – 21:30 — Open Sparring
+
+### Samedi
+- 10:00 – 11:30 — Boxe Française + Kick Enfants
+- 11:30 – 12:30 — Prépa Physique + Kick Ados
+- 12:30 – 13:30 — MMA
+- 14:00 – 15:00 — Grappling
+- 15:00 – 16:00 — MMA Ados
+
+## Première séance
+
+Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil coach, gants prêtés, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : https://www.boxing-center-portet.fr/premiere-seance/
+
+## Réseau
+
+L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.fr — boutique : https://box-plus.vercel.app
+
+## Citations utiles
+
+- « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
+- « Séance d’essai 10 €, offre rentrée 29 € / 4 semaines, saison 259 €. »
+- « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
+- « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
