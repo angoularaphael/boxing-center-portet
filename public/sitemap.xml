@@ -3,18 +3,23 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.boxing-center-portet.fr/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
-      <image:title>Le ring de boxe anglaise — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
-      <image:caption>Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.</image:caption>
+      <image:loc>https://www.boxing-center-portet.fr/og.jpg</image:loc>
+      <image:title>Salle Boxing Center Portet-sur-Garonne</image:title>
+      <image:caption>Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.boxing-center-portet.fr/og.png</image:loc>
-      <image:title>Boxing Center Portet — club de boxe et MMA 31120</image:title>
-      <image:caption>Boxing Center Portet-sur-Garonne, la salle phare du groupe.</image:caption>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-04.jpg</image:loc>
+      <image:title>Préparation physique | Boxing Center Portet</image:title>
+      <image:caption>L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
+      <image:title>Le ring de boxe anglaise | Boxing Center Portet-sur-Garonne</image:title>
+      <image:caption>Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.boxing-center-portet.fr/img/disc/boxe-anglaise-bc.jpg</image:loc>

@@ -48,8 +48,9 @@ const galerie = (C.gallery || [])
 
 const PAGES = [
   { url: "/", freq: "weekly", prio: "1.0", images: [
-      img("/img/gym-21.jpg", `Le ring de boxe anglaise — ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat."),
-      img("/og.png", "Boxing Center Portet — club de boxe et MMA 31120", "Boxing Center Portet-sur-Garonne, la salle phare du groupe."),
+      img("/og.jpg", "Salle Boxing Center Portet-sur-Garonne", "Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge."),
+      img("/img/gym-04.jpg", `Préparation physique | Boxing Center Portet`, "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne."),
+      img("/img/gym-21.jpg", `Le ring de boxe anglaise | ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat."),
       ...disciplines.slice(0, 4)] },
   { url: "/premiere-seance/", freq: "monthly", prio: "0.9", images: [
       img("/img/gym-01.jpg", `L'entrée du club — ${LIEU}`, "Ce que tu vois en poussant la porte du Boxing Center Portet.")] },

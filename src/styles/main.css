@@ -230,6 +230,26 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .hero__hook .tint { color: var(--accent); }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
 .hero__scroll { position: relative; z-index: 2; justify-content: center; }
+
+.salle-preview {
+  margin: 0 auto clamp(2.2rem, 5vw, 4rem);
+  padding-inline: var(--gutter);
+  max-width: 1180px;
+}
+.salle-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center 55%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+}
+@media (max-width: 640px) {
+  .salle-preview { padding-inline: 0; margin-inline: 0; }
+  .salle-preview img { border-radius: 0; aspect-ratio: 1 / 1; }
+}
 /* legibility over busy 3D + photo backgrounds */
 .hero .eyebrow, .hero__hook, .hero__portet,
 .has-bg .display, .has-bg .eyebrow,
