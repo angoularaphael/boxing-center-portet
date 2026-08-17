@@ -114,6 +114,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 - Partenaires : ${SITE}/partenaires/
 - Contact : ${SITE}/contact/
 - Fiche IA étendue : ${SITE}/llms-full.txt
+- Sitemap (pages, photos, vidéos) : ${SITE}/sitemap.xml
 
 ## Mots-clés locaux (SEO)
 

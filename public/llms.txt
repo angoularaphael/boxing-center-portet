@@ -173,6 +173,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 - Partenaires : https://www.boxing-center-portet.fr/partenaires/
 - Contact : https://www.boxing-center-portet.fr/contact/
 - Fiche IA étendue : https://www.boxing-center-portet.fr/llms-full.txt
+- Sitemap (pages, photos, vidéos) : https://www.boxing-center-portet.fr/sitemap.xml
 
 ## Mots-clés locaux (SEO)
 

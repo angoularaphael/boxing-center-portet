@@ -10,7 +10,7 @@
  * Lancé avant chaque build (npm run build) : le jour où le patron ajoute une
  * photo au vestiaire, elle entre dans le sitemap toute seule.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -46,12 +46,48 @@ const galerie = (C.gallery || [])
   .filter((g) => g.src)
   .map((g) => img(g.src, `${g.label} — ${LIEU}`, `${g.label}, photographié au Boxing Center Portet, 61 route d'Espagne.`));
 
+/** Vidéos réellement présentes dans le HTML (comme BOXPLUS). Fichier absent = rien. */
+const vid = (file, poster, name, description, seconds, uploadDate) => {
+  if (!existsSync(join(ROOT, "public", "media", file))) return "";
+  return [
+    "    <video:video>",
+    `      <video:thumbnail_loc>${SITE}${esc(poster)}</video:thumbnail_loc>`,
+    `      <video:title>${esc(name.slice(0, 100))}</video:title>`,
+    `      <video:description>${esc(description.slice(0, 2048))}</video:description>`,
+    `      <video:content_loc>${SITE}/media/${esc(file)}</video:content_loc>`,
+    `      <video:duration>${Math.max(1, Math.round(seconds))}</video:duration>`,
+    `      <video:publication_date>${uploadDate}</video:publication_date>`,
+    "      <video:family_friendly>yes</video:family_friendly>",
+    "      <video:live>no</video:live>",
+    "    </video:video>",
+  ].join("\n");
+};
+
+const homeVideos = [
+  vid(
+    "clip-floor.mp4",
+    "/img/gym-04.jpg",
+    "Préparation physique — Boxing Center Portet",
+    "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120), Toulouse sud.",
+    8,
+    "2026-08-07"
+  ),
+  vid(
+    "clip-bags.mp4",
+    "/img/gym-03.jpg",
+    "Sacs de frappe — salle de boxe Portet-sur-Garonne",
+    "Les sacs de frappe du Boxing Center Portet : 600 m², ring de boxe anglaise et cage MMA, à 10 min de Toulouse sud.",
+    10,
+    "2026-08-07"
+  ),
+].filter(Boolean);
+
 const PAGES = [
   { url: "/", freq: "weekly", prio: "1.0", images: [
       img("/og.jpg", "Salle Boxing Center Portet-sur-Garonne", "Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge."),
       img("/img/gym-04.jpg", `Préparation physique | Boxing Center Portet`, "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne."),
       img("/img/gym-21.jpg", `Le ring de boxe anglaise | ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat."),
-      ...disciplines.slice(0, 4)] },
+      ...disciplines.slice(0, 4)], videos: homeVideos },
   { url: "/premiere-seance/", freq: "monthly", prio: "0.9", images: [
       img("/img/gym-01.jpg", `L'entrée du club — ${LIEU}`, "Ce que tu vois en poussant la porte du Boxing Center Portet.")] },
   { url: "/activites/", freq: "monthly", prio: "0.9", images: disciplines },
@@ -78,15 +114,18 @@ const PAGES = [
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n` +
-  `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n` +
+  `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n` +
+  `        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n` +
   PAGES.map((p) =>
     `  <url>\n    <loc>${SITE}${p.url}</loc>\n    <lastmod>${jour}</lastmod>\n` +
     `    <changefreq>${p.freq}</changefreq>\n    <priority>${p.prio}</priority>\n` +
     (p.images.length ? p.images.join("\n") + "\n" : "") +
+    ((p.videos || []).length ? p.videos.join("\n") + "\n" : "") +
     `  </url>`
   ).join("\n") +
   `\n</urlset>\n`;
 
 writeFileSync(join(ROOT, "public/sitemap.xml"), xml, "utf8");
 const total = PAGES.reduce((n, p) => n + p.images.length, 0);
-console.log(`[sitemap] ${PAGES.length} pages · ${total} images déclarées`);
+const vids = PAGES.reduce((n, p) => n + (p.videos || []).length, 0);
+console.log(`[sitemap] ${PAGES.length} pages · ${total} images · ${vids} vidéos`);
