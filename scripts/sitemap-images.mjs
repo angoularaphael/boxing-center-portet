@@ -94,7 +94,17 @@ const PAGES = [
   { url: "/salles/", freq: "monthly", prio: "0.8", images: [
       img("/img/gym-21.jpg", `Le ring — ${LIEU}`, "La salle de boxe anglaise et son ring."),
       img("/img/gym-24.jpg", `La cage MMA — ${LIEU}`, "L'espace combat et sa cage de MMA."),
-      img("/img/gym-03.jpg", `Les sacs de frappe — ${LIEU}`, "Les 24 sacs de frappe du Boxing Center Portet.")] },
+      img("/img/gym-03.jpg", `Les sacs de frappe — ${LIEU}`, "Les 24 sacs de frappe du Boxing Center Portet.")],
+    videos: [
+      vid(
+        "clip-exterior.mp4",
+        "/img/gym-01.jpg",
+        "Visite du Boxing Center Portet — 61 route d’Espagne",
+        "Visite vidéo de la salle phare Boxing Center à Portet-sur-Garonne (31120) : 600 m², ring de boxe anglaise et cage MMA, à 10 minutes de Toulouse sud.",
+        16,
+        "2026-08-07"
+      ),
+    ].filter(Boolean) },
   { url: "/coachs/", freq: "monthly", prio: "0.8", images: equipe },
   { url: "/boxeurs/", freq: "monthly", prio: "0.7", images: [
       img("/img/team/podium-ffboxe.jpg", `Champions de France — la Team Tapia du ${LIEU}`, "Les boxeurs formés au Boxing Center Portet sur le podium."),

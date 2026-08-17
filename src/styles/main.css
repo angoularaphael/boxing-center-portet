@@ -659,6 +659,10 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   transition: opacity 0.4s, transform 0.4s; }
 .shot:hover .shot__label { opacity: 1; transform: none; }
 
+.visit-video { margin-top: 1.6rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.visit-video video { width: 100%; height: auto; display: block; background: #000; }
+.visit-video figcaption { padding: 0.85rem 1.1rem; color: var(--muted); font-size: 0.92rem; }
+
 .clips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .clip { position: relative; aspect-ratio: 9 / 12; border-radius: var(--radius-lg); overflow: hidden;
   border: 1px solid var(--line); background: var(--bg-2); }

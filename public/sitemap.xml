@@ -145,6 +145,16 @@
       <image:title>Les sacs de frappe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les 24 sacs de frappe du Boxing Center Portet.</image:caption>
     </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://www.boxing-center-portet.fr/img/gym-01.jpg</video:thumbnail_loc>
+      <video:title>Visite du Boxing Center Portet — 61 route d’Espagne</video:title>
+      <video:description>Visite vidéo de la salle phare Boxing Center à Portet-sur-Garonne (31120) : 600 m², ring de boxe anglaise et cage MMA, à 10 minutes de Toulouse sud.</video:description>
+      <video:content_loc>https://www.boxing-center-portet.fr/media/clip-exterior.mp4</video:content_loc>
+      <video:duration>16</video:duration>
+      <video:publication_date>2026-08-07</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
   </url>
   <url>
     <loc>https://www.boxing-center-portet.fr/coachs/</loc>
