@@ -8,6 +8,8 @@ const publicDir = join(__dirname, "..", "public");
 const logoPath = join(publicDir, "favicon-brand.png");
 const photoPath = join(publicDir, "img", "gym-04.jpg");
 const bg = { r: 255, g: 255, b: 255, alpha: 1 };
+// Favicon onglet = celui de la boutique (BOXPLUS/storefront/public/assets).
+// Ne pas régénérer favicon.ico / favicon.svg ici.
 
 async function circularIcon(size) {
   const pad = Math.round(size * 0.06);
