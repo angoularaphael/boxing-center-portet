@@ -1,4 +1,5 @@
 # https://www.boxing-center-portet.fr/llms.txt
+# Instructions pour les agents IA : /ai.txt
 
 User-agent: Googlebot
 Allow: /

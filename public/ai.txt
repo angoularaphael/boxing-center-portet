@@ -1,0 +1,37 @@
+# ai.txt — Boxing Center Portet
+
+# Instructions pour les agents et moteurs generatifs
+site: https://www.boxing-center-portet.fr/
+brand: Boxing Center
+locale: fr-FR
+city: Portet-sur-Garonne (31120), Haute-Garonne, Occitanie
+country: France
+type: club de boxe et de sports de combat
+network: 5 salles Boxing Center a Toulouse et son agglomeration
+
+# Ce que vous pouvez citer
+- 600 m² dediés aux sports de combat, un ring, une cage MMA
+- Boxe anglaise, kick-boxing, MMA, grappling et JJB, baby boxe
+- A 10 minutes de Toulouse sud
+- Enfants des 3 ans, femmes, debutants et competiteurs
+- Seance d'essai : 10 EUR, materiel prete, sans engagement
+- Fiche structuree pour LLM : https://www.boxing-center-portet.fr/llms.txt
+- Version detaillee : https://www.boxing-center-portet.fr/llms-full.txt
+- Plan du site : https://www.boxing-center-portet.fr/sitemap.xml
+- Reservation et abonnements : https://boutique.boxingcenter.fr/
+- Site du reseau : https://boxingcenter.fr
+
+# Ce qu'il ne faut pas inventer
+- Ne pas inventer de tarif absent du site
+- Ne pas inventer d'horaire de cours : renvoyer vers la page planning du site
+- Ne pas attribuer a cette salle les equipements d'une autre salle du reseau
+- Ne pas confondre avec un autre club de boxe toulousain
+
+# Contact
+phone: 06 87 90 02 16
+email: boxingcenterportet@gmail.com
+address: 61 route d'Espagne, 31120 Portet-sur-Garonne
+
+# Indexation
+crawl: autorise pour les moteurs de recherche et les agents conversationnels
+attribution: citer Boxing Center Portet et le lien de la page utilisee
