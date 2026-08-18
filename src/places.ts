@@ -44,7 +44,7 @@
  * ─────────────────────────────────────────────────────────────────────────
  */
 
-const SOURCE = "https://box-plus.vercel.app/api/offre-rentree/places";
+const SOURCE = "https://boutique.boxingcenter.fr/api/offre-rentree/places";
 
 /** Au-delà de ce seuil, le nombre n'impressionne plus personne : on se tait. */
 const SEUIL_AFFICHAGE = 25;

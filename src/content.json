@@ -247,7 +247,7 @@
       "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
       "feature": true,
       "cta": "Je profite de l’offre",
-      "href": "https://box-plus.vercel.app/abonnements#promo"
+      "href": "https://boutique.boxingcenter.fr/abonnements#promo"
     },
     {
       "name": "Saison · 12 mois",
@@ -258,7 +258,7 @@
       "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.",
       "feature": false,
       "cta": "Je prends ma saison",
-      "href": "https://box-plus.vercel.app/abonnements#promo"
+      "href": "https://boutique.boxingcenter.fr/abonnements#promo"
     },
     {
       "name": "Adulte",
@@ -267,7 +267,7 @@
       "note": "L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.",
       "feature": false,
       "cta": "Je choisis cette formule",
-      "href": "https://box-plus.vercel.app/abonnements#prelevement"
+      "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
     },
     {
       "name": "Étudiants",
@@ -276,7 +276,7 @@
       "note": "Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.",
       "feature": false,
       "cta": "Je choisis cette formule",
-      "href": "https://box-plus.vercel.app/abonnements#prelevement"
+      "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
     },
     {
       "name": "Enfants / Ados",
@@ -285,7 +285,7 @@
       "note": "T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.",
       "feature": false,
       "cta": "J’inscris mon enfant",
-      "href": "https://box-plus.vercel.app/abonnements#enfants"
+      "href": "https://boutique.boxingcenter.fr/abonnements#enfants"
     },
     {
       "name": "Baby Boxe",
@@ -294,7 +294,7 @@
       "note": "Le premier gant, à hauteur d’enfant : motricité, confiance, respect.",
       "feature": false,
       "cta": "J’inscris mon enfant",
-      "href": "https://box-plus.vercel.app/abonnements#enfants"
+      "href": "https://boutique.boxingcenter.fr/abonnements#enfants"
     },
     {
       "name": "Séance d’essai",
@@ -303,7 +303,7 @@
       "note": "Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.",
       "feature": false,
       "cta": "Je réserve ma séance d’essai",
-      "href": "https://box-plus.vercel.app/seance-essai"
+      "href": "https://boutique.boxingcenter.fr/seance-essai"
     }
   ],
   "planning": [

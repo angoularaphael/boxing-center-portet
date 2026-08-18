@@ -11,10 +11,10 @@
 61 route d’Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
 
 **Combien coûte une séance d’essai ?**
-10 € — toutes disciplines, matériel prêté, sans engagement. Réservation : https://box-plus.vercel.app/seance-essai
+10 € — toutes disciplines, matériel prêté, sans engagement. Réservation : https://boutique.boxingcenter.fr/seance-essai
 
 **Quelle est l’offre du moment ?**
-Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://box-plus.vercel.app/abonnements#promo
+Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://boutique.boxingcenter.fr/abonnements#promo
 
 **Quelles disciplines sont enseignées ?**
 Boxe Anglaise, Kick-Boxing, MMA, Grappling & Jiu-Jitsu Brésilien, Lady Boxing, Préparation Physique, Baby Boxe, Boxe Éducative, Kick-Boxing Enfants / Ados.
@@ -49,7 +49,7 @@ Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
 - **Adresse** : 61 route d’Espagne, 31120 Portet-sur-Garonne, France
 - **Coordonnées GPS** : 43.5236, 1.4053
 - **Site** : https://www.boxing-center-portet.fr
-- **Boutique officielle (abonnements, offres)** : https://box-plus.vercel.app
+- **Boutique officielle (abonnements, offres)** : https://boutique.boxingcenter.fr
 - **Groupe** : https://boxingcenter.fr
 - **Facebook** : https://www.facebook.com/BoxingCenterToulouse/
 - **Instagram** : https://www.instagram.com/boxingcenter_toulouse/
@@ -76,7 +76,7 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 - Baby Boxe : 250€ / an — Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
 - Séance d’essai : 10€ toutes disciplines — Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.
 - Badge d’accès : 34 € à l’inscription (aucun autre frais)
-- Boutique officielle : https://box-plus.vercel.app
+- Boutique officielle : https://boutique.boxingcenter.fr
 
 ## Planning boxe anglaise
 

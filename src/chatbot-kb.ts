@@ -15,7 +15,7 @@ export type ActionDef = { label: string; href?: string; act?: "essai" | "rappel"
  *  peut pas prouver que le bot vend. Les UTM se posent AVANT l’ancre : la
  *  boutique lit `#promo` (et `#bcp=` du préremplissage) sur le fragment, un
  *  `?utm…` collé après le `#` casserait l’onglet ouvert à l’arrivée. */
-const SHOP = "https://box-plus.vercel.app";
+const SHOP = "https://boutique.boxingcenter.fr";
 const UTM = "utm_source=chatbot&utm_medium=bouton&utm_campaign=portet";
 const shop = (path: string, hash = "") => `${SHOP}${path}?${UTM}${hash}`;
 /** Compare deux URL boutique sans leur traçage (voir parseReply). */

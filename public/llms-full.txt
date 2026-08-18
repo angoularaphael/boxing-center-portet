@@ -78,31 +78,31 @@ Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Val
 
 ### Offre Rentrée — 29€ par personne / 4 semaines
 Prix barré : 44€. 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
-Réserver : https://box-plus.vercel.app/abonnements#promo
+Réserver : https://boutique.boxingcenter.fr/abonnements#promo
 
 ### Saison · 12 mois — 259€ l’année · 4× sans frais
 Prix barré : 400€. Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.
-Réserver : https://box-plus.vercel.app/abonnements#promo
+Réserver : https://boutique.boxingcenter.fr/abonnements#promo
 
 ### Adulte — 44€ / 4 semaines
 L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
-Réserver : https://box-plus.vercel.app/abonnements#prelevement
+Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
 
 ### Étudiants — 36€ / 4 semaines
 Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.
-Réserver : https://box-plus.vercel.app/abonnements#prelevement
+Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
 
 ### Enfants / Ados — 295€ / an
 T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
-Réserver : https://box-plus.vercel.app/abonnements#enfants
+Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 
 ### Baby Boxe — 250€ / an
 Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
-Réserver : https://box-plus.vercel.app/abonnements#enfants
+Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 
 ### Séance d’essai — 10€ toutes disciplines
 Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.
-Réserver : https://box-plus.vercel.app/seance-essai
+Réserver : https://boutique.boxingcenter.fr/seance-essai
 
 Badge d’accès : 34 € à l’inscription. Aucun autre frais caché.
 
@@ -189,7 +189,7 @@ Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil co
 
 ## Réseau
 
-L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.fr — boutique : https://box-plus.vercel.app
+L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.fr — boutique : https://boutique.boxingcenter.fr
 
 ## Citations utiles
 

@@ -10,17 +10,17 @@ import { join } from "path";
 import { allowCors, memoryLimit, ipOf } from "./_lib/util.js";
 
 /* Faits non éditables dans le backoffice (offres, inscription, réseau…).
-   LES OFFRES (source : box-plus.vercel.app, la boutique officielle) : */
-const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : box-plus.vercel.app/abonnements) :
+   LES OFFRES (source : boutique.boxingcenter.fr, la boutique officielle) : */
+const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : boutique.boxingcenter.fr/abonnements) :
   · OFFRE RENTRÉE 2026 — 29 € PAR PERSONNE les 4 premières semaines, sans engagement. Idéal à deux : « viens avec ton binôme ». C’est L’OFFRE à proposer en premier.
   · SAISON 12 MOIS — 259 € l’année, payable en 4× sans frais (moins de 22 €/mois, accès aux 5 salles).
   · Adulte 44 €/4 semaines ; étudiants 36 €/4 semaines (sur justificatif). Sans engagement.
   · Enfants/Ados 295 €/an (t-shirt officiel du club inclus) ; Baby Boxe 250 €/an.
-  · Séance d’essai 10 € (toutes disciplines, matériel prêté) : box-plus.vercel.app/seance-essai — la version OFFERTE n’existe que par TOI (point 3 de VENDRE).
-- Inscription : fiche d’inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d’accès 34€ à l’inscription (aucun autre frais). Tout se fait en ligne sur box-plus.vercel.app ou à l’accueil.
+  · Séance d’essai 10 € (toutes disciplines, matériel prêté) : boutique.boxingcenter.fr/seance-essai — la version OFFERTE n’existe que par TOI (point 3 de VENDRE).
+- Inscription : fiche d’inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d’accès 34€ à l’inscription (aucun autre frais). Tout se fait en ligne sur boutique.boxingcenter.fr ou à l’accueil.
 - Équipements : salle de boxe anglaise avec ring, espace combat avec cage MMA, sacs de frappe, matériel de préparation physique, vestiaires — 600 m².
 - Réseau : 5 salles (Portet, Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis) — l’abonnement ouvre les 5.
-- Boutique officielle (abonnements, offres, matériel) : box-plus.vercel.app — Groupe : boxingcenter.fr.
+- Boutique officielle (abonnements, offres, matériel) : boutique.boxingcenter.fr — Groupe : boxingcenter.fr.
 - Partenaires du club : KFC, O2 Portet-sur-Garonne, Karting 2 Muret (kartingmuret.fr).
 - PRIVATISATION & PROJETS : la salle (600 m²) peut être privatisée pour un événement, une séance de groupe/team building d’entreprise, un tournage ou une collaboration. Toute demande de ce type (réserver LA SALLE entière, partenariat, sponsor, collaboration, médias, école/association) passe par le formulaire dédié : boxing-center-portet.fr/partenaires/ (menu « Votre projet » pour préciser). Ne pas confondre avec une inscription individuelle.`;
 
