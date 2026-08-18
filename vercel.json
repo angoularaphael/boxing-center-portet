@@ -10,17 +10,6 @@
       "has": [
         {
           "type": "host",
-          "value": "www.boxing-center-portet.fr"
-        }
-      ],
-      "destination": "https://boxing-center-portet.fr/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
           "value": "boxingcenterportet.fr"
         }
       ],
