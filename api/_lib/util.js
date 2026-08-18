@@ -43,7 +43,7 @@ export function allowCors(res, req) {
     ORIGINS.has(origin) ||
     /^https:\/\/boxing-center-portet[a-z0-9-]*\.vercel\.app$/.test(origin) ||
     origin === (process.env.CORS_ORIGIN || "");
-  res.setHeader("Access-Control-Allow-Origin", ok ? origin : "https://www.boxing-center-portet.fr");
+  res.setHeader("Access-Control-Allow-Origin", ok ? origin : "https://boxing-center-portet.fr");
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-token");

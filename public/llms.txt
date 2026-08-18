@@ -1,7 +1,7 @@
-# Boxing Center Portet — https://www.boxing-center-portet.fr
+# Boxing Center Portet — https://boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
 # Dernière mise à jour : 2026-08-17
-# Version étendue : https://www.boxing-center-portet.fr/llms-full.txt
+# Version étendue : https://boxing-center-portet.fr/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
 
@@ -29,13 +29,13 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai à 10 €.
 
 **Comment se passe une première séance ?**
-On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : https://www.boxing-center-portet.fr/premiere-seance/
+On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : https://boxing-center-portet.fr/premiere-seance/
 
 **Quels créneaux pour débuter ?**
 Boxe Anglaise Loisirs : mardi 20h00–21h30, mercredi 19h00–20h00, jeudi 20h00–21h30. Séance de midi : lundi, jeudi, vendredi et samedi 12h30–13h30. Lady Boxing (100 % féminin) : mercredi 18h00–19h00. Baby Boxe (3/6 ans) : samedi 15h15–16h00.
 
 **Y a-t-il des cours de MMA / kick-boxing / grappling ?**
-Oui. Planning combat (cage + tatamis) : MMA lundi 19h–20h, mardi 12h30–13h30, mercredi 19h–20h, vendredi 19h–20h, samedi 12h30–13h30. Grappling lundi 18h–19h, mercredi 18h–19h, jeudi 12h30–13h30, vendredi 18h–19h, samedi 14h–15h. Kick-Boxing / K1 mardi 20h–21h30, mercredi 20h–21h30, jeudi 20h–21h30. Détail : https://www.boxing-center-portet.fr/plannings/
+Oui. Planning combat (cage + tatamis) : MMA lundi 19h–20h, mardi 12h30–13h30, mercredi 19h–20h, vendredi 19h–20h, samedi 12h30–13h30. Grappling lundi 18h–19h, mercredi 18h–19h, jeudi 12h30–13h30, vendredi 18h–19h, samedi 14h–15h. Kick-Boxing / K1 mardi 20h–21h30, mercredi 20h–21h30, jeudi 20h–21h30. Détail : https://boxing-center-portet.fr/plannings/
 
 **Quelle est la note du club ?**
 4,3 sur 5 sur Google, sur 107 avis (fiche Google du club).
@@ -48,7 +48,7 @@ Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
 - **Nom** : Boxing Center Portet
 - **Adresse** : 61 route d’Espagne, 31120 Portet-sur-Garonne, France
 - **Coordonnées GPS** : 43.5236, 1.4053
-- **Site** : https://www.boxing-center-portet.fr
+- **Site** : https://boxing-center-portet.fr
 - **Boutique officielle (abonnements, offres)** : https://boutique.boxingcenter.fr
 - **Groupe** : https://boxingcenter.fr
 - **Facebook** : https://www.facebook.com/BoxingCenterToulouse/
@@ -157,23 +157,23 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 
 ## Partenaires
 
-KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la salle : https://www.boxing-center-portet.fr/partenaires/
+KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la salle : https://boxing-center-portet.fr/partenaires/
 
 ## Pages du site
 
-- Accueil : https://www.boxing-center-portet.fr/
-- Ta première séance : https://www.boxing-center-portet.fr/premiere-seance/
-- Activités : https://www.boxing-center-portet.fr/activites/
-- Le club : https://www.boxing-center-portet.fr/salles/
-- Coachs : https://www.boxing-center-portet.fr/coachs/
-- Nos Boxeurs : https://www.boxing-center-portet.fr/boxeurs/
-- Galerie : https://www.boxing-center-portet.fr/galerie/
-- Planning : https://www.boxing-center-portet.fr/plannings/
-- Tarifs : https://www.boxing-center-portet.fr/tarifs/
-- Partenaires : https://www.boxing-center-portet.fr/partenaires/
-- Contact : https://www.boxing-center-portet.fr/contact/
-- Fiche IA étendue : https://www.boxing-center-portet.fr/llms-full.txt
-- Sitemap (pages, photos, vidéos) : https://www.boxing-center-portet.fr/sitemap.xml
+- Accueil : https://boxing-center-portet.fr/
+- Ta première séance : https://boxing-center-portet.fr/premiere-seance/
+- Activités : https://boxing-center-portet.fr/activites/
+- Le club : https://boxing-center-portet.fr/salles/
+- Coachs : https://boxing-center-portet.fr/coachs/
+- Nos Boxeurs : https://boxing-center-portet.fr/boxeurs/
+- Galerie : https://boxing-center-portet.fr/galerie/
+- Planning : https://boxing-center-portet.fr/plannings/
+- Tarifs : https://boxing-center-portet.fr/tarifs/
+- Partenaires : https://boxing-center-portet.fr/partenaires/
+- Contact : https://boxing-center-portet.fr/contact/
+- Fiche IA étendue : https://boxing-center-portet.fr/llms-full.txt
+- Sitemap (pages, photos, vidéos) : https://boxing-center-portet.fr/sitemap.xml
 
 ## Mots-clés locaux (SEO)
 
