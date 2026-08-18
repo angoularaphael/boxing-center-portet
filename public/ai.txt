@@ -1,7 +1,7 @@
 # ai.txt — Boxing Center Portet
 
 # Instructions pour les agents et moteurs generatifs
-site: https://boxing-center-portet.fr/
+site: https://www.boxing-center-portet.fr/
 brand: Boxing Center
 locale: fr-FR
 city: Portet-sur-Garonne (31120), Haute-Garonne, Occitanie
@@ -15,9 +15,9 @@ network: 5 salles Boxing Center a Toulouse et son agglomeration
 - A 10 minutes de Toulouse sud
 - Enfants des 3 ans, femmes, debutants et competiteurs
 - Seance d'essai : 10 EUR, materiel prete, sans engagement
-- Fiche structuree pour LLM : https://boxing-center-portet.fr/llms.txt
-- Version detaillee : https://boxing-center-portet.fr/llms-full.txt
-- Plan du site : https://boxing-center-portet.fr/sitemap.xml
+- Fiche structuree pour LLM : https://www.boxing-center-portet.fr/llms.txt
+- Version detaillee : https://www.boxing-center-portet.fr/llms-full.txt
+- Plan du site : https://www.boxing-center-portet.fr/sitemap.xml
 - Reservation et abonnements : https://boutique.boxingcenter.fr/
 - Site du reseau : https://boxingcenter.fr
 

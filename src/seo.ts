@@ -3,7 +3,7 @@
  *  rich types (Offers, SportsActivityLocation, ItemList) sourced from data.ts. */
 import { SITE, DISCIPLINES, TARIFS, TEAM } from "./data";
 
-const ORIGIN = "https://boxing-center-portet.fr";
+const ORIGIN = "https://www.boxing-center-portet.fr";
 const PAGE: Record<string, [string, string]> = {
   "premiere-seance": ["Ta première séance", "/premiere-seance/"],
   activites: ["Activités", "/activites/"],

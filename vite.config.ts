@@ -148,7 +148,7 @@ function seoBakePlugin() {
         const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33687900216">${site.phone || "06 87 90 02 16"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;
         html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address></div>`);
 
-        const ORIGIN = "https://boxing-center-portet.fr";
+        const ORIGIN = "https://www.boxing-center-portet.fr";
         const PAGE: Record<string, [string, string]> = {
           "premiere-seance": ["Ta première séance", "/premiere-seance/"],
           activites: ["Activités", "/activites/"],

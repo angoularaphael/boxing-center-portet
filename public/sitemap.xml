@@ -3,60 +3,60 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://boxing-center-portet.fr/</loc>
+    <loc>https://www.boxing-center-portet.fr/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/og.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/og.jpg</image:loc>
       <image:title>Salle Boxing Center Portet-sur-Garonne</image:title>
       <image:caption>Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-04.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-04.jpg</image:loc>
       <image:title>Préparation physique | Boxing Center Portet</image:title>
       <image:caption>L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-21.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
       <image:title>Le ring de boxe anglaise | Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/boxe-anglaise-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/boxe-anglaise-bc.jpg</image:loc>
       <image:title>Boxe Anglaise — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Boxe Anglaise : Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round. Chacun à son rythme, dès le premier cours.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/kick-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/kick-bc.jpg</image:loc>
       <image:title>Kick-Boxing — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Kick-Boxing : Le tempo le plus électrique du ring. Pieds-poings, cardio et précision — chacun à son rythme, du premier cours au plateau.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/mma-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/mma-bc.jpg</image:loc>
       <image:title>MMA — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>MMA : Debout, au sol, dans la cage. On t’apprend tout, étape par étape — encadré, progressif, sans ego. Débutants bienvenus.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/grappling-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/grappling-bc.jpg</image:loc>
       <image:title>Grappling &amp; Jiu-Jitsu Brésilien — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Grappling &amp; Jiu-Jitsu Brésilien : Contrôles, passages, soumissions. Ici l’erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.</image:caption>
     </image:image>
     <video:video>
-      <video:thumbnail_loc>https://boxing-center-portet.fr/img/gym-04.jpg</video:thumbnail_loc>
+      <video:thumbnail_loc>https://www.boxing-center-portet.fr/img/gym-04.jpg</video:thumbnail_loc>
       <video:title>Préparation physique — Boxing Center Portet</video:title>
       <video:description>L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120), Toulouse sud.</video:description>
-      <video:content_loc>https://boxing-center-portet.fr/media/clip-floor.mp4</video:content_loc>
+      <video:content_loc>https://www.boxing-center-portet.fr/media/clip-floor.mp4</video:content_loc>
       <video:duration>8</video:duration>
       <video:publication_date>2026-08-07</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
     <video:video>
-      <video:thumbnail_loc>https://boxing-center-portet.fr/img/gym-03.jpg</video:thumbnail_loc>
+      <video:thumbnail_loc>https://www.boxing-center-portet.fr/img/gym-03.jpg</video:thumbnail_loc>
       <video:title>Sacs de frappe — salle de boxe Portet-sur-Garonne</video:title>
       <video:description>Les sacs de frappe du Boxing Center Portet : 600 m², ring de boxe anglaise et cage MMA, à 10 min de Toulouse sud.</video:description>
-      <video:content_loc>https://boxing-center-portet.fr/media/clip-bags.mp4</video:content_loc>
+      <video:content_loc>https://www.boxing-center-portet.fr/media/clip-bags.mp4</video:content_loc>
       <video:duration>10</video:duration>
       <video:publication_date>2026-08-07</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
@@ -64,92 +64,92 @@
     </video:video>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/premiere-seance/</loc>
+    <loc>https://www.boxing-center-portet.fr/premiere-seance/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-01.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-01.jpg</image:loc>
       <image:title>L'entrée du club — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Ce que tu vois en poussant la porte du Boxing Center Portet.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/activites/</loc>
+    <loc>https://www.boxing-center-portet.fr/activites/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/boxe-anglaise-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/boxe-anglaise-bc.jpg</image:loc>
       <image:title>Boxe Anglaise — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Boxe Anglaise : Esquive, timing, jeu de jambes — tu apprends à rester calme, précis et sûr de toi, round après round. Chacun à son rythme, dès le premier cours.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/kick-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/kick-bc.jpg</image:loc>
       <image:title>Kick-Boxing — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Kick-Boxing : Le tempo le plus électrique du ring. Pieds-poings, cardio et précision — chacun à son rythme, du premier cours au plateau.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/mma-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/mma-bc.jpg</image:loc>
       <image:title>MMA — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>MMA : Debout, au sol, dans la cage. On t’apprend tout, étape par étape — encadré, progressif, sans ego. Débutants bienvenus.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/grappling-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/grappling-bc.jpg</image:loc>
       <image:title>Grappling &amp; Jiu-Jitsu Brésilien — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Grappling &amp; Jiu-Jitsu Brésilien : Contrôles, passages, soumissions. Ici l’erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/lady-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/lady-bc.jpg</image:loc>
       <image:title>Lady Boxing — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Lady Boxing : Un créneau, une communauté, zéro complexe. La force et la confiance, à ton rythme.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/prepa-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/prepa-bc.jpg</image:loc>
       <image:title>Préparation Physique — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Préparation Physique : Force, cardio, explosivité — et aucun coup à recevoir. Le moteur qui te fait tenir trois rounds sans baisser la garde, quel que soit ton niveau.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/baby-boxe-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/baby-boxe-bc.jpg</image:loc>
       <image:title>Baby Boxe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Baby Boxe : Motricité, confiance, respect des règles. Le premier gant, à hauteur d’enfant.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/educative-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/educative-bc.jpg</image:loc>
       <image:title>Boxe Éducative — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Boxe Éducative : Respect, discipline, énergie canalisée. Le ring qui construit des enfants debout.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/disc/kick-enfants-bc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/disc/kick-enfants-bc.jpg</image:loc>
       <image:title>Kick-Boxing Enfants / Ados — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Kick-Boxing Enfants / Ados : Pieds-poings pour la nouvelle génération : technique, cadre et dépassement — l’école de la relève.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/salles/</loc>
+    <loc>https://www.boxing-center-portet.fr/salles/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-21.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
       <image:title>Le ring — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>La salle de boxe anglaise et son ring.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-24.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-24.jpg</image:loc>
       <image:title>La cage MMA — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>L'espace combat et sa cage de MMA.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-03.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-03.jpg</image:loc>
       <image:title>Les sacs de frappe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les 24 sacs de frappe du Boxing Center Portet.</image:caption>
     </image:image>
     <video:video>
-      <video:thumbnail_loc>https://boxing-center-portet.fr/img/gym-01.jpg</video:thumbnail_loc>
+      <video:thumbnail_loc>https://www.boxing-center-portet.fr/img/gym-01.jpg</video:thumbnail_loc>
       <video:title>Visite du Boxing Center Portet — 61 route d’Espagne</video:title>
       <video:description>Visite vidéo de la salle phare Boxing Center à Portet-sur-Garonne (31120) : 600 m², ring de boxe anglaise et cage MMA, à 10 minutes de Toulouse sud.</video:description>
-      <video:content_loc>https://boxing-center-portet.fr/media/clip-exterior.mp4</video:content_loc>
+      <video:content_loc>https://www.boxing-center-portet.fr/media/clip-exterior.mp4</video:content_loc>
       <video:duration>16</video:duration>
       <video:publication_date>2026-08-07</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
@@ -157,330 +157,330 @@
     </video:video>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/coachs/</loc>
+    <loc>https://www.boxing-center-portet.fr/coachs/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-valentin-tapia-haut.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/cards/card-valentin-tapia-haut.jpg</image:loc>
       <image:title>Valentin Tapia — Head Coach · Responsable sportif — Boxe Loisirs · Éducative · Compétiteurs au Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Double diplômé BPJEPS (boxe anglaise et sports de contact), formateur de champions de France et de membres de l’Équipe de France. Du débutant au compé</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-samuel-pinto-haut.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/cards/card-samuel-pinto-haut.jpg</image:loc>
       <image:title>Samuel Pinto — Kick Boxing / K1 · Boxe Française · Lady Boxing · Kick Enfants/Ados · Prépa Physique au Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Double licence STAPS. Vice-champion d’Europe et du Monde en boxe française, combattant semi-pro en kick boxing. Fédérateur et fin technicien : « Ensem</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-enzo-pioppo-haut.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/cards/card-enzo-pioppo-haut.jpg</image:loc>
       <image:title>Enzo Pioppo — Grappling &amp; MMA au Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Ceinture noire de Luta Livre. Champion de France, vice-champion d’Europe, champion du Monde. « La force tranquille » : calme, méthodique, toujours à l</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-nicolas-tramacon-haut.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/cards/card-nicolas-tramacon-haut.jpg</image:loc>
       <image:title>Nicolas Tramaçon — Grappling &amp; MMA au Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>BPJEPS sport de contact. Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-mourad-ingrid-haut.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/cards/card-mourad-ingrid-haut.jpg</image:loc>
       <image:title>Mourad &amp; Ingrid — Boxe Anglaise &amp; Kick Boxing — Enfants / Ados au Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Valentin et Samuel, accompagnent vos enfants pour les aider à devenir meilleur</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/boxeurs/</loc>
+    <loc>https://www.boxing-center-portet.fr/boxeurs/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/podium-ffboxe.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/podium-ffboxe.jpg</image:loc>
       <image:title>Champions de France — la Team Tapia du Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les boxeurs formés au Boxing Center Portet sur le podium.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/walkout-gala.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/walkout-gala.jpg</image:loc>
       <image:title>Soir de gala — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le walk-out d'un boxeur de la Team Tapia.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/galerie/</loc>
+    <loc>https://www.boxing-center-portet.fr/galerie/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/salut-ecole-nb.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/salut-ecole-nb.jpg</image:loc>
       <image:title>Le salut — école de boxe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le salut — école de boxe, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-21.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-21.jpg</image:loc>
       <image:title>Le ring de boxe anglaise — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le ring de boxe anglaise, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/walkout-ecole.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/walkout-ecole.jpg</image:loc>
       <image:title>Walk-out — école de boxe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Walk-out — école de boxe, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/team-tapia-pads.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/team-tapia-pads.jpg</image:loc>
       <image:title>Aux pattes d’ours — Team Tapia — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Aux pattes d’ours — Team Tapia, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-01.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-01.jpg</image:loc>
       <image:title>L’entrée du club — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>L’entrée du club, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/tapia-pads-marama.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/tapia-pads-marama.jpg</image:loc>
       <image:title>Tapia aux pads avec Marama — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Tapia aux pads avec Marama, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-02.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-02.jpg</image:loc>
       <image:title>La salle en plein entraînement — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>La salle en plein entraînement, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/team-tapia-mitts.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/team-tapia-mitts.jpg</image:loc>
       <image:title>Team Tapia aux mitaines — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Team Tapia aux mitaines, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-25.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-25.jpg</image:loc>
       <image:title>600 m² — deux espaces — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>600 m² — deux espaces, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/marama-training.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/marama-training.jpg</image:loc>
       <image:title>Marama Mercier à l’entraînement — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Marama Mercier à l’entraînement, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-04.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-04.jpg</image:loc>
       <image:title>L’espace de prépa physique — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>L’espace de prépa physique, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-22.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-22.jpg</image:loc>
       <image:title>Les tatamis — grappling &amp; JJB — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les tatamis — grappling &amp; JJB, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-24.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-24.jpg</image:loc>
       <image:title>La cage MMA — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>La cage MMA, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/podium-ffboxe.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/podium-ffboxe.jpg</image:loc>
       <image:title>Champions de France — le podium — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Champions de France — le podium, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/gala-trophee.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/gala-trophee.jpg</image:loc>
       <image:title>Pauline Re — soir de gala — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Pauline Re — soir de gala, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/enzo-pioppo2.jpeg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/enzo-pioppo2.jpeg</image:loc>
       <image:title>Enzo Pioppo — champion du Monde — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Enzo Pioppo — champion du Monde, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/walkout-gala.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/walkout-gala.jpg</image:loc>
       <image:title>Le walk-out, soir de gala — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le walk-out, soir de gala, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/anna-boullez-sparring.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/anna-boullez-sparring.jpg</image:loc>
       <image:title>Anna Boullez au travail — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Anna Boullez au travail, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/victoire-gala.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/victoire-gala.jpg</image:loc>
       <image:title>Victoire en gala — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Victoire en gala, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/gala-corner.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/gala-corner.jpg</image:loc>
       <image:title>Le coin de gala — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le coin de gala, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-03.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-03.jpg</image:loc>
       <image:title>Les sacs Metal Boxe — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les sacs Metal Boxe, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/tapia-corner.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/tapia-corner.jpg</image:loc>
       <image:title>Valentin Tapia dans le coin — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Valentin Tapia dans le coin, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/gala-kick-01.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/gala-kick-01.jpg</image:loc>
       <image:title>Gala — high kick — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Gala — high kick, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/gala-kick-02.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/gala-kick-02.jpg</image:loc>
       <image:title>Gala — combination — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Gala — combination, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-05.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-05.jpg</image:loc>
       <image:title>Entraînement au sac — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Entraînement au sac, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/pauline-re-combat.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/pauline-re-combat.jpg</image:loc>
       <image:title>Pauline Re en combat — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Pauline Re en combat, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-06.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-06.jpg</image:loc>
       <image:title>Le ring vu de l’extérieur — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le ring vu de l’extérieur, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/anna-boullez-coin.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/anna-boullez-coin.jpg</image:loc>
       <image:title>Anna Boullez — coin de ring — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Anna Boullez — coin de ring, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-07.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-07.jpg</image:loc>
       <image:title>L’ambiance du club — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>L’ambiance du club, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/pauline-re-victoire.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/pauline-re-victoire.jpg</image:loc>
       <image:title>Pauline Re — victoire — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Pauline Re — victoire, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-08.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-08.jpg</image:loc>
       <image:title>Zone de combat au sol — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Zone de combat au sol, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/pinto-savate-01.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/pinto-savate-01.jpg</image:loc>
       <image:title>Samuel Pinto — savate — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Samuel Pinto — savate, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-09.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-09.jpg</image:loc>
       <image:title>Détail du ring — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Détail du ring, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-10.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-10.jpg</image:loc>
       <image:title>Le matériel d’entraînement — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le matériel d’entraînement, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/pinto-fight-02.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/pinto-fight-02.jpg</image:loc>
       <image:title>Samuel Pinto en combat — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Samuel Pinto en combat, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/gala-kick-03.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/gala-kick-03.jpg</image:loc>
       <image:title>Gala — mise au sol — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Gala — mise au sol, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-11.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-11.jpg</image:loc>
       <image:title>Les gants suspendus — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les gants suspendus, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/loyna-cagniac.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/loyna-cagniac.jpg</image:loc>
       <image:title>Loyna Cagniac — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Loyna Cagniac, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-12.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-12.jpg</image:loc>
       <image:title>Vue d’ensemble — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Vue d’ensemble, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/mourad-berraho.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/mourad-berraho.jpg</image:loc>
       <image:title>Mourad Berraho — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Mourad Berraho, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-13.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-13.jpg</image:loc>
       <image:title>Les cordes du ring — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Les cordes du ring, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/anna-boullez-garde.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/anna-boullez-garde.jpg</image:loc>
       <image:title>Anna Boullez — en garde — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Anna Boullez — en garde, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-14.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-14.jpg</image:loc>
       <image:title>Le mur de sacs — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Le mur de sacs, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/team/pinto-savate-02.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/team/pinto-savate-02.jpg</image:loc>
       <image:title>Pinto — boxe française — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Pinto — boxe française, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/gym-15.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/gym-15.jpg</image:loc>
       <image:title>L’espace de travail — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>L’espace de travail, photographié au Boxing Center Portet, 61 route d'Espagne.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/plannings/</loc>
+    <loc>https://www.boxing-center-portet.fr/plannings/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/tarifs/</loc>
+    <loc>https://www.boxing-center-portet.fr/tarifs/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/partenaires/</loc>
+    <loc>https://www.boxing-center-portet.fr/partenaires/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/partners/kfc.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/partners/kfc.jpg</image:loc>
       <image:title>KFC — partenaire du Boxing Center Portet</image:title>
       <image:caption>KFC, partenaire du club de boxe de Portet-sur-Garonne.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/partners/o2.jpg</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/partners/o2.jpg</image:loc>
       <image:title>O2 Portet-sur-Garonne — partenaire du club</image:title>
       <image:caption>O2 Portet-sur-Garonne accompagne le Boxing Center.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://boxing-center-portet.fr/img/partners/karting-muret.png</image:loc>
+      <image:loc>https://www.boxing-center-portet.fr/img/partners/karting-muret.png</image:loc>
       <image:title>Karting 2 Muret — partenaire du club</image:title>
       <image:caption>Karting 2 Muret, dont le logo est peint sur la toile du ring.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/contact/</loc>
+    <loc>https://www.boxing-center-portet.fr/contact/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/llms.txt</loc>
+    <loc>https://www.boxing-center-portet.fr/llms.txt</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://boxing-center-portet.fr/llms-full.txt</loc>
+    <loc>https://www.boxing-center-portet.fr/llms-full.txt</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.3</priority>

@@ -22,7 +22,7 @@ if (PREVIEW) {
   } catch {}
 }
 
-export const IMG = "https://boxing-center-portet.fr";
+export const IMG = "https://www.boxing-center-portet.fr";
 
 /* ----------------------------- SITE ----------------------------- */
 const DEF_SITE = {
