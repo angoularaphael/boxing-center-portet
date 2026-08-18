@@ -1,6 +1,6 @@
 # Boxing Center Portet — fiche complète pour assistants IA
-# https://www.boxing-center-portet.fr/llms-full.txt · généré le 2026-08-17
-# Résumé : https://www.boxing-center-portet.fr/llms.txt
+# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-17
+# Résumé : https://boxing-center-portet.fr/llms.txt
 
 ## Identité
 
@@ -185,7 +185,7 @@ Badge d’accès : 34 € à l’inscription. Aucun autre frais caché.
 
 ## Première séance
 
-Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil coach, gants prêtés, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : https://www.boxing-center-portet.fr/premiere-seance/
+Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil coach, gants prêtés, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : https://boxing-center-portet.fr/premiere-seance/
 
 ## Réseau
 

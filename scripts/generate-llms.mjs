@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
 const jour = new Date().toISOString().slice(0, 10);
-const SITE = "https://www.boxing-center-portet.fr";
+const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
 const s = C.site || {};
 const a = s.address || {};

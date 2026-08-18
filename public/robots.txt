@@ -1,4 +1,4 @@
-# https://www.boxing-center-portet.fr/llms.txt
+# https://boxing-center-portet.fr/llms.txt
 # Instructions pour les agents IA : /ai.txt
 
 User-agent: Googlebot
@@ -81,4 +81,4 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-Sitemap: https://www.boxing-center-portet.fr/sitemap.xml
+Sitemap: https://boxing-center-portet.fr/sitemap.xml

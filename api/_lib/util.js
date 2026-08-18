@@ -32,8 +32,8 @@ export function ipOf(req) {
 /* CORS : reflet d'une liste blanche — plus de « * ». Le site vit sur son
    propre domaine ; le préprod Vercel et le dev local restent autorisés. */
 const ORIGINS = new Set([
-  "https://www.boxing-center-portet.fr",
-  "https://www.boxing-center-portet.fr",
+  "https://boxing-center-portet.fr",
+  "https://boxing-center-portet.fr",
   "http://localhost:5173",
   "http://localhost:4173",
 ]);
@@ -43,7 +43,7 @@ export function allowCors(res, req) {
     ORIGINS.has(origin) ||
     /^https:\/\/boxing-center-portet[a-z0-9-]*\.vercel\.app$/.test(origin) ||
     origin === (process.env.CORS_ORIGIN || "");
-  res.setHeader("Access-Control-Allow-Origin", ok ? origin : "https://www.boxing-center-portet.fr");
+  res.setHeader("Access-Control-Allow-Origin", ok ? origin : "https://boxing-center-portet.fr");
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-token");
