@@ -247,7 +247,7 @@
       "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
       "feature": true,
       "cta": "Je profite de l’offre",
-      "href": "https://boutique.boxingcenter.fr/abonnements#promo"
+      "href": "https://boutique.boxingcenter.fr/offre/29"
     },
     {
       "name": "Saison · 12 mois",
@@ -258,7 +258,7 @@
       "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.",
       "feature": false,
       "cta": "Je prends ma saison",
-      "href": "https://boutique.boxingcenter.fr/abonnements#promo"
+      "href": "https://boutique.boxingcenter.fr/offre/259"
     },
     {
       "name": "Adulte",
@@ -285,7 +285,7 @@
       "note": "T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.",
       "feature": false,
       "cta": "J’inscris mon enfant",
-      "href": "https://boutique.boxingcenter.fr/abonnements#enfants"
+      "href": "https://boutique.boxingcenter.fr/abonnements"
     },
     {
       "name": "Baby Boxe",
@@ -294,7 +294,7 @@
       "note": "Le premier gant, à hauteur d’enfant : motricité, confiance, respect.",
       "feature": false,
       "cta": "J’inscris mon enfant",
-      "href": "https://boutique.boxingcenter.fr/abonnements#enfants"
+      "href": "https://boutique.boxingcenter.fr/abonnements"
     },
     {
       "name": "Séance d’essai",

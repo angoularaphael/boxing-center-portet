@@ -1,6 +1,6 @@
 # Boxing Center Portet — https://boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-08-17
+# Dernière mise à jour : 2026-08-19
 # Version étendue : https://boxing-center-portet.fr/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.

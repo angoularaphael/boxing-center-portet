@@ -27,7 +27,7 @@ function navMarkup(path: string) {
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>
-        <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/abonnements#promo" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
+        <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -47,7 +47,7 @@ function navMarkup(path: string) {
     <div class="menu__foot">
       <a class="menu__ext" href="${GROUP}" target="_blank" rel="noopener">Le groupe Boxing Center ${svgExt}</a>
       <a class="menu__ext" href="${SHOP}" target="_blank" rel="noopener">Boutique ${svgExt}</a>
-      <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/abonnements#promo" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
+      <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -61,7 +61,7 @@ function footerMarkup() {
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
-            <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/abonnements#promo" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
+            <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
             <a class="btn btn--ghost" href="https://boutique.boxingcenter.fr/seance-essai" target="_blank" rel="noopener">Ma séance d’essai · 10€</a>
           </div>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>

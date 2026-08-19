@@ -1,5 +1,5 @@
 # Boxing Center Portet — fiche complète pour assistants IA
-# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-17
+# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-19
 # Résumé : https://boxing-center-portet.fr/llms.txt
 
 ## Identité
@@ -78,11 +78,11 @@ Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Val
 
 ### Offre Rentrée — 29€ par personne / 4 semaines
 Prix barré : 44€. 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
-Réserver : https://boutique.boxingcenter.fr/abonnements#promo
+Réserver : https://boutique.boxingcenter.fr/offre/29
 
 ### Saison · 12 mois — 259€ l’année · 4× sans frais
 Prix barré : 400€. Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.
-Réserver : https://boutique.boxingcenter.fr/abonnements#promo
+Réserver : https://boutique.boxingcenter.fr/offre/259
 
 ### Adulte — 44€ / 4 semaines
 L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
@@ -94,11 +94,11 @@ Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
 
 ### Enfants / Ados — 295€ / an
 T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
-Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
+Réserver : https://boutique.boxingcenter.fr/abonnements
 
 ### Baby Boxe — 250€ / an
 Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
-Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
+Réserver : https://boutique.boxingcenter.fr/abonnements
 
 ### Séance d’essai — 10€ toutes disciplines
 Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.
