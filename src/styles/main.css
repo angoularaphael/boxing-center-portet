@@ -225,24 +225,29 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   display: flex; gap: 1.4rem; flex-wrap: wrap; justify-content: center; }
 .hero__inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;
   gap: 1.5rem; width: 100%; }
+/* LA PHOTO RECULE, LE SIGLE NE BOUGE PAS.
+   Mesure sur telephone : la bande ou vit le mot-symbole affichait une
+   luminance de 57/255 (le mur blanc de la salle) contre 20 pour le navy du
+   site. Des particules blanches sur un fond a 57 n'ont aucun contraste —
+   d'ou « le sigle n'est plus aussi visible qu'avant » (patron, 20/08).
+   Avant ecc5231 il n'y avait AUCUNE photo : le sigle brillait sur le navy.
+   On garde la photo (le patron l'a autorisee) mais on l'assombrit A LA
+   SOURCE : 0,38 -> 0,17, soit le facteur qui ramene 57 vers ~25.
+   ATTENTION : ne JAMAIS poser un voile par-dessus (.hero::after est en
+   z-index 1, donc AU-DESSUS du canvas) — ca assombrirait le sigle avec. */
 .hero__photo { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 45%;
-  filter: grayscale(1) contrast(1.15) brightness(0.38); }
+  filter: grayscale(1) contrast(1.05) brightness(0.17); }
 /* max-width etait a 16ch : « PORTET-SUR-GARONNE » fait DIX-HUIT caracteres,
    il ne pouvait donc PAS tenir et se cassait sur son trait d'union —
    « PORTET-SUR- / GARONNE » en pleine premiere impression (capture du
    patron, 19/08). 20ch le laisse entier, et text-wrap:balance repartit les
    deux lignes au lieu d'en laisser une orpheline. */
-/* LE SIGLE EN PARTICULES PASSE DEVANT. Ce titre a ete ajoute pour le
-   referencement (ecc5231) et ecrasait le mot-symbole : deux marques a
-   l'ecran, la vraie perdait. Ordre du patron (19/08) : le sigle doit etre
-   AU MOINS aussi visible. Le titre reste — Google en a besoin — mais il
-   redevient une ligne de reference, pas une enseigne. */
-.hero__title { font-family: var(--font-display); text-transform: uppercase; line-height: 1.15;
-  font-size: clamp(0.92rem, 1.5vw, 1.15rem); letter-spacing: 0.1em; max-width: 34ch; margin: 0 auto;
-  text-align: center; color: var(--fg); opacity: 0.72; font-weight: 600; text-wrap: balance; }
-/* le nom de la ville reste d'un seul tenant tant que la place le permet */
-.hero__title .tint { display: inline-block; }
+/* Le titre visible et la ligne d'adresse du hero ont ete RETIRES
+   (ordre du patron, 20/08 : « le hero etait bon comme il etait, on
+   avait deja retravaille le texte avec le coach »). Le h1 revient en
+   sr-only : Google le lit, l'oeil ne le voit pas, et le mot-symbole
+   en particules retrouve tout l'ecran. */
 .hero__title .tint { color: var(--accent); }
 .hero__place { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--muted); margin: 0; }
@@ -1468,3 +1473,19 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .forge__overlay { position: static; padding-block: 0; }
   .forge__head { margin-bottom: 1.4rem; }
 }
+
+
+/* == L'AFFICHE DU PLANNING ====================================================
+   Elle passe AVANT la grille : c'est le visuel que les adherents reconnaissent,
+   le meme qu'en salle et sur Instagram. Cadre clair sur fond sombre pour que
+   l'affiche (fond navy) ne se fonde pas dans la page. */
+.planning-affiche { margin: 0 auto; max-width: 1040px; }
+.planning-affiche a { display: block; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out); }
+.planning-affiche a:hover { transform: translateY(-4px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.16); }
+.planning-affiche img { width: 100%; height: auto; display: block; }
+.planning-affiche figcaption { margin-top: 0.9rem; text-align: center;
+  font-size: 0.86rem; color: rgba(238, 241, 246, 0.6); }
+@media (max-width: 700px) { .planning-affiche a { border-radius: 10px; } }

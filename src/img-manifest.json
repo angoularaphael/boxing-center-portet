@@ -417,6 +417,37 @@
   ],
   "ar": 1.1897
  },
+ "/img/planning/provisoire-1200.webp": {
+  "w": [
+   480,
+   960
+  ],
+  "ar": 1.1152
+ },
+ "/img/planning/provisoire-1800.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.1152
+ },
+ "/img/planning/provisoire-1800.webp": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.1152
+ },
+ "/img/planning/provisoire-2600.webp": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1.1154
+ },
  "/img/portet-exterior.jpg": {
   "w": [
    480,
