@@ -217,8 +217,19 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .hero__canvas { position: absolute; inset: 0; z-index: 0; }
 .hero__canvas canvas { width: 100% !important; height: 100% !important; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(to top, var(--hero-bg) 6%, transparent 42%),
+  background:
+    /* LE VOILE CENTRAL. La vignette ci-dessous est transparente jusqu'a 46 %
+       au centre — exactement la ou vit le titre. Le sigle en particules
+       ressortait donc a pleine force DERRIERE les lettres : deux textes
+       superposes, illisibles (retour du patron, 19/08). Ce voile pose un
+       fond doux sous le bloc de texte et laisse les particules respirer
+       tout autour. L'effet signature est intact, le titre redevient net. */
+    radial-gradient(62% 44% at 50% 46%, rgba(5, 9, 18, 0.78) 0%, rgba(5, 9, 18, 0.5) 58%, transparent 100%),
+    linear-gradient(to top, var(--hero-bg) 6%, transparent 42%),
     radial-gradient(130% 80% at 50% 32%, transparent 46%, var(--hero-bg) 100%); }
+/* Le sigle en particules est un FOND : a pleine opacite il rivalisait avec
+   le titre au lieu de le porter. */
+.hero__canvas { opacity: 0.62; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .hero__kicker { position: absolute; top: calc(var(--nav-h) + 1.4rem); left: 0; right: 0; z-index: 2;
@@ -228,13 +239,24 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .hero__photo { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 45%;
   filter: grayscale(1) contrast(1.15) brightness(0.38); }
+/* max-width etait a 16ch : « PORTET-SUR-GARONNE » fait DIX-HUIT caracteres,
+   il ne pouvait donc PAS tenir et se cassait sur son trait d'union —
+   « PORTET-SUR- / GARONNE » en pleine premiere impression (capture du
+   patron, 19/08). 20ch le laisse entier, et text-wrap:balance repartit les
+   deux lignes au lieu d'en laisser une orpheline. */
 .hero__title { font-family: var(--font-display); text-transform: uppercase; line-height: 1.04;
-  font-size: clamp(1.7rem, 4.2vw, 3.4rem); max-width: 16ch; margin: 0 auto; text-align: center; color: var(--fg); }
+  font-size: clamp(1.7rem, 4.2vw, 3.4rem); max-width: 20ch; margin: 0 auto; text-align: center; color: var(--fg);
+  text-wrap: balance; }
+/* le nom de la ville reste d'un seul tenant tant que la place le permet */
+.hero__title .tint { display: inline-block; }
 .hero__title .tint { color: var(--accent); }
 .hero__place { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--muted); margin: 0; }
-.hero__hook { font-family: var(--font-display); text-transform: uppercase; line-height: 1.04;
-  font-size: clamp(1.1rem, 2.4vw, 1.7rem); max-width: 24ch; margin-inline: auto; color: var(--fg); }
+/* 24ch coupait l'accroche en quatre lignes bancales, la derniere ne portant
+   que « VIE. ». balance egalise les lignes ; 30ch evite l'orpheline. */
+.hero__hook { font-family: var(--font-display); text-transform: uppercase; line-height: 1.12;
+  font-size: clamp(1.1rem, 2.4vw, 1.7rem); max-width: 30ch; margin-inline: auto; color: var(--fg);
+  text-wrap: balance; }
 .hero__hook .tint { color: var(--accent); }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
 .hero__scroll { position: relative; z-index: 2; justify-content: center; }
@@ -1438,7 +1460,13 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .tcard__role { opacity: 0.72; font-size: 0.88rem; margin: 0; }
 .tcard__desc { margin-top: 0.55rem; font-size: 0.92rem; line-height: 1.55; opacity: 0.9; }
 @media (max-width: 899px) {
-  /* la sequence 3D au defilement n'a pas sa place sur un petit ecran :
-     les cartes portent la page, la forge se retire */
-  .forge { display: none; }
+  /* CORRECTION : « display:none » sur .forge supprimait la section ENTIERE —
+     titre compris. Sur petit ecran on retire seulement la SEQUENCE 3D (le
+     canvas colle qui exige un long defilement) ; l'en-tete reste, et les
+     cartes juste dessous portent l'information. */
+  .forge { min-height: 0; }
+  .forge__sticky { position: static; height: auto; min-height: 0; }
+  .forge__canvas, .forge__word, .forge__card, .forge__toggle { display: none; }
+  .forge__overlay { position: static; padding-block: 0; }
+  .forge__head { margin-bottom: 1.4rem; }
 }

@@ -404,6 +404,17 @@
       <li>Mourad & Ingrid — boxe anglaise et kick boxing enfants/ados</li>
     </ul>
   </section>
+    <!-- LES COACHS EN CLAIR. La forge ci-dessus est une sequence WebGL :
+         ses champs nom/role/description sont VIDES dans le HTML, remplis
+         par le module 3D. Si la 3D tarde, echoue, ou si on defile trop
+         vite, la section ne montre RIEN — la plainte du patron (« ou sont
+         les coachs ? »). Ces cartes sont le socle : cuites au build,
+         lisibles sans un octet de JavaScript, sur tous les ecrans. -->
+    <section class="section" aria-label="Les coachs du club">
+      <div class="wrap">
+        <div class="team-cards" id="team-cards" data-reveal-group></div>
+      </div>
+    </section>
   <section class="showcase">
     <div class="showcase__frame">
       <img class="showcase__img" src="/img/disc/showcase-gala.jpg" srcset="/img/opt/disc/showcase-gala-480.webp 480w, /img/opt/disc/showcase-gala-960.webp 960w, /img/opt/disc/showcase-gala-1440.webp 1440w" sizes="100vw" alt="Compétition de boxe anglaise Boxing Center — deux boxeuses au corps à corps sur le ring, un soir de gala" loading="lazy" decoding="async" width="1600" height="1200">
