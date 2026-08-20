@@ -17,7 +17,7 @@ export function mountWorld() {
   } catch {
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
   renderer.setClearColor(0x000000, 0);
   const canvas = renderer.domElement;
   canvas.id = "world";

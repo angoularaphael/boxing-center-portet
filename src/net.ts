@@ -9,8 +9,12 @@ const conn = (navigator as unknown as { connection?: NetInfo }).connection;
 
 export const saveData = !!conn?.saveData;
 export const slowNetwork = saveData || /(^|-)2g$/.test(conn?.effectiveType || "");
-const narrowViewport = typeof window !== "undefined" && window.innerWidth < 760;
-
 /** True → skip three.js scenes and ambient background videos.
- *  Téléphone + 2G / Save-Data : le hero photo + le HTML suffisent à Google et au visiteur. */
-export const liteMode = slowNetwork || narrowViewport;
+ *
+ *  UNIQUEMENT les vraies connexions contraintes (Save-Data / 2G). La coupe
+ *  « WebGL désactivé sous 760 px » (ecc5231) est revenue sur ordre d'Eddy
+ *  (19/08) : le téléphone doit vivre la MÊME interface que le PC — tunnel,
+ *  ring, braises. La vitesse se gagne autrement : les scènes plafonnent
+ *  leur pixel ratio à 1,5 sous 760 px, se montent en différé quand leur
+ *  section approche, et se rangent dès qu'elle sort de l'écran. */
+export const liteMode = slowNetwork;

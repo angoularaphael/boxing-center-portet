@@ -77,7 +77,7 @@ export async function initShowcaseGL(frame: HTMLElement) {
   } catch {
     return; // keep the plain <img>
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.5 : 2)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
 
   let tex: THREE.Texture;
   try {

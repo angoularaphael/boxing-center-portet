@@ -13,7 +13,7 @@ export function initGateRing(host: HTMLElement) {
   } catch {
     return () => {};
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.5 : 1.5)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 

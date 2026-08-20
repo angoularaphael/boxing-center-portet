@@ -68,7 +68,7 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
   try {
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
   } catch { return null; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.5 : 2)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 

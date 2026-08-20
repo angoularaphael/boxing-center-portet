@@ -46,7 +46,7 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
   } catch {
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 2 : 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 1.75));
   renderer.setClearColor(0x000000, 0);
   host.appendChild(renderer.domElement);
 

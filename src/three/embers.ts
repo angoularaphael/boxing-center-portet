@@ -29,10 +29,10 @@ export function initEmbers(container: HTMLElement) {
 
   /* Sur un très petit écran, on ne monte rien du tout : le gain visuel ne
      paie pas le contexte WebGL sur un téléphone d'entrée de gamme. */
-  if (window.innerWidth < 420) return;
+  if (window.innerWidth < 320) return;   // meme un telephone de 375 px a droit a ses braises (palier 110 particules)
 
   const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: "low-power" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.5 : 1.75)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
   renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);
 

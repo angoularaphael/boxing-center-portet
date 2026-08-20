@@ -1025,7 +1025,9 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .nav__links a { font-size: 0.84rem; }
 }
 @media (max-width: 620px) {
-  .sound-toggle { display: none; }
+  /* le coupe-son RESTE : la musique d'ambiance joue aussi sur telephone,
+     la cacher ici laissait le visiteur sans aucun moyen de l'arreter
+     (plainte d'Eddy, 19/08) */
   .brand__loc { display: none; }
 }
 @media (max-width: 480px) {
