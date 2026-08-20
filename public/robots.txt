@@ -18,6 +18,8 @@ Allow: /
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 
 # Crawlers IA — contenu public uniquement
 User-agent: GPTBot
