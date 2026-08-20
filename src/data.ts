@@ -112,6 +112,11 @@ export const TARIFS: Tarif[] = C.tarifs || [];
 export type PlanningDay = { day: string; items: [string, string][] };
 export const PLANNING: PlanningDay[] = C.planning || [];
 export const PLANNING_MMA: PlanningDay[] = C.planningMma || [];
+export const PLANNING_PROVISOIRE: PlanningDay[] = C.planningProvisoire || [];
+/* L'interrupteur du patron : false tant que le materiel des nouvelles
+   salles n'est pas arrive (livraison par bateau, sans date). Le jour J,
+   on passe a true et le double planning remplace le provisoire. */
+export const NOUVELLES_SALLES: boolean = C.nouvellesSalles === true;
 
 export type GalleryItem = { src: string; label: string; span?: string };
 export const GALLERY: GalleryItem[] = C.gallery || [];

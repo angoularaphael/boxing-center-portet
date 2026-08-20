@@ -1,4 +1,4 @@
-import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, SITE, NETWORK_SALLES } from "./data";
+import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, PLANNING_PROVISOIRE, NOUVELLES_SALLES, SITE, NETWORK_SALLES } from "./data";
 import { submitLead } from "./chatbot/api";
 import { optUrl } from "./img";
 
@@ -201,8 +201,13 @@ export function renderPage(page: string | undefined) {
         </div>`
       ).join("");
     };
-    paint("planning-grid", PLANNING);
-    paint("planning-mma-grid", PLANNING_MMA);
+    paint("planning-provisoire-grid", PLANNING_PROVISOIRE);
+    if (NOUVELLES_SALLES) {
+      const def = document.getElementById("plannings-definitifs");
+      if (def) def.hidden = false;
+      paint("planning-grid", PLANNING);
+      paint("planning-mma-grid", PLANNING_MMA);
+    }
   }
 
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.

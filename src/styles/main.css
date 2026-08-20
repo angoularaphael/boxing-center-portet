@@ -1196,7 +1196,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 /* photos des boxeurs — identifiées par le club, jamais un visage au hasard */
 .boxer { padding-top: 0; overflow: hidden; }
 .boxer__photo { margin: 0 calc(-1 * clamp(1.4rem, 3vw, 2rem)); }
-.boxer__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 22%; display: block; }
+.boxer__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 22%; display: block; ; height: auto; /* sans lui, l'attribut height=2048 gagne sur aspect-ratio : chaque portrait faisait 4 a 5 ecrans de haut sur telephone (mesure : 333x2048) */ }
 .boxer__tag { margin-top: 0.9rem; }
 
 /* offres : ancien prix barre + CTA par carte — le tunnel de vente sur place */
@@ -1419,4 +1419,24 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .hero__scroll { font-size: 12px; }
   .reel__tag, .disc__tag, .aud__tag, .boxer__tag, .tarif__badge, .forge__toggle { font-size: 12px; }
   .fed span { font-size: 12px; }
+}
+
+
+/* == LE REPLI COACHS ==========================================================
+   La page /coachs/ n'avait QUE la vitrine 3D (« no grid to render ») : sur
+   tout telephone ou WebGL echoue ou peine, zero visuel — la plainte exacte
+   du patron (« on les voit, on ne les voit pas »). Les cartes HTML sont
+   desormais le socle, cuites au build depuis content.json ; la forge 3D
+   reste l'experience de bureau, par-dessus. */
+.team-cards { display: grid; gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.tcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; }
+.tcard img { width: 100%; height: auto; display: block; }
+.tcard__body { padding: 1rem 1.1rem 1.3rem; }
+.tcard__body h3 { font-size: 1.15rem; margin: 0 0 0.25rem; }
+.tcard__role { opacity: 0.72; font-size: 0.88rem; margin: 0; }
+.tcard__desc { margin-top: 0.55rem; font-size: 0.92rem; line-height: 1.55; opacity: 0.9; }
+@media (max-width: 899px) {
+  /* la sequence 3D au defilement n'a pas sa place sur un petit ecran :
+     les cartes portent la page, la forge se retire */
+  .forge { display: none; }
 }

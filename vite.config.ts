@@ -53,14 +53,27 @@ function seoBakePlugin() {
           remplir("values-grid", "values", (content.values || []).map((v: any) =>
             `<article class="value" data-reveal><span class="value__n">${e(v.n)}</span>`
             + `<h3 class="value__title">${e(v.title)}</h3><p class="value__desc">${e(v.desc)}</p></article>`).join(""));
-          remplir("planning-grid", "planning", (content.planning || []).map((c: any) =>
+          /* Les cartes coachs — le repli HTML de la forge 3D (plainte mobile du
+             patron). Cuites ici : visibles meme sans un octet de JavaScript. */
+          remplir("team-cards", "team-cards", (content.team || []).map((m: any) =>
+            `<article class="tcard" data-reveal><img src="${e(m.img)}" alt="${e(m.name)} — ${e(m.role)}" loading="lazy" decoding="async" width="600" height="750" />`
+            + `<div class="tcard__body"><h3>${e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join(""));
+          remplir("planning-provisoire-grid", "planning", (content.planningProvisoire || []).map((c: any) =>
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
-            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
+            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__a">${e(i[1])}</span></div>`).join("")
             + `</div>`).join(""));
-          remplir("planning-mma-grid", "planning", (content.planningMma || []).map((c: any) =>
-            `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
-            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
-            + `</div>`).join(""));
+          /* Les grilles definitives ne cuisent que si le patron a ouvert les
+             nouvelles salles — sinon meme un crawler ne doit pas les lire. */
+          if (content.nouvellesSalles === true) {
+            remplir("planning-grid", "planning", (content.planning || []).map((c: any) =>
+              `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
+              + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
+              + `</div>`).join(""));
+            remplir("planning-mma-grid", "planning", (content.planningMma || []).map((c: any) =>
+              `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
+              + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
+              + `</div>`).join(""));
+          }
 
           /* LA GALERIE — la dernière grille encore vide, et la plus coûteuse.
              La page qui existe pour MONTRER la salle ne contenait pas une

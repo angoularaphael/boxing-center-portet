@@ -688,7 +688,7 @@
     },
     "plannings": {
       "title": "Planning des cours | Boxing Center Portet",
-      "description": "Planning hebdomadaire des cours de boxe anglaise, kick-boxing, MMA, grappling & JJB, préparation physique et baby boxe à Portet-sur-Garonne."
+      "description": "Le planning provisoire en vigueur au Boxing Center Portet : boxe anglaise, kick, boxe éducative dès 4 ans, préparation physique — 6j/7, 61 route d'Espagne. Téléchargeable en PDF."
     },
     "tarifs": {
       "title": "Tarifs boxe Portet | rentrée 29€, saison 259€",
@@ -703,6 +703,159 @@
       "description": "Les partenaires qui font grandir le Boxing Center Portet : KFC, O2 Portet-sur-Garonne et Karting 2 Muret. Devenir partenaire, privatiser la salle ou monter un projet : contactez-nous."
     }
   },
+  "nouvellesSalles": false,
+  "planningProvisoire": [
+    {
+      "day": "Lundi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Boxe Anglaise"
+        ],
+        [
+          "18:00 – 19:00",
+          "Boxe Éducative Confirmés"
+        ],
+        [
+          "19:00 – 21:30",
+          "Boxe Amateurs & Pros"
+        ]
+      ]
+    },
+    {
+      "day": "Mardi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Préparation Physique"
+        ],
+        [
+          "18:00 – 19:00",
+          "Lady Kick"
+        ],
+        [
+          "19:00 – 20:00",
+          "Kick / K1"
+        ],
+        [
+          "20:00 – 21:30",
+          "Anglaise Loisirs"
+        ]
+      ]
+    },
+    {
+      "day": "Mercredi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Kick / K1"
+        ],
+        [
+          "14:00 – 15:00",
+          "Kick Enfants"
+        ],
+        [
+          "15:00 – 16:00",
+          "Kick Ados"
+        ],
+        [
+          "16:00 – 17:00",
+          "Boxe Éducative 7/11 ans"
+        ],
+        [
+          "17:00 – 18:00",
+          "Boxe Éducative 12/16 ans"
+        ],
+        [
+          "18:00 – 19:00",
+          "Boxing Lady"
+        ],
+        [
+          "19:00 – 20:00",
+          "Préparation Physique"
+        ],
+        [
+          "20:00 – 21:30",
+          "Kick / K1"
+        ]
+      ]
+    },
+    {
+      "day": "Jeudi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Boxe Anglaise"
+        ],
+        [
+          "18:00 – 19:00",
+          "Lady Kick"
+        ],
+        [
+          "19:00 – 20:00",
+          "Kick / K1"
+        ],
+        [
+          "20:00 – 21:30",
+          "Anglaise Loisirs"
+        ]
+      ]
+    },
+    {
+      "day": "Vendredi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Sparring Anglaise & Kick"
+        ],
+        [
+          "18:00 – 19:00",
+          "Boxe Amateurs & Pros"
+        ],
+        [
+          "19:00 – 21:30",
+          "Sparring Anglaise & Kick"
+        ]
+      ]
+    },
+    {
+      "day": "Samedi",
+      "items": [
+        [
+          "10:00 – 11:00",
+          "Boxe Française"
+        ],
+        [
+          "10:00 – 11:00",
+          "Kick Enfants"
+        ],
+        [
+          "11:00 – 12:00",
+          "Préparation Physique"
+        ],
+        [
+          "11:00 – 12:00",
+          "Kick Ados"
+        ],
+        [
+          "12:30 – 13:30",
+          "Boxe Anglaise"
+        ],
+        [
+          "15:00 – 16:00",
+          "Baby Boxe 4/6 ans"
+        ],
+        [
+          "16:00 – 17:00",
+          "Boxe Éducative 7/11 ans"
+        ],
+        [
+          "17:00 – 18:00",
+          "Boxe Éducative 12/16 ans"
+        ]
+      ]
+    }
+  ],
   "planningMma": [
     {
       "day": "Lundi",

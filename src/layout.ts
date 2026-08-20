@@ -17,7 +17,7 @@ function navMarkup(path: string) {
     <div class="nav__inner">
       <a class="brand" href="/" aria-label="Boxing Center Portet — accueil">
         <span class="dot"></span>
-        <img class="brand__logo" src="/logo.png" alt="Boxing Center" width="150" height="71" />
+        <img class="brand__logo" src="/logo-nav.png" alt="Boxing Center" width="150" height="71" />
         <span class="brand__loc">Portet</span>
       </a>
       <div class="nav__links">${links}</div>
@@ -37,7 +37,7 @@ function navMarkup(path: string) {
   <div class="menu" id="menu" translate="no">
     <div class="menu__head">
       <a href="/" class="menu__logo-link" aria-label="Boxing Center Portet — accueil">
-        <img class="menu__logo" src="/logo.png" alt="Boxing Center Portet" width="150" height="71" />
+        <img class="menu__logo" src="/logo-nav.png" alt="Boxing Center Portet" width="150" height="71" />
       </a>
       <button class="icon-btn menu__close" id="menu-close" aria-label="Fermer le menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
