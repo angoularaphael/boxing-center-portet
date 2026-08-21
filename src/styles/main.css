@@ -1121,7 +1121,11 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
      visible (≈ 27–73 % de l'image) le coupait entièrement hors cadre. */
   .ring__photo {
     display: block; position: absolute; inset: 0; z-index: 0;
-    background: #0a1020 url(/img/opt/gym-21-960.webp) 6% 54% / cover no-repeat;
+    /* L'URL n'est plus écrite ici. Une image de fond CSS part dès que sa
+       règle s'applique : ces 114 Ko partaient au chargement de la page alors
+       que la section est quatre écrans plus bas. Elle arrive maintenant par
+       data-bg + --img (initLazyBackgrounds), à l'approche de la section. */
+    background: #0a1020 var(--img) 6% 54% / cover no-repeat;
     opacity: 0; transition: opacity 0.55s var(--ease-out);
   }
   /* voile navy : le texte final (l'offre) doit rester lisible sur les murs

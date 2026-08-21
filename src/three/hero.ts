@@ -38,6 +38,10 @@ export async function initHero(container: HTMLElement) {
 
   // ---------- sample the crest into target points ----------
   const targets = await sampleLogo("/logo.png", 3200, 6.2);
+  /* Le rideau attend ce signal. C'est ici, et pas avant, que le hero a de
+     quoi dessiner son mot-symbole : le logo est chargé, les 3 200 points
+     sont calculés. Entrer avant, c'est entrer sur un écran vide. */
+  try { window.dispatchEvent(new Event("bcp:hero-pret")); } catch {}
   const N = targets.length / 3;
 
   const pos = new Float32Array(N * 3);
@@ -222,7 +226,13 @@ export async function initHero(container: HTMLElement) {
 async function sampleLogo(url: string, want: number, worldW: number): Promise<Float32Array> {
   const img = await new Promise<HTMLImageElement>((res, rej) => {
     const i = new Image();
-    i.crossOrigin = "anonymous";
+    /* PAS de crossOrigin. L'image vient de la MÊME origine : le canvas
+       n'est donc pas contaminé et getImageData continue de fonctionner. En
+       revanche crossOrigin crée une entrée de cache SÉPARÉE de celle du
+       <img> du rideau — le même fichier partait deux fois. Mesuré au
+       navigateur : 814 Ko x 2 sur les 2,0 Mo du premier chargement, pour un
+       seul logo. Le fichier logo.png n'est pas modifié : seul le nombre de
+       requêtes change. */
     i.onload = () => res(i);
     i.onerror = rej;
     i.src = url;

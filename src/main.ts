@@ -62,6 +62,38 @@ function renderHomeGrids() {
         { rootMargin: "900px 0px" });
       io.observe(section);
     } else charger();
+
+    /* ET SURTOUT : on réchauffe pendant le rideau. Le visiteur regarde
+       l'entrée pendant une à huit secondes selon sa connexion ; c'est du
+       temps de réseau offert. On demande les huit images en priorité BASSE,
+       une fois le navigateur au repos : elles ne disputent rien au premier
+       écran, mais elles sont en cache quand le visiteur arrive sur le
+       carrousel. C'est ce qui rend le défilement fluide au lieu de le faire
+       attendre à chaque section. */
+    const rechauffer = () => imgs.forEach((im) => {
+      if (!im.src) return;
+      const p = new Image();
+      (p as any).fetchPriority = "low";
+      p.decoding = "async";
+      /* On recopie srcset ET sizes AVANT src : sans eux, le navigateur
+         prendrait le src de repli, c'est-à-dire le JPEG plein format. Mesuré :
+         276 Ko au lieu de 44 pour la même image sur un téléphone. L'ordre
+         compte — src posé en premier déclencherait la mauvaise requête. */
+      if (im.srcset) p.srcset = im.srcset;
+      if (im.sizes) p.sizes = im.sizes;
+      p.src = im.src;
+    });
+    /* On attend que le rideau soit LEVÉ. Lancé pendant, le réchauffage lui
+       disputait la bande passante et repoussait l'ouverture. Le visiteur qui
+       revient dans la session n'a pas de rideau : pour lui, on part au
+       premier moment de repos du navigateur. */
+    const lancer = () => {
+      const auRepos = (window as any).requestIdleCallback;
+      if (typeof auRepos === "function") auRepos(rechauffer, { timeout: 3000 });
+      else window.setTimeout(rechauffer, 600);
+    };
+    if (document.querySelector(".gate")) window.addEventListener("bcp:entre", lancer, { once: true });
+    else lancer();
   }
 
   const disc = document.getElementById("disc-grid");

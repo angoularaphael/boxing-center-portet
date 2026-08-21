@@ -5,6 +5,11 @@ import { enableSound, resumeSound, prefMuted } from "./audio";
  */
 const KEY = "bcp-entered";
 
+/* Ce que le rideau attend AVANT de laisser entrer. Il n'attendait que ces
+   deux images et les polices : on entrait donc sur un site dont la photo du
+   hero et le mot-symbole n'étaient pas là. La photo du hero n'est pas dans
+   cette liste — on attend l'élément <img> RÉEL de la page, pour attendre la
+   variante que le navigateur a lui-même choisie et non une autre. */
 const PRELOAD = ["/logo.png", "/img/opt/ring-reference-480.webp"];
 
 export function initEnterGate() {
@@ -61,7 +66,8 @@ export function initEnterGate() {
     "Tout est prêt.",
   ];
 
-  const total = PRELOAD.length + 1;
+  /* +1 les polices, +1 la photo du hero, +1 le mot-symbole. */
+  const total = PRELOAD.length + 2;
   let done = 0, isReady = false, pi = 0;
   const phaseTimer = window.setInterval(() => { if (!isReady) phaseEl.textContent = PHASES[++pi % PHASES.length]; }, 900);
   const bump = () => {
@@ -92,13 +98,45 @@ export function initEnterGate() {
     im.src = src;
   });
   (document.fonts?.ready || Promise.resolve()).then(bump).catch(bump);
-  window.setTimeout(ready, 4000);
+
+  /* LA PHOTO DU HERO. C'est la première chose que l'œil voit une fois le
+     rideau levé ; elle ne doit pas arriver APRÈS. On écoute l'élément réel
+     plutôt que de reprécharger une URL : le navigateur choisit sa variante
+     dans le srcset, et on veut attendre CELLE-LÀ, pas en télécharger une
+     seconde pour rien. */
+  const photo = document.querySelector<HTMLImageElement>(".hero__photo");
+  if (photo) {
+    if (photo.complete) bump();
+    else {
+      photo.addEventListener("load", bump, { once: true });
+      photo.addEventListener("error", bump, { once: true });
+    }
+  } else bump();
+
+  /* On N'ATTEND PAS le mot-symbole. Mesuré au navigateur sur 4G bridée :
+     l'attendre repoussait l'ouverture de 7,4 à 11,8 s, et à 33 s sur 3G —
+     parce qu'il traîne le module 3D et les 814 Ko du logo derrière lui. Or
+     la photo du hero, elle, était déjà là dans les deux cas. On attend donc
+     ce qui se voit tout de suite, pas ce qui coûte cher. */
+
+  /* LE PLAFOND, compté depuis le DÉBUT DE LA NAVIGATION et non depuis
+     l'exécution de ce script. La nuance n'est pas théorique : sur 3G, le
+     script lui-même arrive avec plusieurs secondes de retard, et un
+     setTimeout(4000) posé à ce moment-là ouvrait en réalité à 16 s. On vise
+     8 s après l'arrivée sur la page, avec au moins 1,2 s de scène pour que
+     l'entrée reste une entrée et pas un clignotement. */
+  const ecoule = typeof performance !== "undefined" ? performance.now() : 0;
+  window.setTimeout(ready, Math.max(1200, 8000 - ecoule));
 
   const enter = (withSound: boolean) => {
     if (!isReady) return;
     try { sessionStorage.setItem(KEY, "1"); } catch {}
     if (withSound) enableSound();
     gate.classList.add("gate--entering");
+    /* Le site peut maintenant réchauffer la suite : le rideau ne dispute
+       plus la bande passante. Mesuré : lancé PENDANT le rideau, le
+       réchauffage repoussait l'ouverture de 7,4 à 8,1 s. */
+    try { window.dispatchEvent(new Event("bcp:entre")); } catch {}
     document.documentElement.classList.remove("gated");
     window.setTimeout(() => {
       gate.classList.add("gate--out");
