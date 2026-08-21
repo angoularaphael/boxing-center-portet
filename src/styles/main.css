@@ -1487,32 +1487,42 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
    coachs — le « bunch of blue space » signalé par le patron. */
 html.forge-live #team-cards-section { display: none; }
 
-/* LE COIN — la voix du coach entre deux rounds.
-   L'offre appartient à la structure du site (six rounds) au lieu d'y être
-   collée. Donc : sobre. Une ligne, un prix, un lien. Pas de cadre, pas de
-   fond — une bannière se contourne du regard, une voix non. L'or est le
-   code réseau de la saison (rouge = 29€, or = l'année) : il ne sert qu'au
-   chiffre et au lien, jamais à la phrase. */
-/* .round-card__inner est un flex EN LIGNE : le coin doit donc prendre une
-   ligne à lui (flex-basis 100 %), et le parent doit accepter de passer à
-   la ligne. Sans ça le coin s'ajouterait à la suite du titre du round. */
+/* LE CARTON DE ROUND — le piège, dans le langage de Portet.
+   Entre deux rounds, on lève un carton : le CHIFFRE d'abord, tout le reste
+   ensuite. C'est un objet, pas une ligne de texte — une ligne se lit et
+   s'oublie. L'or est le code réseau de la saison (rouge = 29€, or =
+   l'année) ; il ne sert qu'au chiffre, au liseré et au lien. Le carton reste
+   dans le bandeau du round : il appartient à la structure du combat au lieu
+   d'être une bannière collée dessus. */
 .round-card__inner { flex-wrap: wrap; }
-.round-card__coin { flex: 0 0 100%; margin: .55rem 0 0; display: flex; flex-wrap: wrap;
-  align-items: baseline; gap: .35rem .9rem; font-size: clamp(.86rem, 2.3vw, .98rem);
-  line-height: 1.5; color: var(--fg-soft); }
-.round-card__coin-l { font-family: var(--font-mono, monospace); font-size: .68rem; letter-spacing: .16em;
+.rcard { flex: 0 0 100%; margin-top: .9rem; display: grid; align-items: center;
+  grid-template-columns: auto auto 1fr auto; gap: .25rem 1.3rem;
+  padding: .95rem clamp(.9rem, 2.5vw, 1.4rem); border: 1px solid rgba(232,192,74,.34);
+  border-left: 3px solid #e8c04a; border-radius: 10px;
+  background: linear-gradient(100deg, rgba(232,192,74,.10), rgba(232,192,74,.02) 42%, transparent 78%);
+  transition: border-color .3s var(--ease-out), background .3s, transform .3s var(--ease-out); }
+.rcard:hover { border-color: rgba(232,192,74,.7); transform: translateY(-2px);
+  background: linear-gradient(100deg, rgba(232,192,74,.17), rgba(232,192,74,.04) 42%, transparent 78%); }
+.rcard__l { grid-row: 1; font-family: var(--font-mono, monospace); font-size: .66rem; letter-spacing: .18em;
   text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-.round-card__coin b { color: #e8c04a; font-weight: 700; }
-.round-card__coin a { color: #e8c04a; font-weight: 600; white-space: nowrap;
-  border-bottom: 1px solid rgba(232,192,74,.4); padding-bottom: 1px; transition: border-color .25s; }
-.round-card__coin a:hover { border-bottom-color: #e8c04a; }
-.round-card__coin a i { font-style: normal; display: inline-block; transition: transform .25s var(--ease-out); }
-.round-card__coin a:hover i { transform: translateX(3px); }
-@media (max-width: 620px) {
-  /* Sur téléphone la ligne passe à la verticale : la phrase garde sa
-     lisibilité et le lien reste une cible franche. */
-  .round-card__coin { flex-direction: column; gap: .3rem; }
-  .round-card__coin a { align-self: flex-start; min-height: 30px; display: inline-flex; align-items: center; }
+.rcard__prix { grid-row: 1; display: inline-flex; align-items: baseline; gap: .5ch; white-space: nowrap; }
+.rcard__prix s { font-size: .82rem; color: var(--muted); text-decoration-thickness: 1.5px; }
+.rcard__prix b { font-family: var(--font-display); font-size: clamp(1.7rem, 5.4vw, 2.5rem); line-height: .9;
+  color: #e8c04a; letter-spacing: -.01em; }
+.rcard__txt { grid-row: 1; font-size: clamp(.85rem, 2.2vw, .96rem); line-height: 1.45; color: var(--fg-soft); }
+.rcard__go { grid-row: 1; justify-self: end; white-space: nowrap; font-weight: 600; font-size: .9rem;
+  color: #17110a; background: linear-gradient(135deg, #e8c04a, #d9a441); border-radius: 999px;
+  padding: .6em 1.1em; min-height: 44px; display: inline-flex; align-items: center; gap: .5ch; }
+.rcard__go i { font-style: normal; transition: transform .25s var(--ease-out); }
+.rcard:hover .rcard__go i { transform: translateX(3px); }
+@media (max-width: 760px){
+  /* Sur téléphone le carton se plie : le chiffre en haut avec son label,
+     la phrase dessous, le bouton en pleine largeur — une cible franche. */
+  .rcard { grid-template-columns: auto 1fr; gap: .5rem .9rem; }
+  .rcard__l { grid-row: 1; grid-column: 1; align-self: end; }
+  .rcard__prix { grid-row: 1; grid-column: 2; justify-self: start; }
+  .rcard__txt { grid-row: 2; grid-column: 1 / -1; }
+  .rcard__go { grid-row: 3; grid-column: 1 / -1; justify-self: stretch; justify-content: center; }
 }
 .tcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; }
 .tcard img { width: 100%; height: auto; display: block; }

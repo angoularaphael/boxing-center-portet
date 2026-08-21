@@ -57,6 +57,7 @@ export function initPageScroll() {
   initLineReveals();
   initHeroIntro();
   initReveals();
+  filetReveal();
   initMarquee();
   initMediaReveal();
   initScrubVideo();
@@ -125,6 +126,29 @@ function initNav() {
     nav.classList.toggle("hidden", y > last && y > 400);
     last = y;
   });
+}
+
+/* LE FILET. [data-reveal] part a opacity:0. GSAP les revele, mais son
+   declencheur est cree au demarrage : tout ce que le JS peint ENSUITE
+   (grilles, cartes, coachs) n'a pas de declencheur et reste invisible pour
+   toujours. C'est ce que le patron a vu — une section avec son titre et
+   rien dedans. Ce filet ne depend d'aucune bibliotheque : ce qui entre a
+   l'ecran s'affiche, point. Il ne double pas l'animation de GSAP (il ne
+   touche que ce qui est encore a zero) et il ne coute rien : chaque
+   element n'est observe qu'une fois. */
+export function filetReveal(racine: ParentNode = document) {
+  const cibles = racine.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revele])");
+  if (!cibles.length) return;
+  const montrer = (el: HTMLElement) => {
+    el.setAttribute("data-revele", "1");
+    el.style.opacity = "1";
+    el.style.transform = "none";
+  };
+  if (!("IntersectionObserver" in window)) { cibles.forEach(montrer); return; }
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) { montrer(e.target as HTMLElement); io.unobserve(e.target); }
+  }, { rootMargin: "200px 0px" });
+  cibles.forEach((el) => io.observe(el));
 }
 
 function initReveals() {

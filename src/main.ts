@@ -1,7 +1,7 @@
 import "./styles/main.css";
 import { mountLayout } from "./layout";
 import { initThemeSwitch } from "./theme";
-import { initScroll, initPageScroll } from "./scroll";
+import { initScroll, initPageScroll, filetReveal } from "./scroll";
 import { initFxOnce, initFxPage } from "./fx";
 import { renderPage } from "./pages";
 import { initEnterGate } from "./enter";
@@ -304,7 +304,12 @@ function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) =>
           run();
         }
       },
-      { rootMargin: "240px" }
+      /* 1 400 px et non 240 : les tunnels font 1 561 px de haut. A 240 px
+         d'avance, on defile vite et on atterrit dans une section qui n'a
+         pas encore commence a se monter — du navy sur une fenetre et demie.
+         Les images sont deja rechauffees (voir renderHomeGrids), le montage
+         est donc quasi instantane. */
+      { rootMargin: "1400px 0px" }
     );
     io.observe(el);
   } else {
@@ -320,6 +325,9 @@ function bootPage() {
   if (page === "galerie") renderMedia();
 
   initLazyBackgrounds();
+  /* Le filet repasse APRES la peinture : les grilles, cartes et coachs
+     viennent d'etre ecrits, ils n'avaient pas de declencheur au demarrage. */
+  filetReveal();
   initPageScroll();
   initFxPage();
 
