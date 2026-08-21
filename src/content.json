@@ -295,15 +295,6 @@
       "feature": false,
       "cta": "J’inscris mon enfant",
       "href": "https://boutique.boxingcenter.fr/abonnements"
-    },
-    {
-      "name": "Séance d’essai",
-      "price": "10€",
-      "unit": "toutes disciplines",
-      "note": "Tu viens, tu testes, tu décides : gants prêtés, aucun niveau demandé, pas de sparring imposé. À réserver en ligne ou à l’accueil.",
-      "feature": false,
-      "cta": "Je réserve ma séance d’essai",
-      "href": "https://boutique.boxingcenter.fr/seance-essai"
     }
   ],
   "planning": [

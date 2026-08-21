@@ -167,9 +167,6 @@ export async function initHero(container: HTMLElement) {
      Sans rideau (visiteur qui revient dans la session), elle part tout de
      suite : lui a déjà vu la scène. */
   const clock = new THREE.Clock(false);
-  if (document.querySelector(".gate")) {
-    window.addEventListener("bcp:entre", () => clock.start(), { once: true });
-  } else clock.start();
   const FORM = reduced ? 0.001 : 2.6; // seconds to assemble the crest
   const posAttr = geo.getAttribute("position") as THREE.BufferAttribute;
 
@@ -190,6 +187,14 @@ export async function initHero(container: HTMLElement) {
     }
     raf = requestAnimationFrame(frame);
     if (!visible || document.hidden) return;
+    /* L'horloge ne part QUE quand le rideau est tombé. On le vérifie à
+       chaque image plutôt qu'une fois au montage : l'ordre de démarrage
+       n'est pas le même en développement et en production, et une décision
+       prise trop tôt faisait se former le mot-symbole DERRIÈRE le rideau —
+       le visiteur ratait alors le seul moment qui accroche. html.gated est
+       posé par initEnterGate et retiré à l'entrée : c'est la vérité. */
+    if (!clock.running && !document.documentElement.classList.contains("gated")) clock.start();
+    if (!clock.running) return;   // rideau encore là : les particules restent éparpillées
     const t = clock.getElapsedTime();
 
     // assemble

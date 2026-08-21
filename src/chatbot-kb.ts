@@ -26,9 +26,7 @@ export const ACTIONS: Record<string, ActionDef> = {
      sur /abonnements#promo : un visiteur convaincu par la saison arrivait
      devant une grille de sept formules et devait retrouver celle dont on
      venait de lui parler. Une vente se perd exactement là. */
-  offre:       { label: "La rentrée · 29€", href: shop("/offre/29") },
   saison:      { label: "Je profite de l’offre · 259€", href: shop("/offre/259") },
-  essai:       { label: "Réserver ma séance d’essai", href: shop("/seance-essai") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
@@ -50,10 +48,10 @@ export const ACTIONS: Record<string, ActionDef> = {
 export const QUICKS: Quick[] = [
   { label: "Les offres · 29€ ou 259€", q: "C’est quoi l’offre de la rentrée ?",
     a: "L’offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Tu peux venir accompagné — chacun prend son abonnement à 29 €. Ça se fait en ligne en deux minutes. Tu veux qu’un coach te rappelle pour en parler ?",
-    actions: ["saison", "offre", "tarifs"] },
+    actions: ["saison", "tarifs"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
     a: "Les offres du moment : rentrée 29 € par personne (4 semaines) · saison 259 € l’année en 4× sans frais · adulte 44 € / étudiants 36 € par 4 semaines · enfants/ados 295 €/an avec t-shirt du club inclus · baby boxe 250 €/an. Badge d’accès : 34 € à l’inscription.",
-    actions: ["saison", "offre", "tarifs"] },
+    actions: ["saison", "tarifs"] },
   { label: "Horaires", q: "Quels sont les horaires ?",
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche).",
     actions: ["planning"] },
@@ -62,16 +60,16 @@ export const QUICKS: Quick[] = [
     actions: ["contact", "club"] },
   { label: "Disciplines", q: "Quelles disciplines proposez-vous ?",
     a: "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados. Un seul pass, toutes disciplines, 5 salles.",
-    actions: ["disciplines", "offre"] },
+    actions: ["disciplines"] },
   { label: "Inscription", q: "Comment s’inscrire ?",
     a: "Il faut : la fiche d’inscription, un certificat médical de non contre-indication à la boxe, un moyen de paiement et le badge à 34 €. Tout se fait en ligne — ou directement à l’accueil.",
-    actions: ["abonnements", "offre"] },
+    actions: ["abonnements"] },
   { label: "Coachs", q: "Qui sont les coachs ?",
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
   { label: "Séance d’essai", q: "Comment se passe la séance d’essai ?",
     a: "La séance d’essai est à 10 € : toutes disciplines, matériel prêté, sans engagement. Tu arrives, tu dis que c’est ta première fois, un coach t’accueille et te prête les gants — pas de sparring imposé, pas de test. Réserve en un clic, ou passe directement au club, 61 route d’Espagne.",
-    actions: ["premiere", "essai"] },
+    actions: ["premiere"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
     actions: ["partenaires"] },
@@ -96,6 +94,6 @@ export function fallbackAnswer(msg: string): { text: string; actions: string[] }
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
     text: "Je peux t’aider sur les offres (rentrée 29 € par personne), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 06 87 90 02 16.",
-    actions: ["saison", "offre", "tarifs"],
+    actions: ["saison", "tarifs"],
   };
 }

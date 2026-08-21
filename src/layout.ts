@@ -54,7 +54,6 @@ function navMarkup(path: string) {
            une page l'ouvre. Il ne portait que la rentrée à 29€ ; la saison
            entre juste en dessous, dans son or, et pointe direct sur sa page. -->
       <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
-      <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -75,8 +74,6 @@ function footerMarkup() {
                l'offre, jamais sur un hub. -->
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
             <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
-            <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
-            <a class="btn btn--ghost" href="https://boutique.boxingcenter.fr/seance-essai" target="_blank" rel="noopener">Ma séance d’essai · 10€</a>
           </div>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>
         </div>

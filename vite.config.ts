@@ -164,7 +164,10 @@ function seoBakePlugin() {
            donc sans valeur de maillage. L'ordre est celui de la vente —
            rentrée, saison, essai — et chaque lien va DIRECTEMENT sur sa page
            d'offre. layout.ts réécrit ce bloc à l'identique au montage. */
-        const OFFRES = [["https://boutique.boxingcenter.fr/offre/29", "L’offre rentrée — 29€ par personne, 4 semaines"], ["https://boutique.boxingcenter.fr/offre/259", "La saison — 259€ les 12 mois au lieu de 400€, 4× sans frais"], ["https://boutique.boxingcenter.fr/seance-essai", "Ma séance d’essai — 10€"]];
+        /* UNE seule offre dans le maillage : la saison. Le 29€ ne vit plus que
+           dans les tarifs (section d'accueil + page tarifs) et la séance d'essai
+           a sa page, atteinte par QR code — aucun autre système ne l'expose. */
+        const OFFRES = [["https://boutique.boxingcenter.fr/offre/259", "La saison — 259€ les 12 mois au lieu de 400€, 4× sans frais"]];
         const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
         html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>`);
 

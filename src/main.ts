@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import { mountPiege } from "./piege";
 import { mountLayout } from "./layout";
 import { initThemeSwitch } from "./theme";
 import { initScroll, initPageScroll, filetReveal } from "./scroll";
@@ -383,6 +384,7 @@ function bootPage() {
 function bootOnce() {
   initEnterGate();
   mountLayout();
+  mountPiege();
   initThemeSwitch();
   initScroll();
   initFxOnce();

@@ -1553,3 +1553,49 @@ html.forge-live #team-cards-section { display: none; }
 .planning-affiche figcaption { margin-top: 0.9rem; text-align: center;
   font-size: 0.86rem; color: rgba(238, 241, 246, 0.6); }
 @media (max-width: 700px) { .planning-affiche a { border-radius: 10px; } }
+
+/* =====================================================================
+   LA PLAQUE — le piège permanent, empilé au-dessus du chat.
+
+   Pas une roulette : il n'y a plus qu'une offre à vendre, et faire
+   tourner une seule case, c'est une affiche qui clignote. La forme
+   juste pour un site de boxe, c'est la plaque qu'on grave sur une
+   ceinture — un chiffre, de l'or, et un reflet qui passe dessus.
+
+   Elle se cale sur le MÊME coin que le chat (mêmes marges, au pixel)
+   et juste au-dessus de son bouton de 58 px. Elle ne coupe jamais le
+   hero, ne double jamais le pied de page, et s'efface quand le chat
+   s'ouvre. ===================================================== */
+.plaque {
+  position: fixed; z-index: 8990;
+  right: clamp(16px, 3vw, 28px);
+  bottom: calc(clamp(16px, 3vw, 28px) + 58px + 12px);
+  display: grid; place-items: center; gap: 0;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: linear-gradient(145deg, #f2d071, #d9a441 55%, #b8862c);
+  color: #17110a; text-decoration: none; overflow: hidden;
+  box-shadow: 0 6px 22px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.45);
+  /* au repos : rangée. Elle n'apparaît qu'une fois le hero passé. */
+  opacity: 0; transform: translateY(14px) scale(.86); pointer-events: none;
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-spring, var(--ease-out));
+}
+.plaque.is-in { opacity: 1; transform: none; pointer-events: auto; }
+.plaque:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.5); }
+.plaque__l {
+  font-family: var(--font-mono, monospace); font-size: 7px; letter-spacing: .12em;
+  text-transform: uppercase; opacity: .72; line-height: 1; margin-bottom: 1px;
+}
+.plaque__p { font-family: var(--font-display); font-size: 15px; line-height: 1; letter-spacing: -.01em; }
+/* le reflet : une bande claire qui traverse, comme la lumière sur le métal */
+.plaque__reflet {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 34%, rgba(255,255,255,.72) 50%, transparent 66%);
+  transform: translateX(-120%);
+}
+.plaque.brille .plaque__reflet { animation: plaqueReflet 1.3s var(--ease-out); }
+@keyframes plaqueReflet { to { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) {
+  .plaque { transition: opacity .2s; transform: none; }
+  .plaque.is-in { transform: none; }
+  .plaque__reflet { display: none; }
+}
