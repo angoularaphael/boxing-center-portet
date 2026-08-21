@@ -47,7 +47,11 @@ function navMarkup(path: string) {
     <div class="menu__foot">
       <a class="menu__ext" href="${GROUP}" target="_blank" rel="noopener">Le groupe Boxing Center ${svgExt}</a>
       <a class="menu__ext" href="${SHOP}" target="_blank" rel="noopener">Boutique ${svgExt}</a>
+      <!-- Le menu plein écran est le passage obligé du téléphone : qui cherche
+           une page l'ouvre. Il ne portait que la rentrée à 29€ ; la saison
+           entre juste en dessous, dans son or, et pointe direct sur sa page. -->
       <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
+      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -60,8 +64,15 @@ function footerMarkup() {
       <div class="footer__grid">
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
+          <!-- Les TROIS offres, dans l'ordre de vente : la rentrée à 29€ (la porte
+               d'entrée), la saison à 259€ (celle qu'on veut vendre — d'où son
+               traitement propre), l'essai à 10€ en dernier. Ce pied de page est le
+               SEUL élément présent sur les douze pages : c'est là qu'on pose le 259
+               une fois pour tout le site. Le lien va DIRECTEMENT sur la page de
+               l'offre, jamais sur un hub. -->
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
             <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
+            <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
             <a class="btn btn--ghost" href="https://boutique.boxingcenter.fr/seance-essai" target="_blank" rel="noopener">Ma séance d’essai · 10€</a>
           </div>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>

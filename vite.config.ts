@@ -159,7 +159,14 @@ function seoBakePlugin() {
         const site = content.site || {};
         const addr = site.address || {};
         const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33687900216">${site.phone || "06 87 90 02 16"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;
-        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address></div>`);
+        /* Les trois offres entrent dans le HTML. Elles ne vivaient que dans
+           layout.ts, peintes au chargement : invisibles pour un robot, et
+           donc sans valeur de maillage. L'ordre est celui de la vente —
+           rentrée, saison, essai — et chaque lien va DIRECTEMENT sur sa page
+           d'offre. layout.ts réécrit ce bloc à l'identique au montage. */
+        const OFFRES = [["https://boutique.boxingcenter.fr/offre/29", "L’offre rentrée — 29€ par personne, 4 semaines"], ["https://boutique.boxingcenter.fr/offre/259", "La saison — 259€ les 12 mois au lieu de 400€, 4× sans frais"], ["https://boutique.boxingcenter.fr/seance-essai", "Ma séance d’essai — 10€"]];
+        const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
+        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>`);
 
         const ORIGIN = "https://boxing-center-portet.fr";
         const PAGE: Record<string, [string, string]> = {

@@ -113,6 +113,14 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .btn--primary::after { content: ""; position: absolute; inset: 0; background: var(--accent-2); opacity: 0;
   transition: opacity var(--t-fast); mix-blend-mode: overlay; }
 .btn--primary:hover::after { opacity: 0.4; }
+/* LA SAISON à 259€. Le site officiel du réseau code ses deux offres par la
+   couleur : rouge pour la rentrée à 29€, OR pour l'année complète. C'est
+   déjà dans l'œil des adhérents — on ne réinvente pas un code qui existe.
+   Le prix barré vit DANS le bouton (motif Minimes) : le visiteur voit
+   l'économie sans avoir à lire une ligne de plus. */
+.btn--saison { background: linear-gradient(135deg, #e8c04a, #d9a441); color: #17110a; border-color: #e8c04a; font-weight: 700; }
+.btn--saison:hover { border-color: #f2d071; box-shadow: 0 0 0 3px rgba(232,192,74,.18); }
+.btn--saison s { opacity: .55; font-weight: 600; margin-right: .5ch; text-decoration-thickness: 2px; }
 .btn--ghost { color: var(--fg); }
 .btn--ghost:hover { border-color: var(--accent); }
 .btn .arrow { transition: transform var(--t-fast) var(--ease-out); }
@@ -642,6 +650,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .menu__nav a:hover, .menu__nav a[aria-current="page"] { color: var(--accent); }
 .menu__foot { margin-top: auto; padding-top: 1.1rem; display: flex; flex-direction: column; gap: 0.1rem; }
 .menu__foot .btn--primary { margin-top: 1rem; align-self: flex-start; }
+.menu__foot .btn--saison { margin-top: .6rem; align-self: flex-start; }
 
 /* ============================== SHOWCASE PHOTO ============================== */
 /* La hauteur est pilotée par la LARGEUR (54vw) : en pleine largeur, la part de
