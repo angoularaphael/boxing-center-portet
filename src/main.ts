@@ -83,17 +83,49 @@ function renderHomeGrids() {
       if (im.sizes) p.sizes = im.sizes;
       p.src = im.src;
     });
+
+    /* Les photos des trois tunnels, elles aussi. Ce sont les PREMIÈRES
+       qu'on rencontre en descendant — avant le carrousel. Elles sont
+       chargées par three.js au moment où la scène se monte ; les demander
+       ici les met en cache pour ce moment-là. Même priorité basse. */
+    const rechaufferTunnel = () => {
+      const p = document.querySelector<HTMLElement>(".portal");
+      const liste = p?.dataset.pool
+        ? p.dataset.pool.split(",").map((s) => s.trim()).filter(Boolean)
+        : ["/img/gym-13.jpg", "/img/gym-12.jpg", "/img/gym-16.jpg", "/img/gym-20.jpg",
+           "/img/gym-15.jpg", "/img/gym-09.jpg", "/img/gym-24.jpg", "/img/gym-21.jpg"];
+      /* MEMES URL et MEME crossOrigin que three.js, sinon on ne réchauffe
+         rien : THREE.TextureLoader pose crossOrigin par défaut, ce qui crée
+         une entrée de cache séparée. Constaté en mesure : le fichier partait
+         DEUX fois, 221 Ko chacun. Et on vise la même variante que la scène
+         (480 sous 760 px), pas le JPEG plein format. */
+      const cible = window.innerWidth < 760 ? 480 : 960;
+      liste.forEach((u) => {
+        const im = new Image();
+        im.crossOrigin = "anonymous";
+        (im as any).fetchPriority = "low";
+        im.decoding = "async";
+        im.src = optUrl(u, cible);
+      });
+    };
     /* On attend que le rideau soit LEVÉ. Lancé pendant, le réchauffage lui
        disputait la bande passante et repoussait l'ouverture. Le visiteur qui
        revient dans la session n'a pas de rideau : pour lui, on part au
        premier moment de repos du navigateur. */
     const lancer = () => {
+      rechaufferTunnel();
       const auRepos = (window as any).requestIdleCallback;
       if (typeof auRepos === "function") auRepos(rechauffer, { timeout: 3000 });
       else window.setTimeout(rechauffer, 600);
     };
-    if (document.querySelector(".gate")) window.addEventListener("bcp:entre", lancer, { once: true });
-    else lancer();
+    /* On part dès que le rideau est PRÊT — pas au clic. Entre les deux, le
+       visiteur lit et hésite : une à trois secondes de réseau libre. Avant
+       qu'il soit prêt, en revanche, on ne touche à rien : le rechauffage lui
+       disputerait la bande passante (mesuré : 7,4 → 8,1 s). */
+    if (document.querySelector(".gate")) {
+      window.addEventListener("bcp:rideau-pret", lancer, { once: true });
+      window.addEventListener("bcp:entre", lancer, { once: true }); // filet, si le rideau saute
+    } else lancer();
   }
 
   const disc = document.getElementById("disc-grid");
@@ -316,7 +348,14 @@ function bootPage() {
     }
     document.querySelectorAll<HTMLElement>(".forge").forEach((el) => {
       const crop = el.dataset.crop === "face" ? "face" : "body";
-      lazy3D(el, () => import("./three/forge"), (m) => m.mountForge(el, ENTRAINEURS, crop as "face" | "body"));
+      lazy3D(el, () => import("./three/forge"), (m) => {
+        m.mountForge(el, ENTRAINEURS, crop as "face" | "body");
+        /* La séquence tourne : les cartes de repli peuvent s'effacer. Posé
+           ICI et pas plus tôt — sans WebGL, ou si le module échoue, elles
+           restent affichées et personne ne voit un trou à la place des
+           coachs. C'est exactement ce qui était arrivé. */
+        document.documentElement.classList.add("forge-live");
+      });
     });
   }
 

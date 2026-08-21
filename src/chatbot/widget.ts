@@ -51,7 +51,7 @@ function parseReply(raw: string): { text: string; actions: ActionDef[] } {
   return { text, actions: resolveActions(keys) };
 }
 
-const BOT_AVATAR = "/logo.png";
+const BOT_AVATAR = "/logo-1100.png"; // affiche a 40px : 814 Ko n'avaient aucun sens
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
 // numéro FR : +33 ou 0, puis 9 chiffres groupés librement (espaces, points, tirets)
 const PHONE_RE = /(?:\+33|0)\s?[1-9](?:[\s.-]?\d{2}){4}/;
@@ -288,7 +288,7 @@ export function initChatbot() {
     // remerciement discret quand on vient de récupérer un contact
     if (gotNew && (profile.email || profile.phone) && callbackAsked) {
       callbackAsked = false;
-      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["offre", "planning"]));
+      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["saison", "offre", "planning"]));
     }
     // invitation douce (une seule fois) à laisser un contact
     else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
@@ -352,24 +352,24 @@ export function initChatbot() {
       const ACCUEILS: Record<string, [string, string, string[]]> = {
         home: ["Bonjour 👋 Vous découvrez la salle.",
           "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
-          ["offre", "disciplines"]],
+          ["saison", "offre", "disciplines"]],
         /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
            saison se défend le mieux. On ne retire pas le 29 €, on met le
            chiffre qui tranche à côté et on laisse choisir. */
         tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
         activites: ["Bonjour 👋 Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
-        plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["offre", "disciplines"]],
+        plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
         coachs: ["Bonjour 👋 Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
-        boxeurs: ["Bonjour 👋 Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["offre", "coachs"]],
+        boxeurs: ["Bonjour 👋 Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
         partenaires: ["Bonjour 👋 Vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
         contact: ["Bonjour 👋 Vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Bonjour 👋 Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["offre", "essai"]],
-        galerie: ["Bonjour 👋 Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["offre", "disciplines"]],
+        "premiere-seance": ["Bonjour 👋 Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
+        galerie: ["Bonjour 👋 Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
       };
       const [BONJOUR, suite, wKeys] = ACCUEILS[page] || [
         "Bonjour 👋 Je suis l’assistant du club.",
         "Horaires, disciplines, tarifs — posez votre question (FR/EN).",
-        ["offre", "tarifs"],
+        ["saison", "offre", "tarifs"],
       ];
       /* Deux bulles plutôt qu'un pavé : on laisse le bonjour arriver seul,
          puis la proposition. C'est le rythme d'une conversation, et ça évite

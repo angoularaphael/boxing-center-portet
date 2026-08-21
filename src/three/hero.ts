@@ -37,7 +37,7 @@ export async function initHero(container: HTMLElement) {
   scene.fog = new THREE.FogExp2(C("#08090c"), 0.04);
 
   // ---------- sample the crest into target points ----------
-  const targets = await sampleLogo("/logo.png", 3200, 6.2);
+  const targets = await sampleLogo("/logo-1100.png", 3200, 6.2);
   /* Le rideau attend ce signal. C'est ici, et pas avant, que le hero a de
      quoi dessiner son mot-symbole : le logo est chargé, les 3 200 points
      sont calculés. Entrer avant, c'est entrer sur un écran vide. */
@@ -157,7 +157,19 @@ export async function initHero(container: HTMLElement) {
   new IntersectionObserver((es) => (visible = es[0].isIntersecting), { threshold: 0 }).observe(container);
 
   const ease = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
-  const clock = new THREE.Clock();
+  /* L'horloge NE DÉMARRE PAS toute seule. Tout le reste est déjà prêt
+     derrière le rideau — logo chargé, 3 200 points calculés, particules
+     posées à leur origine dispersée — mais tant qu'elle ne tourne pas,
+     getElapsedTime() rend 0 et rien ne bouge. Elle part au clic sur
+     « Entrer sur le ring » : le visiteur voit alors le mot-symbole SE
+     FORMER devant lui, en 2,6 s. C'est le moment qui accroche, et il ne
+     vaut que s'il n'a pas déjà eu lieu derrière le rideau.
+     Sans rideau (visiteur qui revient dans la session), elle part tout de
+     suite : lui a déjà vu la scène. */
+  const clock = new THREE.Clock(false);
+  if (document.querySelector(".gate")) {
+    window.addEventListener("bcp:entre", () => clock.start(), { once: true });
+  } else clock.start();
   const FORM = reduced ? 0.001 : 2.6; // seconds to assemble the crest
   const posAttr = geo.getAttribute("position") as THREE.BufferAttribute;
 

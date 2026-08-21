@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { optUrl } from "../img";
 import { themeColors } from "../theme";
 import { boom, whoosh, soundOn } from "../audio";
 
@@ -68,7 +69,13 @@ function initPortal(section: HTMLElement): Handle | null {
 
   const loader = new THREE.TextureLoader();
   const textures: THREE.Texture[] = [];
+  /* Les photos du tunnel filent en biais et ne dépassent jamais quelques
+     centaines de pixels à l'écran. Elles arrivaient pourtant en JPEG plein
+     format : 221 Ko là où la variante de 480 px en fait 54. Huit photos, la
+     même économie chaque fois. On vise 480 sous 760 px de large, 960 au-delà. */
+  const cible = window.innerWidth < 760 ? 480 : 960;
   const loadTex = (src: string) => {
+    src = optUrl(src, cible);
     const t = loader.load(src, (tx) => (tx.colorSpace = THREE.SRGBColorSpace));
     t.colorSpace = THREE.SRGBColorSpace;
     textures.push(t);

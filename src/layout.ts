@@ -27,14 +27,17 @@ function navMarkup(path: string) {
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>
-        <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Offre 29€ ${svgArrow}</a>
+        <!-- Le bouton TOUJOURS visible porte la saison, pas la rentrée : c'est
+             le seul clic permanent du site, il doit porter l'offre qu'on veut
+             vendre. -->
+        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><span class="long">L’année · </span>259€ ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
   </nav>
-  <div class="menu" id="menu" translate="no">
+  <div class="menu" id="menu" translate="no" data-lenis-prevent>
     <div class="menu__head">
       <a href="/" class="menu__logo-link" aria-label="Boxing Center Portet — accueil">
         <img class="menu__logo" src="/logo-nav.png" alt="Boxing Center Portet" width="150" height="71" />
@@ -50,8 +53,8 @@ function navMarkup(path: string) {
       <!-- Le menu plein écran est le passage obligé du téléphone : qui cherche
            une page l'ouvre. Il ne portait que la rentrée à 29€ ; la saison
            entre juste en dessous, dans son or, et pointe direct sur sa page. -->
-      <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
       <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
+      <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">Je profite de l’offre · 29€ ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -71,8 +74,8 @@ function footerMarkup() {
                une fois pour tout le site. Le lien va DIRECTEMENT sur la page de
                l'offre, jamais sur un hub. -->
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
-            <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
             <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
+            <a class="btn btn--primary" href="https://boutique.boxingcenter.fr/offre/29" target="_blank" rel="noopener">L’offre · 29€ ${svgArrow}</a>
             <a class="btn btn--ghost" href="https://boutique.boxingcenter.fr/seance-essai" target="_blank" rel="noopener">Ma séance d’essai · 10€</a>
           </div>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>

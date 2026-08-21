@@ -10,7 +10,13 @@ const KEY = "bcp-entered";
    hero et le mot-symbole n'étaient pas là. La photo du hero n'est pas dans
    cette liste — on attend l'élément <img> RÉEL de la page, pour attendre la
    variante que le navigateur a lui-même choisie et non une autre. */
-const PRELOAD = ["/logo.png", "/img/opt/ring-reference-480.webp"];
+/* logo-1100.png plutôt que logo.png : 30 Ko au lieu de 814. Le logo est
+   affiché ici à 58 px de haut et échantillonné à 440 px par les particules du
+   hero — une source de 3 542 px était 27 fois trop grande. Fidélité mesurée :
+   écart moyen 0,55/255 à 58 px, et 0,13 % des pixels basculent du côté du
+   seuil d'échantillonnage à 440 px, soit ~4 particules sur 3 200.
+   logo.png n'est pas supprimé : il reste la référence du JSON-LD. */
+const PRELOAD = ["/logo-1100.png", "/img/opt/ring-reference-480.webp"];
 
 export function initEnterGate() {
   let entered = false;
@@ -32,7 +38,7 @@ export function initEnterGate() {
     <div class="gate__ring-host" aria-hidden="true"></div>
     <div class="gate__flash" aria-hidden="true"></div>
     <div class="gate__inner">
-      <div class="gate__logo-wrap"><img class="gate__logo" src="/logo.png" alt="Boxing Center" width="150" height="71" /></div>
+      <div class="gate__logo-wrap"><img class="gate__logo" src="/logo-1100.png" width="1100" height="514" decoding="async" alt="Boxing Center" width="150" height="71" /></div>
       <p class="gate__kicker">Portet-sur-Garonne · 31120</p>
       <div class="gate__loader" aria-hidden="true"><div class="gate__bar"><i></i></div><span class="gate__pct">0%</span></div>
       <p class="gate__phase">Le projecteur s'allume…</p>
@@ -90,6 +96,14 @@ export function initEnterGate() {
     enterBtn.disabled = false;
     silentBtn.disabled = false;
     try { enterBtn.focus(); } catch {}
+    /* LE RIDEAU EST PRÊT, mais le visiteur n'a pas encore cliqué. Il lit
+       « Monte sur le ring » et appuie une à trois secondes plus tard : c'est
+       du temps de réseau offert. Le site s'en sert pour charger DERRIÈRE le
+       rideau ce qu'on rencontrera en descendant — les photos du tunnel et
+       du carrousel. Émis ici et pas dans enter() : attendre le clic, c'est
+       jeter ces secondes. Et pas plus tôt non plus — avant d'être prêt, le
+       rideau a besoin de toute la bande passante pour lui. */
+    try { window.dispatchEvent(new Event("bcp:rideau-pret")); } catch {}
   };
 
   PRELOAD.forEach((src) => {

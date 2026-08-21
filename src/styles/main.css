@@ -121,6 +121,19 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .btn--saison { background: linear-gradient(135deg, #e8c04a, #d9a441); color: #17110a; border-color: #e8c04a; font-weight: 700; }
 .btn--saison:hover { border-color: #f2d071; box-shadow: 0 0 0 3px rgba(232,192,74,.18); }
 .btn--saison s { opacity: .55; font-weight: 600; margin-right: .5ch; text-decoration-thickness: 2px; }
+
+/* LE BOUTON PERMANENT DE LA BARRE. Mesuré : à 183 px il poussait le burger
+   hors de l'écran sous 430 px. On le resserre, et sous 400 px le libellé se
+   réduit au chiffre — une pastille dorée qui dit 259€ à côté du sigle ne
+   demande aucune explication. La hauteur de cible reste à 44 px. */
+@media (max-width: 520px){
+  .nav .btn--saison { font-size: .74rem; letter-spacing: .01em; padding-inline: .8rem; gap: .35em; min-height: 44px; }
+  .nav__brand { min-width: 0; }
+}
+@media (max-width: 400px){
+  .nav .btn--saison .long { display: none; }
+  .nav .btn--saison { padding-inline: .7rem; }
+}
 .btn--ghost { color: var(--fg); }
 .btn--ghost:hover { border-color: var(--accent); }
 .btn .arrow { transition: transform var(--t-fast) var(--ease-out); }
@@ -1467,25 +1480,53 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 /* PAS DE DOUBLON. La sequence 3D et ces cartes ne coexistent JAMAIS :
    au-dessus de 900 px c'est la forge qui raconte les coachs, en dessous
    c'est elle qui se retire et les cartes prennent le relais. */
-.team-cards { display: none; gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-@media (max-width: 899px) { .team-cards { display: grid; } }
+.team-cards { gap: clamp(1rem, 2.5vw, 1.6rem); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.team-cards { display: grid; }
+/* On masque la SECTION entiere, pas seulement la grille : sinon son
+   enveloppe garde son espacement et laisse 128 px de vide juste après les
+   coachs — le « bunch of blue space » signalé par le patron. */
+html.forge-live #team-cards-section { display: none; }
+
+/* LE COIN — la voix du coach entre deux rounds.
+   L'offre appartient à la structure du site (six rounds) au lieu d'y être
+   collée. Donc : sobre. Une ligne, un prix, un lien. Pas de cadre, pas de
+   fond — une bannière se contourne du regard, une voix non. L'or est le
+   code réseau de la saison (rouge = 29€, or = l'année) : il ne sert qu'au
+   chiffre et au lien, jamais à la phrase. */
+/* .round-card__inner est un flex EN LIGNE : le coin doit donc prendre une
+   ligne à lui (flex-basis 100 %), et le parent doit accepter de passer à
+   la ligne. Sans ça le coin s'ajouterait à la suite du titre du round. */
+.round-card__inner { flex-wrap: wrap; }
+.round-card__coin { flex: 0 0 100%; margin: .55rem 0 0; display: flex; flex-wrap: wrap;
+  align-items: baseline; gap: .35rem .9rem; font-size: clamp(.86rem, 2.3vw, .98rem);
+  line-height: 1.5; color: var(--fg-soft); }
+.round-card__coin-l { font-family: var(--font-mono, monospace); font-size: .68rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.round-card__coin b { color: #e8c04a; font-weight: 700; }
+.round-card__coin a { color: #e8c04a; font-weight: 600; white-space: nowrap;
+  border-bottom: 1px solid rgba(232,192,74,.4); padding-bottom: 1px; transition: border-color .25s; }
+.round-card__coin a:hover { border-bottom-color: #e8c04a; }
+.round-card__coin a i { font-style: normal; display: inline-block; transition: transform .25s var(--ease-out); }
+.round-card__coin a:hover i { transform: translateX(3px); }
+@media (max-width: 620px) {
+  /* Sur téléphone la ligne passe à la verticale : la phrase garde sa
+     lisibilité et le lien reste une cible franche. */
+  .round-card__coin { flex-direction: column; gap: .3rem; }
+  .round-card__coin a { align-self: flex-start; min-height: 30px; display: inline-flex; align-items: center; }
+}
 .tcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; }
 .tcard img { width: 100%; height: auto; display: block; }
 .tcard__body { padding: 1rem 1.1rem 1.3rem; }
 .tcard__body h3 { font-size: 1.15rem; margin: 0 0 0.25rem; }
 .tcard__role { opacity: 0.72; font-size: 0.88rem; margin: 0; }
 .tcard__desc { margin-top: 0.55rem; font-size: 0.92rem; line-height: 1.55; opacity: 0.9; }
-@media (max-width: 899px) {
-  /* CORRECTION : « display:none » sur .forge supprimait la section ENTIERE —
-     titre compris. Sur petit ecran on retire seulement la SEQUENCE 3D (le
-     canvas colle qui exige un long defilement) ; l'en-tete reste, et les
-     cartes juste dessous portent l'information. */
-  .forge { min-height: 0; }
-  .forge__sticky { position: static; height: auto; min-height: 0; }
-  .forge__canvas, .forge__word, .forge__card, .forge__toggle { display: none; }
-  .forge__overlay { position: static; padding-block: 0; }
-  .forge__head { margin-bottom: 1.4rem; }
-}
+/* LA SÉQUENCE DES COACHS TOURNE AUSSI SUR TÉLÉPHONE. Je l'avais retirée sous
+   900 px (f94afef) en la remplaçant par des cartes ; le patron veut le
+   scrolljacking, comme avant. Elle est donc identique partout.
+   Les cartes ne quittent pas le HTML pour autant : elles restent le repli
+   pour qui n'a pas de JavaScript et pour les robots d'assistants, qui
+   n'exécutent rien. Elles s'effacent dès que la scène prend la main
+   (html.forge-live, posé par main.ts). */
 
 
 /* == L'AFFICHE DU PLANNING ====================================================
