@@ -48,7 +48,23 @@ function initPortal(section: HTMLElement): Handle | null {
   const C = (h: string) => new THREE.Color(h);
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(C("#0a1020"), 0.045);
-  const camera = new THREE.PerspectiveCamera(66, 1, 0.1, 120);
+  /* LE CADRE D'UN TELEPHONE EST UN PORTRAIT. À champ vertical égal, son
+     champ HORIZONTAL est près de trois fois plus étroit que celui d'un écran
+     de bureau : demi-angle 16,7° contre 46°. Une photo posée à 4,6 unités du
+     centre devait donc être à 15 unités de distance pour entrer dans le
+     cadre — elle n'y était jamais. Résultat : les photos tombaient hors
+     champ et il ne restait que le vide navy au centre, sur 1 561 px de haut,
+     TROIS fois dans la page. C'est le « bleu » signalé par le patron le
+     21/08. On adapte l'anneau au cadre, pas l'inverse : le champ s'ouvre un
+     peu ET l'anneau se resserre. Les deux ensemble, parce qu'aucun des deux
+     seul ne suffit — un champ vertical assez large pour rattraper le portrait
+     demanderait 130°, soit un œil de poisson. */
+  const cadre = () => (host.clientWidth || window.innerWidth) / (host.clientHeight || window.innerHeight);
+  const REF = 1.6; // le rapport d'un écran de bureau : la référence à ne pas bouger
+  const serre = Math.min(1, cadre() / REF); // 1 sur bureau, ~0,29 sur iPhone
+  const FOV = 66 + (1 - serre) * 24;        // 66° → 83°
+  const ECHELLE = 0.42 + 0.58 * serre;      // 1 sur bureau → 0,59 sur iPhone
+  const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 120);
 
   const loader = new THREE.TextureLoader();
   const textures: THREE.Texture[] = [];
@@ -67,8 +83,12 @@ function initPortal(section: HTMLElement): Handle | null {
   const group = new THREE.Group();
   scene.add(group);
   const planes: THREE.Mesh[] = [];
-  const RINGS = 7, K = 4, SPACING = 5, RADIUS = 4.6;
-  const planeGeo = new THREE.PlaneGeometry(3.8, 2.5);
+  /* Le rayon ET la taille des photos suivent la même échelle : la
+     composition ne change pas, elle se resserre pour tenir dans un cadre
+     étroit. Changer le rayon seul ferait se chevaucher quatre photos de
+     3,8 unités sur un anneau devenu trop petit. */
+  const RINGS = 7, K = 4, SPACING = 5, RADIUS = 4.6 * ECHELLE;
+  const planeGeo = new THREE.PlaneGeometry(3.8 * ECHELLE, 2.5 * ECHELLE);
   let poolI = 0;
   for (let r = 0; r < RINGS; r++) {
     const z = 2 - r * SPACING;
@@ -155,7 +175,12 @@ function initPortal(section: HTMLElement): Handle | null {
     const w = host.clientWidth || window.innerWidth;
     const h = host.clientHeight || window.innerHeight;
     renderer.setSize(w, h, false);
-    camera.aspect = w / h; camera.updateProjectionMatrix();
+    camera.aspect = w / h;
+    /* Le champ suit la rotation de l'écran. Le rayon, lui, est figé à la
+       construction : reconstruire sept anneaux à chaque rotation coûterait
+       plus cher que le léger écart que ça laisse. */
+    camera.fov = 66 + (1 - Math.min(1, w / h / REF)) * 24;
+    camera.updateProjectionMatrix();
   };
   resize();
   window.addEventListener("resize", resize);

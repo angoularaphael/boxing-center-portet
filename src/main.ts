@@ -44,6 +44,24 @@ function renderHomeGrids() {
         </div>
       </article>`
     ).join("");
+    /* LE CARROUSEL EST UN TUNNEL HORIZONTAL. Ses huit cartes sont posées
+       côte à côte de 20 à 2 642 px : les quatre dernières sont TRÈS loin hors
+       écran. Avec loading="lazy", le navigateur ne les demande donc jamais à
+       temps, et la carte qui arrive au centre s'affiche vide — c'est la carte
+       « KICK / K1 » sans image que le patron a vue le 21/08.
+
+       On ne les rend pas éagres pour autant : elles pèseraient sur le premier
+       chargement. On les déclenche quand la section APPROCHE — une bonne
+       hauteur d'écran à l'avance — en repassant loading à eager, ce qui force
+       la demande immédiatement. Le tunnel arrive donc plein. */
+    const imgs = [...reel.querySelectorAll<HTMLImageElement>("img")];
+    const section = reel.closest("section") || reel;
+    const charger = () => imgs.forEach((im) => { im.loading = "eager"; im.fetchPriority = "high"; });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { io.disconnect(); charger(); } },
+        { rootMargin: "900px 0px" });
+      io.observe(section);
+    } else charger();
   }
 
   const disc = document.getElementById("disc-grid");
