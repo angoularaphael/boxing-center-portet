@@ -58,7 +58,7 @@ const PHONE_RE = /(?:\+33|0)\s?[1-9](?:[\s.-]?\d{2}){4}/;
 // « je m’appelle X », « moi c’est X », « mon prénom est X »… (déclencheurs
 // SPÉCIFIQUES à un prénom — pas de « c’est » nu qui capterait « c’est ouvert »)
 const NAME_RE = /(?:je m['’ ]?appelle|moi c['’ ]?est|mon nom est|mon pr[ée]nom (?:est|c['’ ]?est)|je me nomme)\s+([a-zà-öø-ÿ][a-zà-öø-ÿ'’-]+)/i;
-const STOP_NAMES = /^(bonjour|salut|coucou|hello|merci|oui|non|ok|d['’]accord|bien|super|cool|pas|ouvert|ferm|combien|quoi|rien|voir|bof)$/i;
+const STOP_NAMES = /^(bonjour|salut|coucou|hello|merci|oui|non|ok|d['’]accord|bien|super|cool|pas|ouvert|ferm|combien|quoi|rien|voir|bof|je|j['’]|moi|tu|il|elle|on|nous|vous|ils|c['’]est|c|est|le|la|les|un|une|des|du|de|mon|ma|mes|ton|ta|et|mais|donc|alors|bon|euh|hey|hi|yes|no)$/i;
 
 function sessionId(): string {
   const key = "bcp-chat-session";
@@ -249,8 +249,13 @@ export function initChatbot() {
       let name = m?.[1]?.trim();
       // le bot vient de demander le prénom : un mot simple suffit
       if (!name && expectName) {
-        const w = text.trim().split(/\s+/)[0];
-        if (w && !EMAIL_RE.test(w) && !/\d/.test(w) && !STOP_NAMES.test(w)) name = w;
+        /* On n'accepte un mot nu comme prénom que si la réponse EST un
+           prénom : au plus trois mots. Sans cette borne, le premier mot
+           d'une phrase entière devenait le prénom — constaté en test, le
+           bot a répondu « Salut Je ! » à « Je m'intéresse à la saison ». */
+        const mots = text.trim().split(/\s+/);
+        const w = mots[0];
+        if (mots.length <= 3 && w && w.length >= 2 && !EMAIL_RE.test(w) && !/\d/.test(w) && !STOP_NAMES.test(w)) name = w;
       }
       if (name && !STOP_NAMES.test(name)) { profile.prenom = titleCase(name.split(/\s+/)[0]); found = true; }
     }
