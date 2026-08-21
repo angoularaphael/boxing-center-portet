@@ -348,7 +348,10 @@ export function initChatbot() {
         home: ["Bonjour 👋 Vous découvrez la salle.",
           "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
           ["offre", "disciplines"]],
-        tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise. Je vous aide à choisir ?", ["offre", "tarifs"]],
+        /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
+           saison se défend le mieux. On ne retire pas le 29 €, on met le
+           chiffre qui tranche à côté et on laisse choisir. */
+        tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
         activites: ["Bonjour 👋 Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
         plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["offre", "disciplines"]],
         coachs: ["Bonjour 👋 Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],

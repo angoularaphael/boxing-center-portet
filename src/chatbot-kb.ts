@@ -22,8 +22,12 @@ const shop = (path: string, hash = "") => `${SHOP}${path}?${UTM}${hash}`;
 export const sansUtm = (u: string) => u.replace(/\?[^#]*/, "").replace(/\/(?=#|$)/, "");
 
 export const ACTIONS: Record<string, ActionDef> = {
-  offre:       { label: "Je profite de l’offre · 29€", href: shop("/abonnements", "#promo") },
-  saison:      { label: "Je prends ma saison · 259€", href: shop("/abonnements", "#promo") },
+  /* Chaque offre va sur SA page, pas sur le hub. Les deux clés pointaient
+     sur /abonnements#promo : un visiteur convaincu par la saison arrivait
+     devant une grille de sept formules et devait retrouver celle dont on
+     venait de lui parler. Une vente se perd exactement là. */
+  offre:       { label: "Je profite de l’offre · 29€", href: shop("/offre/29") },
+  saison:      { label: "Je prends ma saison · 259€ — au lieu de 400€", href: shop("/offre/259") },
   essai:       { label: "Réserver ma séance d’essai", href: shop("/seance-essai") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
