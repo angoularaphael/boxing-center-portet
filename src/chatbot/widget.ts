@@ -353,21 +353,21 @@ export function initChatbot() {
          informatif, plus c'est lu. Les chiffres viennent de content.json —
          neuf disciplines, cinq coachs, sept formules, six boxeurs. */
       const ACCUEILS: Record<string, [string, string, string[]]> = {
-        home: ["Bonjour 👋 Moi c’est Gus. Vous découvrez la salle.",
+        home: ["Bonjour 👋 Moi c’est Gus. Je vois que vous découvrez la salle.",
           "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
           ["saison", "offre", "disciplines"]],
         /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
            saison se défend le mieux. On ne retire pas le 29 €, on met le
            chiffre qui tranche à côté et on laisse choisir. */
-        tarifs: ["Bonjour 👋 Moi c’est Gus. Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
-        activites: ["Bonjour 👋 Moi c’est Gus. Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
-        plannings: ["Bonjour 👋 Moi c’est Gus. Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
-        coachs: ["Bonjour 👋 Moi c’est Gus. Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
-        boxeurs: ["Bonjour 👋 Moi c’est Gus. Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
-        partenaires: ["Bonjour 👋 Moi c’est Gus. Vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
-        contact: ["Bonjour 👋 Moi c’est Gus. Vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
-        galerie: ["Bonjour 👋 Moi c’est Gus. Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
+        tarifs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous comparez les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
+        activites: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
+        plannings: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
+        coachs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
+        boxeurs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
+        partenaires: ["Bonjour 👋 Moi c’est Gus. Je vois que vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
+        contact: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
+        "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Je vois que vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
+        galerie: ["Bonjour 👋 Moi c’est Gus. Je vois que vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
       };
       const [BONJOUR, suite, wKeys] = ACCUEILS[page] || [
         "Bonjour 👋 Moi c’est Gus. Je suis l’assistant du club.",

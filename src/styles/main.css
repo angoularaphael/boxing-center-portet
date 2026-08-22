@@ -1567,6 +1567,61 @@ html.forge-live #team-cards-section { display: none; }
     display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; padding-block: .9rem; }
   .billet__go { margin: 0 0 0 auto; }
 }
+/* LE NUMÉRO DE SÉRIE. C'est la mention qui fait qu'on lit un billet et non
+   un rectangle doré : un vrai billet porte toujours un numéro. */
+.billet__serie { font-family: var(--font-mono, monospace); font-size: .58rem; letter-spacing: .14em;
+  text-transform: uppercase; opacity: .5; white-space: nowrap; }
+
+/* LES ENCOCHES DE PERFORATION — deux demi-cercles creusés en haut et en bas
+   du filet pointillé, là où le talon se détache. C'est ce détail qui fait la
+   différence entre un billet et une carte. */
+.billet__talon { position: relative; }
+.billet__talon::before, .billet__talon::after { content: ""; position: absolute; left: -7px;
+  width: 13px; height: 13px; border-radius: 50%; background: var(--bg); }
+.billet__talon::before { top: -7px; }
+.billet__talon::after { bottom: -7px; }
+
+/* LA VERSION COMPACTE — pour le ring, où le billet vit dans une
+   superposition en plein écran. Même objet, même matière, moins de hauteur :
+   on retire la phrase, on garde le chiffre et l'action. */
+.billet--compact { max-width: 520px; margin-top: 1.4rem; }
+.billet--compact .billet__corps { padding-block: .85rem; }
+.billet--compact .billet__prix b { font-size: clamp(2.6rem, 9vw, 3.4rem); }
+.billet--compact .billet__talon { padding-block: .85rem; }
+@media (max-width: 720px) {
+  /* le talon passe dessous : les encoches suivent, en haut du filet */
+  .billet__talon::before { left: -7px; top: -7px; }
+  .billet__talon::after { left: auto; right: -7px; top: -7px; bottom: auto; }
+}
+/* LE BILLET RESTE CLIQUABLE DANS LE RING. La superposition coupe les
+   événements pour que le défilement atteigne la scène 3D ; le billet en
+   héritait et n'était donc PAS cliquable. Un bouton qu'on ne peut pas
+   cliquer n'est pas un bouton. On lui rend ses événements — à lui seul —
+   et on le passe au-dessus du canvas. */
+.ring .billet, .ring__txt .billet, .ring__overlay .billet { pointer-events: auto; position: relative; z-index: 4; }
+
+/* ===================================================================
+   LE REFLET — sur TOUS les objets qui portent l'offre.
+   C'était un effet réservé à la pastille ; il devient la signature
+   commune de l'or : billet, bouton de saison, bouton du bot. Le même
+   objet doit se reconnaître partout. Il passe toutes les 7 s, jamais
+   plus — souvent, ça devient un clignotant qu'on apprend à ignorer.
+   =================================================================== */
+.billet, .btn--saison { position: relative; overflow: hidden; }
+.billet::after, .btn--saison::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 34%, rgba(255,255,255,.55) 50%, transparent 66%);
+  transform: translateX(-130%);
+  animation: refletOr 7s var(--ease-out) 1.5s infinite; }
+@keyframes refletOr {
+  0%   { transform: translateX(-130%); }
+  18%  { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
+}
+/* le talon garde son fond : le reflet ne doit pas passer SOUS lui */
+.billet__corps, .billet__talon { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .billet::after, .btn--saison::after { animation: none; display: none; }
+}
 @media (prefers-reduced-motion: reduce) { .billet, .billet__go i { transition: none; } }
 .tcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; }
 .tcard img { width: 100%; height: auto; display: block; }
