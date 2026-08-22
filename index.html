@@ -245,6 +245,8 @@
     <div class="round-card__inner wrap">
       <span class="round-card__n">Round 01</span>
       <span class="round-card__title">Le club</span>
+      <span class="saut" aria-hidden="true"></span>
+      <p class="amorce">Tu es au bon endroit. Voilà ce qu’on te propose.</p>
       <!-- LE BILLET. Étudié dans la banque de références avant d'être
            dessiné : chez Teenage Engineering, une offre n'est pas une
            bannière, c'est un OBJET — leur code promo est un ticket
@@ -312,6 +314,8 @@
     <div class="round-card__inner wrap">
       <span class="round-card__n">Round 03</span>
       <span class="round-card__title">Le terrain</span>
+      <span class="saut" aria-hidden="true"></span>
+      <p class="amorce">Tout ça t’attend. Voilà à quel prix.</p>
       <!-- LE BILLET. Étudié dans la banque de références avant d'être
            dessiné : chez Teenage Engineering, une offre n'est pas une
            bannière, c'est un OBJET — leur code promo est un ticket
@@ -337,7 +341,10 @@
   </div>
   <section class="ring" id="ring" aria-label="Le ring">
     <div class="ring__sticky">
-      <div class="ring__photo" data-bg="/img/gym-21.jpg" aria-hidden="true"></div>
+      <!-- La photo du ring est retiree : la scene 3D juste en dessous montre
+           DEJA le ring de Portet, banniere Karting2Muret comprise. Deux fois
+           la meme image, l'une par-dessus l'autre, se contredisaient au
+           defilement sur telephone. -->
       <div class="ring__canvas" id="ring-canvas" aria-hidden="true"></div>
       <div class="ring__overlay">
         <div class="ring__txt wrap" data-r="0">
@@ -357,10 +364,11 @@
         </div>
         <div class="ring__txt wrap" data-r="3" style="opacity:0">
           <span class="eyebrow">03 · Ta place</span>
-          <h2 class="display promo-blast" style="max-width:15ch">29€. <span class="tint promo-blast__accent">Par personne.</span></h2>
-          <p class="lead" style="max-width:42ch;color:#cdd3df">L’offre de la rentrée : 4 semaines, 5 salles, toutes les disciplines, sans engagement. Viens avec ton binôme.</p>
-          <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a>
-        </div>
+          <!-- Ce panneau titrait << 29€. Par personne. >> pendant que le bouton
+               dessous mène à la saison : on lisait une chose et on cliquait sur
+               une autre. Il dit maintenant ce que le bouton fait. -->
+          <h2 class="display promo-blast" style="max-width:15ch">259€. <span class="tint">L’année entière.</span></h2>
+          <p class="lead" style="max-width:38ch;color:#cdd3df">Douze mois, les cinq salles du réseau, toutes les disciplines, sans limite de cours. En quatre fois sans frais — moins de cinq euros la semaine.</p>
       </div>
     </div>
   </section>
@@ -443,6 +451,8 @@
     <div class="round-card__inner wrap">
       <span class="round-card__n">Round 05</span>
       <span class="round-card__title">Ta place</span>
+      <span class="saut" aria-hidden="true"></span>
+      <p class="amorce">Tu te vois ici ? Alors prends ta place.</p>
       <!-- LE BILLET. Étudié dans la banque de références avant d'être
            dessiné : chez Teenage Engineering, une offre n'est pas une
            bannière, c'est un OBJET — leur code promo est un ticket
@@ -589,8 +599,13 @@
              l'offre à 29 €. Un visiteur qui lit une chose et clique sur une
              autre n'achète ni l'une ni l'autre. Le texte dit désormais ce que
              le bouton fait — et le prix barré donne à 29 € sa mesure. -->
-        <p class="lead" style="margin-inline:auto">Quatre semaines à <s class="was">44 €</s> <strong>29 € par personne</strong> : toutes les disciplines, le matériel prêté, les 5 salles du réseau, et aucun engagement à signer. C’est le prix de la rentrée — après, l’abonnement repasse à 44 €. Si tu préfères voir avant de t’engager, la séance d’essai reste à 10 €.</p>
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><span>Essayer d’abord · 10€</span></a>
+        <!-- Le dernier bloc ne pousse QUE la saison : c'est la seule chose
+             qu'on veut vendre ici. La rentrée à 29€ et l'essai restent dans
+             la grille de tarifs, plus haut — leur place est la, pas au moment
+             de conclure. Un dernier bloc qui propose trois choix ne conclut
+             rien. -->
+        <p class="lead" style="margin-inline:auto">Douze mois à <s class="was">400 €</s> <strong>259 €</strong>, payables en quatre fois sans frais : toutes les disciplines, les cinq salles du réseau, sans limite de cours. Moins de cinq euros la semaine.</p>
+        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a>
       </div>
     </div>
   </section>

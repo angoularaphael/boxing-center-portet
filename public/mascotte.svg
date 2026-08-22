@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Gus, le gant du coin">
+  <!-- LA MASCOTTE, version lisible. La premiere avait trop de details : a
+       40 px elle devenait une tache. Deux couleurs, UNE forme qui remplit le
+       cadre — un gant dore sur un disque navy. Ca tient encore a 26 px, la
+       taille du plus petit avatar du fil. -->
+  <circle cx="32" cy="32" r="32" fill="#16233d"/>
+  <!-- le poing, plein cadre -->
+  <path fill="#f0c34e" d="M41 12c8.8 0 14 6.6 14 15.4 0 5-1.6 8.8-4.7 11.4l.4 5c.2 2.4-1.6 4.5-4 4.7l-17.2 1.3c-2.4.2-4.5-1.6-4.7-4l-.4-4.9C20.6 38.5 18 33.6 18 27.6 18 18.2 24.6 12 33.9 12Z"/>
+  <!-- le pouce -->
+  <path fill="#d9a441" d="M20.4 29.6c-3.1.3-5.4 2.8-5.1 5.7.3 2.9 2.9 5.1 6 4.8l2.6-.2-.9-10Z"/>
+  <!-- le poignet -->
+  <rect x="27.4" y="45.6" width="21" height="7.6" rx="2.8" fill="#d9a441" transform="rotate(-4.2 37.9 49.4)"/>
+  <!-- les yeux : deux points francs, rien d'autre. Le seul detail qui survit. -->
+  <circle cx="30" cy="28" r="3.1" fill="#16233d"/>
+  <circle cx="43" cy="27.1" r="3.1" fill="#16233d"/>
+</svg>

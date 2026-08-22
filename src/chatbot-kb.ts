@@ -46,7 +46,7 @@ export const ACTIONS: Record<string, ActionDef> = {
 };
 
 export const QUICKS: Quick[] = [
-  { label: "Les offres · 29€ ou 259€", q: "C’est quoi l’offre de la rentrée ?",
+  { label: "L’année · 259€", q: "C’est quoi l’offre de la rentrée ?",
     a: "L’offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Tu peux venir accompagné — chacun prend son abonnement à 29 €. Ça se fait en ligne en deux minutes. Tu veux qu’un coach te rappelle pour en parler ?",
     actions: ["saison", "tarifs"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",

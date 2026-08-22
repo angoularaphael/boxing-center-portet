@@ -51,7 +51,10 @@ function parseReply(raw: string): { text: string; actions: ActionDef[] } {
   return { text, actions: resolveActions(keys) };
 }
 
-const BOT_AVATAR = "/logo-1100.png"; // affiche a 40px : 814 Ko n'avaient aucun sens
+/* Gus, le gant du coin. Un SVG : net a toutes les tailles, quelques
+   centaines d'octets, et il ne prend le prenom d'aucun coach du club. */
+const BOT_AVATAR = "/mascotte.svg";
+const BOT_NOM = "Gus";
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
 // numéro FR : +33 ou 0, puis 9 chiffres groupés librement (espaces, points, tirets)
 const PHONE_RE = /(?:\+33|0)\s?[1-9](?:[\s.-]?\d{2}){4}/;
@@ -104,8 +107,8 @@ export function initChatbot() {
       <header class="bcp-chat__head">
         <img class="bcp-chat__head-avatar" src="${BOT_AVATAR}" alt="" width="40" height="40" decoding="async" />
         <div class="bcp-chat__head-text">
-          <strong>Boxing Center Portet</strong>
-          <span class="bcp-chat__status">Assistant du club · en ligne</span>
+          <strong>${BOT_NOM} · Boxing Center Portet</strong>
+          <span class="bcp-chat__status">Dans ton coin · en ligne</span>
         </div>
         <button type="button" class="bcp-chat__close" id="bcp-chat-close" aria-label="Fermer">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -350,24 +353,24 @@ export function initChatbot() {
          informatif, plus c'est lu. Les chiffres viennent de content.json —
          neuf disciplines, cinq coachs, sept formules, six boxeurs. */
       const ACCUEILS: Record<string, [string, string, string[]]> = {
-        home: ["Bonjour 👋 Vous découvrez la salle.",
+        home: ["Bonjour 👋 Moi c’est Gus. Vous découvrez la salle.",
           "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
           ["saison", "offre", "disciplines"]],
         /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
            saison se défend le mieux. On ne retire pas le 29 €, on met le
            chiffre qui tranche à côté et on laisse choisir. */
-        tarifs: ["Bonjour 👋 Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
-        activites: ["Bonjour 👋 Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
-        plannings: ["Bonjour 👋 Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
-        coachs: ["Bonjour 👋 Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
-        boxeurs: ["Bonjour 👋 Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
-        partenaires: ["Bonjour 👋 Vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
-        contact: ["Bonjour 👋 Vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Bonjour 👋 Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
-        galerie: ["Bonjour 👋 Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
+        tarifs: ["Bonjour 👋 Moi c’est Gus. Vous êtes sur les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
+        activites: ["Bonjour 👋 Moi c’est Gus. Vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
+        plannings: ["Bonjour 👋 Moi c’est Gus. Vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
+        coachs: ["Bonjour 👋 Moi c’est Gus. Vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
+        boxeurs: ["Bonjour 👋 Moi c’est Gus. Vous êtes chez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
+        partenaires: ["Bonjour 👋 Moi c’est Gus. Vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
+        contact: ["Bonjour 👋 Moi c’est Gus. Vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
+        "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
+        galerie: ["Bonjour 👋 Moi c’est Gus. Vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
       };
       const [BONJOUR, suite, wKeys] = ACCUEILS[page] || [
-        "Bonjour 👋 Je suis l’assistant du club.",
+        "Bonjour 👋 Moi c’est Gus. Je suis l’assistant du club.",
         "Horaires, disciplines, tarifs — posez votre question (FR/EN).",
         ["saison", "offre", "tarifs"],
       ];
