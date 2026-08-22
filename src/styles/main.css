@@ -1567,6 +1567,15 @@ html.forge-live #team-cards-section { display: none; }
     display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; padding-block: .9rem; }
   .billet__go { margin: 0 0 0 auto; }
 }
+/* LE PIÈGE SUR LES PAGES INTÉRIEURES. Hors des intercalaires de round, le
+   billet n'est plus dans un conteneur flex : sa règle flex ne s'applique
+   plus et l'amorce n'a plus de bande de rupture. On leur donne ici leur
+   mise en page propre — une section à elle, respirante, où l'offre arrive
+   après que la page a donné sa raison. */
+.piege { padding-block: clamp(2.2rem, 6vw, 3.6rem); }
+.piege .amorce { margin: 0 0 .1rem; }
+.piege .billet { margin-top: 1.1rem; }
+
 /* LE NUMÉRO DE SÉRIE. C'est la mention qui fait qu'on lit un billet et non
    un rectangle doré : un vrai billet porte toujours un numéro. */
 .billet__serie { font-family: var(--font-mono, monospace); font-size: .58rem; letter-spacing: .14em;

@@ -21,8 +21,22 @@ function loadTex(url: string, fallback?: string): Promise<THREE.Texture> {
     );
   });
 }
-/** /img/coaches/x.webp → /img/coaches/cutouts/x.png (transparent cut-out) */
-const cutoutUrl = (img: string) => img.replace(/\/([^/]+)\.\w+$/, "/cutouts/$1.png");
+/** /img/coaches/x.webp → /img/coaches/cutouts/x.png (découpe transparente).
+ *
+ *  ON NE TENTE LA DÉCOUPE QUE LÀ OÙ ELLE EXISTE. Le chemin était dérivé pour
+ *  TOUS les visuels : les cartes de coachs (/img/team/cards/) n'ont pas de
+ *  dossier cutouts, donc cinq 404 à chaque montage — et la forge se monte
+ *  deux fois. Un repli rattrapait l'image, mais on ne demande pas un fichier
+ *  dont on sait qu'il n'est pas là.
+ *
+ *  CONTRAT : le jour où quelqu'un ajoute un dossier cutouts ailleurs, il
+ *  ajoute son préfixe dans cette liste. C'est le seul endroit à changer.
+ */
+const AVEC_DECOUPE = ["/img/coaches/"];
+const cutoutUrl = (img: string) =>
+  AVEC_DECOUPE.some((d) => img.startsWith(d))
+    ? img.replace(/\/([^/]+)\.\w+$/, "/cutouts/$1.png")
+    : img;   // pas de découpe ici : on charge l'image telle quelle
 
 /** soft radial ground shadow texture */
 function shadowTexture(): THREE.Texture {
