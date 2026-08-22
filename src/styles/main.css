@@ -1487,43 +1487,66 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
    coachs — le « bunch of blue space » signalé par le patron. */
 html.forge-live #team-cards-section { display: none; }
 
-/* LE CARTON DE ROUND — le piège, dans le langage de Portet.
-   Entre deux rounds, on lève un carton : le CHIFFRE d'abord, tout le reste
-   ensuite. C'est un objet, pas une ligne de texte — une ligne se lit et
-   s'oublie. L'or est le code réseau de la saison (rouge = 29€, or =
-   l'année) ; il ne sert qu'au chiffre, au liseré et au lien. Le carton reste
-   dans le bandeau du round : il appartient à la structure du combat au lieu
-   d'être une bannière collée dessus. */
+/* =====================================================================
+   LE BILLET — le piège.
+
+   Étudié dans la banque de références avant d'être dessiné :
+   · teenage_engineering : une offre n'est pas une bannière, c'est un
+     OBJET. Leur code promo est un ticket déchiré — bord festonné, aplat,
+     type énorme. C'est la SILHOUETTE qui arrête l'œil, pas la décoration.
+   · gymbox_com : or sur noir, mentions en monospace, chiffres en tableau
+     d'affichage.
+   · darkroom_engineering : le type à l'échelle DU BLOC, pas dedans.
+
+   Ici l'objet juste, pour un site qui raconte un combat en six rounds,
+   c'est le BILLET : bord déchiré à gauche, talon perforé à droite. Pas
+   d'ombre, pas de cadre : la forme suffit.
+   ===================================================================== */
 .round-card__inner { flex-wrap: wrap; }
-.rcard { flex: 0 0 100%; margin-top: .9rem; display: grid; align-items: center;
-  grid-template-columns: auto auto 1fr auto; gap: .25rem 1.3rem;
-  padding: .95rem clamp(.9rem, 2.5vw, 1.4rem); border: 1px solid rgba(232,192,74,.34);
-  border-left: 3px solid #e8c04a; border-radius: 10px;
-  background: linear-gradient(100deg, rgba(232,192,74,.10), rgba(232,192,74,.02) 42%, transparent 78%);
-  transition: border-color .3s var(--ease-out), background .3s, transform .3s var(--ease-out); }
-.rcard:hover { border-color: rgba(232,192,74,.7); transform: translateY(-2px);
-  background: linear-gradient(100deg, rgba(232,192,74,.17), rgba(232,192,74,.04) 42%, transparent 78%); }
-.rcard__l { grid-row: 1; font-family: var(--font-mono, monospace); font-size: .66rem; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--muted); white-space: nowrap; }
-.rcard__prix { grid-row: 1; display: inline-flex; align-items: baseline; gap: .5ch; white-space: nowrap; }
-.rcard__prix s { font-size: .82rem; color: var(--muted); text-decoration-thickness: 1.5px; }
-.rcard__prix b { font-family: var(--font-display); font-size: clamp(1.7rem, 5.4vw, 2.5rem); line-height: .9;
-  color: #e8c04a; letter-spacing: -.01em; }
-.rcard__txt { grid-row: 1; font-size: clamp(.85rem, 2.2vw, .96rem); line-height: 1.45; color: var(--fg-soft); }
-.rcard__go { grid-row: 1; justify-self: end; white-space: nowrap; font-weight: 600; font-size: .9rem;
-  color: #17110a; background: linear-gradient(135deg, #e8c04a, #d9a441); border-radius: 999px;
-  padding: .6em 1.1em; min-height: 44px; display: inline-flex; align-items: center; gap: .5ch; }
-.rcard__go i { font-style: normal; transition: transform .25s var(--ease-out); }
-.rcard:hover .rcard__go i { transform: translateX(3px); }
-@media (max-width: 760px){
-  /* Sur téléphone le carton se plie : le chiffre en haut avec son label,
-     la phrase dessous, le bouton en pleine largeur — une cible franche. */
-  .rcard { grid-template-columns: auto 1fr; gap: .5rem .9rem; }
-  .rcard__l { grid-row: 1; grid-column: 1; align-self: end; }
-  .rcard__prix { grid-row: 1; grid-column: 2; justify-self: start; }
-  .rcard__txt { grid-row: 2; grid-column: 1 / -1; }
-  .rcard__go { grid-row: 3; grid-column: 1 / -1; justify-self: stretch; justify-content: center; }
+.billet {
+  /* Plafonné : au-delà de ~760 px le billet s'étire, le prix devient petit
+     dans un grand vide doré, et un billet trop large ne ressemble plus à
+     un billet. Mesuré à 1 152 px sur un écran de 1 280 — trop. */
+  flex: 0 0 100%; max-width: 760px; margin-top: 1.1rem; display: grid;
+  grid-template-columns: 1fr auto; align-items: stretch;
+  background: linear-gradient(160deg, #f2d071, #e8c04a 42%, #cf9a34);
+  color: #17110a; text-decoration: none; position: relative; isolation: isolate;
+  transition: transform .35s var(--ease-out), filter .35s;
+  /* LE BORD DÉCHIRÉ : une rangée d'encoches taillées dans le bloc lui-même.
+     Un masque, pas une image : ça suit la hauteur quoi qu'il arrive. */
+  --dent: 13px;
+  -webkit-mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent)*2.1);
+  mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent)*2.1);
 }
+.billet:hover { transform: translateY(-3px); filter: brightness(1.05); }
+.billet__corps { padding: 1.25rem clamp(1rem,3vw,1.7rem) 1.25rem clamp(1.5rem,4vw,2.2rem); display: grid; gap: .1rem; }
+.billet__sur { font-family: var(--font-mono, monospace); font-size: .64rem; letter-spacing: .22em;
+  text-transform: uppercase; opacity: .62; }
+/* le prix à l'échelle du bloc : c'est LUI qu'on voit d'abord, de loin */
+.billet__prix { display: flex; align-items: flex-start; gap: .06em; line-height: .82; margin: .1rem 0 .05rem; }
+.billet__prix b { font-family: var(--font-display); font-size: clamp(3.6rem, 13vw, 5.6rem); letter-spacing: -.035em; }
+.billet__prix i { font-style: normal; font-family: var(--font-display); font-size: clamp(1.2rem, 4vw, 2rem); margin-top: .3em; }
+.billet__barre { font-family: var(--font-mono, monospace); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; opacity: .58; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.billet__txt { font-size: clamp(.86rem, 2.3vw, 1rem); line-height: 1.4; margin-top: .5rem; max-width: 34ch; opacity: .88; }
+/* LE TALON, séparé par une perforation — le détail qui fait le billet */
+.billet__talon { border-left: 2px dashed rgba(23,17,10,.34); padding: 1.25rem clamp(1rem,3vw,1.6rem);
+  display: grid; align-content: center; gap: .42rem; text-align: right; }
+.billet__mention { font-family: var(--font-mono, monospace); font-size: .66rem; letter-spacing: .12em;
+  text-transform: uppercase; opacity: .72; white-space: nowrap; }
+.billet__go { margin-top: .5rem; font-weight: 700; font-size: .92rem; white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: flex-end; gap: .5ch; }
+.billet__go i { font-style: normal; transition: transform .25s var(--ease-out); }
+.billet:hover .billet__go i { transform: translateX(4px); }
+@media (max-width: 720px) {
+  /* Sur téléphone le billet se détache : le talon passe DESSOUS, séparé
+     par la même perforation, et ses mentions s'alignent en ligne. */
+  .billet { grid-template-columns: 1fr; --dent: 11px; }
+  .billet__talon { border-left: 0; border-top: 2px dashed rgba(23,17,10,.34); text-align: left;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; padding-block: .9rem; }
+  .billet__go { margin: 0 0 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .billet, .billet__go i { transition: none; } }
 .tcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden; }
 .tcard img { width: 100%; height: auto; display: block; }
 .tcard__body { padding: 1rem 1.1rem 1.3rem; }
