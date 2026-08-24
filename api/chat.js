@@ -152,12 +152,24 @@ async function gemini(key, model, messages, system) {
   if (!text) throw new Error("gemini empty");
   return text;
 }
+/* Les fournisseurs dont la cle a ete REFUSEE (401/403). Une cle morte est
+   morte : la rappeler a chaque message coute un aller-retour reseau sur le
+   chemin critique d'une conversation. On ne la retire pas du code — le jour
+   ou elle est remplacee, tout doit remarcher sans toucher au fichier — on
+   memorise juste son refus pour la duree de l'instance.
+   401/403 seulement : un 429 est un quota qui se recharge, un 500 un
+   incident passager. Ceux-la, on les rejoue. */
+const clesRefusees = new Set();
+
 async function openaiLike(url, key, model, messages, system) {
   const r = await fetch(url, {
     method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
     body: JSON.stringify({ model, max_tokens: 1024, temperature: 0.4, messages: [{ role: "system", content: system }, ...messages] }),
   });
-  if (!r.ok) throw new Error("oai " + r.status);
+  if (!r.ok) {
+    if (r.status === 401 || r.status === 403) clesRefusees.add(url);
+    throw new Error("oai " + r.status);
+  }
   const j = await r.json();
   const ch = j?.choices?.[0];
   const text = tidy(ch?.message?.content, ch?.finish_reason === "length");
@@ -192,10 +204,10 @@ export default async function handler(req, res) {
     try { return res.status(200).json({ reply: await gemini(key, gModel, messages, system), via: "gemini" }); } catch { /* try next */ }
   }
   // 2) Groq, 3) Mistral
-  if (process.env.GROQ_API_KEY) {
+  if (process.env.GROQ_API_KEY && !clesRefusees.has("https://api.groq.com/openai/v1/chat/completions")) {
     try { return res.status(200).json({ reply: await openaiLike("https://api.groq.com/openai/v1/chat/completions", process.env.GROQ_API_KEY, process.env.GROQ_MODEL || "llama-3.3-70b-versatile", messages, system), via: "groq" }); } catch {}
   }
-  if (process.env.MISTRAL_API_KEY) {
+  if (process.env.MISTRAL_API_KEY && !clesRefusees.has("https://api.mistral.ai/v1/chat/completions")) {
     try { return res.status(200).json({ reply: await openaiLike("https://api.mistral.ai/v1/chat/completions", process.env.MISTRAL_API_KEY, process.env.MISTRAL_MODEL || "mistral-small-latest", messages, system), via: "mistral" }); } catch {}
   }
   return res.status(503).json({ error: "Assistant momentanément indisponible." });

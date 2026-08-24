@@ -77,6 +77,18 @@ export const QUICKS: Quick[] = [
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
     actions: ["partenaires"] },
+  /* AJOUTES LE 24/08/2026. Vu en production : « est-ce qu'il y a la clim ? »
+     recevait le message passe-partout, parce qu'aucune regle ne couvrait la
+     question. Un repli qui ne repond qu'a neuf questions n'est pas un repli. */
+  { label: "Climatisation", q: "Il y a la clim ?",
+    a: "Non — aucune de nos salles n’est climatisée, ni chauffée. Elles sont en revanche correctement isolées. On te dit les choses comme elles sont : tu viens en tenue légère l’été, tu t’échauffes moins longtemps l’hiver.",
+    actions: ["premiere"] },
+  { label: "Douches & vestiaires", q: "Il y a des douches ?",
+    a: "Oui : douches individuelles, vestiaires hommes et femmes, et des casiers. Les sanitaires et les vestiaires sont rénovés chaque saison.",
+    actions: ["premiere"] },
+  { label: "Quoi apporter", q: "Je dois apporter quoi le premier jour ?",
+    a: "Une tenue de sport, une bouteille d’eau, une serviette. Les gants et les bandes sont prêtés pour la première séance — tu n’achètes rien avant de savoir si ça te plaît.",
+    actions: ["premiere", "tarifs"] },
 ];
 
 /* « partenar » et non « partenair » : il faut attraper partenaire(s) ET
@@ -92,6 +104,13 @@ const RULES: [RegExp, number][] = [
   [/inscri|adh[ée]r|certificat|m[ée]dical|document|dossier/i, 5],
   [/coach|entra[îi]neur|prof\b|encadr|[ée]quipe|tapia|pinto|pioppo|trama[çc]on|mourad|ingrid/i, 6],
   [/essai|d[ée]couvr|tester|premi[èe]re|gratuit|offert/i, 7],
+  /* La clim d'abord : « il fait chaud » ne doit pas partir sur « horaires ».
+     Le mot « clim » seul est la facon dont les gens l'ecrivent — le declencheur
+     de la boutique ne l'avait pas, et le bot a invente une climatisation qui
+     n'existe pas. On ne refait pas l'erreur ici. */
+  [/\bclim\b|climatis|ventil|il fait (chaud|froid)|temp[ée]rature|chauff[ée]?e?\b/i, 9],
+  [/douche|vestiaire|casier|sanitaire/i, 10],
+  [/apporter|amener|mat[ée]riel|[ée]quipement|gants?\b|bandes?\b|tenue|affaires|serviette/i, 11],
 ];
 
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
