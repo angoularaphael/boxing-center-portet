@@ -1391,7 +1391,6 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 }
 .partner__logo img { max-width: 100%; max-height: 130px; object-fit: contain; mix-blend-mode: screen; }
 
-
 /* « Ta place » (sequence ring) : titres en bleu CLAIR — le bleu accent se
    perdait sur la photo sombre (demande du patron). */
 .ring__txt .tint { color: #8bb4ff; }
@@ -1469,7 +1468,6 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   .reel__tag, .disc__tag, .aud__tag, .boxer__tag, .tarif__badge, .forge__toggle { font-size: 12px; }
   .fed span { font-size: 12px; }
 }
-
 
 /* == LE REPLI COACHS ==========================================================
    La page /coachs/ n'avait QUE la vitrine 3D (« no grid to render ») : sur
@@ -1667,7 +1665,6 @@ html.forge-live #team-cards-section { display: none; }
    n'exécutent rien. Elles s'effacent dès que la scène prend la main
    (html.forge-live, posé par main.ts). */
 
-
 /* == L'AFFICHE DU PLANNING ====================================================
    Elle passe AVANT la grille : c'est le visuel que les adherents reconnaissent,
    le meme qu'en salle et sur Instagram. Cadre clair sur fond sombre pour que
@@ -1802,14 +1799,8 @@ html.no-webgl .forge__sticky canvas { display: none; }
    La photo du hero est ecrasee a brightness(0.17) parce que les particules
    passent par-dessus — c'est voulu. Mais le mot-symbole n'existe QUE dans le
    canvas : quand il ne se dessine pas, le nom du club n'apparait nulle part
-   et le premier ecran est un rectangle noir. La photo remonte, et le logo
-   s'affiche en HTML (deja precharge par enter.ts : zero requete de plus). */
+   et le premier ecran est un rectangle noir. La photo remonte donc a 0,45 :
+   on voit la salle, le ring, les sacs. C'est le repli, et il s'arrete la —
+   le mot-symbole ne se double pas d'une image de logo, il EST le logo. */
 html.no-webgl .hero__photo { filter: grayscale(1) contrast(1.05) brightness(0.45); }
-html.no-webgl .hero__repli { display: block; }
-/* Le fichier est du navy sur transparent : pose tel quel sur le fond navy du
-   hero, il etait invisible. La barre de nav le blanchit deja avec le meme
-   token — on le reutilise, on n'invente pas une valeur. */
-.hero__repli { display: none; position: absolute; z-index: 1; left: 50%; top: 30%;
-  transform: translate(-50%, -50%); width: min(78vw, 520px); height: auto;
-  filter: var(--nav-logo-filter) drop-shadow(0 6px 30px rgba(0,0,0,.55));
-  pointer-events: none; }
+

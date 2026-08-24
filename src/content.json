@@ -239,26 +239,26 @@
   ],
   "tarifs": [
     {
-      "name": "Offre Rentrée",
-      "price": "29€",
-      "unit": "par personne / 4 semaines",
-      "old": "44€",
-      "badge": "Promo rentrée 2026",
-      "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
-      "feature": true,
-      "cta": "Je profite de l’offre",
-      "href": "https://boutique.boxingcenter.fr/offre/29"
-    },
-    {
       "name": "Saison · 12 mois",
       "price": "259€",
       "unit": "l’année · 4× sans frais",
       "old": "400€",
-      "badge": "4× sans frais",
-      "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois. L’engagement des passionnés.",
-      "feature": false,
+      "badge": "Promo saison 2026-2027",
+      "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois, payable en 4× sans frais. 141 € d’économie sur l’année.",
+      "feature": true,
       "cta": "Je prends ma saison",
       "href": "https://boutique.boxingcenter.fr/offre/259"
+    },
+    {
+      "name": "Offre Rentrée",
+      "price": "29€",
+      "unit": "par personne / 4 semaines",
+      "old": "44€",
+      "badge": "Sans engagement",
+      "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
+      "feature": false,
+      "cta": "Je profite de l’offre",
+      "href": "https://boutique.boxingcenter.fr/offre/29"
     },
     {
       "name": "Adulte",
