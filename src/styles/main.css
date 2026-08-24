@@ -1752,3 +1752,64 @@ html.forge-live #team-cards-section { display: none; }
   .billet__barre   { font-size: .82rem; }   /* 10,9 -> 13,1 px */
   .billet__mention { font-size: .78rem; }   /* 10,6 -> 12,5 px */
 }
+
+/* ============ SANS WEBGL, LA PAGE SE REPLIE ======================= *
+   Trois chemins menent ici : WebGL absent, contexte refuse (frequent sur iOS
+   quand la memoire manque), et `Save-Data` / 2G — le profil Android d'entree
+   de gamme, exactement la cible de ce site.
+
+   Jusqu'au 24/08/2026, rien ne compensait. Les trois sections gardaient les
+   hauteurs qui servent a piloter leurs scenes au defilement :
+
+       .portal  185vh  ·  .ring  400vh  ·  .forge  420vh   =  1005vh
+
+   Dix ecrans de fond uni, des titres restes a opacity 0, et le visiteur qui
+   ne rencontre JAMAIS « 259 € · L'annee entiere » ni « Prendre ma place ».
+
+   Sous cette classe : hauteurs naturelles, collant desactive, et ce qui
+   n'apparaissait que pendant l'animation devient simplement visible. Le
+   contenu ne depend plus de la scene.
+
+   prefers-reduced-motion recoit le meme traitement : quelqu'un qui demande
+   moins d'animation ne demande pas moins de contenu. */
+html.no-webgl .portal,
+html.no-webgl .ring,
+html.no-webgl .forge { height: auto; min-height: 0; }
+
+html.no-webgl .portal__sticky,
+html.no-webgl .ring__sticky,
+html.no-webgl .forge__sticky { position: static; height: auto; min-height: 0; overflow: visible; }
+
+/* ce qui n'etait revele que par la scene */
+html.no-webgl .portal__line { position: relative; opacity: 1; }
+html.no-webgl .ring__txt { opacity: 1 !important; pointer-events: auto !important;
+  position: relative; padding-block: clamp(2rem, 6vw, 4rem); }
+html.no-webgl .ring__overlay { position: relative; pointer-events: auto; }
+
+/* les canvas vides n'ont plus de raison d'occuper la place */
+html.no-webgl .portal__sticky canvas,
+html.no-webgl .ring__sticky canvas,
+html.no-webgl .forge__sticky canvas { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .portal, .ring, .forge { height: auto; min-height: 0; }
+  .portal__sticky, .ring__sticky, .forge__sticky { position: static; height: auto; min-height: 0; overflow: visible; }
+  .portal__line { position: relative; opacity: 1; }
+  .ring__txt { opacity: 1 !important; pointer-events: auto !important; position: relative; padding-block: clamp(2rem, 6vw, 4rem); }
+}
+
+/* --- LE HERO SANS WEBGL : la marque doit se voir ------------------ *
+   La photo du hero est ecrasee a brightness(0.17) parce que les particules
+   passent par-dessus — c'est voulu. Mais le mot-symbole n'existe QUE dans le
+   canvas : quand il ne se dessine pas, le nom du club n'apparait nulle part
+   et le premier ecran est un rectangle noir. La photo remonte, et le logo
+   s'affiche en HTML (deja precharge par enter.ts : zero requete de plus). */
+html.no-webgl .hero__photo { filter: grayscale(1) contrast(1.05) brightness(0.45); }
+html.no-webgl .hero__repli { display: block; }
+/* Le fichier est du navy sur transparent : pose tel quel sur le fond navy du
+   hero, il etait invisible. La barre de nav le blanchit deja avec le meme
+   token — on le reutilise, on n'invente pas une valeur. */
+.hero__repli { display: none; position: absolute; z-index: 1; left: 50%; top: 30%;
+  transform: translate(-50%, -50%); width: min(78vw, 520px); height: auto;
+  filter: var(--nav-logo-filter) drop-shadow(0 6px 30px rgba(0,0,0,.55));
+  pointer-events: none; }

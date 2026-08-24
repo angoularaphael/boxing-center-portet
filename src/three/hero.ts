@@ -11,7 +11,19 @@ import { themeColors } from "../theme";
 export async function initHero(container: HTMLElement) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  /* SEUL MODULE DU DEPOT SANS try/catch (corrige le 24/08/2026). world,
+     portal, ring, forge, showcase et gate-ring entourent tous leur
+     renderer. Ici, un contexte refuse — frequent sur iOS quand la
+     memoire manque — ne faisait pas rater le hero : il faisait rater le
+     montage entier, sur le premier ecran. On sort proprement, et le CSS
+     prend le relais via html.no-webgl. */
+  let renderer: THREE.WebGLRenderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  } catch {
+    document.documentElement.classList.add("no-webgl");
+    return;
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 760 ? 1.5 : 2)); // <760px : la nettete d'un fond ne vaut pas 78% de pixels en plus
   renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);

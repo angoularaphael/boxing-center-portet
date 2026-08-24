@@ -293,6 +293,13 @@ function initLightbox(gal: HTMLElement) {
 // no WebGL scenes on constrained networks (Save-Data / 2G) — the design keeps
 // its photo fallbacks; the visitor keeps their data plan.
 const hasWebGL = "WebGLRenderingContext" in window && !liteMode;
+/* ET ON LE DIT AU CSS. Sans cette classe, les sections gardaient leurs
+   hauteurs de scene 3D — .portal 185vh + .ring 400vh + .forge 420vh, soit
+   dix ecrans — alors que rien ne s'y dessinait. Le visiteur descendait dix
+   ecrans de bleu marine et ne croisait jamais l'offre. Trois chemins y
+   menaient : WebGL absent, contexte refuse (frequent sur iOS), et
+   Save-Data / 2G, c'est-a-dire le profil Android d'entree de gamme. */
+document.documentElement.classList.toggle("no-webgl", !hasWebGL);
 
 function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void) {
   if (!el) return;
