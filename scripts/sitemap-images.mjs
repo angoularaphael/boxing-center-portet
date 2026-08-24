@@ -83,6 +83,11 @@ const homeVideos = [
 ].filter(Boolean);
 
 const PAGES = [
+  /* Les fiches destinees aux IA. Un robot ne les decouvre autrement que
+     par robots.txt : les declarer ici les met au meme rang que les pages. */
+  { url: "/llms.txt", freq: "weekly", prio: "0.4", images: [] },
+  { url: "/llms-full.txt", freq: "weekly", prio: "0.3", images: [] },
+  { url: "/ai.txt", freq: "monthly", prio: "0.3", images: [] },
   { url: "/", freq: "weekly", prio: "1.0", images: [
       img("/og.jpg", "Salle Boxing Center Portet-sur-Garonne", "Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge."),
       img("/img/gym-04.jpg", `Préparation physique | Boxing Center Portet`, "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne."),
