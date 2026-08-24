@@ -1,16 +1,46 @@
+# Chaque groupe NOMME porte ses propres Disallow (24/08/2026).
+# RFC 9309 §2.2.1 : un robot n'obeit qu'a UN groupe, le plus specifique qui
+# le nomme — il ne lit jamais « User-agent: * » s'il est nomme ailleurs.
+# Les cinq interdictions ne vivaient que sous l'etoile : Googlebot, GPTBot,
+# ClaudeBot, PerplexityBot et 22 autres portaient un « Allow: / » sec, donc
+# /seance-offerte leur etait ouvert. C'est la page a 0 euro, la seule du
+# reseau : un moteur de reponse qui la lit repond « c'est gratuit a Portet »,
+# et le prospect ne paie plus jamais l'essai a 10 euros, sur aucune salle.
+# Le X-Robots-Tag de vercel.json empeche l'indexation, pas la lecture.
+#
 # https://boxing-center-portet.fr/llms.txt
 # Instructions pour les agents IA : /ai.txt
 
 User-agent: Googlebot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Googlebot-Image
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Google-InspectionTool
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Google-Favicon
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: *
@@ -23,54 +53,139 @@ Disallow: /404.html
 
 # Crawlers IA — contenu public uniquement
 User-agent: GPTBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: ChatGPT-User
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: OAI-SearchBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Claude-SearchBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Claude-User
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Claude-Web
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: anthropic-ai
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Google-Extended
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Bingbot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Applebot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Applebot-Extended
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Amazonbot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: meta-externalagent
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: FacebookBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: cohere-ai
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 # Bloquer les bots agressifs connus
@@ -83,24 +198,40 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-
 # ------- Ajoutes le 24/08/2026 : les deux salles du reseau declaraient
 #         des agents differents. Il n'y a aucune raison qu'un moteur de
 #         reponse lise une salle et pas sa soeur. Plus DuckAssistBot et
 #         Applebot-Extended, qui manquaient aux deux.
 User-agent: Perplexity-User
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: Bytespider
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: CCBot
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 User-agent: DuckAssistBot
-Allow: /
-
-User-agent: Applebot-Extended
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /seance-offerte
+Disallow: /404.html
 Allow: /
 
 Sitemap: https://boxing-center-portet.fr/sitemap.xml

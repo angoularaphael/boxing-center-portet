@@ -123,8 +123,16 @@ export async function initHero(container: HTMLElement) {
     const isMobile = w < 760;
     let s: number, py: number;
     if (isMobile) {
-      s = Math.min(0.7, (visW * 0.54) / 7.0);
-      py = 0.24 * visH;
+      /* LE MOT-SYMBOLE GRANDIT (24/08/2026). Il tenait dans 54 % de la largeur
+         visible — echelle 0,265 sur un 375 x 812 — perdu au milieu d'une photo
+         assombrie a 17 %. Or c'est le premier ecran, sur l'appareil de neuf
+         visiteurs sur dix, et le nom du club n'existe QUE dans ce canvas : il
+         n'y a aucun logo en HTML derriere. Un mot-symbole petit, c'est une
+         marque petite.
+         82 % de la largeur : la crete fait 7 unites de large a l'echelle 1,
+         donc 2,82 sur les 3,44 visibles — 18 % de marge, elle ne deborde pas. */
+      s = Math.min(0.9, (visW * 0.82) / 7.0);
+      py = 0.20 * visH;
     } else {
       s = Math.min(0.82, (visW * 0.46) / 7.0);
       if (aspect > 1.95) s *= 0.86;           // wide/short desktops: leave clear room for the hook

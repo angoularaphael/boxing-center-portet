@@ -495,7 +495,21 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .tarif__name { color: var(--fg-soft); font-weight: 600; }
 .tarif__price { font-family: var(--font-cond); font-weight: 600; font-size: clamp(2.2rem, 4vw, 3rem);
   line-height: 1; text-transform: uppercase; }
-.tarif__price small { font-size: 0.34em; color: var(--muted); font-family: var(--font-body); }
+/* L'UNITE PASSE SOUS LE PRIX.
+   En `inline`, le <small> prenait la fin de la ligne du chiffre puis
+   debordait : sur une carte de 335 px on lisait « 29€ PAR PERSONNE / 4 »
+   puis « SEMAINES » tout seul a la ligne, et « 4x SANS » / « FRAIS ».
+   Mesure : 217x50 px, QUATRE lignes pour trois mots. Un chiffre de 35 px
+   et une unite de 12 px n'ont rien a faire sur la meme ligne — c'est ce
+   qui dit ce qu'on achete, et ca se lisait comme du texte casse.
+   `balance` : si l'unite doit tenir sur deux lignes sur un tres petit
+   ecran, elle se coupe au milieu et non apres le dernier mot qui tenait. */
+.tarif__price small {
+  display: block; margin-top: .3em;
+  font-size: max(.34em, .8rem); line-height: 1.35;
+  color: var(--muted); font-family: var(--font-body);
+  letter-spacing: .04em; text-wrap: balance;
+}
 .tarif__note { color: var(--muted); font-size: 0.9rem; margin-top: auto; }
 
 /* ============================== CTA BLOCK ============================== */

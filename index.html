@@ -159,9 +159,9 @@
         "name": "Préparation physique — Boxing Center Portet",
         "description": "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120), Toulouse sud.",
         "thumbnailUrl": "https://boxing-center-portet.fr/img/gym-04.jpg",
-        "contentUrl": "https://boxing-center-portet.fr/media/clip-floor.mp4",
-        "uploadDate": "2026-08-07",
-        "duration": "PT8S",
+        "contentUrl": "https://boxing-center-portet.fr/media/clip-toise.mp4",
+        "uploadDate": "2026-08-24",
+        "duration": "PT19S",
         "inLanguage": "fr-FR",
         "isFamilyFriendly": true,
         "contentLocation": { "@type": "City", "name": "Portet-sur-Garonne" }
@@ -228,7 +228,12 @@
 
   <!-- ===================== LA TOISE (stats) ===================== -->
   <section class="stats-band">
-    <div class="vid-bg"><video src="/media/clip-floor.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+    <!-- La toise tournait sur clip-floor.mp4 : 8,2 s, une boucle si courte
+         qu'on la sentait boucler derriere les chiffres. Plan fourni par le
+         patron le 24/08, tranche 14 s -> 33 s = dix-neuf secondes.
+         540x960 / 25 im/s / sans audio / faststart ; preload="none"
+         conserve : rien n'est telecharge tant qu'on n'arrive pas ici. -->
+    <div class="vid-bg"><video src="/media/clip-toise.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
     <div class="wrap">
       <span class="eyebrow" style="display:block;padding-block:1.4rem 0">La toise</span>
       <div class="stats" data-reveal-group>
