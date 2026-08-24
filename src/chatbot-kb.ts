@@ -1,15 +1,16 @@
 /** Client-side knowledge for the chatbot: quick-button canned answers (instant,
  *  no API) + a keyword fallback used when the AI endpoint is unavailable. The
  *  full grounding for the LLM lives server-side in api/chat.js.
- *  L’ORDRE VEND : l’offre à 29 € d’abord, la séance d’essai à 10 € en dernier. */
+ *  L’ORDRE VEND : la saison à 259 € d’abord ; la séance d’essai à 10 € ne s’affiche
+ *  que sur la page tarifs ; le bot peut la proposer pour sauver une vente. */
 export type Quick = { label: string; q: string; a: string; actions?: string[] };
 
 /** Destinations et ACTIONS que le bot propose en BOUTONS sous ses messages.
  *  L’IA ne fournit que des CLÉS de ce catalogue — jamais d’URL libre :
  *  une clé inconnue est ignorée, un lien halluciné est impossible.
- *  `act` = le bot FAIT la tâche dans le chat (réservation d’essai, rappel)
+ *  `act` = le bot FAIT la tâche dans le chat (rappel d’un coach)
  *  au lieu de renvoyer vers un formulaire — zéro re-saisie pour le visiteur. */
-export type ActionDef = { label: string; href?: string; act?: "essai" | "rappel" };
+export type ActionDef = { label: string; href?: string; act?: "rappel" };
 
 /** MESURE — chaque lien boutique sortant de l’assistant est tracé, sinon on ne
  *  peut pas prouver que le bot vend. Les UTM se posent AVANT l’ancre : la
@@ -28,6 +29,9 @@ export const ACTIONS: Record<string, ActionDef> = {
      venait de lui parler. Une vente se perd exactement là. */
   saison:      { label: "Je profite de l’offre · 259€", href: shop("/offre/259") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
+  /* Le 10 € ne s’affiche que sur la page tarifs — et ici, parce que le bot a
+     le droit de le proposer pour sauver une vente (ordre du 24/08/2026). */
+  essai:       { label: "Je viens essayer · 10€", href: shop("/seance-essai") },
   offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
   abonnements: { label: "Voir les abonnements", href: shop("/abonnements") },
@@ -67,9 +71,9 @@ export const QUICKS: Quick[] = [
   { label: "Coachs", q: "Qui sont les coachs ?",
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
-  { label: "Séance d’essai", q: "Comment se passe la séance d’essai ?",
-    a: "La séance d’essai est à 10 € : toutes disciplines, matériel prêté, sans engagement. Tu arrives, tu dis que c’est ta première fois, un coach t’accueille et te prête les gants — pas de sparring imposé, pas de test. Réserve en un clic, ou passe directement au club, 61 route d’Espagne.",
-    actions: ["premiere"] },
+  { label: "Ma première séance", q: "Comment se passe une première séance ?",
+    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille, te prête les gants et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Pour t’installer sur l’année, la saison est à 259 € en 4× sans frais.",
+    actions: ["premiere", "saison"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
     actions: ["partenaires"] },

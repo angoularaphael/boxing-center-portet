@@ -1,6 +1,6 @@
 # Boxing Center Portet — https://boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-08-22
+# Dernière mise à jour : 2026-08-24
 # Version étendue : https://boxing-center-portet.fr/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
@@ -10,8 +10,8 @@
 **Où est Boxing Center Portet ?**
 61 route d’Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
 
-**Combien coûte une séance d’essai ?**
-10 € — toutes disciplines, matériel prêté, sans engagement. Réservation : https://boutique.boxingcenter.fr/seance-essai
+**Combien coûte l’année ?**
+La saison 2026/2027 est à 259 € les 12 mois, payables en 4× sans frais, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Boutique officielle : https://boutique.boxingcenter.fr/offre/259
 
 **Quelle est l’offre du moment ?**
 Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://boutique.boxingcenter.fr/abonnements#promo
@@ -26,7 +26,7 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 +33 6 87 90 02 16 — boxingcenterportet@gmail.com
 
 **Est-ce adapté aux débutants ?**
-Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai à 10 €.
+Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
 
 **Comment se passe une première séance ?**
 On arrive au 61 route d’Espagne, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : https://boxing-center-portet.fr/premiere-seance/
@@ -176,7 +176,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 
 ## Mots-clés locaux (SEO)
 
-**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d’essai boxe
+**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, abonnement boxe à l’année Toulouse
 
 **Secondaires** : kick-boxing Portet, MMA Toulouse sud, grappling & JJB Haute-Garonne, Lady Boxing Toulouse, baby boxe Portet-sur-Garonne, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne
 

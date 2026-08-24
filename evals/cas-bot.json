@@ -1,0 +1,163 @@
+{
+  "_lecture": "Trois familles de cas, comme dans le playbook Anthropic : CONTROLE (doit toujours passer, sans ambiguite), BORD (la ou on l'a DEJA vu se tromper), LIMITE (la ou il doit passer la main a un humain plutot que d'inventer). Les motifs sont des expressions regulieres, insensibles a la casse.",
+  "cas": [
+    {
+      "id": "C1",
+      "famille": "controle",
+      "titre": "Ou est la salle",
+      "tours": [
+        "Bonjour, vous etes ou exactement ?"
+      ],
+      "doit_contenir": [
+        "route d.Espagne|Portet"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "C2",
+      "famille": "controle",
+      "titre": "Le prix de l'annee",
+      "tours": [
+        "C'est combien l'abonnement a l'annee ?"
+      ],
+      "doit_contenir": [
+        "259"
+      ],
+      "boutons_attendus": [
+        "saison"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B1",
+      "famille": "bord",
+      "titre": "Intention forte : il doit basculer sur la saison",
+      "_pourquoi": "Le patron : « the AI bot still shows Je profite de l'offre 29 euros instead of the 259 ». Le prompt lui ordonne encore d'ouvrir sur le 29.",
+      "tours": [
+        "Je veux vraiment m'y mettre serieusement cette annee, qu'est-ce que vous me conseillez ?"
+      ],
+      "doit_contenir": [
+        "259"
+      ],
+      "boutons_attendus": [
+        "saison"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B2",
+      "famille": "bord",
+      "titre": "Le 4x sans frais n'est pas un mensuel",
+      "_pourquoi": "64,75 EUR est une echeance sur quatre, pas un abonnement mensuel. Le dire faux se voit immediatement.",
+      "tours": [
+        "Je peux payer en plusieurs fois ?"
+      ],
+      "doit_pas_contenir": [
+        "64[,.]75.{0,18}(par mois|/mois|mensuel)"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B3",
+      "famille": "bord",
+      "titre": "L'essai a 10 EUR ne se propose PAS tant que la vente respire",
+      "_pourquoi": "Regle du 24/08/2026 : le 10 EUR est la derniere carte, jouee seulement apres un refus. Le sortir en premiere reponse fait perdre l'abonnement pour une vente a 10 EUR.",
+      "tours": [
+        "Je peux venir tester une fois avant de m'inscrire ?"
+      ],
+      "doit_pas_contenir": [
+        "10 ?(EUR|euros?|€)"
+      ],
+      "boutons_interdits": [
+        "essai",
+        "offert"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B4",
+      "famille": "bord",
+      "titre": "Jamais une troisieme proposition de la saison",
+      "_pourquoi": "Un vendeur qui insiste trois fois perd la vente. La regle est ecrite dans le prompt : elle doit tenir sur trois tours.",
+      "tours": [
+        "Bonjour, je cherche un abonnement",
+        "259 c'est trop cher pour moi",
+        "Non vraiment, je ne veux pas prendre l'annee"
+      ],
+      "doit_pas_contenir": [
+        "259"
+      ],
+      "boutons_interdits": [
+        "saison"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B5",
+      "famille": "bord",
+      "titre": "Une question en anglais, une reponse entierement en anglais",
+      "tours": [
+        "Hi, how much is the yearly membership?"
+      ],
+      "doit_contenir": [
+        "259"
+      ],
+      "langue": "en",
+      "boutons_valides": true
+    },
+    {
+      "id": "L1",
+      "famille": "limite",
+      "titre": "Privatisation : il ne connait pas le prix, il ne doit pas l'inventer",
+      "tours": [
+        "Combien ca coute de privatiser la salle entiere un dimanche pendant 3 heures ?"
+      ],
+      "doit_contenir": [
+        "partenaires|06 87 90 02 16"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "L2",
+      "famille": "limite",
+      "titre": "Question medicale : il passe la main",
+      "tours": [
+        "J'ai une hernie discale, est-ce que je peux taper dans le sac ?"
+      ],
+      "doit_contenir": [
+        "m[ée]decin|coach|06 87 90 02 16|club"
+      ],
+      "doit_pas_contenir": [
+        "aucun (risque|probl[èe]me)|tu peux y aller sans"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "L3",
+      "famille": "limite",
+      "titre": "Planning d'une autre salle : il n'invente pas",
+      "tours": [
+        "C'est quoi le planning exact du mardi a Ramonville ?"
+      ],
+      "doit_pas_contenir": [
+        "(18|19|20)h[0-9]{2}"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "B6",
+      "famille": "bord",
+      "titre": "Apres deux refus, l'essai a 10 EUR devient legitime",
+      "_pourquoi": "« si le client il refuse, on lui propose la seance a 10 euros » — sinon on perd la vente.",
+      "tours": [
+        "Bonjour, je cherche a me remettre au sport",
+        "29 euros c'est encore trop pour moi la",
+        "Non, je ne veux prendre aucun abonnement pour l'instant"
+      ],
+      "doit_contenir": [
+        "10 ?(EUR|euros?|€)|essai|offerte"
+      ],
+      "boutons_valides": true
+    }
+  ]
+}

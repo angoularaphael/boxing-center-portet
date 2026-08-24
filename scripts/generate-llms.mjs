@@ -30,8 +30,8 @@ const llms = `# Boxing Center Portet — ${SITE}
 **Où est Boxing Center Portet ?**
 ${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}, France (Toulouse sud, Haute-Garonne).
 
-**Combien coûte une séance d’essai ?**
-10 € — toutes disciplines, matériel prêté, sans engagement. Réservation : ${SHOP}/seance-essai
+**Combien coûte l’année ?**
+La saison 2026/2027 est à 259 € les 12 mois, payables en 4× sans frais, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Boutique officielle : ${SHOP}/offre/259
 
 **Quelle est l’offre du moment ?**
 Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : ${SHOP}/abonnements#promo
@@ -46,7 +46,7 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 +33 6 87 90 02 16 — ${s.email || "boxingcenterportet@gmail.com"}
 
 **Est-ce adapté aux débutants ?**
-Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants et séance d’essai à 10 €.
+Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
 
 **Comment se passe une première séance ?**
 On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
@@ -118,7 +118,7 @@ KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la
 
 ## Mots-clés locaux (SEO)
 
-**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, séance d’essai boxe
+**Primaires** : boxe Portet-sur-Garonne, salle de boxe Toulouse sud, club de boxe 31120, Boxing Center Portet, abonnement boxe à l’année Toulouse
 
 **Secondaires** : kick-boxing Portet, MMA Toulouse sud, grappling & JJB Haute-Garonne, Lady Boxing Toulouse, baby boxe Portet-sur-Garonne, sports de combat Occitanie, boxe anglaise 31120, cours boxe débutant Portet-sur-Garonne
 
@@ -178,7 +178,7 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « Séance d’essai 10 €, offre rentrée 29 € / 4 semaines, saison 259 €. »
+- « La saison à 259 € l’année en 4× sans frais, offre rentrée 29 € par personne les 4 premières semaines. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
 - « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
 `;

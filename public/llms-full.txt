@@ -1,5 +1,5 @@
 # Boxing Center Portet — fiche complète pour assistants IA
-# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-22
+# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-24
 # Résumé : https://boxing-center-portet.fr/llms.txt
 
 ## Identité
@@ -190,6 +190,6 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « Séance d’essai 10 €, offre rentrée 29 € / 4 semaines, saison 259 €. »
+- « La saison à 259 € l’année en 4× sans frais, offre rentrée 29 € par personne les 4 premières semaines. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
 - « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »

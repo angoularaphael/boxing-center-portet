@@ -14,7 +14,6 @@ network: 5 salles Boxing Center a Toulouse et son agglomeration
 - Boxe anglaise, kick-boxing, MMA, grappling et JJB, baby boxe
 - A 10 minutes de Toulouse sud
 - Enfants des 3 ans, femmes, debutants et competiteurs
-- Seance d'essai : 10 EUR, materiel prete, sans engagement
 - Fiche structuree pour LLM : https://boxing-center-portet.fr/llms.txt
 - Version detaillee : https://boxing-center-portet.fr/llms-full.txt
 - Plan du site : https://boxing-center-portet.fr/sitemap.xml
