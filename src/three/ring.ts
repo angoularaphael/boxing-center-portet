@@ -330,7 +330,18 @@ export async function initRing(section: HTMLElement, host: HTMLElement) {
     camera.lookAt(camT);
 
     blocks.forEach((b, i) => {
-      b.style.opacity = (windows[i] ? windows[i](p) : 0).toFixed(2);
+      /* L'OPACITE ET LES EVENEMENTS S'ECRIVENT ENSEMBLE.
+         Seule l'opacite etait pilotee ici. Le billet gardait donc
+         pointer-events: auto (main.css) et une boite de 280 x 181 alors qu'il
+         etait a opacity 0 : un pouce pose au milieu-bas de l'ecran pour
+         relancer le defilement ouvrait la page de paiement dans un nouvel
+         onglet, sans rien avoir demande. Mesure : a 80 % de la section,
+         elementFromPoint renvoyait SPAN.billet__barre a opacite 0,00.
+         Un tap fantome qui atterrit sur la caisse ne fait pas perdre une
+         vente — il fait fuir quelqu'un au moment ou il commencait a lire. */
+      const op = windows[i] ? windows[i](p) : 0;
+      b.style.opacity = op.toFixed(2);
+      b.style.pointerEvents = op > 0.05 ? "auto" : "none";
     });
 
     if (mobile) section.classList.toggle("is-topdown", p > 0.68);

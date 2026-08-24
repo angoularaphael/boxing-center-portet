@@ -1607,7 +1607,14 @@ html.forge-live #team-cards-section { display: none; }
    héritait et n'était donc PAS cliquable. Un bouton qu'on ne peut pas
    cliquer n'est pas un bouton. On lui rend ses événements — à lui seul —
    et on le passe au-dessus du canvas. */
-.ring .billet, .ring__txt .billet, .ring__overlay .billet { pointer-events: auto; position: relative; z-index: 4; }
+/* pointer-events RETIRE d'ici (24/08/2026). Il valait `auto` en dur sur le
+   billet, et un enfant en `auto` reste cliquable sous un parent en `none` :
+   il annulait donc le pilotage pose par ring.ts, et un billet a opacite
+   0,00 ouvrait encore la page de paiement sous le pouce. Le bloc
+   .ring__txt recoit desormais opacite ET evenements sur la meme ligne de
+   code ; le billet en herite. position et z-index restent : c'est eux qui
+   font passer le billet au-dessus du voile du ring. */
+.ring .billet, .ring__txt .billet, .ring__overlay .billet { position: relative; z-index: 4; }
 
 /* ===================================================================
    LE REFLET — sur TOUS les objets qui portent l'offre.
@@ -1712,4 +1719,22 @@ html.forge-live #team-cards-section { display: none; }
   .plaque { transition: opacity .2s; transform: none; }
   .plaque.is-in { transform: none; }
   .plaque__reflet { display: none; }
+}
+
+/* ============ LE BILLET SUR TELEPHONE ============================= *
+   Le billet est un billet de banque : sa micro-typo est le dessin, et le
+   numero de serie a 9,3 px est de la TEXTURE — il reste de la texture.
+
+   Mais sur un billet de 335 px de large, « 259 » s'affiche a 57,6 px pendant
+   que tout ce qui justifie ce prix tient entre 10,2 et 10,9 px : l'ancrage
+   « au lieu de 400 € », les trois mentions qui SONT le produit (12 mois,
+   5 salles, 4x sans frais), et ce qu'on achete. Neuf visiteurs sur dix lisent
+   ca sur un telephone.
+
+   Un chiffre enorme sans ses raisons, c'est un prix. Avec ses raisons, c'est
+   une affaire. On monte donc ces trois lignes-la, et elles seules. */
+@media (max-width: 600px) {
+  .billet__sur     { font-size: .75rem; }   /* 10,2 -> 12   px */
+  .billet__barre   { font-size: .82rem; }   /* 10,9 -> 13,1 px */
+  .billet__mention { font-size: .78rem; }   /* 10,6 -> 12,5 px */
 }
