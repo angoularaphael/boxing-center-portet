@@ -446,7 +446,11 @@ html.gated .bcp-chat {
   color: #eef1f6;
   border-radius: 14px;
   padding: 11px 14px;
-  font-size: 0.875rem;
+  /* 16 px, PAS 0.875rem. Safari sur iPhone grossit la page des qu'on met le
+     doigt dans un champ sous 16 px : elle saute, et il faut pincer pour
+     revenir. Ce n'est pas un reglage qu'on peut couper. Et c'est le champ ou
+     quelqu'un pose la question qui precede un achat. */
+  font-size: 16px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
