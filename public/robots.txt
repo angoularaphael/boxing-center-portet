@@ -83,4 +83,24 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
+
+# ------- Ajoutes le 24/08/2026 : les deux salles du reseau declaraient
+#         des agents differents. Il n'y a aucune raison qu'un moteur de
+#         reponse lise une salle et pas sa soeur. Plus DuckAssistBot et
+#         Applebot-Extended, qui manquaient aux deux.
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://boxing-center-portet.fr/sitemap.xml
