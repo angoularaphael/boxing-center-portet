@@ -19,6 +19,12 @@ const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : boutique.boxi
   · La séance d’essai n’est PLUS vendue ni affichée nulle part. La seule qui existe est la séance OFFERTE, et elle n’existe que par TOI (point 3 de VENDRE).
 - Inscription : fiche d’inscription + certificat médical de non contre-indication à la boxe + moyen de paiement + badge d’accès 34€ à l’inscription (aucun autre frais). Tout se fait en ligne sur boutique.boxingcenter.fr ou à l’accueil.
 - Équipements : salle de boxe anglaise avec ring, espace combat avec cage MMA, sacs de frappe, matériel de préparation physique, vestiaires — 600 m².
+- CLIMATISATION : il n’y en a AUCUNE, et il n’y a pas de chauffage non plus — ni ici,
+  ni dans aucune des cinq salles du réseau. Si on te demande « il y a la clim ? »,
+  la réponse est NON, franchement, puis tu enchaînes sur ce qui est vrai : la salle
+  est correctement isolée. Tu ne réponds JAMAIS oui, même partiellement. Vu en
+  production le 24/08 : le bot a inventé une climatisation qui n’existe pas.
+- Douches individuelles, vestiaires hommes et femmes, casiers.
 - Réseau : 5 salles (Portet, Toulouse Minimes, Toulouse Saint-Cyprien, Ramonville, Toulouse États-Unis) — l’abonnement ouvre les 5.
 - Boutique officielle (abonnements, offres, matériel) : boutique.boxingcenter.fr — Groupe : boxingcenter.fr.
 - Partenaires du club : KFC, O2 Portet-sur-Garonne, Karting 2 Muret (kartingmuret.fr).
@@ -164,10 +170,21 @@ const clesRefusees = new Set();
 async function openaiLike(url, key, model, messages, system) {
   const r = await fetch(url, {
     method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-    body: JSON.stringify({ model, max_tokens: 1024, temperature: 0.4, messages: [{ role: "system", content: system }, ...messages] }),
+    /* Les modeles gpt-oss de Groq raisonnent AVANT de repondre, et ces
+       tokens-la sont pris sur max_tokens : a 300, 192 partaient en reflexion
+       et le contenu revenait VIDE. Meme piege que le thinkingBudget de
+       Gemini, documente plus haut. « low » le ramene a une trentaine de
+       tokens. Le champ est ignore par les modeles qui ne raisonnent pas. */
+    body: JSON.stringify({
+      model, max_tokens: 1024, temperature: 0.4,
+      ...(/gpt-oss|reasoning/.test(model) ? { reasoning_effort: "low" } : {}),
+      messages: [{ role: "system", content: system }, ...messages],
+    }),
   });
   if (!r.ok) {
-    if (r.status === 401 || r.status === 403) clesRefusees.add(url);
+    /* on marque l URL pour Mistral ; Groq, lui, est marque par CLE dans la
+       boucle du pool — une cle morte ne doit pas condamner ses deux soeurs. */
+    if ((r.status === 401 || r.status === 403) && !/groq/.test(url)) clesRefusees.add(url);
     throw new Error("oai " + r.status);
   }
   const j = await r.json();
@@ -203,10 +220,32 @@ export default async function handler(req, res) {
   for (const key of gKeys) {
     try { return res.status(200).json({ reply: await gemini(key, gModel, messages, system), via: "gemini" }); } catch { /* try next */ }
   }
-  // 2) Groq, 3) Mistral
-  if (process.env.GROQ_API_KEY && !clesRefusees.has("https://api.groq.com/openai/v1/chat/completions")) {
-    try { return res.status(200).json({ reply: await openaiLike("https://api.groq.com/openai/v1/chat/completions", process.env.GROQ_API_KEY, process.env.GROQ_MODEL || "llama-3.3-70b-versatile", messages, system), via: "groq" }); } catch {}
+  /* 2) Groq — TROIS cles, essayees dans l'ordre. Une seule etait lue : le jour
+     ou la premiere est morte (401), tout le maillon est tombe alors que deux
+     cles valides attendaient dans le .env. Un quota Groq gratuit sature vite ;
+     avoir trois cles ne sert que si on les essaie toutes.
+     Le modele par defaut passe a openai/gpt-oss-120b : llama-3.3-70b-versatile
+     a disparu du catalogue Groq et renvoyait 404 sur les cles VALIDES — deux
+     pannes differentes sous un seul symptome. */
+  const qKeys = Object.keys(process.env)
+    .filter((k) => /^GROQ_API_KEY(_\d+)?$/.test(k))
+    .sort()
+    .map((k) => process.env[k])
+    .filter(Boolean);
+  const qModel = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+  for (const key of qKeys) {
+    const marque = "groq:" + key.slice(-6);
+    if (clesRefusees.has(marque)) continue;
+    try {
+      return res.status(200).json({
+        reply: await openaiLike("https://api.groq.com/openai/v1/chat/completions", key, qModel, messages, system),
+        via: "groq",
+      });
+    } catch (e) {
+      if (/ 40[13]$/.test(String(e.message || ""))) clesRefusees.add(marque);
+    }
   }
+  // 3) Mistral
   if (process.env.MISTRAL_API_KEY && !clesRefusees.has("https://api.mistral.ai/v1/chat/completions")) {
     try { return res.status(200).json({ reply: await openaiLike("https://api.mistral.ai/v1/chat/completions", process.env.MISTRAL_API_KEY, process.env.MISTRAL_MODEL || "mistral-small-latest", messages, system), via: "mistral" }); } catch {}
   }
