@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 
@@ -263,10 +263,67 @@ function adminUrlPlugin() {
   };
 }
 
+/* ============ LE BOT, EN LOCAL ==================================== *
+   Vite ne sert pas les fonctions serverless : `/api/chat` repondait 404 en
+   dev, le widget basculait sur son repli, et on lisait « Je peux t'aider sur
+   les offres... » a chaque question. Rien n'etait casse — il n'y avait
+   personne au bout du fil, et on ne pouvait donc rien tester avant de
+   deployer.
+
+   Ce greffon charge api/chat.js et lui passe la requete avec l'interface
+   minimale qu'elle attend. `apply: "serve"` : il n'existe qu'en dev, la
+   production garde la vraie fonction Vercel.
+
+   Les cles sont lues depuis .env ici meme. Vite ne les expose au serveur que
+   prefixees VITE_ — et prefixer une cle d'API la publierait dans le bundle du
+   navigateur. On ne le fait pas. */
+function botDevPlugin(): PluginOption {
+  return {
+    name: "bcp-bot-dev",
+    apply: "serve",
+    configureServer(server) {
+      try {
+        const brut = readFileSync(resolve(__dirname, ".env"), "utf8");
+        for (const ligne of brut.split(/\r?\n/)) {
+          const m = ligne.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)$/);
+          if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "").trim();
+        }
+      } catch { /* pas de .env : le bot repondra 503, c'est deja plus clair qu'un 404 */ }
+
+      server.middlewares.use("/api/chat", async (req, res) => {
+        if (req.method !== "POST") { res.statusCode = 405; return res.end("POST attendu"); }
+        let corps = "";
+        req.on("data", (c) => { corps += c; });
+        req.on("end", async () => {
+          try {
+            const mod = await server.ssrLoadModule("/api/chat.js");
+            const faux = {
+              method: "POST",
+              headers: req.headers,
+              body: corps ? JSON.parse(corps) : {},
+            };
+            const rep = {
+              status(code: number) { res.statusCode = code; return this; },
+              json(data: unknown) { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify(data)); },
+              setHeader(k: string, v: string) { res.setHeader(k, v); return this; },
+              end(t?: string) { res.end(t); },
+            };
+            await mod.default(faux, rep);
+          } catch (e) {
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ error: String((e as Error)?.message || e) }));
+          }
+        });
+      });
+    },
+  };
+}
+
 export default defineConfig({
   base: "/",
   appType: "mpa",
-  plugins: [seoBakePlugin(), adminUrlPlugin()],
+  plugins: [seoBakePlugin(), adminUrlPlugin(), botDevPlugin()],
   build: {
     target: "es2020",
     cssMinify: true,
