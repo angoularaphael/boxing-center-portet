@@ -1,54 +1,42 @@
-// Edge Middleware — protection de l'API uniquement.
-//
-// Le site public (HTML, photos, favicon, sitemap) doit rester ouvert aux
-// crawlers. Un 403 sur une page ou une image = pas de favicon Google, pas de
-// vignette, pas de référencement. La leçon : filtrer curl/puppeteer sur tout
-// le site bloquait aussi des fetchers Google (favicon, inspection, images).
-//
-// Ce qui reste protégé : POST /api (mur communauté, chatbot). Les fonctions
-// ont déjà preuve de travail, anti-injures et limites par IP.
+/* =====================================================================
+   Négociation de contenu markdown (acceptmarkdown.com)
 
+   Un agent qui envoie `Accept: text/markdown` reçoit le miroir markdown de
+   la page (cuit par scripts/cuire-md.mjs dans dist/md/), pas le HTML. Un
+   navigateur n'envoie jamais cet en-tête : le trafic humain ne passe
+   jamais par la réécriture.
+
+   POURQUOI UN MIDDLEWARE ET PAS UNE RÈGLE vercel.json : Vercel sert les
+   fichiers statiques AVANT d'évaluer les rewrites — une règle `has` sur
+   l'en-tête Accept ne se déclencherait jamais pour une page qui existe.
+   Le middleware, lui, passe avant le système de fichiers.
+
+   La réponse porte le contrat officiel du middleware Vercel :
+   `x-middleware-rewrite` réécrit, l'absence de retour laisse passer.
+   `Vary: Accept` est posé par vercel.json sur TOUTES les réponses, pour
+   que le CDN garde une entrée de cache par variante — sans lui, le HTML
+   mis en cache serait servi à l'agent qui demande du markdown (l'audit
+   du 25/08 pointe exactement ce risque).
+   ===================================================================== */
 export const config = {
-  matcher: ["/api/:path*"],
+  /* Jamais les assets, l'API, les fichiers à extension (.txt, .xml, .md…),
+     ni l'admin. Uniquement les pages. */
+  matcher: ["/((?!api/|assets/|fonts/|img/|admin|md/|.*\\.[a-zA-Z0-9]+$).*)"],
 };
 
-const SEARCH_CRAWLER =
-  /Googlebot|Google-InspectionTool|Google-Extended|Googlebot-Image|Googlebot-Video|Google-Favicon|Storebot-Google|AdsBot-Google|Bingbot|DuckDuckBot|Applebot|Yandex|GPTBot|OAI-SearchBot|ClaudeBot|Claude-SearchBot|Claude-User|PerplexityBot|ChatGPT-User|anthropic-ai|facebookexternalhit|FacebookBot|meta-externalagent|Amazonbot|Twitterbot|LinkedInBot/i;
-
-const SCRAPER_UA =
-  /curl|wget|python-requests|python-urllib|aiohttp|httpx|scrapy|go-http-client|libwww|winhttp|httrack|nikto|sqlmap|masscan|zgrab|node-fetch|undici|axios\/|phantomjs|puppeteer|playwright|selenium/i;
-
-const sameSite = (a, b) => !!a && !!b && a.replace(/^www\./, "") === b.replace(/^www\./, "");
-
-const devOrigin = (host) =>
-  /^localhost(:\d+)?$/.test(host) ||
-  /^127\.0\.0\.1(:\d+)?$/.test(host) ||
-  /\.vercel\.app$/.test(host);
-
-const refuse = (message) =>
-  new Response(JSON.stringify({ error: message }), {
-    status: 403,
-    headers: { "content-type": "application/json" },
-  });
-
 export default function middleware(request) {
-  const ua = request.headers.get("user-agent") || "";
+  const accept = request.headers.get("accept") || "";
+  if (!/\btext\/markdown\b/i.test(accept)) return; // trafic normal : on laisse passer
 
-  if (SEARCH_CRAWLER.test(ua)) return;
+  const url = new URL(request.url);
+  let chemin = url.pathname;
+  if (!chemin.endsWith("/")) chemin += "/";
+  url.pathname = "/md" + chemin + "index.md";
 
-  if (request.method === "GET" || request.method === "HEAD" || request.method === "OPTIONS") {
-    return;
-  }
-
-  if (SCRAPER_UA.test(ua)) return refuse("Accès refusé.");
-
-  if (request.method === "POST") {
-    const source = request.headers.get("origin") || request.headers.get("referer") || "";
-    let host = "";
-    try { host = new URL(source).host; } catch { /* en-tête absent ou "null" */ }
-    const url = new URL(request.url);
-    if (host && !sameSite(host, url.host) && !devOrigin(host)) {
-      return refuse("Origine non autorisée.");
-    }
-  }
+  return new Response(null, {
+    headers: {
+      "x-middleware-rewrite": url.toString(),
+      "Vary": "Accept, Accept-Encoding",
+    },
+  });
 }

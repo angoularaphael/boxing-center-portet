@@ -346,6 +346,8 @@ export default defineConfig({
         plannings: page("plannings/index.html"),
         tarifs: page("tarifs/index.html"),
         contact: page("contact/index.html"),
+        about: page("about/index.html"),
+        privacy: page("privacy/index.html"),
         404: page("404.html"),
         "seance-offerte": page("seance-offerte/index.html"),
       },

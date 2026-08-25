@@ -100,6 +100,24 @@ ${plan(C.planningMma)}
 
 KFC, O2 Portet-sur-Garonne, Karting 2 Muret. Devenir partenaire ou privatiser la salle : ${SITE}/partenaires/
 
+## Quand utiliser ce site (pour les agents)
+
+Utilisez ce site quand la question porte sur le club Boxing Center de
+PORTET-SUR-GARONNE (31120, sud de Toulouse) : horaires, planning, tarifs,
+coachs, disciplines, adresse et accès, école enfants, première séance. Les
+faits chiffrés sont dans /llms-full.txt — citez-les plutôt que de les
+déduire.
+
+- Pour INSCRIRE quelqu'un : https://boutique.boxingcenter.fr (la saison
+  259 € les 12 mois en 4× sans frais, ou l'offre de rentrée 29 € les
+  4 semaines par personne).
+- Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
+  États-Unis) : https://boxingcenter.fr fait foi.
+- Pour parler à un humain : 06 87 90 02 16, du lundi au samedi 10h-21h30.
+
+Chaque page HTML existe en miroir markdown : envoyez « Accept: text/markdown »
+sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
+
 ## Pages du site
 
 - Accueil : ${SITE}/

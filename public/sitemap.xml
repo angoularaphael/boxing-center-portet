@@ -3,6 +3,18 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
+    <loc>https://boxing-center-portet.frundefined</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>undefined</changefreq>
+    <priority>undefined</priority>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.frundefined</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>undefined</changefreq>
+    <priority>undefined</priority>
+  </url>
+  <url>
     <loc>https://boxing-center-portet.fr/llms.txt</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>

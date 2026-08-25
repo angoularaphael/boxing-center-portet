@@ -8,7 +8,7 @@
     "_note_prepare": "npm install branche le crochet qui retire les signatures d'outil des messages de commit (voir .githooks/commit-msg)",
     "prepare": "git config core.hooksPath .githooks",
     "dev": "vite",
-    "build": "node scripts/optimize-images.mjs && node scripts/sitemap-images.mjs && node scripts/generate-llms.mjs && vite build",
+    "build": "node scripts/optimize-images.mjs && node scripts/sitemap-images.mjs && node scripts/generate-llms.mjs && vite build && node scripts/cuire-md.mjs",
     "generate:llms": "node scripts/generate-llms.mjs",
     "preview": "vite preview --port 4173",
     "generate:favicons": "node scripts/sync-boxplus-favicons.mjs",
