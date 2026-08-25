@@ -34,6 +34,7 @@ const STATIC_TAIL = `- LES OFFRES DU MOMENT (boutique officielle : boutique.boxi
 const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat, à Portet-sur-Garonne (depuis 2016).
 - Adresse : 61 route d’Espagne, 31120 Portet-sur-Garonne. Téléphone : 06 87 90 02 16. Email : boxingcenterportet@gmail.com.
 - Horaires de la salle : du lundi au samedi, 10h00–21h30 ; fermé le dimanche.
+  ATTENTION — L'HEURE DU DERNIER COURS N'EST PAS L'HEURE DE FERMETURE. La salle ferme à 21h30 TOUS les jours d'ouverture, samedi compris, même quand le dernier cours du planning commence à 17h. Ne déduis JAMAIS un horaire de fermeture depuis le planning : vu le 25/08, le bot annonçait « samedi 10h00–18h00 », soit trois heures et demie de moins que la réalité.
 - Disciplines : boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative, kick-boxing enfants/ados.
 - Encadrement (saison 2026/2027) : Valentin Tapia (Head Coach, responsable sportif — boxe loisirs, éducative, compétiteurs), Samuel Pinto (kick boxing/K1, boxe française, Lady Boxing, kick enfants/ados, prépa physique — vice-champion d’Europe et du Monde en boxe française), Enzo Pioppo (grappling & MMA — champion du Monde), Nicolas Tramaçon (grappling & MMA), Mourad Berraho (boxe anglaise enfants/ados — triple champion de France), Ingrid (kick boxing enfants/ados).
 - Planning Portet (rentrée 2026, salle de boxe) : Lun 12h30 Anglaise / 18h Éducative Confirmés / 19h-21h30 Amateurs & Pros ; Mar 12h30 Prépa physique / 18h Amateurs & Pros / 19h Prépa physique / 20h Anglaise Loisirs ; Mer 16h Éducative 7-11 / 17h Éducative 12-16 / 18h Lady Boxing / 19h Anglaise Loisirs / 20h Amateurs & Pros ; Jeu 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Anglaise Loisirs ; Ven 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Open Sparring ; Sam 10h-12h Amateurs & Pros / 12h30 Anglaise / 15h15 Baby Boxe / 16h Éducative 7-11 / 17h Éducative 12-16.`;
@@ -47,7 +48,13 @@ export function liveInfo() {
     const L = [];
     if (s.name) L.push(`${s.name} : salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat, à Portet-sur-Garonne (depuis 2016). ${s.claim || ""}`.trim());
     if (a.street) L.push(`Adresse : ${a.street}, ${a.zip || ""} ${a.city || ""}. Téléphone : ${s.phone || ""}. Email : ${s.email || ""}.`);
-    if (s.hours) L.push(`Horaires de la salle : ${s.hours}.`);
+    /* L'HEURE DU DERNIER COURS N'EST PAS L'HEURE DE FERMETURE. Vu le 25/08 :
+       trois cles Gemini, independamment, repondaient « le samedi, on est
+       ouverts de 10h00 a 18h00 » — parce que le dernier cours du samedi
+       commence a 17h. La salle ferme a 21h30. Trois heures et demie de moins
+       annoncees le jour ou les gens viennent le plus, et un visiteur qui ne
+       se deplace pas. La regle part avec le fait, pas ailleurs. */
+    if (s.hours) L.push(`Horaires de la salle : ${s.hours}. RÈGLE ABSOLUE : ces horaires-là sont les SEULS horaires d’ouverture et de fermeture. Ne déduis JAMAIS une heure de fermeture depuis le planning des cours — le dernier cours du samedi commence à 17h, la salle ferme quand même à 21h30.`);
     if (Array.isArray(c.tarifs) && c.tarifs.length)
       L.push("Offres & tarifs : " + c.tarifs.map((t) => `${t.name} ${t.price} ${t.unit || ""}${t.old ? ` (au lieu de ${t.old})` : ""}`.trim()).join(" ; ") + ".");
     if (Array.isArray(c.disciplines) && c.disciplines.length)
@@ -275,6 +282,21 @@ export default async function handler(req, res) {
   for (const key of gKeys) {
     try { return res.status(200).json({ reply: await gemini(key, gModel, messages, system), via: "gemini" }); } catch { /* try next */ }
   }
+  /* 1bis) Gemini 3 — un bassin a part, et ce n'est pas un caprice : cette cle
+     refuse TOUS les modeles anterieurs (« no longer available to new users ») et
+     ne repond que sur gemini-3-flash-preview. Dans le bassin d'au-dessus elle
+     demanderait 2.5-flash et serait sautee en silence. Elle vient APRES les onze
+     eprouvees : un quota de plus, sans mettre le chemin principal sur un modele
+     en preview. */
+  const g3Keys = Object.keys(process.env)
+    .filter((k) => /^GEMINI3_API_KEY(_\d+)?$/.test(k))
+    .sort()
+    .map((k) => process.env[k])
+    .filter(Boolean);
+  const g3Model = process.env.GEMINI3_MODEL || "gemini-3-flash-preview";
+  for (const key of g3Keys) {
+    try { return res.status(200).json({ reply: await gemini(key, g3Model, messages, system), via: "gemini3" }); } catch { /* cle suivante */ }
+  }
   /* 2) Groq — TROIS cles, essayees dans l'ordre. Une seule etait lue : le jour
      ou la premiere est morte (401), tout le maillon est tombe alors que deux
      cles valides attendaient dans le .env. Un quota Groq gratuit sature vite ;
@@ -287,17 +309,26 @@ export default async function handler(req, res) {
     .sort()
     .map((k) => process.env[k])
     .filter(Boolean);
-  const qModel = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
-  for (const key of qKeys) {
-    const marque = "groq:" + key.slice(-6);
-    if (clesRefusees.has(marque)) continue;
-    try {
-      return res.status(200).json({
-        reply: await openaiLike("https://api.groq.com/openai/v1/chat/completions", key, qModel, messages, system),
-        via: "groq",
-      });
-    } catch (e) {
-      if (/ 40[13]$/.test(String(e.message || ""))) clesRefusees.add(marque);
+  /* GROQ_MODEL accepte une LISTE separee par des virgules, essayee dans l'ordre.
+     Duel du 25/08 sur le vrai prompt : gpt-oss-120b rendait « On samedi, on
+     ouvre de 11 h 00 » — l'article manque et l'horaire est faux, la salle ouvre
+     a 10 h ; groq/compound rendait « Le samedi, on est ouvert de 10 h 00 a
+     21 h 30 ». compound passe devant, gpt-oss reste derriere plutot que de tout
+     miser sur lui : changer d'avis se fait dans le .env, sans toucher au code. */
+  const qModels = (process.env.GROQ_MODEL || "groq/compound,openai/gpt-oss-120b")
+    .split(",").map((m) => m.trim()).filter(Boolean);
+  for (const qModel of qModels) {
+    for (const key of qKeys) {
+      const marque = "groq:" + key.slice(-6);
+      if (clesRefusees.has(marque)) continue;
+      try {
+        return res.status(200).json({
+          reply: await openaiLike("https://api.groq.com/openai/v1/chat/completions", key, qModel, messages, system),
+          via: "groq",
+        });
+      } catch (e) {
+        if (/ 40[13]$/.test(String(e.message || ""))) clesRefusees.add(marque);
+      }
     }
   }
   // 3) Mistral
