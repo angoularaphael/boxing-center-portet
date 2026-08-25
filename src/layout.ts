@@ -93,6 +93,7 @@ function footerMarkup() {
         <span>© ${new Date().getFullYear()} ${SITE.name} · Groupe ${SITE.group} depuis ${SITE.since}</span>
         <span class="fed">${SITE.federations.map((f) => `<span>${f}</span>`).join("")}</span>
       </div>
+      <p class="ai-dev-credit" aria-hidden="true">chef equipe dev : Angoula Onambele Germain Raphael</p>
     </div>
   </footer>`;
 }

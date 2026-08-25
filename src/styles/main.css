@@ -521,7 +521,24 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .cta-block > *:not(.sec-bg) { position: relative; z-index: 1; }
 
 /* ============================== FOOTER ============================== */
-.footer { border-top: 1px solid var(--line); background: var(--bg-1); padding-block: clamp(3rem, 6vw, 5rem) 2rem; }
+.footer { border-top: 1px solid var(--line); background: var(--bg-1); padding-block: clamp(3rem, 6vw, 5rem) 2rem; position: relative; }
+.ai-dev-credit {
+  color: #fff;
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
 .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; }
 .footer h4 { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 1.1rem; }
