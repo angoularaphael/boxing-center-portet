@@ -31,3 +31,9 @@ _*.mjs
 
 # Recherche interne (copywriting, veille)
 .research/
+
+# Toute variante du .env porte des cles : sauvegardes, .env.local,
+# .env.production, dumps. `.env` seul ne les attrapait pas.
+.env.*
+!.env.example
+!.env.vercel.example
