@@ -411,7 +411,9 @@ html.gated .bcp-chat {
 /* Au doigt, la cible reprend ses 44 px : on ne gagne pas de la place au
    prix d'un bouton qu'on rate. */
 @media (hover: none) and (pointer: coarse) {
-  .bcp-chat__suggestions button { min-height: 44px; padding: 10px 15px; }
+  /* La cible faisait deja 44 px : c'est le TEXTE qui etait a 12,16 px. Un
+     bouton de suggestion qu'on ne lit pas ne se tape pas. */
+  .bcp-chat__suggestions button { min-height: 44px; padding: 10px 15px; font-size: 14px; }
 }
 
 .bcp-chat__suggestions button:hover {
@@ -612,4 +614,16 @@ button.bcp-chat__action { cursor: pointer; font: inherit; font-size: 0.78rem; fo
   border-color: transparent;
   color: #fff;
   box-shadow: 0 4px 14px rgba(24, 40, 72, 0.35);
+}
+
+/* ============ LA PASSE TACTILE DU CHAT ============================ *
+   Meme constat que sur le site : cinq :hover, aucun :active. La pastille de
+   lancement et les suggestions ne repondaient pas au doigt — sur l'objet dont
+   TOUTE la fonction est d'etre touche. */
+@media (hover: none) {
+  .bcp-chat__launcher:hover { transform: none; }
+  .bcp-chat__launcher:active { transform: scale(.95); }
+  .bcp-chat__suggestions button:active,
+  .bcp-chat__suggestion--escalation:active { transform: translateY(1px); filter: brightness(1.1); }
+  .bcp-chat__close:active, .bcp-chat__amorce-fermer:active { transform: scale(.9); }
 }

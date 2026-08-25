@@ -952,7 +952,13 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
   transition: background 0.3s, color 0.3s, transform 0.3s var(--ease-out); }
 .gate__enter:hover { background: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
 .gate__hint { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
-.gate__silent { color: var(--fg-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; background: none; border: 0; font: inherit; }
+/* 118 x 18 px, juste sous un bouton de 64 : c'est la SEULE porte de sortie de
+   l'intro pour quelqu'un qui ne veut pas de son, et elle faisait la moitie
+   d'une cible tactile. Un bouton qu'on rate trois fois, on l'abandonne. */
+.gate__silent { color: var(--fg-soft); text-decoration: underline;
+  text-underline-offset: 3px; cursor: pointer; background: none; border: 0;
+  font: inherit; display: inline-flex; align-items: center;
+  min-height: 44px; padding-inline: 12px; }
 .gate__loader { display: flex; align-items: center; gap: 0.7rem; width: min(300px, 72vw); margin-top: 0.5rem; }
 .gate__bar { flex: 1; height: 3px; background: var(--line-strong); overflow: hidden; border-radius: 2px; position: relative; }
 .gate__bar i { display: block; height: 100%; width: 0;
@@ -1804,3 +1810,43 @@ html.no-webgl .forge__sticky canvas { display: none; }
    le mot-symbole ne se double pas d'une image de logo, il EST le logo. */
 html.no-webgl .hero__photo { filter: grayscale(1) contrast(1.05) brightness(0.45); }
 
+/* ============ LA PASSE TACTILE ==================================== *
+   38 regles :hover dans ce fichier, et pas une seule reponse au doigt. Sur
+   telephone — neuf visiteurs sur dix — rien de tout ca n'existait.
+
+   Trois choses ici, dans l'ordre d'importance :
+
+   1. LES LEGENDES DE LA GALERIE. .shot__label est a opacity 0 et ne se revele
+      qu'au survol : sur telephone, ce texte n'apparaissait JAMAIS. Ce n'etait
+      pas une animation ratee, c'etait du contenu que 90 % des visiteurs ne
+      pouvaient pas lire. Elles sont visibles d'office.
+
+   2. LE :hover COLLANT. Sur un ecran tactile, un :hover se declenche au
+      premier toucher et RESTE actif jusqu'a ce qu'on touche ailleurs. Une
+      carte survolee restait soulevee, un lien allume. On neutralise les
+      transformations de survol et on les rejoue sur :active.
+
+   3. L'ACCUSE DE RECEPTION. Un bouton qui ne bouge pas quand on le touche
+      laisse croire que le tap n'a pas pris — et on tape deux fois. */
+@media (hover: none) {
+  /* 1 — le contenu d'abord */
+  .shot__label { opacity: 1; transform: none; }
+
+  /* 2 — plus rien ne reste colle apres un toucher */
+  .btn:hover, .aud:hover, .tarif:hover, .disc:hover, .boxer:hover,
+  .network-card:hover, .billet:hover, .plaque:hover,
+  .planning-affiche a:hover { transform: none; }
+  .shot:hover img, .disc--img:hover .disc__media,
+  .reel__frame:hover img { transform: none; }
+
+  /* 3 — et le doigt recoit une reponse */
+  .btn:active { transform: translateY(1px); filter: brightness(1.06); }
+  .aud:active, .tarif:active, .disc:active, .boxer:active,
+  .network-card:active, .plaque:active { transform: translateY(-3px); }
+  .billet:active { transform: translateY(-2px); filter: brightness(1.06) saturate(1.06); }
+  .nav__links a:active, .menu__nav a:active, .footer a:not(.btn):active,
+  .nav__ext:active, .menu__ext:active { color: var(--accent); }
+  .icon-btn:active, .lightbox__close:active,
+  .lightbox__prev:active, .lightbox__next:active { transform: scale(.94); }
+  .shot:active img { transform: scale(1.03); }
+}
