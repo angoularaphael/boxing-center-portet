@@ -55,6 +55,18 @@ export async function initHero(container: HTMLElement) {
      sont calculés. Entrer avant, c'est entrer sur un écran vide. */
   try { window.dispatchEvent(new Event("bcp:hero-pret")); } catch {}
   const N = targets.length / 3;
+  /* La hauteur REELLE de la crete, lue dans les points plutot que devinee :
+     le mot-symbole change (une ligne en plus, une police differente) et une
+     constante ecrite a la main devient fausse en silence. */
+  let crestH = 1;
+  {
+    let yMin = Infinity, yMax = -Infinity;
+    for (let i = 1; i < targets.length; i += 3) {
+      if (targets[i] < yMin) yMin = targets[i];
+      if (targets[i] > yMax) yMax = targets[i];
+    }
+    crestH = yMax - yMin || 1;
+  }
 
   const pos = new Float32Array(N * 3);
   const origin = new Float32Array(N * 3);
@@ -132,23 +144,35 @@ export async function initHero(container: HTMLElement) {
     const visW = visH * camera.aspect;
     // full-bleed canvas: wordmark upper, slightly smaller + lower so the top clears the nav
     const aspect = w / h;
-    const isMobile = w < 760;
-    let s: number, py: number;
-    if (isMobile) {
-      /* LE MOT-SYMBOLE GRANDIT (24/08/2026). Il tenait dans 54 % de la largeur
-         visible — echelle 0,265 sur un 375 x 812 — perdu au milieu d'une photo
-         assombrie a 17 %. Or c'est le premier ecran, sur l'appareil de neuf
-         visiteurs sur dix, et le nom du club n'existe QUE dans ce canvas : il
-         n'y a aucun logo en HTML derriere. Un mot-symbole petit, c'est une
-         marque petite.
-         82 % de la largeur : la crete fait 7 unites de large a l'echelle 1,
-         donc 2,82 sur les 3,44 visibles — 18 % de marge, elle ne deborde pas. */
-      s = Math.min(0.9, (visW * 0.82) / 7.0);
-      py = 0.20 * visH;
-    } else {
-      s = Math.min(0.82, (visW * 0.46) / 7.0);
-      if (aspect > 1.95) s *= 0.86;           // wide/short desktops: leave clear room for the hook
-      py = (aspect > 1.95 ? 0.31 : 0.26) * visH; // sit higher so PORTET never meets the copy
+
+    /* PAS DE SEUIL. Le 25/08, la bascule `w < 760` faisait passer le
+       mot-symbole de 41 % a 59 % de la largeur pour UN pixel d'ecart — et
+       toute tablette sous 760 px (un iPad Mini portrait fait 744 pt) recevait
+       la taille prevue pour un telephone : 73 % de la largeur. On interpole
+       desormais entre les deux extremes, qui eux ne bougent pas : 82 % a
+       375 px (gagnes le 24/08, le nom du club n'existe QUE dans ce canvas),
+       46 % a 1024 px et au-dela. Chaque largeur recoit ce qui lui va. */
+    const t = Math.min(1, Math.max(0, (w - 375) / (1024 - 375)));
+    const partLargeur = 0.82 + (0.46 - 0.82) * t;
+    let s = (visW * partLargeur) / 7.0;
+    let py = (0.20 + (0.26 - 0.20) * t) * visH;
+    if (aspect > 1.95) { s *= 0.86; py = 0.31 * visH; }  // ecrans larges et courts
+
+    /* LA GARANTIE. Des constantes bien choisies finissent toujours par
+       rencontrer un ecran qu'on n'avait pas prevu. On lit donc la position
+       REELLE du texte du hero et on reduit l'echelle tant que le bas de la
+       crete n'est pas a 24 px au-dessus. Une mesure ne se trompe pas d'ecran. */
+    const hook = document.querySelector(".hero__hook") as HTMLElement | null;
+    if (hook) {
+      const hautTexte = hook.getBoundingClientRect().top;
+      if (hautTexte > 0) {
+        const limiteMonde = (0.5 - (hautTexte - 24) / h) * visH;   // en unites, depuis le centre
+        for (let garde = 0; garde < 24; garde++) {
+          const basCrete = py - (crestH * s) / 2;
+          if (basCrete >= limiteMonde) break;
+          s *= 0.94;
+        }
+      }
     }
     crest.scale.setScalar(s);
     crest.position.y = py;
