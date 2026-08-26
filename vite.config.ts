@@ -169,7 +169,7 @@ function seoBakePlugin() {
            a sa page, atteinte par QR code — aucun autre système ne l'expose. */
         const OFFRES = [["https://boutique.boxingcenter.fr/offre/259", "La saison — 259€ les 12 mois au lieu de 400€, 4× sans frais"]];
         const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
-        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav><p class="ai-dev-credit" aria-hidden="true">chef equipe dev : Angoula Onambele Germain Raphael</p></div>`);
+        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav><p class="ai-dev-credit" aria-hidden="true">chef equipe dev : <a href="https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395" rel="noopener noreferrer">Angoula Onambele Germain Raphael</a> · dev : mbosseu brad bruel</p></div>`);
 
         const ORIGIN = "https://boxing-center-portet.fr";
         const PAGE: Record<string, [string, string]> = {
