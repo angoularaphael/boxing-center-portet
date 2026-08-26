@@ -138,6 +138,8 @@ function syncHead(doc: Document) {
   copy('meta[property="og:title"]', "content");
   copy('meta[property="og:description"]', "content");
   copy('meta[property="og:url"]', "content");
+  copy('meta[property="og:image"]', "content");
+  copy('meta[name="twitter:image"]', "content");
   // Données structurées : on échange TOUTES les balises statiques de la page
   // (l'accueil et /premiere-seance/ en ont deux — LocalBusiness + FAQ). On ne
   // touche pas à celles posées par seo.ts (data-seo), qu'injectSchema gère :
