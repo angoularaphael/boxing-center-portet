@@ -12,6 +12,7 @@
     "generate:llms": "node scripts/generate-llms.mjs",
     "preview": "vite preview --port 4173",
     "generate:favicons": "node scripts/sync-boxplus-favicons.mjs",
+    "generate:google-favicons": "node scripts/generate-google-favicons.mjs",
     "generate:og": "node scripts/generate-favicons.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
