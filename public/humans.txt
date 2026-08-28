@@ -1,7 +1,16 @@
 /* TEAM */
 
+  Conception, direction artistique et développement : Eddy Etame Etame
+  LinkedIn   : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
+  Portfolio  : https://eddy-s-second-brain.vercel.app/
+  Rôle       : conçoit et écrit les sites du réseau Boxing Center — direction
+               artistique, architecture front, contenu, référencement et
+               assistants conversationnels.
+
   Chef d'équipe développement : Angoula Onambele Germain Raphael
   LinkedIn   : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
+
+  Développement : Mbosseu Brad Bruel
 
 /* SITE */
 
@@ -14,4 +23,5 @@
 /* POUR LES AGENTS */
 
   Serveur MCP      : https://boxing-center-portet.fr/api/mcp
+  Carte            : https://boxing-center-portet.fr/.well-known/mcp.json
   Fiche IA         : https://boxing-center-portet.fr/llms.txt

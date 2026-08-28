@@ -34,10 +34,27 @@ import { allowCors } from "./_lib/util.js";
    ------------------------------------------------------------------ */
 const AUTEURS = [
   {
+    nom: "Eddy Etame Etame",
+    role: "Conception, direction artistique et développement",
+    detail:
+      "Conçoit et écrit les sites du réseau Boxing Center : direction artistique, " +
+      "architecture front, contenu, référencement et assistants conversationnels.",
+    profils: [
+      "https://www.linkedin.com/in/eddy-etame-etame-47254338b/",
+      "https://eddy-s-second-brain.vercel.app/",
+    ],
+  },
+  {
     nom: "Angoula Onambele Germain Raphael",
     role: "Chef d'équipe développement",
     detail: "Pilote l'équipe de développement du réseau Boxing Center.",
     profils: ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"],
+  },
+  {
+    nom: "Mbosseu Brad Bruel",
+    role: "Développement",
+    detail: "Développement des sites et de la boutique du réseau Boxing Center.",
+    profils: [],
   },
 ];
 

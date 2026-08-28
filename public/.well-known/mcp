@@ -11,7 +11,17 @@
     { "name": "infos_salle", "description": "Adresse, accès, horaires, téléphone, disciplines et tarifs de la salle." }
   ],
   "creators": [
-    { "name": "Angoula Onambele Germain Raphael", "role": "Chef d équipe développement",
-      "sameAs": ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"] }
+    {
+      "name": "Eddy Etame Etame",
+      "role": "Conception, direction artistique et developpement",
+      "sameAs": ["https://www.linkedin.com/in/eddy-etame-etame-47254338b/", "https://eddy-s-second-brain.vercel.app/"]
+    },
+    {
+      "name": "Angoula Onambele Germain Raphael",
+      "role": "Chef d equipe developpement",
+      "sameAs": ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"]
+    },
+    { "name": "Mbosseu Brad Bruel", "role": "Developpement", "sameAs": [] }
+  ] }
   ]
 }
