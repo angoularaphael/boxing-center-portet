@@ -84,6 +84,14 @@ function versMd(html, url) {
   lignes.push("", "---", "",
     "Boxing Center Portet · 61 route d’Espagne, 31120 Portet-sur-Garonne · 06 87 90 02 16",
     "",
+    /* Les auteurs suivent jusque dans le miroir markdown : c est la surface
+       exacte que lit un agent qui demande text/markdown. */
+    "Site conçu et développé par **Eddy Etame Etame** (conception, direction artistique et développement — " +
+      "[LinkedIn](https://www.linkedin.com/in/eddy-etame-etame-47254338b/) · " +
+      "[portfolio](https://eddy-s-second-brain.vercel.app/)), " +
+      "**Angoula Onambele Germain Raphael** (chef d équipe développement) et " +
+      "**Mbosseu Brad Bruel** (développement). Détail : [/credits/](/credits/)",
+    "",
     "[Accueil](/) · [Activités](/activites/) · [Planning](/plannings/) · [Tarifs](/tarifs/) · [Contact](/contact/) · [llms.txt](/llms.txt)");
   return lignes.join("\n").replace(/\n{3,}/g, "\n\n") + "\n";
 }

@@ -4,37 +4,43 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://boxing-center-portet.frundefined</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>undefined</changefreq>
     <priority>undefined</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.frundefined</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>undefined</changefreq>
+    <priority>undefined</priority>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.frundefined</loc>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>undefined</changefreq>
     <priority>undefined</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/llms.txt</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/llms-full.txt</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/ai.txt</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -95,7 +101,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/premiere-seance/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -106,7 +112,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/activites/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -157,7 +163,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/salles/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -188,7 +194,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/coachs/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -219,7 +225,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/boxeurs/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -235,7 +241,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/galerie/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -466,19 +472,19 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/plannings/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/tarifs/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/partenaires/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -499,7 +505,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/contact/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

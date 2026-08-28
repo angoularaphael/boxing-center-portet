@@ -66,7 +66,7 @@
         "http.server",
         "6701",
         "--directory",
-        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\sites\\bc-st-cyprien\\dist"
+        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Deployment\\bc-st-cyprien\\dist"
       ],
       "port": 6701
     },
@@ -74,9 +74,9 @@
       "name": "cyp-verif",
       "runtimeExecutable": "node",
       "runtimeArgs": [
-        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\sites\\bc-st-cyprien\\scripts\\serve-with-api.mjs",
+        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Deployment\\bc-st-cyprien\\scripts\\serve-with-api.mjs",
         "6901",
-        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\sites\\bc-st-cyprien"
+        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Deployment\\bc-st-cyprien"
       ],
       "port": 6901
     },
@@ -88,7 +88,7 @@
         "http.server",
         "6503",
         "--directory",
-        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\sites\\bc-ramonville\\dist"
+        "C:\\Users\\Mommy Jayce\\Desktop\\Boxing Center\\Deployment\\bc-ramonville\\dist"
       ],
       "port": 6503
     },
@@ -96,9 +96,9 @@
       "name": "min-perf",
       "runtimeExecutable": "node",
       "runtimeArgs": [
-        "C:/Users/Mommy Jayce/Desktop/Boxing Center/sites/bc-minimes/scripts/serve-local.mjs",
+        "C:/Users/Mommy Jayce/Desktop/Boxing Center/Deployment/bc-minimes/scripts/serve-local.mjs",
         "6907",
-        "C:/Users/Mommy Jayce/Desktop/Boxing Center/sites/bc-minimes"
+        "C:/Users/Mommy Jayce/Desktop/Boxing Center/Deployment/bc-minimes"
       ],
       "port": 6907
     },
@@ -106,9 +106,9 @@
       "name": "min-verif",
       "runtimeExecutable": "node",
       "runtimeArgs": [
-        "C:/Users/Mommy Jayce/Desktop/Boxing Center/sites/bc-minimes/scripts/serve-local.mjs",
+        "C:/Users/Mommy Jayce/Desktop/Boxing Center/Deployment/bc-minimes/scripts/serve-local.mjs",
         "6902",
-        "C:/Users/Mommy Jayce/Desktop/Boxing Center/sites/bc-minimes"
+        "C:/Users/Mommy Jayce/Desktop/Boxing Center/Deployment/bc-minimes"
       ],
       "port": 6902
     },

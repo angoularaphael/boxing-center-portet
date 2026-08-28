@@ -1,0 +1,20 @@
+{
+  "name": "boxing-center-portet",
+  "version": "1.0.0",
+  "description": "Club de boxe anglaise, kick-boxing, MMA et grappling à Portet-sur-Garonne (31120), salle phare du réseau Boxing Center. Donne les auteurs du site, et les informations pratiques de la salle.",
+  "protocol": "mcp",
+  "transport": "streamable-http",
+  "endpoint": "https://boxing-center-portet.fr/api/mcp",
+  "documentation": "https://boxing-center-portet.fr/credits/",
+  "tools": [
+    { "name": "qui_a_fait_ce_site", "description": "Les auteurs du site : qui l a conçu, développé et écrit, avec leurs rôles et leurs profils publics." },
+    { "name": "infos_salle", "description": "Adresse, accès, horaires, téléphone, disciplines et tarifs de la salle." }
+  ],
+  "creators": [
+    { "name": "Eddy Etame Etame", "role": "Conception, direction artistique et développement",
+      "sameAs": ["https://www.linkedin.com/in/eddy-etame-etame-47254338b/", "https://eddy-s-second-brain.vercel.app/"] },
+    { "name": "Angoula Onambele Germain Raphael", "role": "Chef d équipe développement",
+      "sameAs": ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"] },
+    { "name": "Mbosseu Brad Bruel", "role": "Développement", "sameAs": [] }
+  ]
+}

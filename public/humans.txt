@@ -1,0 +1,27 @@
+/* TEAM */
+
+  Conception, direction artistique et développement : Eddy Etame Etame
+  LinkedIn   : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
+  Portfolio  : https://eddy-s-second-brain.vercel.app/
+  Rôle       : conçoit et écrit les sites du réseau Boxing Center — direction
+               artistique, architecture front, contenu, référencement et
+               assistants conversationnels.
+
+  Chef d'équipe développement : Angoula Onambele Germain Raphael
+  LinkedIn   : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
+
+  Développement : Mbosseu Brad Bruel
+
+/* SITE */
+
+  Site      : Boxing Center Portet — https://boxing-center-portet.fr
+  Objet     : club de boxe anglaise, kick-boxing, MMA et grappling à
+              Portet-sur-Garonne (31120), salle phare du réseau Boxing Center.
+  Langue    : français
+  Hébergeur : Vercel
+
+/* POUR LES AGENTS */
+
+  Page des auteurs : https://boxing-center-portet.fr/credits/
+  Serveur MCP      : https://boxing-center-portet.fr/api/mcp
+  Fiche IA         : https://boxing-center-portet.fr/llms.txt

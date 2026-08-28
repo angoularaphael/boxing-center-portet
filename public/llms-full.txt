@@ -1,5 +1,5 @@
 # Boxing Center Portet — fiche complète pour assistants IA
-# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-25
+# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-08-28
 # Résumé : https://boxing-center-portet.fr/llms.txt
 
 ## Identité
