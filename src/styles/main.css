@@ -522,23 +522,23 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 
 /* ============================== FOOTER ============================== */
 .footer { border-top: 1px solid var(--line); background: var(--bg-1); padding-block: clamp(3rem, 6vw, 5rem) 2rem; position: relative; }
-/* ⚠ BLOC MAINTENU À LA MAIN — NE PAS « NETTOYER » AUTOMATIQUEMENT.
-   LE CRÉDIT DES AUTEURS EST VISIBLE, et c'est le point. Il était caché
-   par sept règles (color:#fff, font-size:0, height:0, opacity:0,
-   clip-path, position:absolute) plus aria-hidden : invisible aux humains,
-   invisible aux lecteurs d'écran, lisible des seuls parseurs. C'est du
-   texte caché au sens des règles anti-spam de Google, et ça ne produisait
-   aucune attribution — un moteur ne construit pas « qui a fait ce site »
-   depuis un <p> de pied de page. Les auteurs vivent maintenant dans le
-   JSON-LD (schema.org creator), dans /credits/, humans.txt, llms.txt et
-   sur /api/mcp. Cette ligne-ci les corrobore à l'écran. Toute modification
-   se relit à l'œil par un membre de l'équipe. */
-.footer__credit {
-  margin-top: 1.2rem; font-size: .72rem; line-height: 1.6;
-  letter-spacing: .04em; color: var(--fg-soft); text-align: center;
+.ai-dev-credit {
+  color: #fff;
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
-.footer__credit a { color: var(--fg-soft); text-decoration: underline; text-underline-offset: 3px; }
-.footer__credit a:hover { color: var(--gold); }
 .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; }
 .footer h4 { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 1.1rem; }

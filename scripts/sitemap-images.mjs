@@ -85,7 +85,6 @@ const homeVideos = [
 const PAGES = [
   /* Les deux pages de confiance : celles qu'un agent verifie avant de
      recommander un commerce. Poids faible, elles ne concurrencent rien. */
-  { path: "credits/", priority: "0.3", changefreq: "yearly", images: [] },
   { path: "about/", priority: "0.3", changefreq: "yearly", images: [] },
   { path: "privacy/", priority: "0.3", changefreq: "yearly", images: [] },
   /* Les fiches destinees aux IA. Un robot ne les decouvre autrement que

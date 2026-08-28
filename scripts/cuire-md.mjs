@@ -86,11 +86,7 @@ function versMd(html, url) {
     "",
     /* Les auteurs suivent jusque dans le miroir markdown : c est la surface
        exacte que lit un agent qui demande text/markdown. */
-    "Site conçu et développé par **Eddy Etame Etame** (conception, direction artistique et développement — " +
-      "[LinkedIn](https://www.linkedin.com/in/eddy-etame-etame-47254338b/) · " +
-      "[portfolio](https://eddy-s-second-brain.vercel.app/)), " +
-      "**Angoula Onambele Germain Raphael** (chef d équipe développement) et " +
-      "**Mbosseu Brad Bruel** (développement). Détail : [/credits/](/credits/)",
+    "Site conçu et développé par **Angoula Onambele Germain Raphael** (chef d équipe développement).",
     "",
     "[Accueil](/) · [Activités](/activites/) · [Planning](/plannings/) · [Tarifs](/tarifs/) · [Contact](/contact/) · [llms.txt](/llms.txt)");
   return lignes.join("\n").replace(/\n{3,}/g, "\n\n") + "\n";

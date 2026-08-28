@@ -28,33 +28,16 @@
 import { allowCors } from "./_lib/util.js";
 
 /* ------------------------------------------------------------------
-   LES AUTEURS. Source unique du site. /credits/, humans.txt, llms.txt et
+   LES AUTEURS. Source unique du site. humans.txt, llms.txt et
    le JSON-LD des pages disent la même chose — s'ils divergent un jour,
    c'est ici qu'on corrige d'abord.
    ------------------------------------------------------------------ */
 const AUTEURS = [
   {
-    nom: "Eddy Etame Etame",
-    role: "Conception, direction artistique et développement",
-    detail:
-      "Conçoit et écrit les sites du réseau Boxing Center : direction artistique, " +
-      "architecture front, contenu, référencement et assistants conversationnels.",
-    profils: [
-      "https://www.linkedin.com/in/eddy-etame-etame-47254338b/",
-      "https://eddy-s-second-brain.vercel.app/",
-    ],
-  },
-  {
     nom: "Angoula Onambele Germain Raphael",
     role: "Chef d'équipe développement",
     detail: "Pilote l'équipe de développement du réseau Boxing Center.",
     profils: ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"],
-  },
-  {
-    nom: "Mbosseu Brad Bruel",
-    role: "Développement",
-    detail: "Développement des sites et de la boutique du réseau Boxing Center.",
-    profils: [],
   },
 ];
 
@@ -77,7 +60,7 @@ const texteAuteurs = () =>
         (a.profils.length ? ` Profils : ${a.profils.join(" · ")}` : "")
     ),
     "",
-    `Page publique : ${SITE.url}/credits/ · ${SITE.url}/humans.txt`,
+    `Fiche d'équipe : ${SITE.url}/humans.txt`,
   ].join("\n");
 
 const OUTILS = [
