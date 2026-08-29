@@ -3,36 +3,6 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://boxing-center-portet.frundefined</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>undefined</changefreq>
-    <priority>undefined</priority>
-  </url>
-  <url>
-    <loc>https://boxing-center-portet.frundefined</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>undefined</changefreq>
-    <priority>undefined</priority>
-  </url>
-  <url>
-    <loc>https://boxing-center-portet.fr/llms.txt</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://boxing-center-portet.fr/llms-full.txt</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://boxing-center-portet.fr/ai.txt</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
     <loc>https://boxing-center-portet.fr/</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>

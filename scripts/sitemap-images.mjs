@@ -83,15 +83,6 @@ const homeVideos = [
 ].filter(Boolean);
 
 const PAGES = [
-  /* Les deux pages de confiance : celles qu'un agent verifie avant de
-     recommander un commerce. Poids faible, elles ne concurrencent rien. */
-  { path: "about/", priority: "0.3", changefreq: "yearly", images: [] },
-  { path: "privacy/", priority: "0.3", changefreq: "yearly", images: [] },
-  /* Les fiches destinees aux IA. Un robot ne les decouvre autrement que
-     par robots.txt : les declarer ici les met au meme rang que les pages. */
-  { url: "/llms.txt", freq: "weekly", prio: "0.4", images: [] },
-  { url: "/llms-full.txt", freq: "weekly", prio: "0.3", images: [] },
-  { url: "/ai.txt", freq: "monthly", prio: "0.3", images: [] },
   { url: "/", freq: "weekly", prio: "1.0", images: [
       img("/og.jpg", "Salle Boxing Center Portet-sur-Garonne", "Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge."),
       img("/img/gym-04.jpg", `Préparation physique | Boxing Center Portet`, "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne."),
@@ -133,13 +124,16 @@ const xml =
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n` +
   `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n` +
   `        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n` +
-  PAGES.map((p) =>
+  PAGES.map((p) => {
+    if (!p.url) throw new Error("[sitemap] entrée sans url");
+    return (
     `  <url>\n    <loc>${SITE}${p.url}</loc>\n    <lastmod>${jour}</lastmod>\n` +
     `    <changefreq>${p.freq}</changefreq>\n    <priority>${p.prio}</priority>\n` +
     (p.images.length ? p.images.join("\n") + "\n" : "") +
     ((p.videos || []).length ? p.videos.join("\n") + "\n" : "") +
     `  </url>`
-  ).join("\n") +
+    );
+  }).join("\n") +
   `\n</urlset>\n`;
 
 writeFileSync(join(ROOT, "public/sitemap.xml"), xml, "utf8");
