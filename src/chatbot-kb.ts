@@ -32,7 +32,6 @@ export const ACTIONS: Record<string, ActionDef> = {
   /* Le 10 € ne s’affiche que sur la page tarifs — et ici, parce que le bot a
      le droit de le proposer pour sauver une vente (ordre du 24/08/2026). */
   essai:       { label: "Je viens essayer · 10€", href: shop("/seance-essai") },
-  offert:      { label: "Je réserve ma séance offerte", href: "/seance-offerte/" },
   appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
   abonnements: { label: "Voir les abonnements", href: shop("/abonnements") },
   enfants:     { label: "J’inscris mon enfant", href: shop("/abonnements", "#enfants") },

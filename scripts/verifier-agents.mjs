@@ -24,7 +24,7 @@ const texteDe = (h) => h
 /* 1. Chaque page publique a UN h1 et du texte sans JavaScript. */
 const pages = [""];
 for (const e of await readdir(DIST)) {
-  if (["admin", "seance-offerte", "md", "fonts", "assets", "img", "clips"].includes(e)) continue;
+  if (["admin", "md", "fonts", "assets", "img", "clips"].includes(e)) continue;
   if (existsSync(join(DIST, e, "index.html"))) pages.push(e);
 }
 for (const p of pages) {
@@ -67,7 +67,7 @@ for (const p of ["about", "privacy"]) {
 }
 
 /* 6. La page fantôme reste fantôme. */
-dit(!existsSync(join(DIST, "md", "seance-offerte")), "seance-offerte — AUCUN miroir markdown (hors circuit)");
+dit(!existsSync(join(DIST, "seance-offerte")), "seance-offerte — la page n’existe plus sur ce site");
 dit(!llms.includes("seance-offerte"), "seance-offerte — absente de llms.txt");
 
 console.log(`\n  ${ok} passes / ${ok + ko}${ko ? `  —  ${ko} ECHECS` : "  —  tout passe"}`);

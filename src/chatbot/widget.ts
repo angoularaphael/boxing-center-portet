@@ -420,11 +420,6 @@ export function initChatbot() {
     }
     const lien = (e.target as Element).closest<HTMLAnchorElement>("a[data-nav]");
     if (!lien) return;
-    /* Le laissez-passer de la seance offerte : le bot OUVRE la porte, la page
-       la referme derriere lui — sans ce jeton, l'URL rend une 404. */
-    if ((lien.getAttribute("href") || "").startsWith("/seance-offerte")) {
-      try { sessionStorage.setItem("bcp-offert-pass", String(Date.now())); } catch { /* stockage indispo */ }
-    }
     closePanel();
   });
 
@@ -457,8 +452,6 @@ export function initChatbot() {
        pas de page en page (le routeur ne recharge pas le site) ;
      · JAMAIS si le visiteur a déjà touché au bot — celui qui l'a fermé
        a répondu, on ne redemande pas ;
-     · JAMAIS sur /seance-offerte/, page de conversion où le formulaire
-       ne doit rien avoir devant lui.
 
      SUR MOBILE, le panneau est une feuille qui couvre l'écran : l'ouvrir
      tout seul volerait la lecture en cours. Le téléphone reçoit donc une
@@ -497,7 +490,6 @@ export function initChatbot() {
 
   function presentation() {
     try { if (sessionStorage.getItem(CLE_AUTO)) return; } catch { /* stockage indispo */ }
-    if (location.pathname.startsWith("/seance-offerte")) return;
 
     let fait = false;
     const marquer = () => { try { sessionStorage.setItem(CLE_AUTO, "1"); } catch { /* stockage indispo */ } };

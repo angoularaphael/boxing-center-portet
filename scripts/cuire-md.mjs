@@ -24,9 +24,9 @@ import { fileURLToPath } from "url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
 
-/* Les pages servies aux visiteurs. /seance-offerte/ reste hors circuit :
+/* Les pages servies aux visiteurs.
    son miroir markdown la rendrait trouvable, et elle ne doit pas l'être. */
-const EXCLUES = new Set(["admin", "seance-offerte", "md", "assets", "fonts", "img", "clips"]);
+const EXCLUES = new Set(["admin", "md", "assets", "fonts", "img", "clips"]);
 
 async function pages() {
   const out = [""];

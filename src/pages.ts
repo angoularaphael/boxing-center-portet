@@ -11,7 +11,6 @@ const el = (id: string) => document.getElementById(id);
    (pot de miel, vide pour un humain). Coût humain : un clignement d'œil. */
 const INLETT_URL = "https://inlett.vercel.app";
 const INLETT_FORM_ID = "01fbfbdc-2eef-4a06-81b9-cbf38f4650c1";
-const INLETT_ESSAI_FORM_ID = "f46451fc-17d5-4111-8b4d-f938285935e3"; // séance offerte (page cachée, invitation du bot)
 
 async function sha256Hex(s: string): Promise<string> {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
@@ -64,67 +63,6 @@ function initPartnerForm() {
     }
   });
 }
-
-/* ---------- Formulaire séance OFFERTE (page cachée /seance-offerte/) ----------
-   Le cadeau du bot : prérempli depuis le profil capté en chat (même session),
-   envoyé à Inlett (email automatique + suivi du boss) ET à gestion-manager
-   (la base des leads du chatbot) — deux canaux, zéro re-saisie. */
-function initEssaiOffertForm() {
-  const form = document.getElementById("essai-form") as HTMLFormElement | null;
-  const status = document.getElementById("essai-status");
-  if (!form || !status) return;
-  // préremplissage : ce que le visiteur a déjà confié à l'assistant
-  try {
-    const p = JSON.parse(sessionStorage.getItem("bcp-chat-profile") || "{}");
-    const fill = (n: string, v: string) => {
-      const i = form.querySelector<HTMLInputElement>(`[name="${n}"]`);
-      if (i && !i.value && v) i.value = v;
-    };
-    fill("first_name", p.prenom || "");
-    fill("last_name", p.nom || "");
-    fill("email", p.email || "");
-    fill("phone", p.phone || "");
-  } catch { /* profil absent */ }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
-    const btn = form.querySelector<HTMLButtonElement>(".pform__submit");
-    if (btn) btn.disabled = true;
-    status.textContent = "Réservation en cours…";
-    try {
-      const ch = await (await fetch(`${INLETT_URL}/api/challenge`)).json();
-      const nonce = await solvePow(ch.challenge, ch.difficulty);
-      const fd = new FormData(form);
-      const payload: Record<string, string> = { _lang: "fr" };
-      fd.forEach((v, k) => (payload[k] = String(v)));
-      payload.pow_challenge = ch.challenge;
-      payload.pow_timestamp = String(ch.timestamp);
-      payload.pow_nonce = nonce;
-      const r = await fetch(`${INLETT_URL}/api/submit/${INLETT_ESSAI_FORM_ID}`, {
-        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
-      });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error((j as any).error || "envoi refusé");
-      // double écriture : la base des leads du chatbot (gestion-manager)
-      submitLead({
-        event: "essai_offert_form",
-        prenom: payload.first_name, nom: payload.last_name,
-        name: `${payload.first_name} ${payload.last_name}`.trim(),
-        email: payload.email, phone: payload.phone, salle: "Portet",
-        discipline: payload.discipline || "", pour_qui: payload.pour_qui || "",
-        disponibilites: payload.disponibilites || "", source: payload.source_connaissance || "",
-      }).catch(() => { /* Inlett a déjà le lead — jamais bloquant */ });
-      form.reset();
-      status.textContent = "C'est réservé ! 🥊 Vérifie tes emails — et un coach t'appelle très vite pour caler ton créneau.";
-    } catch {
-      status.textContent = "L'envoi n'est pas passé. Réessaie dans un instant, ou appelle-nous au 06 87 90 02 16.";
-    } finally {
-      if (btn) btn.disabled = false;
-    }
-  });
-}
-
 export function renderPage(page: string | undefined) {
   if (page === "activites") {
     const g = el("act-grid");
@@ -214,7 +152,6 @@ export function renderPage(page: string | undefined) {
 
   if (page === "partenaires") initPartnerForm();
 
-  if (page === "seance-offerte") initEssaiOffertForm();
 
   if (page === "salles") {
     // Slider « Le terrain » : flèches ← → sur la piste scroll-snap.

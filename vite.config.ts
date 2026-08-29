@@ -349,7 +349,6 @@ export default defineConfig({
         about: page("about/index.html"),
         privacy: page("privacy/index.html"),
         404: page("404.html"),
-        "seance-offerte": page("seance-offerte/index.html"),
       },
     },
   },

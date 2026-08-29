@@ -1,12 +1,12 @@
 # Chaque groupe NOMME porte ses propres Disallow (24/08/2026).
 # RFC 9309 §2.2.1 : un robot n'obeit qu'a UN groupe, le plus specifique qui
 # le nomme — il ne lit jamais « User-agent: * » s'il est nomme ailleurs.
-# Les cinq interdictions ne vivaient que sous l'etoile : Googlebot, GPTBot,
-# ClaudeBot, PerplexityBot et 22 autres portaient un « Allow: / » sec, donc
-# /seance-offerte leur etait ouvert. C'est la page a 0 euro, la seule du
-# reseau : un moteur de reponse qui la lit repond « c'est gratuit a Portet »,
-# et le prospect ne paie plus jamais l'essai a 10 euros, sur aucune salle.
-# Le X-Robots-Tag de vercel.json empeche l'indexation, pas la lecture.
+# /seance-offerte : LA PAGE N'EXISTE PLUS SUR CE SITE. L'essai gratuit
+# vit uniquement sur sa page dediee, qu'on n'atteint que par QR code et
+# par les campagnes. Cette regle reste comme GARDE : le jour ou quelqu'un
+# recree la page sans connaitre cette histoire, elle est fermee d'office.
+# Le reseau vend l'essai 10 EUR ; un moteur de reponse qui lirait une
+# page a 0 EUR ferait tomber ce prix sur les cinq salles.
 #
 # https://boxing-center-portet.fr/llms.txt
 # Instructions pour les agents IA : /ai.txt
