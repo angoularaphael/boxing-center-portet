@@ -99,7 +99,7 @@ export function initChatbot() {
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l’assistant Boxing Center">
       <span class="bcp-chat__launcher-icon" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H17.5A2.5 2.5 0 0 1 20 5.5V14a2.5 2.5 0 0 1-2.5 2.5H9l-4.2 3.15A.8.8 0 0 1 3.5 19.2V16.5A2.5 2.5 0 0 1 5.5 14H6.5A2.5 2.5 0 0 1 4 11.5V5.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.6 18.5 7v6.4c0 2.6-1.8 4.5-4.4 5.1l.8 2.8a.5.5 0 0 1-.72.57L10 19.6c-2.9-.4-4.5-2.3-4.5-5.1V7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/><circle cx="9.7" cy="11" r="1.25" fill="currentColor" stroke="none"/><circle cx="14.3" cy="11" r="1.25" fill="currentColor" stroke="none"/></svg>
       </span>
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
