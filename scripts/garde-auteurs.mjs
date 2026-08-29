@@ -37,7 +37,7 @@
    elle qui sépare une attribution propre d'une infraction aux règles
    anti-spam.
    ===================================================================== */
-import { readFile, writeFile, readdir, access } from "node:fs/promises";
+import { readFile, writeFile, readdir, access, mkdir } from "node:fs/promises";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { AUTEURS, SITE, creatorJsonLd, AUTEUR_PRINCIPAL } from "../api/_lib/auteurs.js";
@@ -239,6 +239,11 @@ const CARTE = {
   ],
   creators: AUTEURS.map((a) => ({ name: a.nom, role: a.roleAscii, sameAs: a.profils })),
 };
+
+/* Le dossier .well-known n'existe pas forcément : certaines salles ne
+   l'avaient jamais eu dans public/. On le crée plutôt que d'échouer —
+   la carte MCP doit exister sur les quatre sites, sans exception. */
+await mkdir(join(DIST, ".well-known"), { recursive: true });
 
 for (const f of [".well-known/mcp.json", ".well-known/mcp"]) {
   const p = join(DIST, f);
