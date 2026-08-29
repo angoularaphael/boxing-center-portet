@@ -7,6 +7,17 @@
   },
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.boxing-center-portet.fr"
+        }
+      ],
+      "destination": "https://boxing-center-portet.fr/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -23,6 +34,17 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "boxingcenterportet.fr"
+        }
+      ],
+      "destination": "https://boxing-center-portet.fr/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -31,6 +53,17 @@
         }
       ],
       "destination": "https://boxing-center-portet.fr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.boxingcenterportet.fr"
+        }
+      ],
+      "destination": "https://boxing-center-portet.fr/",
       "permanent": true
     },
     {
