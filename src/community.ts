@@ -25,7 +25,7 @@ const BADWORDS = [
 function isInappropriate(s: string) {
   const norm = s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9\s]/g, " ");
   if (/(.)\1{6,}/.test(norm)) return true;          // spam (aaaaaaa)
-  if (/https?:|www\.|\.(?:com|fr|net|org|io|co|app|be|ch|eu|uk|us|shop|store|site|xyz|info|biz|link|me|tv)/i.test(s)) return true; // vrais liens seulement
+  if (/https?:|www\.|\.(?:com|fr|net|org|io|co|app|be|ch|eu|uk|us|shop|store|site|xyz|info|biz|link|me|tv)/i.test(s)) return true; // vrais liens seulement
   return BADWORDS.some((w) => new RegExp(`\\b${w}`, "i").test(norm));
 }
 

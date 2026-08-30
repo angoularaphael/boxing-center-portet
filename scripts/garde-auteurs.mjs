@@ -80,6 +80,51 @@ function texteVisible(html) {
 }
 
 /* ------------------------------------------------------------------
+   0. AUCUN CARACTERE DE CONTROLE DANS LE RENDU
+
+   Le 30/08/2026, deux caracteres U+0001 et U+0002 se sont retrouves en
+   texte brut dans la pastille du chatbot, sur les trois sites. Ils se
+   peignent en CARRE VIDE a l'ecran — le « tofu » que le navigateur
+   affiche pour un caractere qu'aucune police ne sait dessiner. Le
+   patron l'a vu avant moi.
+
+   La cause : une substitution d'expression reguliere ou «  » et
+   «  », censes designer des groupes captures, ont ete ecrits
+   LITTERALEMENT — et en Python, «  » dans une chaine ordinaire n'est
+   pas une reference de groupe, c'est le caractere 0x01.
+
+   C'etait la DEUXIEME fois. Une regle qu'on doit se rappeler finit
+   toujours par etre oubliee ; un controle qui tourne au build, jamais.
+   Il passe en PREMIER : un carre vide dans une page est visible par
+   tout le monde, tout de suite.
+   ------------------------------------------------------------------ */
+const CTRL = /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g;
+{
+  const sales = [];
+  for (const p of await pages()) {
+    const t = await readFile(p, "utf8");
+    const trouves = t.match(CTRL);
+    if (trouves) {
+      const codes = [...new Set(trouves.map((c) => "U+" + c.charCodeAt(0).toString(16).padStart(4, "0")))];
+      sales.push(`${relative(DIST, p)} — ${trouves.length} caractere(s) : ${codes.join(", ")}`);
+    }
+  }
+  if (sales.length) {
+    console.error(
+      "\n[garde-auteurs] LE BUILD S'ARRETE — des caracteres de controle sont dans le rendu :\n"
+    );
+    for (const s of sales) console.error("   " + s);
+    console.error(
+      "\n   Ils se peignent en CARRE VIDE a l'ecran. Cherchez une substitution" +
+      " d'expression reguliere ou les references de groupe ont ete ecrites" +
+      " litteralement : en Python, une barre oblique inverse suivie de 1 dans" +
+      " une chaine ordinaire n'est PAS un groupe, c'est le caractere 0x01." + "\n"
+    );
+    process.exit(1);
+  }
+}
+
+/* ------------------------------------------------------------------
    1. RIEN EN CLAIR — la règle qui arrête le build
    ------------------------------------------------------------------ */
 const toutes = await pages();
