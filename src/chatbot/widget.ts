@@ -99,7 +99,7 @@ export function initChatbot() {
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l’assistant Boxing Center">
       <span class="bcp-chat__launcher-icon" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><mask id="bc-mascotte-portet" maskUnits="userSpaceOnUse"><rect width="24" height="24" fill="#fff"/><ellipse cx="9.35" cy="10.3" rx="1.7" ry="2.05" fill="#000"/><ellipse cx="14.65" cy="10.3" rx="1.7" ry="2.05" fill="#000"/><path d="M9.3 14.6h5.4a2.7 2.7 0 0 1-5.4 0Z" fill="#000"/></mask><path d="M12 1.2 21 8v7.1c0 2.9-2 5-5 5.7l1 3.1a.55.55 0 0 1-.8.63L11.6 21.1C7.5 20.7 3 18.6 3 15.1V8Z" fill="currentColor" mask="url(#bc-mascotte-portet)"/></svg>
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><mask id="bc-m-portet" maskUnits="userSpaceOnUse"><rect width="24" height="24" fill="#fff"/><rect x="7.7" y="9.5" width="3.1" height="1.9" rx=".85" fill="#000"/><rect x="13.2" y="9.5" width="3.1" height="1.9" rx=".85" fill="#000"/><rect x="9.9" y="14.1" width="4.2" height="1.5" rx=".7" fill="#000"/><path d="M6.9 7.4 11.4 8.5M17.1 7.4 12.6 8.5" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></mask><path d="M4.9 16.4a2.15 2.15 0 1 1 0 4.3 2.15 2.15 0 0 1 0-4.3Z" fill="currentColor"/><path d="M19.1 16.4a2.15 2.15 0 1 1 0 4.3 2.15 2.15 0 0 1 0-4.3Z" fill="currentColor"/><path d="M12 .9 20.4 7.4v7.2c0 1.9-1 3.3-2.7 4.1l.9 3.1a.55.55 0 0 1-.8.63l-3.6-2.2a11 11 0 0 1-2.2.2c-4.6 0-8.4-2.3-8.4-5.9V7.4Z" fill="currentColor" mask="url(#bc-m-portet)"/></svg>
       </span>
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
