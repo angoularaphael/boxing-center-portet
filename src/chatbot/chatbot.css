@@ -627,3 +627,23 @@ button.bcp-chat__action { cursor: pointer; font: inherit; font-size: 0.78rem; fo
   .bcp-chat__suggestion--escalation:active { transform: translateY(1px); filter: brightness(1.1); }
   .bcp-chat__close:active, .bcp-chat__amorce-fermer:active { transform: scale(.9); }
 }
+
+/* ------------------- LA MASCOTTE RESPIRE -------------------------
+   « Interdit du statique. » Une pastille immobile dans un coin ne se
+   remarque pas : l oeil la range avec le decor et n y revient jamais.
+   Elle cligne toutes les 6 s — 90 ms d ecrasement vertical, le geste
+   qui transforme un pictogramme en quelqu un — et se penche au survol,
+   comme on incline la tete quand on ecoute.
+   prefers-reduced-motion coupe tout, sans rien casser. */
+.bcp-chat__launcher-icon svg { transform-origin: 50% 62%; animation: bcp-cligne 6s ease-in-out infinite; }
+@keyframes bcp-cligne {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(.08); }
+  97%           { transform: scaleY(1); }
+}
+.bcp-chat__launcher:hover .bcp-chat__launcher-icon svg { animation: none; transform: rotate(-6deg) scale(1.04); transition: transform .28s cubic-bezier(.34,1.56,.64,1); }
+.bcp-chat__launcher:active .bcp-chat__launcher-icon svg { transform: rotate(-6deg) scale(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .bcp-chat__launcher-icon svg,
+  .bcp-chat__launcher:hover .bcp-chat__launcher-icon svg { animation: none; transform: none; transition: none; }
+}

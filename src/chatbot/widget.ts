@@ -99,7 +99,7 @@ export function initChatbot() {
   root.innerHTML = `
     <button type="button" class="bcp-chat__launcher" id="bcp-chat-launcher" aria-label="Ouvrir l’assistant Boxing Center">
       <span class="bcp-chat__launcher-icon" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.6 18.5 7v6.4c0 2.6-1.8 4.5-4.4 5.1l.8 2.8a.5.5 0 0 1-.72.57L10 19.6c-2.9-.4-4.5-2.3-4.5-5.1V7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="9.7" cy="11.2" rx="1.05" ry="1.3" fill="currentColor" stroke="none"/><ellipse cx="14.3" cy="11.2" rx="1.05" ry="1.3" fill="currentColor" stroke="none"/><path d="M8.5 8.7 11 9.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10.4 14.2c.5.5 1.2.8 1.9.8s1.4-.3 1.9-.8" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/></svg>
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><mask id="bc-mascotte-portet" maskUnits="userSpaceOnUse"><rect width="24" height="24" fill="#fff"/><ellipse cx="9.35" cy="10.3" rx="1.7" ry="2.05" fill="#000"/><ellipse cx="14.65" cy="10.3" rx="1.7" ry="2.05" fill="#000"/><path d="M9.3 14.6h5.4a2.7 2.7 0 0 1-5.4 0Z" fill="#000"/></mask><path d="M12 1.2 21 8v7.1c0 2.9-2 5-5 5.7l1 3.1a.55.55 0 0 1-.8.63L11.6 21.1C7.5 20.7 3 18.6 3 15.1V8Z" fill="currentColor" mask="url(#bc-mascotte-portet)"/></svg>
       </span>
       <span class="bcp-chat__launcher-pulse" aria-hidden="true"></span>
     </button>
