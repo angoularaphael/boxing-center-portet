@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://boxing-center-portet.fr/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -42,30 +42,10 @@
       <image:title>Grappling &amp; Jiu-Jitsu Brésilien — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
       <image:caption>Grappling &amp; Jiu-Jitsu Brésilien : Contrôles, passages, soumissions. Ici l’erreur est un professeur : tu essaies, tu apprends, tu recommences — et tu progresses vite.</image:caption>
     </image:image>
-    <video:video>
-      <video:thumbnail_loc>https://boxing-center-portet.fr/img/gym-04.jpg</video:thumbnail_loc>
-      <video:title>Préparation physique — Boxing Center Portet</video:title>
-      <video:description>L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120), Toulouse sud.</video:description>
-      <video:content_loc>https://boxing-center-portet.fr/media/clip-floor.mp4</video:content_loc>
-      <video:duration>8</video:duration>
-      <video:publication_date>2026-08-07</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:live>no</video:live>
-    </video:video>
-    <video:video>
-      <video:thumbnail_loc>https://boxing-center-portet.fr/img/gym-03.jpg</video:thumbnail_loc>
-      <video:title>Sacs de frappe — salle de boxe Portet-sur-Garonne</video:title>
-      <video:description>Les sacs de frappe du Boxing Center Portet : 600 m², ring de boxe anglaise et cage MMA, à 10 min de Toulouse sud.</video:description>
-      <video:content_loc>https://boxing-center-portet.fr/media/clip-bags.mp4</video:content_loc>
-      <video:duration>10</video:duration>
-      <video:publication_date>2026-08-07</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:live>no</video:live>
-    </video:video>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/premiere-seance/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -76,7 +56,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/activites/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -127,7 +107,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/salles/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -150,6 +130,7 @@
       <video:title>Visite du Boxing Center Portet — 61 route d’Espagne</video:title>
       <video:description>Visite vidéo de la salle phare Boxing Center à Portet-sur-Garonne (31120) : 600 m², ring de boxe anglaise et cage MMA, à 10 minutes de Toulouse sud.</video:description>
       <video:content_loc>https://boxing-center-portet.fr/media/clip-exterior.mp4</video:content_loc>
+      <video:player_loc>https://boxing-center-portet.fr/salles/#watch</video:player_loc>
       <video:duration>16</video:duration>
       <video:publication_date>2026-08-07</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
@@ -158,7 +139,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/coachs/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -189,7 +170,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/boxeurs/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -205,7 +186,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/galerie/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -436,19 +417,19 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/plannings/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/tarifs/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/partenaires/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -469,7 +450,7 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/contact/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -46,8 +46,8 @@ const galerie = (C.gallery || [])
   .filter((g) => g.src)
   .map((g) => img(g.src, `${g.label} — ${LIEU}`, `${g.label}, photographié au Boxing Center Portet, 61 route d'Espagne.`));
 
-/** Vidéos réellement présentes dans le HTML (comme BOXPLUS). Fichier absent = rien. */
-const vid = (file, poster, name, description, seconds, uploadDate) => {
+/** Vidéo sur une page de lecture (controls). Les fonds muted/loop de l’accueil ne sont PAS des watch pages. */
+const vid = (file, poster, name, description, seconds, uploadDate, playerPath) => {
   if (!existsSync(join(ROOT, "public", "media", file))) return "";
   return [
     "    <video:video>",
@@ -55,6 +55,7 @@ const vid = (file, poster, name, description, seconds, uploadDate) => {
     `      <video:title>${esc(name.slice(0, 100))}</video:title>`,
     `      <video:description>${esc(description.slice(0, 2048))}</video:description>`,
     `      <video:content_loc>${SITE}/media/${esc(file)}</video:content_loc>`,
+    `      <video:player_loc>${SITE}${esc(playerPath)}</video:player_loc>`,
     `      <video:duration>${Math.max(1, Math.round(seconds))}</video:duration>`,
     `      <video:publication_date>${uploadDate}</video:publication_date>`,
     "      <video:family_friendly>yes</video:family_friendly>",
@@ -63,31 +64,12 @@ const vid = (file, poster, name, description, seconds, uploadDate) => {
   ].join("\n");
 };
 
-const homeVideos = [
-  vid(
-    "clip-floor.mp4",
-    "/img/gym-04.jpg",
-    "Préparation physique — Boxing Center Portet",
-    "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne (31120), Toulouse sud.",
-    8,
-    "2026-08-07"
-  ),
-  vid(
-    "clip-bags.mp4",
-    "/img/gym-03.jpg",
-    "Sacs de frappe — salle de boxe Portet-sur-Garonne",
-    "Les sacs de frappe du Boxing Center Portet : 600 m², ring de boxe anglaise et cage MMA, à 10 min de Toulouse sud.",
-    10,
-    "2026-08-07"
-  ),
-].filter(Boolean);
-
 const PAGES = [
   { url: "/", freq: "weekly", prio: "1.0", images: [
       img("/og.jpg", "Salle Boxing Center Portet-sur-Garonne", "Espace cross-training du Boxing Center Portet : cages, rameurs et mur rouge."),
       img("/img/gym-04.jpg", `Préparation physique | Boxing Center Portet`, "L’espace de préparation physique du Boxing Center Portet, 61 route d’Espagne."),
       img("/img/gym-21.jpg", `Le ring de boxe anglaise | ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat."),
-      ...disciplines.slice(0, 4)], videos: homeVideos },
+      ...disciplines.slice(0, 4)] },
   { url: "/premiere-seance/", freq: "monthly", prio: "0.9", images: [
       img("/img/gym-01.jpg", `L'entrée du club — ${LIEU}`, "Ce que tu vois en poussant la porte du Boxing Center Portet.")] },
   { url: "/activites/", freq: "monthly", prio: "0.9", images: disciplines },
@@ -102,7 +84,8 @@ const PAGES = [
         "Visite du Boxing Center Portet — 61 route d’Espagne",
         "Visite vidéo de la salle phare Boxing Center à Portet-sur-Garonne (31120) : 600 m², ring de boxe anglaise et cage MMA, à 10 minutes de Toulouse sud.",
         16,
-        "2026-08-07"
+        "2026-08-07",
+        "/salles/#watch"
       ),
     ].filter(Boolean) },
   { url: "/coachs/", freq: "monthly", prio: "0.8", images: equipe },
