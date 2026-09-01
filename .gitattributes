@@ -1,3 +1,9 @@
+# Les fichiers binaires ne doivent JAMAIS etre convertis en fin de ligne.
+# Sans cette ligne, un clone sous Windows peut injecter des CRLF dans un
+# PNG et le rendre illisible : c'est ce qui etait arrive aux favicons des
+# trois autres salles.
+* -text
+
 # Un crochet git est un script shell : en CRLF il ne s'execute ni sous
 # Linux ni sur un Mac ("bad interpreter"). On force le LF, quel que soit
 # le poste qui clone.
