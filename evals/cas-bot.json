@@ -182,6 +182,22 @@
         "10 ?(EUR|euros?|€)|essai|offerte"
       ],
       "boutons_valides": true
+    },
+    {
+      "id": "S1",
+      "famille": "controle",
+      "titre": "Les tarifs : la saison a 259 € d'abord, puis le 29 €",
+      "_pourquoi": "Eddy, 13/09 : comme les boutons du site, la saison a 259 € (au lieu de 400 €) s'annonce EN PREMIER ; l'offre rentree a 29 € vient juste apres, comme alternative sans engagement.",
+      "tours": [
+        "Bonjour, c'est combien l'abonnement chez vous ?"
+      ],
+      "doit_contenir": [
+        "\\b259 ?€"
+      ],
+      "doit_pas_contenir": [
+        "^(?:(?!259)[\\s\\S])*\\b29 ?€"
+      ],
+      "boutons_valides": true
     }
   ]
 }

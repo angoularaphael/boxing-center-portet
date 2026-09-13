@@ -1,4 +1,4 @@
-/* Banc d'essai du bot vendeur — playbook Anthropic, applique a notre prompt.
+/* Banc d'essai de Gus, l'assistant de Portet (copie du banc de Ramonville, 13/09) — playbook Anthropic, applique a notre prompt.
  *
  *   node evals/lancer-bot.mjs            tous les cas
  *   node evals/lancer-bot.mjs B1 B3      seulement ceux-la
@@ -23,8 +23,9 @@ const { systemFor } = await import("../api/chat.js");
 
 /* Les cles de boutons que l'interface sait REELLEMENT afficher. Le prompt en
    annonce d'autres : c'est precisement ce qu'on veut faire apparaitre. */
+/* Portet : ses cles de boutons vivent dans src/chatbot-kb.ts, table ACTIONS. */
 const kb = readFileSync(join(RACINE, "src/chatbot-kb.ts"), "utf8");
-const d = kb.indexOf("ACTIONS");
+const d = kb.indexOf("const ACTIONS");
 const bloc = kb.slice(d, kb.indexOf("\n};", d));
 const CLES_UI = new Set([...bloc.matchAll(/^\s{2}([a-z]+):\s*\{/gm)].map((m) => m[1]));
 
@@ -59,6 +60,7 @@ const MODELE = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 if (!cles.length) { console.error("Aucune cle GEMINI_API_KEY dans .env"); process.exit(2); }
 
 let fournisseur = "gemini";
+const clesRefusees = new Set();   // fournisseurs dont la cle est refusee
 async function repondre(messages, system) {
   let derniere;
   fournisseur = "gemini";
@@ -79,24 +81,61 @@ async function repondre(messages, system) {
       derniere = "reponse vide";
     } catch (e) { derniere = String(e.message || e); }
   }
-  /* Meme repli que la production : Gemini -> Groq -> Mistral. Un banc d essai
-     qui tombe des que le quota gratuit sature ne mesure plus rien. */
-  for (const [nom, url, cle, modele] of [
-    ["groq", "https://api.groq.com/openai/v1/chat/completions", process.env.GROQ_API_KEY, process.env.GROQ_MODEL || "llama-3.3-70b-versatile"],
-    ["mistral", "https://api.mistral.ai/v1/chat/completions", process.env.MISTRAL_API_KEY, process.env.MISTRAL_MODEL || "mistral-small-latest"],
-  ]) {
-    if (!cle) continue;
+  /* MEME CHEMIN QUE LA PRODUCTION — c'est tout l'interet. api/chat.js lit
+     desormais TOUTES les variables de chaque fournisseur (GROQ_API_KEY,
+     GROQ_API_KEY_2, …) et a gagne un maillon Gemini 3, dont la cle ne repond
+     que sur gemini-3-flash-preview. Le banc doit refaire exactement ces
+     bonds : sinon il annonce une panne qui n'existe que chez lui. */
+  const bassin = (p) => Object.keys(process.env)
+    .filter((k) => k === p || k.startsWith(p + "_")).sort()
+    .map((k) => process.env[k]).filter(Boolean);
+
+  for (const cle of bassin("GEMINI3_API_KEY")) {
     try {
-      const r = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${cle}` },
-        body: JSON.stringify({ model: modele, max_tokens: 1024, temperature: 0.4, messages: [{ role: "system", content: system }, ...messages] }),
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${process.env.GEMINI3_MODEL || "gemini-3-flash-preview"}:generateContent?key=${cle}`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: system }] },
+          contents: messages.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+          generationConfig: { maxOutputTokens: 1024, temperature: 0.4, thinkingConfig: { thinkingBudget: 0 } },
+        }),
       });
-      if (!r.ok) { derniere = nom + " HTTP " + r.status; continue; }
+      if (!r.ok) { derniere = "gemini3 HTTP " + r.status; continue; }
       const j = await r.json();
-      const t = j?.choices?.[0]?.message?.content || "";
-      if (t.trim()) { fournisseur = nom; return t.trim(); }
-    } catch (e) { derniere = nom + " " + String(e.message || e); }
+      const t = j?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") || "";
+      if (t.trim()) { fournisseur = "gemini3"; return t.trim(); }
+    } catch (e) { derniere = "gemini3 " + String(e.message || e); }
+  }
+
+  for (const [nom, url, modele] of [
+    ["groq", "https://api.groq.com/openai/v1/chat/completions", process.env.GROQ_MODEL || "openai/gpt-oss-120b"],
+    ["mistral", "https://api.mistral.ai/v1/chat/completions", process.env.MISTRAL_MODEL || "mistral-small-latest"],
+  ]) {
+    for (const cle of bassin(nom.toUpperCase() + "_API_KEY")) {
+      try {
+        const corps = { model: modele, max_tokens: 1024, temperature: 0.4,
+          messages: [{ role: "system", content: system }, ...messages] };
+        if (/gpt-oss/.test(modele)) corps.reasoning_effort = "low";
+        const r = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${cle}` },
+          body: JSON.stringify(corps),
+        });
+        if (!r.ok) {
+          /* 401 = cle morte, pas un incident de debit : on le dit une fois,
+             fort. La production fait le meme repli en silence, donc une cle
+             morte y retire un maillon sans que personne le sache. */
+          if (r.status === 401 && !clesRefusees.has(nom)) {
+            clesRefusees.add(nom);
+            console.log(`  ALERTE    une cle ${nom.toUpperCase()}_API_KEY est REFUSEE (401)`);
+          }
+          derniere = nom + " HTTP " + r.status; continue;
+        }
+        const j = await r.json();
+        const t = j?.choices?.[0]?.message?.content || "";
+        if (t.trim()) { fournisseur = nom; return t.trim(); }
+      } catch (e) { derniere = nom + " " + String(e.message || e); }
+    }
   }
   throw new Error("aucun fournisseur n a repondu (" + derniere + ")");
 }
@@ -110,8 +149,18 @@ const MOTS_FR = /\b(le|la|les|des|une|vous|tu|est|pour|avec|sans|salle|s[ée]anc
 let ok = derive ? 0 : 1, ko = derive;
 const echecs = [];
 
+/* Les paliers gratuits limitent le DEBIT. Sans pause, Mistral renvoie 422
+   des le deuxieme appel rapproche et le banc annonce « aucun fournisseur
+   n'a repondu » — il accuse une panne la ou il n'y a qu'une cadence. */
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+
 for (const cas of choisis) {
-  const system = systemFor(null);
+  if (cas !== choisis[0]) await pause(2500);
+  /* AWAIT. systemFor est asynchrone (elle lit les faits de la salle) : sans
+     await, c'est une PROMESSE qui partait comme prompt systeme — serialisee
+     en {} par JSON.stringify. Le banc n'a jamais teste le prompt : il testait
+     un objet vide, et Mistral repondait 422 sans qu'on comprenne pourquoi. */
+  const system = await systemFor(null);
   const messages = [];
   const reponses = [];
   let erreur = null;

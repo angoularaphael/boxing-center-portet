@@ -54,7 +54,7 @@ export const QUICKS: Quick[] = [
     a: "C’est un abonnement sans engagement à 29 € par personne toutes les 4 semaines. La première échéance passe par carte, les suivantes par prélèvement sur IBAN ; les coordonnées d’un proche sont demandées et le badge à 34,99 € est facturé 72 h après le début.",
     actions: ["offre", "tarifs"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
-    a: "Offre rentrée : 29 € par personne toutes les 4 semaines, carte puis IBAN, proche demandé et badge 34,99 € facturé après 72 h. Saison : 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. Pour les abonnements classiques sans engagement, le badge à 34,99 € est en sus sauf exception affichée à la commande.",
+    a: "Saison : 259 € comptant au lieu de 400 €, 12 mois et les 5 salles ; PayPal peut proposer un 4× selon disponibilité et éligibilité. Sans engagement, l’offre rentrée : 29 € par personne toutes les 4 semaines au lieu de 44 €, carte puis IBAN, proche demandé et badge 34,99 € facturé après 72 h. Pour les abonnements classiques sans engagement, le badge à 34,99 € est en sus sauf exception affichée à la commande.",
     actions: ["saison", "tarifs"] },
   { label: "Horaires", q: "Quels sont les horaires ?",
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche).",
@@ -116,7 +116,7 @@ const RULES: [RegExp, number][] = [
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
-    text: "Je peux t’aider sur les offres (dont l’abonnement à 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
+    text: "Je peux t’aider sur les offres (la saison à 259 €, ou sans engagement 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
     actions: ["saison", "tarifs"],
   };
 }
