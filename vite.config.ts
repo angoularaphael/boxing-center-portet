@@ -113,9 +113,21 @@ function seoBakePlugin() {
              strict nécessaire : la source, la légende en alt, les dimensions.
              Deux photos en `eager` : ce sont elles que le visiteur voit en
              premier, et le plus gros élément de la page. */
+          /* Les dimensions, cuites aussi (audit du 13/09 : 45 images sans
+             width/height, donc une page qui saute pendant le chargement). Le
+             manifeste donne le ratio largeur/hauteur (ar) et les largeurs
+             produites : on déclare la plus grande et la hauteur qui va avec. */
+          let manGal: Record<string, { w: number[]; ar: number }> = {};
+          try { manGal = JSON.parse(readFileSync(page("src/img-manifest.json"), "utf8")); } catch {}
+          const dimsGal = (src: string) => {
+            const m = manGal[src];
+            if (!m || !m.w?.length || !m.ar) return "";
+            const w = Math.max(...m.w);
+            return ` width="${w}" height="${Math.round(w / m.ar)}"`;
+          };
           remplir("gallery", "gallery", (content.gallery || []).map((g: any, i: number) =>
             `<figure class="shot ${g.span === "wide" ? "shot--wide" : g.span === "tall" ? "shot--tall" : ""}" data-gal-idx="${i}">`
-            + `<img src="${e(g.src)}" alt="${e(g.label)}" ${i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`} decoding="async" />`
+            + `<img src="${e(g.src)}" alt="${e(g.label)}"${dimsGal(g.src)} ${i < 2 ? `loading="eager" fetchpriority="high"` : `loading="lazy"`} decoding="async" />`
             + `<figcaption class="shot__label">${e(g.label)}</figcaption></figure>`).join(""));
         }
 

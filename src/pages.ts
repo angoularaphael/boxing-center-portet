@@ -199,7 +199,7 @@ export function renderPage(page: string | undefined) {
       net.innerHTML = NETWORK_SALLES.filter(s => s.id !== "portet").map(
         (s) => `
         <article class="network-card" data-reveal>
-          <h3 class="network-card__name">${s.name}</h3>
+          <h3 class="network-card__name"><a href="${s.site}" target="_blank" rel="noopener">${s.name}</a></h3>
           <p class="network-card__address">${s.address}</p>
           <div class="network-card__meta">
             <a class="network-card__phone" href="tel:${s.phoneHref}">
@@ -210,6 +210,7 @@ export function renderPage(page: string | undefined) {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               Voir sur Google Maps
             </a>
+            <a class="network-card__maps network-card__site" href="${s.site}" target="_blank" rel="noopener">Le site du club ↗</a>
           </div>
           <div class="network-card__features">
             ${s.features.map((f) => `<span class="network-card__tag">${f}</span>`).join("")}
