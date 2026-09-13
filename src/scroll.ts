@@ -150,6 +150,8 @@ function initLineReveals() {
 /** Hero supporting text fade-in (line reveals handled by initLineReveals). */
 function initHeroIntro() {
   if (reduced) return;
+  /* GSAP tient ces éléments : le filet ne doit plus les montrer avant lui */
+  document.querySelectorAll(".hero [data-reveal]").forEach((el) => el.setAttribute("data-gsap", ""));
   gsap.fromTo(
     ".hero [data-reveal]",
     { opacity: 0, y: 24 },
@@ -177,9 +179,13 @@ function initNav() {
    touche que ce qui est encore a zero) et il ne coute rien : chaque
    element n'est observe qu'une fois. */
 export function filetReveal(racine: ParentNode = document) {
-  const cibles = racine.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revele])");
+  const cibles = racine.querySelectorAll<HTMLElement>("[data-reveal]:not([data-revele]):not([data-gsap])");
   if (!cibles.length) return;
   const montrer = (el: HTMLElement) => {
+    /* 13/09 — LE FILET PASSAIT DEVANT GSAP : il montrait tout à 200 px de
+       l'écran, GSAP animait ensuite de 1 à 1, et aucune animation ne se
+       voyait jamais. Ce que GSAP tient (data-gsap), le filet n'y touche plus. */
+    if (el.hasAttribute("data-gsap")) return;
     el.setAttribute("data-revele", "1");
     el.style.opacity = "1";
     el.style.transform = "none";
@@ -194,28 +200,32 @@ export function filetReveal(racine: ParentNode = document) {
 function initReveals() {
   if (reduced) return;
 
+  /* RÉARMEMENT PAR LE BAS (Eddy, 13/09 — la règle des satellites) : quand
+     l'élément est ressorti PAR LE BAS de l'écran, son entrée est remise à
+     zéro, et elle se rejoue en redescendant. Remonter ne fait rien
+     clignoter : la remise à zéro n'a lieu que hors de la vue. */
+  const rejouer = (tw: gsap.core.Tween, trigger: Element) =>
+    ScrollTrigger.create({ trigger, start: "top bottom", onLeaveBack: () => { tw.pause(0); } });
+
   // generic fade-up, with optional stagger via [data-reveal-group]
   gsap.utils.toArray<HTMLElement>("[data-reveal-group]").forEach((group) => {
-    gsap.to(group.querySelectorAll("[data-reveal]"), {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: "power3.out",
-      stagger: 0.08,
+    const kids = group.querySelectorAll<HTMLElement>("[data-reveal]");
+    if (!kids.length) return;
+    kids.forEach((k) => k.setAttribute("data-gsap", ""));
+    rejouer(gsap.fromTo(kids, { opacity: 0, y: 28 }, {
+      opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.08,
       scrollTrigger: { trigger: group, start: "top 82%" },
-    });
+    }), group);
   });
   gsap.utils
     .toArray<HTMLElement>("[data-reveal]:not([data-reveal-group] [data-reveal])")
     .filter((el) => !el.closest(".hero"))
     .forEach((el) => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: "power3.out",
+      el.setAttribute("data-gsap", "");
+      rejouer(gsap.fromTo(el, { opacity: 0, y: 28 }, {
+        opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
         scrollTrigger: { trigger: el, start: "top 88%" },
-      });
+      }), el);
     });
 
   // count-up stats

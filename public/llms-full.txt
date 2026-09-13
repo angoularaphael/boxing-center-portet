@@ -171,7 +171,7 @@ Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 
 Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
 
-## Planning boxe anglaise (salle ring)
+## Planning de la semaine (celui affiché sur https://boxing-center-portet.fr/plannings/)
 
 ### Lundi
 - 12:30 – 13:30 — Boxe Anglaise
@@ -180,73 +180,40 @@ Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour 
 
 ### Mardi
 - 12:30 – 13:30 — Préparation Physique
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Kick / K1
+- 20:00 – 21:30 — Anglaise Loisirs
+
+### Mercredi
+- 12:30 – 13:30 — Kick / K1
+- 14:00 – 15:00 — Kick Enfants
+- 15:00 – 16:00 — Kick Ados
+- 16:00 – 17:00 — Boxe Éducative 7/11 ans
+- 17:00 – 18:00 — Boxe Éducative 12/16 ans
+- 18:00 – 19:00 — Boxing Lady
+- 19:00 – 20:00 — Préparation Physique
+- 20:00 – 21:30 — Kick / K1
+
+### Jeudi
+- 12:30 – 13:30 — Boxe Anglaise
+- 18:00 – 19:00 — Lady Kick
+- 19:00 – 20:00 — Kick / K1
+- 20:00 – 21:30 — Anglaise Loisirs
+
+### Vendredi
+- 12:30 – 13:30 — Sparring Anglaise & Kick
 - 18:00 – 19:00 — Boxe Amateurs & Pros
-- 19:00 – 20:00 — Préparation Physique
-- 20:00 – 21:30 — Boxe Anglaise Loisirs
-
-### Mercredi
-- 16:00 – 17:00 — Boxe Éducative 7/11 ans
-- 17:00 – 18:00 — Boxe Éducative 12/16 ans
-- 18:00 – 19:00 — Lady Boxing
-- 19:00 – 20:00 — Boxe Anglaise Loisirs
-- 20:00 – 21:30 — Boxe Amateurs & Pros
-
-### Jeudi
-- 12:30 – 13:30 — Boxe Anglaise
-- 18:00 – 20:00 — Boxe Amateurs & Pros
-- 20:00 – 21:30 — Boxe Anglaise Loisirs
-
-### Vendredi
-- 12:30 – 13:30 — Boxe Anglaise
-- 18:00 – 20:00 — Boxe Amateurs & Pros
-- 20:00 – 21:30 — Open Sparring
+- 19:00 – 21:30 — Sparring Anglaise & Kick
 
 ### Samedi
-- 10:00 – 12:00 — Boxe Amateurs & Pros
+- 10:00 – 11:00 — Boxe Française
+- 10:00 – 11:00 — Kick Enfants
+- 11:00 – 12:00 — Préparation Physique
+- 11:00 – 12:00 — Kick Ados
 - 12:30 – 13:30 — Boxe Anglaise
-- 15:15 – 16:00 — Baby Boxe (3/6 ans)
+- 15:00 – 16:00 — Baby Boxe 4/6 ans
 - 16:00 – 17:00 — Boxe Éducative 7/11 ans
 - 17:00 – 18:00 — Boxe Éducative 12/16 ans
-
-## Planning combat (cage, tatamis, kick)
-
-### Lundi
-- 18:00 – 19:00 — Grappling
-- 19:00 – 20:00 — MMA
-
-### Mardi
-- 12:30 – 13:30 — MMA
-- 18:00 – 19:00 — Lady Kick
-- 19:00 – 20:00 — Préparation Physique
-- 20:00 – 21:30 — Kick Boxing / K1
-
-### Mercredi
-- 12:30 – 13:30 — Kick / K1
-- 15:00 – 16:00 — Kick Enfants
-- 16:00 – 17:00 — Kick Ados
-- 17:00 – 18:00 — MMA Ados
-- 18:00 – 19:00 — Grappling
-- 19:00 – 20:00 — MMA
-- 20:00 – 21:30 — Kick Boxing / K1
-
-### Jeudi
-- 12:30 – 13:30 — Grappling
-- 18:00 – 19:00 — Lady Kick
-- 19:00 – 20:00 — Boxe Française
-- 20:00 – 21:30 — Kick Boxing / K1
-
-### Vendredi
-- 12:30 – 13:30 — Kick / K1
-- 18:00 – 19:00 — Grappling
-- 19:00 – 20:00 — MMA
-- 20:00 – 21:30 — Open Sparring
-
-### Samedi
-- 10:00 – 11:30 — Boxe Française + Kick Enfants
-- 11:30 – 12:30 — Prépa Physique + Kick Ados
-- 12:30 – 13:30 — MMA
-- 14:00 – 15:00 — Grappling
-- 15:00 – 16:00 — MMA Ados
 
 ## Première séance
 

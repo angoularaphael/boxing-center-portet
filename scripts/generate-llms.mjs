@@ -8,7 +8,22 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
-import { pagesDisciplines, creneaux, joursEnMots, remplir } from "./disciplines-lib.mjs";
+import { pagesDisciplines, creneaux, joursEnMots, remplir, planningEnVigueur } from "./disciplines-lib.mjs";
+/* LE PLANNING AFFICHÉ, pas les deux grilles cachées (planning + planningMma
+   n’existent sur le site qu’à l’ouverture des nouvelles salles) : les IA
+   récitaient des créneaux que personne ne voit (audit du 13/09). */
+const PLANNING = planningEnVigueur(C);
+/* Les créneaux d'un cours, lus dans ce planning : les réponses courtes ne
+   récitent plus des heures tapées à la main (elles venaient des grilles
+   cachées — « Baby Boxe 3/6 samedi 15h15 » quand le site affiche 4/6 à 15h). */
+const hm = (t) => String(t).replace(/(\d{1,2}):(\d{2})/g, (_, h, m) => `${+h}h${m}`).replace(/\s*[–-]\s*/, "–");
+const quand = (re) => PLANNING.flatMap((d) => (d.items || []).filter(([, n]) => re.test(n)).map(([t]) => `${d.day.toLowerCase()} ${hm(t)}`)).join(", ");
+const avec = (liste) => liste.map(([nom, re]) => { const q = quand(re); return q ? `${nom} : ${q}` : null; }).filter(Boolean);
+const DEBUTER = avec([["Boxe Anglaise Loisirs", /anglaise loisirs/i], ["Boxe anglaise du midi", /^boxe anglaise$/i], ["Boxing Lady (100 % féminin)", /boxing lady|lady boxing/i], ["Baby Boxe", /baby/i]]);
+const COMBAT_COURS = [["MMA", /\bmma\b/i], ["Grappling", /grappling|jjb|jiu/i], ["Kick-Boxing / K1", /^kick\s*\/\s*k1$/i]];
+const COMBAT = avec(COMBAT_COURS);
+const COMBAT_ABSENTS = COMBAT_COURS.filter(([, re]) => !quand(re)).map(([nom]) => nom);
+if (COMBAT_ABSENTS.length) COMBAT.push(`${COMBAT_ABSENTS.join(", ")} : au retour du double planning, dès l’installation du nouveau matériel`);
 const PAGES_D = pagesDisciplines().map((p) => { const j = joursEnMots(creneaux(p, C)); return { ...p, jours: j, resume: remplir(p.description, j) }; });
 /* Une page par coach : son parcours, ses diplômes, ses disciplines, ses questions. */
 const PAGES_C = Object.values(JSON.parse(readFileSync(join(ROOT, "src/coachs.json"), "utf8")).pages);
@@ -55,10 +70,10 @@ Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau dem
 On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
 
 **Quels créneaux pour débuter ?**
-Boxe Anglaise Loisirs : mardi 20h00–21h30, mercredi 19h00–20h00, jeudi 20h00–21h30. Séance de midi : lundi, jeudi, vendredi et samedi 12h30–13h30. Lady Boxing (100 % féminin) : mercredi 18h00–19h00. Baby Boxe (3/6 ans) : samedi 15h15–16h00.
+${DEBUTER.join(". ")}. Le planning complet : ${SITE}/plannings/
 
 **Y a-t-il des cours de MMA / kick-boxing / grappling ?**
-Oui. Planning combat (cage + tatamis) : MMA lundi 19h–20h, mardi 12h30–13h30, mercredi 19h–20h, vendredi 19h–20h, samedi 12h30–13h30. Grappling lundi 18h–19h, mercredi 18h–19h, jeudi 12h30–13h30, vendredi 18h–19h, samedi 14h–15h. Kick-Boxing / K1 mardi 20h–21h30, mercredi 20h–21h30, jeudi 20h–21h30. Détail : ${SITE}/plannings/
+${COMBAT.length ? `Oui, au planning affiché — ${COMBAT.join(". ")}.` : "Oui : les créneaux combat reviennent avec le double planning, dès l’installation du nouveau matériel."} Détail : ${SITE}/plannings/
 
 **Quelle est la note du club ?**
 4,3 sur 5 sur Google, sur 107 avis (fiche Google du club).
@@ -92,13 +107,9 @@ ${(C.tarifs || []).map((t) => `- ${t.name} : ${t.price} ${t.unit || ""}${t.old ?
 - Abonnements classiques sans engagement : badge 34,99 € en sus, sauf exception affichée lors de la commande
 - Boutique officielle : ${SHOP}
 
-## Planning boxe anglaise
+## Planning de la semaine (celui affiché sur ${SITE}/plannings/)
 
-${plan(C.planning)}
-
-## Planning combat (MMA, kick-boxing, grappling, boxe française)
-
-${plan(C.planningMma)}
+${plan(PLANNING)}
 
 ## Partenaires
 
@@ -193,13 +204,9 @@ ${(C.tarifs || []).map((t) => `### ${t.name} — ${t.price} ${t.unit || ""}\n${t
 
 Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
 
-## Planning boxe anglaise (salle ring)
+## Planning de la semaine (celui affiché sur ${SITE}/plannings/)
 
-${plan(C.planning)}
-
-## Planning combat (cage, tatamis, kick)
-
-${plan(C.planningMma)}
+${plan(PLANNING)}
 
 ## Première séance
 
