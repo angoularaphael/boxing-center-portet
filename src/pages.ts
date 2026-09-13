@@ -141,6 +141,8 @@ export function renderPage(page: string | undefined) {
       ).join("");
     };
     paint("planning-provisoire-grid", PLANNING_PROVISOIRE);
+    /* le planning en direct (maintenant.ts) — le module arrive après ce bloc, donc après TOUTES les grilles peintes */
+    import("./maintenant").then((m) => m.demarrerPlanningVivant()).catch(() => {});
     if (NOUVELLES_SALLES) {
       const def = document.getElementById("plannings-definitifs");
       if (def) def.hidden = false;

@@ -595,6 +595,23 @@ a.tarif { color: inherit; text-decoration: none; }
 .plan-slot { display: flex; flex-direction: column; gap: 0.1rem; padding: 0.8rem 0; border-top: 1px solid var(--line); }
 .plan-slot__t { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
 .plan-slot__n { font-weight: 600; }
+/* LE PLANNING EN DIRECT (maintenant.ts, heure de Paris) — la colonne du jour,
+   le cours en cours, le suivant, et la ligne d'horloge au-dessus de la grille.
+   Le liseré de famille (--fam) reste : on éclaire, on ne recolore pas. */
+.plan-col.is-today { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent); background: color-mix(in srgb, var(--accent) 6%, var(--bg-1)); }
+.plan-col.is-today .plan-col__day { color: var(--accent); }
+.plan-col.is-today .plan-col__day::after { content: " · aujourd’hui"; letter-spacing: .08em; opacity: .8; }
+.plan-slot.is-now { position: relative; background: color-mix(in srgb, var(--accent) 16%, transparent); border-radius: 6px; padding-right: .6rem; }
+.plan-slot.is-now::after { content: "En cours"; position: absolute; top: .55rem; right: .5rem; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); background: var(--accent); padding: .18rem .45rem; border-radius: 99px; animation: planPouls 2.4s ease-in-out infinite; }
+.plan-slot.is-next { background: color-mix(in srgb, var(--accent) 7%, transparent); border-radius: 6px; }
+.plan-slot.is-next .plan-slot__t::after { content: " · ensuite"; color: var(--accent); }
+@keyframes planPouls { 50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent); } }
+.plan-horloge { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem .6rem; margin: 0 0 1.2rem; font-family: var(--font-mono); font-size: .82rem; letter-spacing: .06em; color: var(--muted); }
+.plan-horloge b { font-size: 1.05rem; color: var(--fg); letter-spacing: .02em; }
+.plan-horloge__jour { text-transform: uppercase; }
+.plan-horloge__now { color: var(--accent); }
+.plan-horloge__sep { opacity: .5; }
+@media (prefers-reduced-motion: reduce) { .plan-slot.is-now::after { animation: none; } }
 
 /* ============================== CONTACT ============================== */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; }

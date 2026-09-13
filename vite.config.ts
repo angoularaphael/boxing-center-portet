@@ -90,7 +90,7 @@ function seoBakePlugin() {
             + `</div></article>`).join(""));
           remplir("planning-provisoire-grid", "planning", (content.planningProvisoire || []).map((c: any) =>
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
-            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__a">${e(i[1])}</span></div>`).join("")
+            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
             + `</div>`).join(""));
           /* Les grilles definitives ne cuisent que si le patron a ouvert les
              nouvelles salles — sinon meme un crawler ne doit pas les lire. */
