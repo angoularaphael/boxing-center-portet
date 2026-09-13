@@ -4,6 +4,19 @@ import { readFileSync } from "fs";
 
 const page = (p: string) => resolve(__dirname, p);
 
+/* Les pages de discipline (/activites/<slug>/) : écrites par
+   scripts/generate-disciplines.mjs, déclarées ici pour le build, et reliées
+   aux cartes de l'admin par leur nom (une carte sans page reste sans lien). */
+const DISC_PAGES: { slug: string; nom: string; noms?: string[] }[] =
+  JSON.parse(readFileSync(page("src/disciplines-liens.json"), "utf8"));
+const normD = (s: string) =>
+  String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+const lienD = (nom: string) => {
+  const n = normD(nom);
+  const p = DISC_PAGES.find((x) => [x.nom, ...(x.noms || [])].some((a) => normD(a) === n));
+  return p ? `/activites/${p.slug}/` : "";
+};
+
 // Bake editable per-page SEO (from content.json) into each page's static HTML at
 // build time → fully crawlable + editable via /admin (publish triggers a rebuild).
 const escAttr = (s: string) => String(s).replace(/"/g, "&quot;");
@@ -39,12 +52,20 @@ function seoBakePlugin() {
           };
           const D: any[] = content.disciplines || [];
           const n = String(D.length).padStart(2, "0");
-          remplir("reel-track", "reel__track", D.map((d) => `<article class="reel__frame">`
+          /* Chaque carte mène à sa page de discipline quand elle existe. */
+          const ouvre = (d: any, cls: string, attrs = "") => {
+            const h = lienD(d.name);
+            return h ? `<a class="${cls}" href="${h}"${attrs}>` : `<article class="${cls}"${attrs}>`;
+          };
+          const ferme = (d: any) => (lienD(d.name) ? "</a>" : "</article>");
+          const va = (d: any, cls: string) =>
+            lienD(d.name) ? `<span class="${cls}">Voir la discipline <span aria-hidden="true">→</span></span>` : "";
+          remplir("reel-track", "reel__track", D.map((d) => ouvre(d, "reel__frame")
             + `<span class="reel__num">${e(d.key)} / ${n}</span><span class="reel__tag">${e(d.tag)}</span>`
-            + `<div class="reel__body"><h3 class="reel__name">${e(d.name)}</h3><p class="reel__desc">${e(d.desc)}</p></div></article>`).join(""));
-          const carteDisc = (d: any, extra = "") => `<article class="disc${extra}" data-reveal>`
+            + `<div class="reel__body"><h3 class="reel__name">${e(d.name)}</h3><p class="reel__desc">${e(d.desc)}</p>${va(d, "reel__go")}</div>` + ferme(d)).join(""));
+          const carteDisc = (d: any, extra = "") => ouvre(d, `disc${extra}`, " data-reveal")
             + `<div class="disc__top"><span class="disc__key">${e(d.key)}</span><span class="disc__tag">${e(d.tag)}</span></div>`
-            + `<div><h3 class="disc__name">${e(d.name)}</h3><p class="disc__desc">${e(d.desc)}</p></div></article>`;
+            + `<div><h3 class="disc__name">${e(d.name)}</h3><p class="disc__desc">${e(d.desc)}</p>${va(d, "disc__go")}</div>` + ferme(d);
           remplir("disc-grid", "disc-grid", D.map((d) => carteDisc(d)).join(""));
           remplir("act-grid", "disc-grid", D.map((d) => carteDisc(d, " disc--img")).join(""));
           remplir("aud-grid", "aud-grid", (content.audiences || []).map((a: any) =>
@@ -201,6 +222,7 @@ function seoBakePlugin() {
           <div class="footer__grid">
             <div><div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>
             <div><h4>Le club</h4>${NAV_PUBLIC.slice(1).map(lien).join("")}</div>
+            <div><h4>Disciplines</h4>${DISC_PAGES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}</div>
             <div><h4>Contact</h4><address class="geo-nap">${nap}</address></div>
           </div>
           <div class="footer__bottom"><span>© ${new Date().getFullYear()} ${site.name || "Boxing Center Portet"}</span></div>
@@ -257,6 +279,7 @@ function seoBakePlugin() {
             name: "Disciplines — Boxing Center Portet",
             itemListElement: (content.disciplines || []).map((d: any, i: number) => ({
               "@type": "ListItem", position: i + 1, name: d.name, description: d.desc,
+              ...(lienD(d.name) ? { url: `${ORIGIN}${lienD(d.name)}` } : {}),
             })),
           });
         } else if (key === "coachs") {
@@ -385,6 +408,7 @@ export default defineConfig({
         about: page("about/index.html"),
         privacy: page("privacy/index.html"),
         404: page("404.html"),
+        ...Object.fromEntries(DISC_PAGES.map((p) => [`disc-${p.slug}`, page(`activites/${p.slug}/index.html`)])),
       },
     },
   },

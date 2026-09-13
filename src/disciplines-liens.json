@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "boxe-anglaise",
+    "nom": "Boxe anglaise",
+    "noms": [
+      "Boxe Anglaise",
+      "Boxe anglaise"
+    ]
+  },
+  {
+    "slug": "kick-boxing",
+    "nom": "Kick-boxing",
+    "noms": [
+      "Kick-Boxing",
+      "Kick Boxing",
+      "Kick-boxing"
+    ]
+  },
+  {
+    "slug": "mma",
+    "nom": "MMA",
+    "noms": [
+      "MMA"
+    ]
+  },
+  {
+    "slug": "grappling-jiu-jitsu-bresilien",
+    "nom": "Grappling et jiu-jitsu brésilien",
+    "noms": [
+      "Grappling & Jiu-Jitsu Brésilien",
+      "Grappling & JJB",
+      "Grappling"
+    ]
+  },
+  {
+    "slug": "lady-boxing",
+    "nom": "Lady Boxing",
+    "noms": [
+      "Lady Boxing"
+    ]
+  },
+  {
+    "slug": "preparation-physique",
+    "nom": "Préparation physique",
+    "noms": [
+      "Préparation Physique",
+      "Préparation physique"
+    ]
+  },
+  {
+    "slug": "baby-boxe",
+    "nom": "Baby boxe",
+    "noms": [
+      "Baby Boxe",
+      "Baby boxe"
+    ]
+  },
+  {
+    "slug": "boxe-educative",
+    "nom": "Boxe éducative",
+    "noms": [
+      "Boxe Éducative",
+      "Boxe éducative"
+    ]
+  },
+  {
+    "slug": "kick-boxing-enfants-ados",
+    "nom": "Kick-boxing enfants et ados",
+    "noms": [
+      "Kick-Boxing Enfants / Ados",
+      "Kick-boxing enfants/ados",
+      "Kick-Boxing Enfants/Ados"
+    ]
+  }
+]

@@ -13,6 +13,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { pagesDisciplines } from "./disciplines-lib.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://boxing-center-portet.fr";
@@ -72,6 +73,10 @@ const PAGES = [
   { url: "/premiere-seance/", freq: "monthly", prio: "0.9", images: [
       img("/img/gym-01.jpg", `L'entrée du club — ${LIEU}`, "Ce que tu vois en poussant la porte du Boxing Center Portet.")] },
   { url: "/activites/", freq: "monthly", prio: "0.9", images: disciplines },
+  // Une page par discipline, avec sa photo et ses deux photos du club.
+  ...pagesDisciplines().map((p) => ({ url: `/activites/${p.slug}/`, freq: "monthly", prio: "0.8", images: [
+      img(p.photo.src, `${p.nom} — ${LIEU}`, p.photo.alt),
+      ...p.photos.map((ph) => img(ph.src, `${ph.legende} — ${LIEU}`, ph.alt))] })),
   { url: "/salles/", freq: "monthly", prio: "0.8", images: [
       img("/img/gym-21.jpg", `Le ring — ${LIEU}`, "La salle de boxe anglaise et son ring."),
       img("/img/gym-24.jpg", `La cage MMA — ${LIEU}`, "L'espace combat et sa cage de MMA."),

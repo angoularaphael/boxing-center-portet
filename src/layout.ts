@@ -1,4 +1,5 @@
 import { NAV, SITE, PREVIEW } from "./data";
+import { PAGES_DISCIPLINES } from "./liens-disciplines";
 import { punch, tick, whoosh, setSound, soundOn } from "./audio";
 
 const svgArrow = `<svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -78,6 +79,10 @@ function footerMarkup() {
         <div>
           <h4>Le club</h4>
           ${NAV.slice(1).map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}
+        </div>
+        <div>
+          <h4>Disciplines</h4>
+          ${PAGES_DISCIPLINES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}
         </div>
         <div>
           <h4>Contact</h4>

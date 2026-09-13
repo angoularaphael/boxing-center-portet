@@ -5,6 +5,7 @@ import { initThemeSwitch } from "./theme";
 import { initScroll, initPageScroll, filetReveal } from "./scroll";
 import { initFxOnce, initFxPage } from "./fx";
 import { renderPage } from "./pages";
+import { ouvreCarte, fermeCarte, voirCarte } from "./liens-disciplines";
 import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { initCommunity } from "./community";
@@ -35,15 +36,16 @@ function renderHomeGrids() {
   if (reel) {
     reel.innerHTML = DISCIPLINES.map(
       (d) => `
-      <article class="reel__frame">
+      <${ouvreCarte(d.name)} class="reel__frame">
         <img ${imgAttrs(d.img, "(max-width: 760px) 80vw, 42vw", "4:5")} alt="${d.name} — Boxing Center Portet" loading="lazy" decoding="async" />
         <span class="reel__num">${d.key} / ${String(DISCIPLINES.length).padStart(2, "0")}</span>
         <span class="reel__tag">${d.tag}</span>
         <div class="reel__body">
           <h3 class="reel__name">${d.name}</h3>
           <p class="reel__desc">${d.desc}</p>
+          ${voirCarte(d.name, "reel__go")}
         </div>
-      </article>`
+      </${fermeCarte(d.name)}>`
     ).join("");
     /* LE CARROUSEL EST UN TUNNEL HORIZONTAL. Ses huit cartes sont posées
        côte à côte de 20 à 2 642 px : les quatre dernières sont TRÈS loin hors
@@ -134,13 +136,14 @@ function renderHomeGrids() {
     disc.innerHTML = DISCIPLINES
       .map(
         (d) => `
-      <article class="disc" data-reveal>
+      <${ouvreCarte(d.name)} class="disc" data-reveal>
         <div class="disc__top"><span class="disc__key">${d.key}</span><span class="disc__tag">${d.tag}</span></div>
         <div>
           <h3 class="disc__name">${d.name}</h3>
           <p class="disc__desc">${d.desc}</p>
+          ${voirCarte(d.name, "disc__go")}
         </div>
-      </article>`
+      </${fermeCarte(d.name)}>`
       )
       .join("");
   }

@@ -520,7 +520,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .cta-block .btn { margin-top: 1.8rem; }
 .cta-block { overflow: hidden; }
 .cta-block > *:not(.sec-bg) { position: relative; z-index: 1; }
-.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; }
+.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem; }
 .footer h4 { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 1.1rem; }
 .footer a:not(.btn) { color: var(--fg-soft); display: block; padding: 0.28rem 0; transition: color var(--t-fast); }
@@ -1848,4 +1848,69 @@ html.no-webgl .hero__photo { filter: grayscale(1) contrast(1.05) brightness(0.45
   .icon-btn:active, .lightbox__close:active,
   .lightbox__prev:active, .lightbox__next:active { transform: scale(.94); }
   .shot:active img { transform: scale(1.03); }
+}
+
+/* ============================== PAGES DISCIPLINE ==============================
+   Les cartes de discipline mènent à leur page (/activites/<slug>/), et chaque
+   page reprend les blocs du site : valeurs, publics, planning, coachs, FAQ. */
+a.reel__frame, a.disc { color: inherit; text-decoration: none; }
+a.reel__frame { display: block; }
+a.disc { display: flex; }
+a.reel__frame:focus-visible, a.disc:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.reel__go, .disc__go { display: inline-flex; align-items: center; gap: 0.45em; margin-top: 0.9rem;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.reel__go { color: #fff; opacity: 0.9; }
+a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underline; text-underline-offset: 0.3em; }
+
+.dp-tete__grille { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+/* Le titre tient sur ses lignes : « Portet-sur-Garonne. » ne se coupe jamais à ses traits d’union. */
+.dp-tete h1.display { font-size: clamp(2.1rem, 8.4vw, 4.4rem); line-height: 0.98; }
+.dp-tete h1 .tint { white-space: nowrap; }
+.dp-fil { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; font-family: var(--font-mono);
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dp-fil a { color: var(--muted); text-decoration: none; }
+.dp-fil a:hover { color: var(--fg); }
+.dp-fil [aria-current] { color: var(--accent); }
+.dp-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+.dp-actions--centre { justify-content: center; }
+.cta-block .dp-actions .btn { margin-top: 0; }
+.dp-photo { margin: 0; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--line); background: var(--bg-2); }
+.dp-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dp-valeurs, .dp-publics, .dp-planning, .dp-coachs, .dp-galerie, .dp-voisines { margin-top: 2.4rem; }
+.dp-vide { margin-top: 2rem; max-width: 62ch; padding: 1.4rem 1.6rem; border: 1px dashed var(--line-strong, var(--line));
+  border-radius: var(--radius-lg); color: var(--fg-soft, var(--muted)); }
+.dp-lien { margin-top: 1.4rem; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; }
+.dp-lien a { color: var(--accent); text-decoration: none; }
+.dp-lien a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+/* Une carte de coach couchée : la photo à gauche, jamais plus large que 280 px. */
+.dp-coachs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(520px, 100%), 1fr)); gap: 1rem; }
+.dp-coachs .tcard { display: grid; grid-template-columns: minmax(150px, 240px) 1fr; align-items: stretch;
+  border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-1); }
+.dp-coachs .tcard img { display: block; width: 100%; height: 100%; min-height: 260px; object-fit: cover; object-position: top; }
+.dp-coachs .tcard__body { padding: 1.2rem 1.3rem 1.4rem; display: grid; gap: 0.4rem; }
+.dp-coachs .tcard__role { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.dp-coachs .tcard__desc { color: var(--muted); font-size: 0.93rem; }
+.dp-galerie { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.dp-galerie__item { margin: 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.dp-galerie__item img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.dp-galerie__item figcaption { padding: 0.8rem 1rem; font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.dp-infos { display: grid; gap: 1px; margin: 2.4rem 0 0; background: var(--line); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); overflow: hidden; }
+.dp-infos > div { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr; gap: 1rem; padding: 1.1rem 1.4rem; background: var(--bg); }
+.dp-infos dt { padding-top: 0.2em; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); }
+.dp-infos dd { margin: 0; }
+.dp-infos a { color: var(--accent); }
+@media (max-width: 1100px) {
+  .dp-tete__grille { grid-template-columns: 1fr; }
+  .dp-photo { aspect-ratio: 16 / 10; max-width: 760px; }
+}
+@media (max-width: 640px) {
+  .dp-galerie { grid-template-columns: 1fr; }
+  .dp-coachs .tcard { grid-template-columns: 1fr; }
+  .dp-coachs .tcard img { height: auto; aspect-ratio: 4 / 3; min-height: 0; }
+  .dp-infos > div { grid-template-columns: 1fr; gap: 0.3rem; }
 }

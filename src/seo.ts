@@ -2,6 +2,7 @@
  *  carry static LD in their HTML; this adds BreadcrumbList everywhere else plus
  *  rich types (Offers, SportsActivityLocation, ItemList) sourced from data.ts. */
 import { SITE, DISCIPLINES, TARIFS, TEAM } from "./data";
+import { lienDiscipline } from "./liens-disciplines";
 
 const ORIGIN = "https://boxing-center-portet.fr";
 const PAGE: Record<string, [string, string]> = {
@@ -78,7 +79,7 @@ export function injectSchema(page?: string) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "Disciplines — Boxing Center Portet",
-      itemListElement: DISCIPLINES.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: d.name, description: d.desc })),
+      itemListElement: DISCIPLINES.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: d.name, description: d.desc, ...(lienDiscipline(d.name) ? { url: `${ORIGIN}${lienDiscipline(d.name)}` } : {}) })),
     });
   } else if (page === "coachs") {
     add({

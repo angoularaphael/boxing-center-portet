@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
+import { pagesDisciplines, creneaux, joursEnMots, remplir } from "./disciplines-lib.mjs";
+const PAGES_D = pagesDisciplines().map((p) => { const j = joursEnMots(creneaux(p, C)); return { ...p, jours: j, resume: remplir(p.description, j) }; });
 const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
 const s = C.site || {};
@@ -125,6 +127,7 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 - Accueil : ${SITE}/
 - Ta première séance : ${SITE}/premiere-seance/
 - Activités : ${SITE}/activites/
+${PAGES_D.map((p) => `- ${p.nom} : ${SITE}/activites/${p.slug}/`).join("\n")}
 - Le club : ${SITE}/salles/
 - Coachs : ${SITE}/coachs/
 - Nos Boxeurs : ${SITE}/boxeurs/
@@ -160,6 +163,10 @@ NAP : Boxing Center Portet, ${a.street || "61 route d’Espagne"}, ${a.zip || "3
 ## Disciplines (descriptions)
 
 ${(C.disciplines || []).map((d) => `### ${d.name} (${d.tag})\n${d.desc}`).join("\n\n")}
+
+## Pages disciplines (une page par discipline)
+
+${PAGES_D.map((p) => `### ${p.nom}\nPage : ${SITE}/activites/${p.slug}/\n${p.resume}\n${p.jours ? `Créneaux au planning en vigueur : ${p.jours}.` : "Créneaux : au retour du double planning, dès l’installation du nouveau matériel."}`).join("\n\n")}
 
 ## Publics
 

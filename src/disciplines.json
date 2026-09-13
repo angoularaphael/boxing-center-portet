@@ -1,0 +1,356 @@
+{
+  "_note": "Pages de discipline : /activites/<slug>/. Écrites à la construction par scripts/generate-disciplines.mjs. Les cartes de content.json (nom, tag, photo) restent gérées par l'admin ; ce fichier porte le texte long de chaque page, et « noms » relie une carte de l'admin à sa page, même si son nom change d'orthographe. {jours} est remplacé par les jours du planning en vigueur.",
+  "pages": [
+    {
+      "slug": "boxe-anglaise",
+      "noms": ["Boxe Anglaise", "Boxe anglaise"],
+      "nom": "Boxe anglaise",
+      "titre": "Boxe anglaise à Portet-sur-Garonne | Boxing Center",
+      "description": "Cours de boxe anglaise à Portet-sur-Garonne sur le ring du club : débutants, loisirs, amateurs et pros, avec Valentin Tapia. Gants prêtés.",
+      "h1": "Boxe anglaise",
+      "eyebrow": "Discipline · Les poings",
+      "lead": "Le noble art se travaille ici sur un vrai ring, au 61 route d’Espagne. Tu arrives sans rien savoir, tu repars avec une garde, un jab et l’envie de revenir. Les créneaux Loisirs sont faits pour apprendre, et la Team Tapia attend ceux qui veulent monter plus haut.",
+      "photo": { "src": "/img/disc/boxe-anglaise-bc.jpg", "alt": "Cours de boxe anglaise sur le ring de Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/team/team-tapia-pads.jpg", "alt": "Travail aux pattes d’ours avec la Team Tapia, au club de boxe de Portet-sur-Garonne", "legende": "Aux pattes d’ours, avec la Team Tapia" },
+        { "src": "/img/gym-21.jpg", "alt": "Le ring de boxe anglaise de Boxing Center Portet", "legende": "Le ring de boxe anglaise du club" }
+      ],
+      "travailTitre": "Quatre coups, et tout le reste",
+      "travail": [
+        { "titre": "La garde et les appuis", "texte": "Avant de frapper, on apprend à se tenir : pieds écartés, menton rentré, mains hautes. C’est la base de tout le reste, et c’est elle que le coach corrige en premier." },
+        { "titre": "Jab, direct, crochet, uppercut", "texte": "On les apprend un par un, puis on les enchaîne aux pattes d’ours et au sac. Avec quatre coups seulement, la boxe devient une affaire de timing et de distance." },
+        { "titre": "L’esquive et le jeu de jambes", "texte": "Rouler sous un crochet, sortir de l’axe, revenir au centre du ring : la défense s’apprend autant que l’attaque, et c’est elle qui rend la boxe anglaise si fine." },
+        { "titre": "Le souffle", "texte": "Corde, rounds au sac, gainage : chaque cours fait travailler le cardio. Au bout de quelques semaines, un round de trois minutes se tient jusqu’au bout." }
+      ],
+      "pourQui": [
+        { "tag": "Premier gant", "titre": "Tu débutes", "texte": "Les créneaux Boxe Anglaise du midi et Anglaise Loisirs du soir accueillent les débutants. Les gants sont prêtés, et personne ne t’impose de sparring." },
+        { "tag": "Deuxième saison", "titre": "Tu veux progresser", "texte": "Les créneaux Amateurs & Pros montent l’intensité, affinent la technique et préparent l’opposition, pour ceux qui ont déjà les bases." },
+        { "tag": "Team Tapia", "titre": "Tu vises la compétition", "texte": "La Team Tapia prépare les combattants du club, du sparring au gala, quand ils sont prêts et seulement s’ils en ont envie." }
+      ],
+      "creneaux": { "motif": "anglaise|amateurs|pros", "exclure": "[ée]ducative" },
+      "coachs": ["Valentin Tapia"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Faut-il déjà savoir boxer pour venir ?", "r": "Tu peux commencer de zéro : le coach t’apprend la garde et les premiers coups dès la première séance, et les gants sont prêtés." },
+        { "q": "Est-ce qu’on prend des coups dès le début ?", "r": "Le sparring arrive plus tard, encadré, et seulement si tu le demandes. Les premières semaines se passent aux pattes d’ours, au sac et en déplacements." },
+        { "q": "Quelle différence entre Loisirs et Amateurs & Pros ?", "r": "Le Loisirs apprend et entretient, à ton rythme. Les créneaux Amateurs & Pros montent l’intensité et travaillent l’opposition, pour ceux qui ont déjà les bases." },
+        { "q": "Qu’est-ce qu’il faut apporter ?", "r": "Une tenue de sport, une bouteille d’eau et une serviette. Les gants sont prêtés pour commencer ; si tu continues, le coach te conseillera une paire et des bandes." },
+        { "q": "Quand ont lieu les cours de boxe anglaise ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
+      ],
+      "voisines": ["kick-boxing", "preparation-physique", "boxe-educative"],
+      "og": { "titre": "Boxe anglaise", "puces": ["Gants prêtés", "Le ring du club"] }
+    },
+    {
+      "slug": "kick-boxing",
+      "noms": ["Kick-Boxing", "Kick Boxing", "Kick-boxing"],
+      "nom": "Kick-boxing",
+      "titre": "Kick-boxing et K1 à Portet-sur-Garonne | Boxing Center",
+      "description": "Cours de kick-boxing et K1 à Portet-sur-Garonne avec Samuel Pinto, vice-champion du monde de boxe française. Débutants, Lady Kick, sparring encadré.",
+      "h1": "Kick-boxing et K1",
+      "eyebrow": "Discipline · Pieds-poings",
+      "lead": "Le kick-boxing ajoute les jambes à la boxe, et le tempo monte d’un cran. Au K1, les genoux entrent aussi en jeu. À Portet, il se travaille avec Samuel Pinto, du midi au soir, sur les créneaux Kick / K1.",
+      "photo": { "src": "/img/disc/kick-bc.jpg", "alt": "Cours de kick-boxing à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/team/gala-kick-01.jpg", "alt": "High kick lors d’un gala de kick-boxing du club de Portet-sur-Garonne", "legende": "Un soir de gala, le high kick" },
+        { "src": "/img/team/pinto-fight-02.jpg", "alt": "Samuel Pinto, coach de kick-boxing à Portet-sur-Garonne, en combat", "legende": "Samuel Pinto, en combat" }
+      ],
+      "travailTitre": "Les jambes, sans perdre la garde",
+      "travail": [
+        { "titre": "Frapper sur un appui", "texte": "Low kick, middle, high kick : chaque coup de pied part d’une garde qui reste fermée. On apprend à frapper sur une jambe sans perdre l’équilibre." },
+        { "titre": "Poings et jambes enchaînés", "texte": "Un direct pour ouvrir, un low kick pour finir : les combinaisons mêlent les deux, aux paos puis au sac, jusqu’à ce qu’elles sortent sans y penser." },
+        { "titre": "Le K1", "texte": "Le règlement K1 autorise les genoux et un corps à corps bref. Il se travaille sur les mêmes créneaux, sur la même base technique que le kick-boxing." },
+        { "titre": "Le cardio", "texte": "Le kick-boxing fait travailler tout le corps en même temps. Les rounds aux paos construisent un souffle qui sert partout ailleurs." }
+      ],
+      "pourQui": [
+        { "tag": "Premier cours", "titre": "Tu débutes", "texte": "Les créneaux Kick / K1 accueillent les débutants : on commence par la garde, les appuis et des coups de pied bas, qui sont aussi les plus utilisés." },
+        { "tag": "Déjà boxeur", "titre": "Tu viens de la boxe anglaise", "texte": "Tes mains sont déjà là. Le kick-boxing t’apprend une distance plus longue, et à surveiller le bas autant que le haut." },
+        { "tag": "Lady Kick", "titre": "Entre femmes", "texte": "Le Lady Kick a ses propres créneaux, 100 % féminins, avec la même technique et le même sérieux." }
+      ],
+      "creneaux": { "motif": "kick|k1", "exclure": "enfants|ados|lady" },
+      "coachs": ["Samuel Pinto"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Faut-il être souple pour commencer ?", "r": "La souplesse vient avec les séances. Les premiers coups de pied visent bas, et les étirements de fin de cours font le reste." },
+        { "q": "Kick-boxing ou K1, quelle différence ?", "r": "Le kick-boxing se boxe avec les poings et les pieds. Le K1 autorise en plus les genoux et un corps à corps bref. À l’entraînement, la base technique est la même." },
+        { "q": "Faut-il des protège-tibias ?", "r": "Pour découvrir, une tenue de sport suffit. Dès que tu travailles avec un partenaire, le coach te dira quelles protections prendre." },
+        { "q": "Y a-t-il des cours de kick réservés aux femmes ?", "r": "Oui, le Lady Kick, sur ses propres créneaux. Sa page Lady Boxing détaille les cours 100 % féminins du club." },
+        { "q": "Quand ont lieu les cours de kick-boxing ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
+      ],
+      "voisines": ["boxe-anglaise", "lady-boxing", "kick-boxing-enfants-ados"],
+      "og": { "titre": "Kick-boxing et K1", "puces": ["Débutants acceptés", "Avec Samuel Pinto"] }
+    },
+    {
+      "slug": "mma",
+      "noms": ["MMA"],
+      "nom": "MMA",
+      "titre": "MMA à Portet-sur-Garonne, dans la cage | Boxing Center",
+      "description": "MMA à Portet-sur-Garonne, dans la cage du club : frappe, lutte et sol avec Enzo Pioppo, champion du monde, et Nicolas Tramaçon. Débutants bienvenus.",
+      "h1": "MMA",
+      "eyebrow": "Discipline · La cage",
+      "lead": "Debout, au corps à corps, au sol : le MMA réunit tout, et il se travaille ici dans une cage. Enzo Pioppo et Nicolas Tramaçon t’apprennent chaque étape, sans ego, sans brûler les étapes, dans l’espace combat du club.",
+      "photo": { "src": "/img/disc/mma-bc.jpg", "alt": "Cours de MMA dans la cage de Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/gym-24.jpg", "alt": "La cage MMA de l’espace combat de Boxing Center Portet", "legende": "La cage MMA du club" },
+        { "src": "/img/gym-08.jpg", "alt": "La zone de combat au sol de Boxing Center Portet-sur-Garonne", "legende": "La zone de combat au sol" }
+      ],
+      "travailTitre": "Trois distances, une cage",
+      "travail": [
+        { "titre": "La frappe debout", "texte": "Poings, pieds, genoux : on garde la distance et la garde de la boxe, et on apprend à frapper sans s’exposer à l’amenée au sol." },
+        { "titre": "Le corps à corps", "texte": "Saisir, déséquilibrer, projeter, ou refuser la projection : c’est la zone où se décide qui combat debout et qui combat au sol." },
+        { "titre": "Le sol", "texte": "Contrôler, passer, se relever, soumettre. Le sol s’apprend lentement, position par position, avec la règle qui protège tout le monde : on tape, on lâche." },
+        { "titre": "La cage", "texte": "Le grillage change la manière de combattre : on s’y adosse, on s’y relève, on en sort. Ces situations se travaillent seulement dans une cage, et le club en a une." }
+      ],
+      "pourQui": [
+        { "tag": "Point de départ", "titre": "Tu débutes", "texte": "On t’apprend tout, étape par étape, encadré et progressif. Le contact arrive par paliers, et c’est le coach qui les fixe." },
+        { "tag": "Déjà combattant", "titre": "Tu viens d’un autre sport de combat", "texte": "Boxeur, lutteur, judoka : tu gardes tes armes, et tu apprends à passer d’une distance à l’autre." },
+        { "tag": "Sans les coups", "titre": "Tu veux le sol sans la frappe", "texte": "Le grappling et le jiu-jitsu brésilien travaillent le même sol, sans aucune frappe : ils ont leur propre page." }
+      ],
+      "creneaux": { "motif": "\\bmma\\b", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de MMA reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
+      "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Le MMA, c’est pour les débutants ?", "r": "Oui : le coach commence par les bases de chaque distance, et le contact arrive par étapes, toujours encadré." },
+        { "q": "Quand ont lieu les cours de MMA ?", "r": "Pendant l’installation du nouveau matériel, la salle suit un planning provisoire commun, et le MMA revient avec le double planning, salle combat et salle MMA. Cette page affichera ses créneaux dès qu’il sera en vigueur." },
+        { "q": "Faut-il déjà savoir boxer ou lutter ?", "r": "Partir de zéro fonctionne très bien : il n’y a rien à désapprendre. On apprend une zone après l’autre, et beaucoup commencent par le sol." },
+        { "q": "Qui encadre le MMA ?", "r": "Enzo Pioppo, ceinture noire de luta livre et champion du monde, et Nicolas Tramaçon, BPJEPS sport de contact et compétiteur." },
+        { "q": "Où se trouve la cage ?", "r": "Dans l’espace combat du club, l’un des deux espaces des 600 m², au 61 route d’Espagne à Portet-sur-Garonne." }
+      ],
+      "voisines": ["grappling-jiu-jitsu-bresilien", "kick-boxing", "preparation-physique"],
+      "og": { "titre": "MMA, dans la cage", "puces": ["Débutants bienvenus", "Enzo Pioppo"] }
+    },
+    {
+      "slug": "grappling-jiu-jitsu-bresilien",
+      "noms": ["Grappling & Jiu-Jitsu Brésilien", "Grappling & JJB", "Grappling"],
+      "nom": "Grappling et jiu-jitsu brésilien",
+      "titre": "Grappling et JJB à Portet-sur-Garonne | Boxing Center",
+      "description": "Grappling et jiu-jitsu brésilien à Portet-sur-Garonne, sur les tatamis du club, avec Enzo Pioppo, ceinture noire de luta livre. Aucune frappe.",
+      "h1": "Grappling et JJB",
+      "eyebrow": "Discipline · Le sol",
+      "lead": "Contrôles, passages de garde, soumissions : ici, on combat au sol et personne ne frappe. L’erreur fait partie de l’apprentissage : tu essaies, tu comprends, tu recommences, sur les tatamis de l’espace combat.",
+      "photo": { "src": "/img/disc/grappling-bc.jpg", "alt": "Cours de grappling et de jiu-jitsu brésilien à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/gym-22.jpg", "alt": "Les tatamis de grappling et de jiu-jitsu brésilien du club de Portet-sur-Garonne", "legende": "Les tatamis, grappling et JJB" },
+        { "src": "/img/team/enzo-pioppo2.jpeg", "alt": "Enzo Pioppo, coach de grappling et de MMA, champion du monde", "legende": "Enzo Pioppo, champion du monde" }
+      ],
+      "travailTitre": "Le combat, sans la frappe",
+      "travail": [
+        { "titre": "Les positions", "texte": "Garde, demi-garde, montée, dos : chaque position a ses priorités. On apprend d’abord à les tenir, puis à ne pas les subir." },
+        { "titre": "Les passages", "texte": "Passer la garde, reprendre la garde, renverser : le grappling est une partie d’échecs où chaque déplacement prépare le suivant." },
+        { "titre": "Les soumissions", "texte": "Clés et étranglements s’apprennent lentement, en contrôle, avec un partenaire qui connaît la règle." },
+        { "titre": "La tape", "texte": "On tape pour abandonner, et le partenaire lâche aussitôt. Cette règle simple permet de travailler fort sans se blesser." }
+      ],
+      "pourQui": [
+        { "tag": "Sans impact", "titre": "Tu veux le combat sans les coups", "texte": "Le grappling et le jiu-jitsu brésilien sont la porte d’entrée de ceux qui veulent combattre sans recevoir de coups." },
+        { "tag": "MMA", "titre": "Tu fais du MMA", "texte": "Le sol décide une grande partie des combats de MMA. Le grappling t’y donne l’avance." },
+        { "tag": "Judo, lutte", "titre": "Tu viens d’un sport de préhension", "texte": "Tes projections et ton sens de l’équilibre servent dès la première séance, et tu ajoutes le travail au sol." }
+      ],
+      "creneaux": { "motif": "grappling|jjb|jiu", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de grappling reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
+      "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Grappling ou jiu-jitsu brésilien, quelle différence ?", "r": "Les deux se jouent au sol, sans frappe. Le jiu-jitsu brésilien se pratique en kimono, avec un système de ceintures ; le grappling se pratique en short et rashguard." },
+        { "q": "Est-ce dangereux pour les articulations ?", "r": "La règle protège tout le monde : on tape pour abandonner, et le partenaire lâche aussitôt. Les soumissions s’apprennent lentement, en contrôle." },
+        { "q": "Quand ont lieu les cours de grappling ?", "r": "Pendant l’installation du nouveau matériel, la salle suit un planning provisoire commun, et le grappling revient avec le double planning, salle combat et salle MMA. Cette page affichera ses créneaux dès qu’il sera en vigueur." },
+        { "q": "Qui encadre le grappling ?", "r": "Enzo Pioppo, ceinture noire de luta livre et champion du monde, et Nicolas Tramaçon, BPJEPS sport de contact." },
+        { "q": "Que faut-il porter ?", "r": "Une tenue de sport près du corps, sans fermeture éclair ni bijou. Pour le jiu-jitsu brésilien, le coach te dira quand passer au kimono." }
+      ],
+      "voisines": ["mma", "preparation-physique", "kick-boxing"],
+      "og": { "titre": "Grappling et JJB", "puces": ["Aucune frappe", "Avec Enzo Pioppo"] }
+    },
+    {
+      "slug": "lady-boxing",
+      "noms": ["Lady Boxing"],
+      "nom": "Lady Boxing",
+      "titre": "Lady Boxing, boxe femmes à Portet | Boxing Center",
+      "description": "Lady Boxing à Portet-sur-Garonne : des créneaux 100 % femmes de boxe et de kick, avec Samuel et Ingrid. Tous niveaux, aucune opposition imposée.",
+      "h1": "Lady Boxing",
+      "eyebrow": "Discipline · 100 % femmes",
+      "lead": "Un créneau entre femmes, une communauté qui pousse et qui ne juge pas. Tu travailles la même technique que dans les autres cours, la garde et les poings au Lady Boxing, les jambes en plus au Lady Kick, à ton rythme, avec Samuel et Ingrid.",
+      "photo": { "src": "/img/disc/lady-bc.jpg", "alt": "Cours de boxe 100 % femmes, Lady Boxing, à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/team/pauline-re-combat.jpg", "alt": "Pauline Re, boxeuse du club de Portet-sur-Garonne, en combat", "legende": "Pauline Re, en combat" },
+        { "src": "/img/team/anna-boullez-sparring.jpg", "alt": "Anna Boullez à l’entraînement au club de Portet-sur-Garonne", "legende": "Anna Boullez, au travail" }
+      ],
+      "travailTitre": "La même boxe, entre femmes",
+      "travail": [
+        { "titre": "La garde et les poings", "texte": "Jab, direct, crochet : la technique est celle de tous les cours du club, apprise pas à pas, sans version allégée." },
+        { "titre": "Les jambes, au Lady Kick", "texte": "Le Lady Kick ajoute les coups de pied à la boxe, avec le même souci de la garde et des appuis." },
+        { "titre": "Le cardio", "texte": "Corde, sac, circuits : chaque séance fait monter le souffle, et chacune règle son intensité." },
+        { "titre": "La confiance", "texte": "Savoir se placer, tenir une garde, frapper juste : ce qui s’apprend sur le tapis se sent aussi en dehors." }
+      ],
+      "pourQui": [
+        { "tag": "Premier gant", "titre": "Tu n’as jamais boxé", "texte": "C’est le cas de beaucoup de celles qui arrivent. Les gants sont prêtés, et le coach commence par la garde." },
+        { "tag": "Reprise", "titre": "Tu reprends le sport", "texte": "Les créneaux Lady se règlent sur le niveau de chacune : la même séance existe à plusieurs intensités." },
+        { "tag": "Et après", "titre": "Tu veux aller plus loin", "texte": "Les cours mixtes de boxe anglaise et de kick-boxing restent ouverts : tu passes de l’un à l’autre quand tu veux." }
+      ],
+      "creneaux": { "motif": "lady", "exclure": "" },
+      "coachs": ["Samuel Pinto"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Les cours sont-ils réservés aux femmes ?", "r": "Oui, les créneaux Lady Boxing et Lady Kick sont 100 % féminins. Les autres cours du club sont mixtes, et tu peux passer de l’un à l’autre." },
+        { "q": "Faut-il un niveau pour commencer ?", "r": "Tu peux commencer de zéro. Le coach montre la garde et la position des poings dès la première séance, et les gants sont prêtés." },
+        { "q": "Y a-t-il des combats ?", "r": "L’opposition reste un choix : les créneaux Lady se travaillent au sac, aux pattes d’ours et en exercices encadrés." },
+        { "q": "Quelle différence entre Lady Boxing et Lady Kick ?", "r": "Le Lady Boxing travaille la boxe aux poings ; le Lady Kick ajoute les jambes. Les deux sont encadrés et ouverts à tous les niveaux." },
+        { "q": "Quand ont lieu les créneaux Lady ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
+      ],
+      "voisines": ["kick-boxing", "boxe-anglaise", "preparation-physique"],
+      "og": { "titre": "Lady Boxing", "puces": ["100 % femmes", "Tous niveaux"] }
+    },
+    {
+      "slug": "preparation-physique",
+      "noms": ["Préparation Physique", "Préparation physique"],
+      "nom": "Préparation physique",
+      "titre": "Préparation physique à Portet-sur-Garonne | Boxing Center",
+      "description": "Préparation physique à Portet-sur-Garonne : force, cardio et explosivité, sans aucun coup à recevoir. Le moteur des boxeurs, pour tous les niveaux.",
+      "h1": "Préparation physique",
+      "eyebrow": "Discipline · Le moteur",
+      "lead": "Force, cardio, explosivité, et aucun coup à recevoir. La préparation physique construit le moteur qui fait tenir trois rounds sans baisser la garde, et elle se suffit à elle-même si tu cherches d’abord la forme.",
+      "photo": { "src": "/img/disc/prepa-bc.jpg", "alt": "Cours de préparation physique à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/gym-04.jpg", "alt": "L’espace de préparation physique de Boxing Center Portet-sur-Garonne", "legende": "L’espace de prépa physique" },
+        { "src": "/img/gym-03.jpg", "alt": "Les sacs de frappe Metal Boxe du club de Portet-sur-Garonne", "legende": "Les sacs de frappe du club" }
+      ],
+      "travailTitre": "Ce qui fait tenir les rounds",
+      "travail": [
+        { "titre": "La force", "texte": "Poids du corps, charges, gainage : une force utile, celle qui tient une garde et qui pousse sur les appuis." },
+        { "titre": "Le cardio", "texte": "Circuits, corde, intervalles : le souffle se construit par séries courtes et intenses, et il se sent vite." },
+        { "titre": "L’explosivité", "texte": "Départs, sauts, changements de rythme : la vitesse qui fait partir un coup avant que l’autre ne le voie." },
+        { "titre": "Le gainage", "texte": "Le tronc relie les jambes aux poings. C’est lui qui transmet la puissance, et qui protège le dos." }
+      ],
+      "pourQui": [
+        { "tag": "La forme", "titre": "Tu cherches d’abord la forme", "texte": "La prépa se suffit à elle-même : on s’y entraîne sans gants et sans adversaire." },
+        { "tag": "Boxeur", "titre": "Tu pratiques une discipline de combat", "texte": "Une séance de prépa en plus de ton cours, et les derniers rounds changent." },
+        { "tag": "Reprise", "titre": "Tu reprends après une pause", "texte": "Le coach règle la charge sur toi, et chaque exercice a une variante plus douce." }
+      ],
+      "creneaux": { "motif": "pr[ée]pa|physique", "exclure": "" },
+      "coachs": ["Samuel Pinto"],
+      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "faq": [
+        { "q": "Faut-il savoir boxer ?", "r": "La préparation physique se pratique sans gants ni adversaire. Tu viens avec une tenue de sport et une bouteille d’eau, et le coach s’occupe du reste." },
+        { "q": "C’est adapté à un débutant ?", "r": "Oui : le coach règle la charge et l’intensité sur chacun, et chaque exercice a une variante." },
+        { "q": "Combien de séances par semaine ?", "r": "Une ou deux, selon que la prépa accompagne une autre discipline ou qu’elle est ton sport principal. Le coach t’aide à choisir." },
+        { "q": "J’ai une douleur au genou ou au dos, je peux venir ?", "r": "Signale-la au coach avant la séance : il adapte les exercices. En cas de suivi médical, l’avis de ton médecin passe en premier." },
+        { "q": "Quand ont lieu les séances ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
+      ],
+      "voisines": ["boxe-anglaise", "kick-boxing", "lady-boxing"],
+      "og": { "titre": "Préparation physique", "puces": ["Aucun coup reçu", "Tous niveaux"] }
+    },
+    {
+      "slug": "baby-boxe",
+      "noms": ["Baby Boxe", "Baby boxe"],
+      "nom": "Baby boxe",
+      "titre": "Baby boxe à Portet-sur-Garonne | Boxing Center",
+      "description": "Baby boxe à Portet-sur-Garonne : motricité, confiance et respect des règles, en touché contrôlé. Le premier gant à hauteur d’enfant, {jours}.",
+      "h1": "Baby boxe",
+      "eyebrow": "Discipline · Les petits",
+      "lead": "On touche, on ne frappe pas. La baby boxe apprend aux plus petits à bouger, à écouter la consigne et à respecter l’autre, par le jeu, avec un gant à leur taille.",
+      "photo": { "src": "/img/disc/baby-boxe-bc.jpg", "alt": "Cours de baby boxe pour les petits à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/team/salut-ecole-nb.jpg", "alt": "Le salut de l’école de boxe de Boxing Center Portet", "legende": "Le salut de l’école de boxe" },
+        { "src": "/img/gym-07.jpg", "alt": "L’ambiance d’un cours au club de boxe de Portet-sur-Garonne", "legende": "L’ambiance du club" }
+      ],
+      "travailTitre": "Le premier gant, par le jeu",
+      "travail": [
+        { "titre": "La motricité", "texte": "Sauter, esquiver, changer de direction : les jeux de la baby boxe développent l’équilibre et la coordination." },
+        { "titre": "L’écoute", "texte": "Attendre son tour, suivre la consigne, s’arrêter au signal : la règle passe avant le geste." },
+        { "titre": "Le respect", "texte": "On salue son partenaire, on touche sans frapper, on aide celui qui tombe. C’est le premier cadre de l’école de boxe." },
+        { "titre": "La confiance", "texte": "Réussir un geste devant le groupe, être félicité par le coach : les plus timides y prennent leur place." }
+      ],
+      "pourQui": [
+        { "tag": "Énergie", "titre": "Les petits qui débordent d’énergie", "texte": "La baby boxe leur donne un endroit pour la dépenser, et une règle pour la canaliser." },
+        { "tag": "Timidité", "titre": "Les enfants réservés", "texte": "Les exercices se font à deux et en petits groupes : personne n’est mis seul devant les autres." },
+        { "tag": "Et après", "titre": "Ceux qui veulent continuer", "texte": "La boxe éducative prend le relais, avec ses groupes 7/11 ans et 12/16 ans." }
+      ],
+      "creneaux": { "motif": "baby", "exclure": "" },
+      "coachs": [],
+      "tarifs": ["Baby Boxe"],
+      "faq": [
+        { "q": "À partir de quel âge ?", "r": "Le créneau figure au planning avec sa tranche d’âge, plus haut sur cette page : c’est la référence à jour pour la saison." },
+        { "q": "Mon enfant va-t-il recevoir des coups ?", "r": "La règle de l’école est simple : on touche, on ne frappe pas. Les exercices sont des jeux de distance et de réaction, en touché contrôlé." },
+        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau. Les gants sont prêtés pour découvrir." },
+        { "q": "Et après la baby boxe ?", "r": "La boxe éducative prend le relais, avec un groupe 7/11 ans et un groupe 12/16 ans." },
+        { "q": "Quel jour a lieu la baby boxe ?", "r": "Au planning en vigueur : {jours}. L’horaire exact est plus haut sur cette page." }
+      ],
+      "voisines": ["boxe-educative", "kick-boxing-enfants-ados", "lady-boxing"],
+      "og": { "titre": "Baby boxe", "puces": ["On touche, on ne frappe pas", "Gants prêtés"] }
+    },
+    {
+      "slug": "boxe-educative",
+      "noms": ["Boxe Éducative", "Boxe éducative"],
+      "nom": "Boxe éducative",
+      "titre": "Boxe éducative à Portet-sur-Garonne | Boxing Center",
+      "description": "Boxe éducative à Portet-sur-Garonne pour les 7/11 ans et les 12/16 ans : respect, discipline et énergie canalisée, en touché contrôlé.",
+      "h1": "Boxe éducative",
+      "eyebrow": "Discipline · Dès 7 ans",
+      "lead": "Respect, discipline, énergie canalisée : la boxe éducative apprend aux enfants et aux ados le geste juste et la maîtrise, en touché contrôlé. Deux groupes, 7/11 ans et 12/16 ans, encadrés par Valentin Tapia, Mourad et Ingrid.",
+      "photo": { "src": "/img/disc/educative-bc.jpg", "alt": "Cours de boxe éducative pour enfants et ados à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/team/walkout-ecole.jpg", "alt": "Entrée des jeunes boxeurs de l’école de boxe de Portet-sur-Garonne", "legende": "Le walk-out de l’école de boxe" },
+        { "src": "/img/team/podium-ffboxe.jpg", "alt": "Boxeurs du club de Portet-sur-Garonne sur le podium des championnats de France", "legende": "Champions de France, sur le podium" }
+      ],
+      "travailTitre": "Le geste juste, et la maîtrise",
+      "travail": [
+        { "titre": "Le geste", "texte": "Garde, déplacements, coups de poing : la technique de la boxe anglaise, apprise à la bonne vitesse pour chaque âge." },
+        { "titre": "La règle", "texte": "On touche, on ne frappe pas. L’enfant apprend à doser, à viser et à retenir son geste." },
+        { "titre": "La maîtrise", "texte": "S’arrêter au signal, écouter le coach, attendre son tour : c’est ce cadre qui canalise l’énergie." },
+        { "titre": "Le respect du partenaire", "texte": "On salue, on aide, on se relève ensemble. Le partenaire d’en face est celui avec qui on progresse." }
+      ],
+      "pourQui": [
+        { "tag": "7/11 ans", "titre": "Les enfants", "texte": "Le premier groupe apprend le geste et la règle, par des exercices courts et variés." },
+        { "tag": "12/16 ans", "titre": "Les ados", "texte": "Le second groupe ajoute l’intensité et la technique, avec les mêmes règles de contrôle." },
+        { "tag": "Confirmés", "titre": "Ceux qui ont déjà des bases", "texte": "Le créneau Boxe Éducative Confirmés accueille les jeunes qui pratiquent depuis plus longtemps." }
+      ],
+      "creneaux": { "motif": "[ée]ducative", "exclure": "" },
+      "coachs": ["Valentin Tapia", "Mourad"],
+      "tarifs": ["Enfants / Ados"],
+      "faq": [
+        { "q": "Mon enfant va-t-il prendre des coups ?", "r": "La boxe éducative se pratique en touché contrôlé : on vise, on touche, on retient. L’opposition libre n’en fait pas partie." },
+        { "q": "Quelle différence avec la baby boxe ?", "r": "La baby boxe découvre par le jeu. La boxe éducative apprend la vraie technique de la boxe anglaise, adaptée à l’âge, avec les mêmes règles de contrôle." },
+        { "q": "Mon enfant est timide, ça peut aller ?", "r": "Souvent très bien : on travaille à deux, sur une consigne précise, et le coach passe d’un binôme à l’autre." },
+        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau. Les gants sont prêtés pour découvrir ; le coach conseillera le matériel si l’enfant continue." },
+        { "q": "Quels jours ont lieu les cours ?", "r": "Au planning en vigueur : {jours}. Les horaires par groupe sont plus haut sur cette page." }
+      ],
+      "voisines": ["baby-boxe", "kick-boxing-enfants-ados", "boxe-anglaise"],
+      "og": { "titre": "Boxe éducative", "puces": ["7/11 ans · 12/16 ans", "Touché contrôlé"] }
+    },
+    {
+      "slug": "kick-boxing-enfants-ados",
+      "noms": ["Kick-Boxing Enfants / Ados", "Kick-boxing enfants/ados", "Kick-Boxing Enfants/Ados"],
+      "nom": "Kick-boxing enfants et ados",
+      "titre": "Kick-boxing enfants et ados à Portet | Boxing Center",
+      "description": "Kick-boxing pour enfants et ados à Portet-sur-Garonne : technique pieds-poings, cadre et dépassement de soi, avec Samuel Pinto, Mourad et Ingrid.",
+      "h1": "Kick-boxing enfants et ados",
+      "eyebrow": "Discipline · La relève",
+      "lead": "Pieds-poings pour la nouvelle génération : une technique complète, un cadre clair et l’envie de se dépasser. Deux créneaux, enfants et ados, avec Samuel Pinto, Mourad et Ingrid.",
+      "photo": { "src": "/img/disc/kick-enfants-bc.jpg", "alt": "Cours de kick-boxing pour enfants et ados à Boxing Center Portet-sur-Garonne" },
+      "photos": [
+        { "src": "/img/gym-05.jpg", "alt": "Entraînement au sac de frappe au club de Portet-sur-Garonne", "legende": "L’entraînement au sac" },
+        { "src": "/img/team/gala-kick-02.jpg", "alt": "Enchaînement pieds-poings lors d’un gala du club de Portet-sur-Garonne", "legende": "Un enchaînement, un soir de gala" }
+      ],
+      "travailTitre": "Les jambes en plus, et le cadre",
+      "travail": [
+        { "titre": "La technique pieds-poings", "texte": "Garde, coups de poing, coups de pied bas puis plus hauts : la technique s’apprend par étapes, adaptée à l’âge." },
+        { "titre": "Le contrôle", "texte": "Les exercices à deux se font en touché contrôlé : on vise, on touche, on retient." },
+        { "titre": "La souplesse et l’équilibre", "texte": "Frapper sur une jambe demande de l’équilibre, et les étirements de fin de séance font gagner en souplesse." },
+        { "titre": "Le dépassement", "texte": "Un nouveau coup maîtrisé, un exercice réussi : chaque séance donne un objectif à atteindre." }
+      ],
+      "pourQui": [
+        { "tag": "Enfants", "titre": "Le créneau Kick Enfants", "texte": "Pour découvrir les pieds-poings avec des exercices courts, en jeu et en technique." },
+        { "tag": "Ados", "titre": "Le créneau Kick Ados", "texte": "Plus d’intensité, plus de technique, avec les mêmes règles de contrôle." },
+        { "tag": "Après la boxe éducative", "titre": "Ceux qui veulent les jambes", "texte": "Les jeunes qui ont déjà le geste de la boxe éducative ajoutent ici les coups de pied." }
+      ],
+      "creneaux": { "motif": "kick.*(enfant|ado)", "exclure": "" },
+      "coachs": ["Samuel Pinto", "Mourad"],
+      "tarifs": ["Enfants / Ados"],
+      "faq": [
+        { "q": "À partir de quel âge ?", "r": "Les créneaux Kick Enfants et Kick Ados figurent au planning, plus haut sur cette page. Le club te confirme le groupe selon l’âge de ton enfant." },
+        { "q": "Mon enfant va-t-il prendre des coups ?", "r": "Les exercices à deux se font en touché contrôlé, et l’opposition libre n’est pas au programme de ces créneaux." },
+        { "q": "Faut-il des protections ?", "r": "Pour découvrir, une tenue de sport suffit. Si ton enfant continue, le coach te dira quelles protections prendre et à quelle taille." },
+        { "q": "Kick-boxing ou boxe éducative ?", "r": "La boxe éducative travaille les poings ; le kick-boxing ajoute les jambes. Beaucoup commencent par l’une et passent à l’autre." },
+        { "q": "Quels jours ont lieu les cours ?", "r": "Au planning en vigueur : {jours}. Les horaires par groupe sont plus haut sur cette page." }
+      ],
+      "voisines": ["boxe-educative", "baby-boxe", "kick-boxing"],
+      "og": { "titre": "Kick-boxing enfants et ados", "puces": ["Enfants et ados", "Touché contrôlé"] }
+    }
+  ]
+}

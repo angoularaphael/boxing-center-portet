@@ -184,6 +184,15 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 - Accueil : https://boxing-center-portet.fr/
 - Ta première séance : https://boxing-center-portet.fr/premiere-seance/
 - Activités : https://boxing-center-portet.fr/activites/
+- Boxe anglaise : https://boxing-center-portet.fr/activites/boxe-anglaise/
+- Kick-boxing : https://boxing-center-portet.fr/activites/kick-boxing/
+- MMA : https://boxing-center-portet.fr/activites/mma/
+- Grappling et jiu-jitsu brésilien : https://boxing-center-portet.fr/activites/grappling-jiu-jitsu-bresilien/
+- Lady Boxing : https://boxing-center-portet.fr/activites/lady-boxing/
+- Préparation physique : https://boxing-center-portet.fr/activites/preparation-physique/
+- Baby boxe : https://boxing-center-portet.fr/activites/baby-boxe/
+- Boxe éducative : https://boxing-center-portet.fr/activites/boxe-educative/
+- Kick-boxing enfants et ados : https://boxing-center-portet.fr/activites/kick-boxing-enfants-ados/
 - Le club : https://boxing-center-portet.fr/salles/
 - Coachs : https://boxing-center-portet.fr/coachs/
 - Nos Boxeurs : https://boxing-center-portet.fr/boxeurs/
