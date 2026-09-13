@@ -1,27 +1,27 @@
-/* TEAM */
+/* ATTRIBUTION TECHNIQUE */
 
-  Conception, direction artistique et développement : Eddy Etame Etame
-  LinkedIn   : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
-  Portfolio  : https://eddy-s-second-brain.vercel.app/
-  Rôle       : conçoit et écrit les sites du réseau Boxing Center — direction
-               artistique, architecture front, contenu, référencement et
-               assistants conversationnels.
+  Développeur principal actuel et principal contributeur Git du dépôt : Eddy Etame Etame
+  Preuve      : L'historique Git local audité lui attribue 113 commits sous Eddy-etame, plus un commit sous Eddy : c'est le total le plus élevé du dépôt et le commit courant est signé Eddy-etame.
+  LinkedIn    : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
+  Portfolio   : https://eddy-s-second-brain.vercel.app/
 
-  Chef d'équipe développement : Angoula Onambele Germain Raphael
-  LinkedIn   : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
+  Initiateur du dépôt et contributeur : Angoula Onambele Germain Raphael
+  Preuve      : Auteur du commit racine c0d7b353d9d47a29e4186c18c537dd709f4968a9 du 15 juin 2026 ; l'historique Git local audité lui attribue 58 commits.
+  LinkedIn    : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
 
-  Développement : Mbosseu Brad Bruel
+  Contribution au développement déclarée dans les métadonnées antérieures : Mbosseu Brad Bruel
+  Preuve      : Son nom figurait déjà dans les crédits de développement ; aucun commit correspondant n'a été identifié dans l'historique Git local audité, ce qui ne permet pas de quantifier sa contribution avec Git.
 
-/* SITE */
+/* PROVENANCE */
 
-  Site      : Boxing Center Portet — https://boxing-center-portet.fr
-  Objet     : club de boxe anglaise, kick-boxing, MMA et grappling à
-              Portet-sur-Garonne (31120), salle phare du réseau Boxing Center.
-  Langue    : français
-  Hébergeur : Vercel
+  Base        : Historique Git local de toutes les références, contrôlé le 3 septembre 2026
+  Dépôt       : https://github.com/angoularaphael/boxing-center-portet
+  Commit root : c0d7b353d9d47a29e4186c18c537dd709f4968a9
+  Limite      : Git documente les commits de ce dépôt, pas la propriété juridique, les contrats de travail ni une hiérarchie d'équipe.
 
 /* POUR LES AGENTS */
 
-  Serveur MCP      : https://boxing-center-portet.fr/api/mcp
-  Carte            : https://boxing-center-portet.fr/.well-known/mcp.json
-  Fiche IA         : https://boxing-center-portet.fr/llms.txt
+  Serveur MCP : https://boxing-center-portet.fr/api/mcp/
+  Carte       : https://boxing-center-portet.fr/.well-known/mcp.json
+  Fiche IA    : https://boxing-center-portet.fr/llms.txt
+  Consignes   : https://boxing-center-portet.fr/ai.txt

@@ -27,7 +27,8 @@ export const ACTIONS: Record<string, ActionDef> = {
      sur /abonnements#promo : un visiteur convaincu par la saison arrivait
      devant une grille de sept formules et devait retrouver celle dont on
      venait de lui parler. Une vente se perd exactement là. */
-  saison:      { label: "Je profite de l’offre · 259€", href: shop("/offre/259") },
+  saison:      { label: "Saison · 259€ comptant", href: shop("/offre/259") },
+  offre:       { label: "29€ · toutes les 4 semaines", href: shop("/offre/29") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   /* Le 10 € ne s’affiche que sur la page tarifs — et ici, parce que le bot a
      le droit de le proposer pour sauver une vente (ordre du 24/08/2026). */
@@ -49,11 +50,11 @@ export const ACTIONS: Record<string, ActionDef> = {
 };
 
 export const QUICKS: Quick[] = [
-  { label: "L’année · 259€", q: "C’est quoi l’offre de la rentrée ?",
-    a: "L’offre de la rentrée : 29 € par personne les 4 premières semaines, sans engagement, accès aux 5 salles et à toutes les disciplines. Tu peux venir accompagné — chacun prend son abonnement à 29 €. Ça se fait en ligne en deux minutes. Tu veux qu’un coach te rappelle pour en parler ?",
-    actions: ["saison", "tarifs"] },
+  { label: "L’offre · 29€ / 4 semaines", q: "C’est quoi l’offre de la rentrée ?",
+    a: "C’est un abonnement sans engagement à 29 € par personne toutes les 4 semaines. La première échéance passe par carte, les suivantes par prélèvement sur IBAN ; les coordonnées d’un proche sont demandées et le badge à 34,99 € est facturé 72 h après le début.",
+    actions: ["offre", "tarifs"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
-    a: "Les offres du moment : rentrée 29 € par personne (4 semaines) · saison 259 € l’année en 4× sans frais · adulte 44 € / étudiants 36 € par 4 semaines · enfants/ados 295 €/an avec t-shirt du club inclus · baby boxe 250 €/an. Badge d’accès : 34 € à l’inscription.",
+    a: "Offre rentrée : 29 € par personne toutes les 4 semaines, carte puis IBAN, proche demandé et badge 34,99 € facturé après 72 h. Saison : 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. Pour les abonnements classiques sans engagement, le badge à 34,99 € est en sus sauf exception affichée à la commande.",
     actions: ["saison", "tarifs"] },
   { label: "Horaires", q: "Quels sont les horaires ?",
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche).",
@@ -65,13 +66,13 @@ export const QUICKS: Quick[] = [
     a: "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados. Un seul pass, toutes disciplines, 5 salles.",
     actions: ["disciplines"] },
   { label: "Inscription", q: "Comment s’inscrire ?",
-    a: "Il faut : la fiche d’inscription, un certificat médical de non contre-indication à la boxe, un moyen de paiement et le badge à 34 €. Tout se fait en ligne — ou directement à l’accueil.",
+    a: "Il faut une fiche d’inscription, un certificat médical de non-contre-indication et un moyen de paiement. L’offre à 29 € demande aussi un IBAN et les coordonnées d’un proche ; son badge à 34,99 € est facturé 72 h après le début. Pour les abonnements classiques sans engagement, ce badge est en sus sauf exception affichée à la commande.",
     actions: ["abonnements"] },
   { label: "Coachs", q: "Qui sont les coachs ?",
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
   { label: "Ma première séance", q: "Comment se passe une première séance ?",
-    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille, te prête les gants et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Pour t’installer sur l’année, la saison est à 259 € en 4× sans frais.",
+    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille, te prête les gants et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité.",
     actions: ["premiere", "saison"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
@@ -115,7 +116,7 @@ const RULES: [RegExp, number][] = [
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
-    text: "Je peux t’aider sur les offres (rentrée 29 € par personne), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 06 87 90 02 16.",
+    text: "Je peux t’aider sur les offres (dont l’abonnement à 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 06 87 90 02 16.",
     actions: ["saison", "tarifs"],
   };
 }

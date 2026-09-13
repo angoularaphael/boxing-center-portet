@@ -17,7 +17,6 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://boxing-center-portet.fr";
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
-const jour = new Date().toISOString().slice(0, 10);
 
 const esc = (s) =>
   String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -110,7 +109,7 @@ const xml =
   PAGES.map((p) => {
     if (!p.url) throw new Error("[sitemap] entrée sans url");
     return (
-    `  <url>\n    <loc>${SITE}${p.url}</loc>\n    <lastmod>${jour}</lastmod>\n` +
+    `  <url>\n    <loc>${SITE}${p.url}</loc>\n` +
     `    <changefreq>${p.freq}</changefreq>\n    <priority>${p.prio}</priority>\n` +
     (p.images.length ? p.images.join("\n") + "\n" : "") +
     ((p.videos || []).length ? p.videos.join("\n") + "\n" : "") +

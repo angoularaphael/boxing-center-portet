@@ -21,10 +21,29 @@
         "C'est combien l'abonnement a l'annee ?"
       ],
       "doit_contenir": [
-        "259"
+        "259",
+        "comptant"
       ],
       "boutons_attendus": [
         "saison"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "C3",
+      "famille": "controle",
+      "titre": "L'offre 29 EUR est recurrente et ses frais sont annonces",
+      "tours": [
+        "Expliquez-moi exactement l'offre a 29 euros"
+      ],
+      "doit_contenir": [
+        "toutes les 4 semaines",
+        "IBAN",
+        "34[,.]99",
+        "proche"
+      ],
+      "boutons_attendus": [
+        "offre"
       ],
       "boutons_valides": true
     },
@@ -47,13 +66,18 @@
     {
       "id": "B2",
       "famille": "bord",
-      "titre": "Le 4x sans frais n'est pas un mensuel",
-      "_pourquoi": "64,75 EUR est une echeance sur quatre, pas un abonnement mensuel. Le dire faux se voit immediatement.",
+      "titre": "Le 4x est une option PayPal conditionnelle",
+      "_pourquoi": "Le prix normal est 259 EUR comptant. Le 4x ne peut etre propose que par PayPal, selon disponibilite et eligibilite.",
       "tours": [
         "Je peux payer en plusieurs fois ?"
       ],
       "doit_pas_contenir": [
-        "64[,.]75.{0,18}(par mois|/mois|mensuel)"
+        "64[,.]75.{0,18}(par mois|/mois|mensuel)",
+        "4.?x sans frais"
+      ],
+      "doit_contenir": [
+        "PayPal",
+        "eligib|disponib|condition"
       ],
       "boutons_valides": true
     },

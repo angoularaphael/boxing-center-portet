@@ -30,7 +30,7 @@ function navMarkup(path: string) {
         <!-- Le bouton TOUJOURS visible porte la saison, pas la rentrée : c'est
              le seul clic permanent du site, il doit porter l'offre qu'on veut
              vendre. -->
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><span class="long">L’année · </span>259€ ${svgArrow}</a>
+        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener" aria-label="Saison 12 mois à 259 euros comptant"><span class="long">L’année · </span>259€ ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -53,7 +53,7 @@ function navMarkup(path: string) {
       <!-- Le menu plein écran est le passage obligé du téléphone : qui cherche
            une page l'ouvre. Il ne portait que la rentrée à 29€ ; la saison
            entre juste en dessous, dans son or, et pointe direct sur sa page. -->
-      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
+      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ comptant ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -66,15 +66,13 @@ function footerMarkup() {
       <div class="footer__grid">
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
-          <!-- Les TROIS offres, dans l'ordre de vente : la rentrée à 29€ (la porte
-               d'entrée), la saison à 259€ (celle qu'on veut vendre — d'où son
-               traitement propre), l'essai à 10€ en dernier. Ce pied de page est le
-               SEUL élément présent sur les douze pages : c'est là qu'on pose le 259
-               une fois pour tout le site. Le lien va DIRECTEMENT sur la page de
-               l'offre, jamais sur un hub. -->
+          <!-- Une seule offre permanente dans ce pied de page : la saison à
+               259 € comptant. Son lien mène directement à sa page ; la note
+               précise sans promesse que le 4× dépend de PayPal. -->
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
-            <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ ${svgArrow}</a>
+            <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ comptant ${svgArrow}</a>
           </div>
+          <p class="muted" style="margin-top:.7rem;font-size:.82rem">Le 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.</p>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>
         </div>
         <div>

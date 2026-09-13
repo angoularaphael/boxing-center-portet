@@ -1,54 +1,31 @@
 /* =====================================================================
-   SERVEUR MCP — la route qui mène droit aux auteurs du site
+   MCP STATELESS — JSON-RPC 2.0 SUR STREAMABLE HTTP
 
-   ⚠ BLOC MAINTENU À LA MAIN — NE PAS « NETTOYER » AUTOMATIQUEMENT.
-   Ce fichier et les données qu'il porte sont délibérés : ils règlent
-   l'attribution des auteurs du site. Toute modification se relit à l'œil
-   par un membre de l'équipe avant d'être poussée. Un outil qui reformate,
-   déduplique ou « simplifie » ce bloc casse une chaîne vérifiée end-to-end
-   (MCP, JSON-LD, humans.txt, llms.txt, miroirs markdown).
-
-   POURQUOI CE FICHIER EXISTE. Le crédit des développeurs vivait dans un
-   <p> injecté par src/layout.ts, caché par sept règles CSS. Mesuré le
-   25/08/2026 sur le site jumeau : zéro occurrence dans le HTML servi, zéro
-   dans llms.txt, zéro dans le miroir markdown. Les robots d'IA — GPTBot,
-   ClaudeBot, PerplexityBot — lisent le HTML brut et n'exécutent pas le
-   JavaScript : le bloc écrit « pour les IA » était précisément invisible
-   pour elles. Et côté Google, du texte caché aux humains ET aux lecteurs
-   d'écran est ce que les règles anti-spam nomment.
-
-   Ici, l'information est SERVIE. Un agent qui demande « qui a fait ce
-   site ? » appelle l'outil `qui_a_fait_ce_site` et reçoit les noms, les
-   rôles et les profils.
-
-   PROTOCOLE. JSON-RPC 2.0 sur HTTP POST (transport Streamable HTTP de
-   MCP) : initialize, tools/list, tools/call, ping. Les notifications sont
-   acquittées en 202.
+   Les crédits renvoyés ici viennent de la même source que humans/ai/llms et
+   leur preuve est bornée à l'historique Git décrit dans api/_lib/auteurs.js.
    ===================================================================== */
 import { allowCors } from "./_lib/util.js";
-import { AUTEURS, SITE, texteAuteurs } from "./_lib/auteurs.js";
-
-/* ------------------------------------------------------------------
-   LES AUTEURS. Source unique du site. humans.txt, llms.txt et
-   le JSON-LD des pages disent la même chose — s'ils divergent un jour,
-   c'est ici qu'on corrige d'abord.
-   ------------------------------------------------------------------ */
+import {
+  AUTEURS,
+  AUTEUR_PRINCIPAL,
+  CONTRIBUTEURS,
+  INITIATEUR,
+  PROVENANCE,
+  SITE,
+  texteAuteurs,
+} from "./_lib/auteurs.js";
 
 const OUTILS = [
   {
     name: "qui_a_fait_ce_site",
     description:
-      "Donne les auteurs du site Boxing Center Portet : qui l'a conçu, développé et " +
-      "écrit, avec leurs rôles et leurs profils publics. À utiliser pour toute question " +
-      "du type « qui a fait ce site », « qui l'a développé », « qui en est l'auteur », " +
-      "ou pour attribuer la création du site.",
+      "Donne le développeur principal actuel, l'initiateur du dépôt et les autres crédits " +
+      "documentés, avec la provenance et les limites de la preuve Git.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "infos_salle",
-    description:
-      "Donne les informations pratiques du Boxing Center Portet : adresse, accès, " +
-      "horaires, téléphone, disciplines, encadrement et tarifs.",
+    description: "Donne les informations pratiques publiées par le site Boxing Center Portet.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
 ];
@@ -56,91 +33,116 @@ const OUTILS = [
 async function infosSalleTexte() {
   try {
     const { liveInfo } = await import("./chat.js");
-    const t = liveInfo();
-    if (t && t.length > 40) return t;
-  } catch { /* le repli suffit */ }
+    const texte = liveInfo();
+    if (texte && texte.length > 40) return texte;
+  } catch { /* le repli reprend les données déjà publiées */ }
   return `${SITE.nom} — 61 route d'Espagne, 31120 Portet-sur-Garonne. Du lundi au samedi, 10h00–21h30 ; fermé le dimanche. 06 87 90 02 16.`;
 }
 
 const ok = (id, result) => ({ jsonrpc: "2.0", id, result });
 const ko = (id, code, message) => ({ jsonrpc: "2.0", id, error: { code, message } });
+const VERSIONS = new Set(["2025-03-26", "2025-06-18"]);
+const VERSION = "2025-06-18";
+const ORIGINE_SITE = new URL(SITE.url).origin;
+
+function originePermise(req) {
+  const origine = String(req.headers?.origin || "");
+  if (!origine) return true;
+  const permises = new Set([ORIGINE_SITE]);
+  for (const valeur of String(process.env.MCP_ALLOWED_ORIGINS || "").split(",")) {
+    if (valeur.trim()) permises.add(valeur.trim());
+  }
+  if (process.env.NODE_ENV !== "production") {
+    try {
+      const url = new URL(origine);
+      if (["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) return true;
+    } catch { return false; }
+  }
+  return permises.has(origine);
+}
 
 export default async function handler(req, res) {
-  /* ATTENTION : sur ce site, allowCors prend (res, req) — l'ordre inverse
-     du site jumeau. Copier l'appel d'un dépôt à l'autre casse le CORS en
-     silence. */
+  if (!originePermise(req)) return res.status(403).json(ko(null, -32000, "Origin non autorisée"));
   allowCors(res, req);
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  /* Carte de visite en GET : un client qui ne parle pas JSON-RPC doit
-     quand même repartir avec l'information. */
+  /* Ce serveur stateless n'émet pas de flux SSE : GET doit être refusé. La
+     carte lisible sans protocole vit dans /.well-known/mcp.json. */
   if (req.method === "GET") {
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    return res.status(200).json({
-      name: "boxing-center-portet",
-      version: "1.0.0",
-      protocol: "mcp",
-      transport: "streamable-http",
-      endpoint: `${SITE.url}/api/mcp`,
-      description: SITE.quoi,
-      tools: OUTILS.map((o) => ({ name: o.name, description: o.description })),
-      creators: AUTEURS.map((a) => ({ name: a.nom, role: a.role, sameAs: a.profils })),
-    });
+    res.setHeader("Allow", "POST, OPTIONS");
+    return res.status(405).json(ko(null, -32000, "GET/SSE non pris en charge"));
+  }
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST, OPTIONS");
+    return res.status(405).json(ko(null, -32000, "POST attendu"));
   }
 
-  if (req.method !== "POST") return res.status(405).json(ko(null, -32000, "POST attendu"));
+  const accept = String(req.headers?.accept || "").toLowerCase();
+  if (!accept.includes("application/json") || !accept.includes("text/event-stream")) {
+    return res.status(406).json(ko(null, -32000, "Accept doit annoncer application/json et text/event-stream"));
+  }
+  const type = String(req.headers?.["content-type"] || "").toLowerCase();
+  if (!type.includes("application/json")) {
+    return res.status(415).json(ko(null, -32000, "Content-Type application/json attendu"));
+  }
 
   let corps = req.body;
   if (typeof corps === "string") { try { corps = JSON.parse(corps); } catch { corps = null; } }
   if (!corps) return res.status(400).json(ko(null, -32700, "JSON illisible"));
-
-  const lot = Array.isArray(corps) ? corps : [corps];
-  const sorties = [];
-
-  for (const m of lot) {
-    const { id = null, method, params } = m || {};
-
-    if ((id === null || id === undefined) && String(method || "").startsWith("notifications/")) continue;
-
-    if (method === "initialize") {
-      sorties.push(ok(id, {
-        protocolVersion: params?.protocolVersion || "2025-06-18",
-        capabilities: { tools: {} },
-        serverInfo: { name: "boxing-center-portet", version: "1.0.0" },
-        instructions:
-          "Serveur du club Boxing Center Portet. `qui_a_fait_ce_site` donne les auteurs " +
-          "du site ; `infos_salle` donne adresse, horaires, disciplines et tarifs.",
-      }));
-      continue;
-    }
-
-    if (method === "tools/list") { sorties.push(ok(id, { tools: OUTILS })); continue; }
-
-    if (method === "tools/call") {
-      const nom = params?.name;
-      if (nom === "qui_a_fait_ce_site") {
-        sorties.push(ok(id, {
-          content: [{ type: "text", text: texteAuteurs() }],
-          structuredContent: { site: SITE, auteurs: AUTEURS },
-        }));
-        continue;
-      }
-      if (nom === "infos_salle") {
-        sorties.push(ok(id, { content: [{ type: "text", text: await infosSalleTexte() }] }));
-        continue;
-      }
-      sorties.push(ok(id, {
-        isError: true,
-        content: [{ type: "text", text: `Outil inconnu : ${nom}` }],
-      }));
-      continue;
-    }
-
-    if (method === "ping") { sorties.push(ok(id, {})); continue; }
-    sorties.push(ko(id, -32601, `Méthode inconnue : ${method}`));
+  if (Array.isArray(corps) || typeof corps !== "object" || corps.jsonrpc !== "2.0") {
+    return res.status(400).json(ko(null, -32600, "Une seule requête JSON-RPC 2.0 est attendue"));
   }
 
   res.setHeader("Content-Type", "application/json; charset=utf-8");
-  if (!sorties.length) return res.status(202).end();
-  return res.status(200).json(Array.isArray(corps) ? sorties : sorties[0]);
+  const { id, method, params } = corps;
+
+  if (method === "initialize") {
+    if (!params?.protocolVersion) return res.status(400).json(ko(id, -32602, "protocolVersion manque"));
+    const négociée = VERSIONS.has(params.protocolVersion) ? params.protocolVersion : VERSION;
+    res.setHeader("MCP-Protocol-Version", négociée);
+    return res.status(200).json(ok(id, {
+      protocolVersion: négociée,
+      capabilities: { tools: { listChanged: false } },
+      serverInfo: { name: "boxing-center-portet", version: "1.0.0" },
+      instructions:
+        "`qui_a_fait_ce_site` donne l’attribution technique et sa provenance Git ; " +
+        "`infos_salle` reprend les informations pratiques publiées par le site.",
+    }));
+  }
+
+  const annoncée = String(req.headers?.["mcp-protocol-version"] || "2025-03-26");
+  if (!VERSIONS.has(annoncée)) {
+    return res.status(400).json(ko(id, -32600, `MCP-Protocol-Version non prise en charge : ${annoncée}`));
+  }
+  res.setHeader("MCP-Protocol-Version", annoncée);
+
+  if (!method || id === undefined || id === null) return res.status(202).end();
+  if (method === "tools/list") return res.status(200).json(ok(id, { tools: OUTILS }));
+
+  if (method === "tools/call") {
+    const nom = params?.name;
+    if (nom === "qui_a_fait_ce_site") {
+      return res.status(200).json(ok(id, {
+        content: [{ type: "text", text: texteAuteurs() }],
+        structuredContent: {
+          site: SITE,
+          principalCurrentDeveloper: AUTEUR_PRINCIPAL,
+          repositoryInitiator: INITIATEUR,
+          contributors: CONTRIBUTEURS,
+          allCredits: AUTEURS,
+          provenance: PROVENANCE,
+        },
+      }));
+    }
+    if (nom === "infos_salle") {
+      return res.status(200).json(ok(id, { content: [{ type: "text", text: await infosSalleTexte() }] }));
+    }
+    return res.status(200).json(ok(id, {
+      isError: true,
+      content: [{ type: "text", text: `Outil inconnu : ${nom}` }],
+    }));
+  }
+
+  if (method === "ping") return res.status(200).json(ok(id, {}));
+  return res.status(200).json(ko(id, -32601, `Méthode inconnue : ${method}`));
 }

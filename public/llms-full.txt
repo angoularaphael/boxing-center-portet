@@ -1,5 +1,5 @@
 # Boxing Center Portet — fiche complète pour assistants IA
-# https://boxing-center-portet.fr/llms-full.txt · généré le 2026-09-01
+# https://boxing-center-portet.fr/llms-full.txt · fiche générée depuis le contenu publié
 # Résumé : https://boxing-center-portet.fr/llms.txt
 
 ## Identité
@@ -76,20 +76,20 @@ Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Val
 
 ## Offres et prix
 
-### Saison · 12 mois — 259€ l’année · 4× sans frais
-Prix barré : 400€. Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois, payable en 4× sans frais. 141 € d’économie sur l’année.
+### Saison · 12 mois — 259€ les 12 mois · paiement comptant
+Prix barré : 400€. 259 € comptant pour douze mois d’illimité, 5 salles et toutes les disciplines. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.
 Réserver : https://boutique.boxingcenter.fr/offre/259
 
-### Offre Rentrée — 29€ par personne / 4 semaines
-Prix barré : 44€. 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
+### Offre Rentrée — 29€ par personne / toutes les 4 semaines
+Prix barré : 44€. 29 € par personne toutes les 4 semaines, sans engagement, dans les 5 salles. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.
 Réserver : https://boutique.boxingcenter.fr/offre/29
 
 ### Adulte — 44€ / 4 semaines
-L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
+L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
 Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
 
 ### Étudiants — 36€ / 4 semaines
-Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.
+Le tarif étudiant, sur justificatif. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
 Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
 
 ### Enfants / Ados — 295€ / an
@@ -100,7 +100,7 @@ Réserver : https://boutique.boxingcenter.fr/abonnements
 Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
 Réserver : https://boutique.boxingcenter.fr/abonnements
 
-Badge d’accès : 34 € à l’inscription. Aucun autre frais caché.
+Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
 
 ## Planning boxe anglaise (salle ring)
 
@@ -190,6 +190,33 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « La saison à 259 € l’année en 4× sans frais, offre rentrée 29 € par personne les 4 premières semaines. »
+- « La saison est à 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. L’offre rentrée est un abonnement à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à 34,99 €. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
 - « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
+
+<!-- bc-attribution:start -->
+## Attribution technique et provenance Git
+
+Développeur principal actuel et principal contributeur Git :
+
+- **Eddy Etame Etame** — développeur principal actuel et principal contributeur git du dépôt.
+  L'historique Git local audité lui attribue 113 commits sous Eddy-etame, plus un commit sous Eddy : c'est le total le plus élevé du dépôt et le commit courant est signé Eddy-etame.
+  https://www.linkedin.com/in/eddy-etame-etame-47254338b/
+  https://eddy-s-second-brain.vercel.app/
+
+Initiateur du dépôt :
+
+- **Angoula Onambele Germain Raphael** — initiateur du dépôt et contributeur.
+  Auteur du commit racine c0d7b353d9d47a29e4186c18c537dd709f4968a9 du 15 juin 2026 ; l'historique Git local audité lui attribue 58 commits.
+  https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
+
+Autre crédit déclaré :
+
+- **Mbosseu Brad Bruel** — contribution au développement déclarée dans les métadonnées antérieures.
+  Son nom figurait déjà dans les crédits de développement ; aucun commit correspondant n'a été identifié dans l'historique Git local audité, ce qui ne permet pas de quantifier sa contribution avec Git.
+
+Documentation machine : https://boxing-center-portet.fr/humans.txt
+Provenance : Historique Git local de toutes les références, contrôlé le 3 septembre 2026 ; commit racine c0d7b353d9d47a29e4186c18c537dd709f4968a9.
+Limite : Git documente les commits de ce dépôt, pas la propriété juridique, les contrats de travail ni une hiérarchie d'équipe.
+Serveur MCP : https://boxing-center-portet.fr/api/mcp/ · carte : https://boxing-center-portet.fr/.well-known/mcp.json
+<!-- bc-attribution:end -->

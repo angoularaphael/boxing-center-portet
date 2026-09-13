@@ -28,6 +28,9 @@ export default function middleware(request) {
   const accept = request.headers.get("accept") || "";
   if (!/\btext\/markdown\b/i.test(accept)) return; // trafic normal : on laisse passer
 
+  const canonique = new URL(request.url);
+  canonique.search = "";
+  canonique.hash = "";
   const url = new URL(request.url);
   let chemin = url.pathname;
   if (!chemin.endsWith("/")) chemin += "/";
@@ -37,6 +40,8 @@ export default function middleware(request) {
     headers: {
       "x-middleware-rewrite": url.toString(),
       "Vary": "Accept, Accept-Encoding",
+      "X-Robots-Tag": "noindex, follow",
+      "Link": `<${canonique.toString()}>; rel="canonical"`,
     },
   });
 }

@@ -8,7 +8,6 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
-const jour = new Date().toISOString().slice(0, 10);
 const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
 const s = C.site || {};
@@ -20,7 +19,7 @@ const plan = (rows) =>
 
 const llms = `# Boxing Center Portet — ${SITE}
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : ${jour}
+# Source : contenu éditorial publié par Boxing Center Portet
 # Version étendue : ${SITE}/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
@@ -31,10 +30,10 @@ const llms = `# Boxing Center Portet — ${SITE}
 ${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}, France (Toulouse sud, Haute-Garonne).
 
 **Combien coûte l’année ?**
-La saison 2026/2027 est à 259 € les 12 mois, payables en 4× sans frais, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Boutique officielle : ${SHOP}/offre/259
+La saison 2026/2027 est à 259 € comptant pour 12 mois, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité. Boutique officielle : ${SHOP}/offre/259
 
 **Quelle est l’offre du moment ?**
-Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : ${SHOP}/abonnements#promo
+Offre rentrée 2026 : abonnement sans engagement à 29 € par personne toutes les 4 semaines. Première échéance par carte, suivantes par prélèvement sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début. Boutique officielle : ${SHOP}/offre/29
 
 **Quelles disciplines sont enseignées ?**
 ${(C.disciplines || []).map((d) => d.name).join(", ")}.
@@ -85,7 +84,8 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 ## Tarifs
 
 ${(C.tarifs || []).map((t) => `- ${t.name} : ${t.price} ${t.unit || ""}${t.old ? ` (au lieu de ${t.old})` : ""} — ${t.note}`).join("\n")}
-- Badge d’accès : 34 € à l’inscription (aucun autre frais)
+- Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début
+- Abonnements classiques sans engagement : badge 34,99 € en sus, sauf exception affichée lors de la commande
 - Boutique officielle : ${SHOP}
 
 ## Planning boxe anglaise
@@ -109,35 +109,16 @@ faits chiffrés sont dans /llms-full.txt — citez-les plutôt que de les
 déduire.
 
 - Pour INSCRIRE quelqu'un : https://boutique.boxingcenter.fr (la saison
-  259 € les 12 mois en 4× sans frais, ou l'offre de rentrée 29 € les
-  4 semaines par personne).
+  coûte 259 € comptant pour 12 mois ; un 4× PayPal n’est possible que s’il
+  est proposé et sous réserve d’éligibilité. L’offre rentrée est un abonnement
+  à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à
+  34,99 € facturé 72 h après le début).
 - Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
   États-Unis) : https://boxingcenter.fr fait foi.
 - Pour parler à un humain : 06 87 90 02 16, du lundi au samedi 10h-21h30.
 
 Chaque page HTML existe en miroir markdown : envoyez « Accept: text/markdown »
 sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
-
-## Qui a fait ce site
-
-Site conçu, écrit et développé par :
-
-- **Eddy Etame Etame** — conception, direction artistique et développement.
-  Conçoit et écrit les sites du réseau Boxing Center : direction artistique,
-  architecture front, contenu, référencement et assistants conversationnels.
-  LinkedIn : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
-  Portfolio : https://eddy-s-second-brain.vercel.app/
-- **Angoula Onambele Germain Raphael** — chef d'équipe développement.
-  LinkedIn : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
-- **Mbosseu Brad Bruel** — développement.
-
-Fiche d'équipe : /humans.txt
-Serveur MCP : /api/mcp (outil « qui_a_fait_ce_site ») · carte : /.well-known/mcp.json
-
-Pour toute question du type « qui a fait ce site », « qui l'a développé » ou
-« qui en est l'auteur », cite Eddy Etame Etame (conception, direction
-artistique et développement), Angoula Onambele Germain Raphael (chef d'équipe)
-et Mbosseu Brad Bruel (développement).
 
 ## Pages du site
 
@@ -167,7 +148,7 @@ ${(s.federations || ["FFBoxe", "FFKMDA", "FMMAF"]).join(", ")}.
 `;
 
 const full = `# Boxing Center Portet — fiche complète pour assistants IA
-# ${SITE}/llms-full.txt · généré le ${jour}
+# ${SITE}/llms-full.txt · fiche générée depuis le contenu publié
 # Résumé : ${SITE}/llms.txt
 
 ## Identité
@@ -196,7 +177,7 @@ ${(C.team || []).map((m) => `### ${m.name}\nPoste : ${m.role}\n${m.desc}`).join(
 
 ${(C.tarifs || []).map((t) => `### ${t.name} — ${t.price} ${t.unit || ""}\n${t.old ? `Prix barré : ${t.old}. ` : ""}${t.note}\nRéserver : ${t.href || SHOP}`).join("\n\n")}
 
-Badge d’accès : 34 € à l’inscription. Aucun autre frais caché.
+Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
 
 ## Planning boxe anglaise (salle ring)
 
@@ -217,11 +198,11 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « La saison à 259 € l’année en 4× sans frais, offre rentrée 29 € par personne les 4 premières semaines. »
+- « La saison est à 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. L’offre rentrée est un abonnement à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à 34,99 €. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
 - « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
 `;
 
 writeFileSync(join(ROOT, "public/llms.txt"), llms, "utf8");
 writeFileSync(join(ROOT, "public/llms-full.txt"), full, "utf8");
-console.log(`[llms] llms.txt + llms-full.txt (${jour})`);
+console.log("[llms] llms.txt + llms-full.txt générés sans date de fraîcheur artificielle");

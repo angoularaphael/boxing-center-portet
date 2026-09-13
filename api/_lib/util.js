@@ -46,7 +46,7 @@ export function allowCors(res, req) {
   res.setHeader("Access-Control-Allow-Origin", ok ? origin : "https://boxing-center-portet.fr");
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-admin-token");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, MCP-Protocol-Version, x-admin-token");
 }
 
 export function isAdmin(req) {

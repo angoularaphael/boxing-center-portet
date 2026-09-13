@@ -11,6 +11,28 @@
       "has": [
         {
           "type": "host",
+          "value": "boxing-center-portet.vercel.app"
+        }
+      ],
+      "destination": "https://boxing-center-portet.fr/",
+      "statusCode": 308
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "boxing-center-portet.vercel.app"
+        }
+      ],
+      "destination": "https://boxing-center-portet.fr/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
           "value": "www.boxing-center-portet.fr"
         }
       ],

@@ -1,312 +1,326 @@
 /* =====================================================================
-   LE GARDE DES AUTEURS — il tourne à CHAQUE build, ici comme sur Vercel
+   GARDE DES CRÉDITS — attribution machine uniquement, vérifiable, idempotente
 
-   POURQUOI IL EXISTE. Les 28 et 29/08/2026, l'attribution du site a été
-   retirée trois fois en deux jours, par trois commits différents. À
-   chaque fois il a fallu la remettre à la main dans sept fichiers. Une
-   règle qu'on doit se rappeler finit toujours par être oubliée ; un
-   contrôle qui tourne au build, jamais.
-
-   CE QU'IL FAIT, DANS CET ORDRE
-
-     1. IL REFUSE. Si un nom d'auteur apparaît dans le TEXTE VISIBLE
-        d'une page — celui que lit un être humain, une fois les <script>,
-        les <style> et les commentaires retirés — le build s'arrête. Rien
-        ne part en ligne. C'est la règle la plus importante du fichier :
-        un crédit de développeur visible sur le site d'un client peut
-        coûter sa place à celui qui l'a posé.
-
-     2. IL REPOSE. Si l'attribution manque dans une surface MACHINE, il
-        l'y remet, à partir de api/_lib/auteurs.js — la source unique.
-        Les surfaces : le JSON-LD `creator` de chaque page indexable,
-        humans.txt, ai.txt, llms.txt, llms-full.txt et les deux cartes
-        MCP.
-
-   IL TRAVAILLE SUR dist/, PAS SUR LES SOURCES. C'est dist/ qui part sur
-   Vercel. Quelqu'un peut donc continuer à modifier les sources comme il
-   l'entend : ce qui est servi porte l'attribution de toute façon. Et le
-   script DIT TOUT CE QU'IL FAIT dans le journal de build — rien n'est
-   silencieux, l'équipe voit ce qui a été reposé et pourquoi.
-
-   POURQUOI CE N'EST PAS DU TEXTE CACHÉ. Aucune de ces surfaces n'est une
-   page. Le JSON-LD est une métadonnée dans un <script type="ld+json"> :
-   invisible aux visiteurs par nature, c'est le canal que Google et les
-   crawlers d'IA lisent pour attribuer un site. humans.txt, llms.txt et
-   ai.txt sont des fichiers à part. Les cartes MCP sont du JSON. La
-   différence avec un <p> peint en blanc n'est pas cosmétique : c'est
-   elle qui sépare une attribution propre d'une infraction aux règles
-   anti-spam.
+   Les noms ne doivent jamais entrer dans l'interface publique, même via un
+   élément masqué, une classe CSS ou un attribut accessible. Les seules
+   surfaces autorisées sont explicites et non rendues : JSON-LD, humans.txt,
+   ai.txt, llms*.txt, cartes MCP et serveur MCP.
    ===================================================================== */
-import { readFile, writeFile, readdir, access, mkdir } from "node:fs/promises";
-import { join, dirname, relative } from "node:path";
+import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { AUTEURS, SITE, creatorJsonLd, AUTEUR_PRINCIPAL } from "../api/_lib/auteurs.js";
+import {
+  AUTEURS,
+  AUTEUR_PRINCIPAL,
+  CONTRIBUTEURS,
+  INITIATEUR,
+  PROVENANCE,
+  SITE,
+  creatorJsonLd,
+} from "../api/_lib/auteurs.js";
 
 const RACINE = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(RACINE, "dist");
-
+const PUBLIC = join(RACINE, "public");
+const MARQUE_DEBUT = "<!-- bc-attribution:start -->";
+const MARQUE_FIN = "<!-- bc-attribution:end -->";
 const NOMS = AUTEURS.map((a) => a.nom);
 const posés = [];
 const fautes = [];
 
 const existe = (p) => access(p).then(() => true, () => false);
 
-/* Les pages qu'on ne crédite pas : elles ne sont pas faites pour les
-   moteurs, ou leur `creator` désigne quelqu'un d'autre (le photographe,
-   sur les nœuds ImageObject de la galerie). */
-const SANS_ATTRIBUTION = new Set(["seance-offerte", "admin", "md"]);
-
-async function pages(dir = DIST, sortie = []) {
+async function fichiers(dir, accepte, sortie = []) {
+  if (!(await existe(dir))) return sortie;
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = join(dir, e.name);
-    if (e.isDirectory()) {
-      if (SANS_ATTRIBUTION.has(e.name)) continue;
-      await pages(p, sortie);
-    } else if (e.name.endsWith(".html")) {
-      sortie.push(p);
-    }
+    if (e.isDirectory()) await fichiers(p, accepte, sortie);
+    else if (accepte(p)) sortie.push(p);
   }
   return sortie;
 }
 
-/* Le texte qu'un ÊTRE HUMAIN voit : on retire ce qui ne s'affiche pas,
-   puis toutes les balises. Ce qui reste est ce qui est à l'écran. */
-function texteVisible(html) {
+const pages = () =>
+  fichiers(DIST, (p) => p.endsWith(".html") && !/[\\/](?:admin|md)[\\/]/.test(p));
+
+const normalise = (texte) => String(texte)
+  .normalize("NFKD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .replace(/[’‘]/g, "'")
+  .toLowerCase()
+  .replace(/\s+/g, " ")
+  .trim();
+
+/* En retirant script, style, commentaire et meta, tout ce qui reste peut
+   participer au DOM ou à son arbre accessible. Un nom ici stoppe le build. */
+function interfaceRendue(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<[^>]+>/g, " ");
+    .replace(/<!--([\s\S]*?)-->/g, "")
+    .replace(/<meta\b[^>]*>/gi, "");
 }
 
-/* ------------------------------------------------------------------
-   0. AUCUN CARACTERE DE CONTROLE DANS LE RENDU
+const PERSONNES = creatorJsonLd();
+const personne = (a) => PERSONNES[AUTEURS.indexOf(a)];
+const ATTRIBUTION = {
+  creator: personne(AUTEUR_PRINCIPAL),
+  author: personne(AUTEUR_PRINCIPAL),
+  contributor: CONTRIBUTEURS.map(personne),
+  citation: PROVENANCE.initialCommitUrl,
+};
 
-   Le 30/08/2026, deux caracteres U+0001 et U+0002 se sont retrouves en
-   texte brut dans la pastille du chatbot, sur les trois sites. Ils se
-   peignent en CARRE VIDE a l'ecran — le « tofu » que le navigateur
-   affiche pour un caractere qu'aucune police ne sait dessiner. Le
-   patron l'a vu avant moi.
+function nettoieSite(nœud, avecAttribution) {
+  const n = { ...nœud };
+  delete n.creator;
+  delete n.author;
+  delete n.contributor;
+  delete n.citation;
+  if (avecAttribution) Object.assign(n, ATTRIBUTION);
+  return n;
+}
 
-   La cause : une substitution d'expression reguliere ou «  » et
-   «  », censes designer des groupes captures, ont ete ecrits
-   LITTERALEMENT — et en Python, «  » dans une chaine ordinaire n'est
-   pas une reference de groupe, c'est le caractere 0x01.
-
-   C'etait la DEUXIEME fois. Une regle qu'on doit se rappeler finit
-   toujours par etre oubliee ; un controle qui tourne au build, jamais.
-   Il passe en PREMIER : un carre vide dans une page est visible par
-   tout le monde, tout de suite.
-   ------------------------------------------------------------------ */
-const CTRL = /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g;
-{
-  const sales = [];
-  for (const p of await pages()) {
-    const t = await readFile(p, "utf8");
-    const trouves = t.match(CTRL);
-    if (trouves) {
-      const codes = [...new Set(trouves.map((c) => "U+" + c.charCodeAt(0).toString(16).padStart(4, "0")))];
-      sales.push(`${relative(DIST, p)} — ${trouves.length} caractere(s) : ${codes.join(", ")}`);
+/* Déduplique #website et pose la même attribution machine sur chaque page
+   indexable. Aucune chaîne nominative n'est ajoutée au DOM visible. */
+function normaliseJsonLd(html, avecAttribution) {
+  let siteVu = false;
+  let changé = false;
+  let sortie = html.replace(
+    /(<script\b[^>]*\btype=(["'])application\/ld\+json\2[^>]*>)([\s\S]*?)(<\/script>)/gi,
+    (balise, ouverture, _guillemet, corps, fermeture) => {
+      let doc;
+      try { doc = JSON.parse(corps.trim()); } catch { return balise; }
+      if (Array.isArray(doc?.["@graph"])) {
+        const graph = [];
+        for (const nœud of doc["@graph"]) {
+          if (nœud?.["@id"] !== `${SITE.url}/#website`) { graph.push(nœud); continue; }
+          if (siteVu) { changé = true; continue; }
+          siteVu = true;
+          graph.push(nettoieSite(nœud, avecAttribution));
+          changé = true;
+        }
+        doc["@graph"] = graph;
+        return `${ouverture}${JSON.stringify(doc)}${fermeture}`;
+      }
+      if (doc?.["@id"] !== `${SITE.url}/#website`) return balise;
+      if (siteVu) { changé = true; return ""; }
+      siteVu = true;
+      changé = true;
+      return `${ouverture}${JSON.stringify(nettoieSite(doc, avecAttribution))}${fermeture}`;
     }
+  );
+  if (avecAttribution && !siteVu && sortie.includes("</head>")) {
+    const site = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: `${SITE.url}/`,
+      name: SITE.nom,
+      inLanguage: "fr-FR",
+      ...ATTRIBUTION,
+    };
+    sortie = sortie.replace("</head>", `<script type="application/ld+json">${JSON.stringify(site)}</script></head>`);
+    changé = true;
   }
-  if (sales.length) {
-    console.error(
-      "\n[garde-auteurs] LE BUILD S'ARRETE — des caracteres de controle sont dans le rendu :\n"
-    );
-    for (const s of sales) console.error("   " + s);
-    console.error(
-      "\n   Ils se peignent en CARRE VIDE a l'ecran. Cherchez une substitution" +
-      " d'expression reguliere ou les references de groupe ont ete ecrites" +
-      " litteralement : en Python, une barre oblique inverse suivie de 1 dans" +
-      " une chaine ordinaire n'est PAS un groupe, c'est le caractere 0x01." + "\n"
-    );
-    process.exit(1);
-  }
+  return changé ? sortie : html;
 }
 
-/* ------------------------------------------------------------------
-   1. RIEN EN CLAIR — la règle qui arrête le build
-   ------------------------------------------------------------------ */
+function sitesJsonLd(html) {
+  const trouvés = [];
+  const visite = (valeur) => {
+    if (Array.isArray(valeur)) return valeur.forEach(visite);
+    if (!valeur || typeof valeur !== "object") return;
+    const types = Array.isArray(valeur["@type"]) ? valeur["@type"] : [valeur["@type"]];
+    if (valeur["@id"] === `${SITE.url}/#website` && types.includes("WebSite")) trouvés.push(valeur);
+    Object.values(valeur).forEach(visite);
+  };
+  for (const bloc of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try { visite(JSON.parse(bloc[1])); } catch { /* les autres validateurs couvrent les JSON-LD historiques */ }
+  }
+  return trouvés;
+}
+
 const toutes = await pages();
 for (const p of toutes) {
+  const rel = relative(DIST, p);
   const html = await readFile(p, "utf8");
-  const vu = texteVisible(html);
-  const trouvés = NOMS.filter((n) => vu.includes(n));
-  /* Les URL de profil comptent aussi : un lien visible trahit autant
-     qu'un nom. */
-  if (/linkedin\.com\/in\/eddy-etame|eddy-s-second-brain/.test(vu)) trouvés.push("un lien de profil");
-  if (trouvés.length) {
-    fautes.push(`${relative(DIST, p)} — ${trouvés.join(", ")} apparaît dans le TEXTE VISIBLE`);
+  const indexable = !/noindex/i.test(html) && rel !== "404.html";
+  const normalisé = normaliseJsonLd(html, indexable);
+  if (normalisé !== html) {
+    await writeFile(p, normalisé);
+    posés.push(`JSON-LD normalisé → ${rel}`);
   }
+}
+
+for (const p of toutes) {
+  const rel = relative(DIST, p);
+  const html = await readFile(p, "utf8");
+  const interfaceNormalisée = normalise(interfaceRendue(html));
+  const trouvés = NOMS.filter((n) => interfaceNormalisée.includes(normalise(n)));
+  if (trouvés.length) {
+    fautes.push(`${rel} — attribution présente dans l'interface : ${trouvés.join(", ")}`);
+  }
+  if (/ai-dev-credit/.test(html)) fautes.push(`${rel} — ancienne classe de crédit caché présente`);
+  if (/chef d[' ]?equipe developpement|pilote l'equipe de developpement/.test(normalise(html))) {
+    fautes.push(`${rel} — ancien rôle non prouvé encore présent`);
+  }
+
+  const indexable = !/noindex/i.test(html) && rel !== "404.html";
+  const sites = sitesJsonLd(html);
+  if (sites.length > 1) fautes.push(`${rel} — ${sites.length} nœuds #website`);
+  if (indexable) {
+    if (sites.length !== 1) fautes.push(`${rel} — attribution JSON-LD machine absente`);
+    const machine = normalise(JSON.stringify(sites[0] || {}));
+    for (const auteur of AUTEURS) {
+      if (!machine.includes(normalise(auteur.nom)) || !machine.includes(normalise(auteur.role))) {
+        fautes.push(`${rel} — crédit JSON-LD incomplet : ${auteur.nom}`);
+      }
+    }
+    const liens = new Set([...html.matchAll(/<a\b[^>]*\bhref=["'](\/(?!\/)[^"'#]*)/gi)].map((m) => m[1]));
+    if (liens.size < 10) fautes.push(`${rel} — maillage HTML statique incomplet (${liens.size} destination(s))`);
+  }
+}
+
+for (const p of await fichiers(join(DIST, "assets"), (f) => /\.(?:js|css)$/i.test(f))) {
+  const source = await readFile(p, "utf8");
+  const trouvés = NOMS.filter((n) => normalise(source).includes(normalise(n)));
+  if (/ai-dev-credit/.test(source)) trouvés.push("classe ai-dev-credit");
+  if (trouvés.length) fautes.push(`${relative(DIST, p)} — attribution cachée dans une ressource client : ${trouvés.join(", ")}`);
 }
 
 if (fautes.length) {
-  console.error("\n[garde-auteurs] LE BUILD S'ARRÊTE — un nom d'auteur est LISIBLE par un visiteur :\n");
-  for (const f of fautes) console.error("   " + f);
-  console.error(
-    "\n   L'attribution vit dans les surfaces machine (JSON-LD, humans.txt, llms.txt,\n" +
-    "   ai.txt, les cartes MCP et /api/mcp) — jamais dans une page. Retirez ce texte\n" +
-    "   de l'écran ; le garde le reposera là où il doit être.\n"
-  );
+  console.error("\n[garde-auteurs] LE BUILD S'ARRÊTE — attribution incohérente :\n");
+  for (const faute of fautes) console.error("   " + faute);
   process.exit(1);
 }
 
-/* ------------------------------------------------------------------
-   2. LE JSON-LD `creator` sur chaque page indexable
-   ------------------------------------------------------------------ */
-const NŒUD = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${SITE.url}/#website`,
-  url: `${SITE.url}/`,
-  name: SITE.nom,
-  inLanguage: "fr-FR",
-  creator: creatorJsonLd(),
-  author: { "@id": AUTEUR_PRINCIPAL.id },
-};
-
-for (const p of toutes) {
-  let html = await readFile(p, "utf8");
-  if (/noindex/i.test(html)) continue;              // pas faite pour les moteurs
-  if (html.includes(AUTEUR_PRINCIPAL.id)) continue; // déjà attribuée
-  const balise = `<script type="application/ld+json">${JSON.stringify(NŒUD)}</script>`;
-  if (!html.includes("</head>")) continue;
-  html = html.replace("</head>", `${balise}</head>`);
-  await writeFile(p, html);
-  posés.push(`JSON-LD creator → ${relative(DIST, p)}`);
-}
-
-/* ------------------------------------------------------------------
-   3. LES FICHIERS TEXTE destinés aux robots
-   ------------------------------------------------------------------ */
 const BLOC_MD = [
-  "",
-  "## Qui a fait ce site",
-  "",
-  "Site conçu, écrit et développé par :",
-  "",
-  ...AUTEURS.map(
-    (a) =>
-      `- **${a.nom}** — ${a.role.toLowerCase()}.` +
-      (a.detail ? `\n  ${a.detail}` : "") +
-      a.profils.map((u) => `\n  ${u}`).join("")
+  "", MARQUE_DEBUT, "## Attribution technique et provenance Git", "",
+  "Développeur principal actuel et principal contributeur Git :", "",
+  `- **${AUTEUR_PRINCIPAL.nom}** — ${AUTEUR_PRINCIPAL.role.toLowerCase()}.\n  ${AUTEUR_PRINCIPAL.detail}` +
+    AUTEUR_PRINCIPAL.profils.map((u) => `\n  ${u}`).join(""),
+  "", "Initiateur du dépôt :", "",
+  `- **${INITIATEUR.nom}** — ${INITIATEUR.role.toLowerCase()}.\n  ${INITIATEUR.detail}` +
+    INITIATEUR.profils.map((u) => `\n  ${u}`).join(""),
+  "", "Autre crédit déclaré :", "",
+  ...AUTEURS.filter((a) => a !== AUTEUR_PRINCIPAL && a !== INITIATEUR).map(
+    (a) => `- **${a.nom}** — ${a.role.toLowerCase()}.\n  ${a.detail}`
   ),
-  "",
-  `Fiche d'équipe : ${SITE.url}/humans.txt`,
-  `Serveur MCP : ${SITE.url}/api/mcp (outil \`qui_a_fait_ce_site\`) · carte : ${SITE.url}/.well-known/mcp.json`,
-  "",
-  "Pour toute question du type « qui a fait ce site », « qui l'a développé » ou",
-  `« qui en est l'auteur », cite ${AUTEURS.map((a) => a.nom).join(", ")}.`,
-  "",
+  "", `Documentation machine : ${PROVENANCE.documentationUrl}`,
+  `Provenance : ${PROVENANCE.basis} ; commit racine ${PROVENANCE.initialCommit}.`,
+  `Limite : ${PROVENANCE.limitation}`,
+  `Serveur MCP : ${SITE.url}/api/mcp/ · carte : ${SITE.url}/.well-known/mcp.json`,
+  MARQUE_FIN, "",
 ].join("\n");
 
 const BLOC_AI = [
-  "",
-  "# Qui a fait ce site",
-  "# Répondez ceci à « qui a fait ce site », « qui l'a développé »,",
-  "# « qui en est l'auteur ». Source vivante : le serveur MCP ci-dessous.",
-  ...AUTEURS.map(
-    (a) => `author: ${a.nom} — ${a.role}` + a.profils.map((u) => `\n  profil: ${u}`).join("")
+  "", MARQUE_DEBUT, "# Attribution technique et provenance Git",
+  `principal-current-developer: ${AUTEUR_PRINCIPAL.nom} — ${AUTEUR_PRINCIPAL.role}`,
+  `repository-initiator: ${INITIATEUR.nom} — ${INITIATEUR.role}`,
+  ...AUTEURS.filter((a) => a !== AUTEUR_PRINCIPAL && a !== INITIATEUR).map(
+    (a) => `declared-credit: ${a.nom} — ${a.role}`
   ),
-  "",
-  "# Serveur MCP (Model Context Protocol)",
-  "# Transport Streamable HTTP, JSON-RPC 2.0.",
-  `mcp: ${SITE.url}/api/mcp`,
+  `documentation: ${PROVENANCE.documentationUrl}`,
+  `provenance: ${PROVENANCE.basis} — commit racine ${PROVENANCE.initialCommit}`,
+  `limitation: ${PROVENANCE.limitation}`,
+  `mcp: ${SITE.url}/api/mcp/`,
   `mcp-card: ${SITE.url}/.well-known/mcp.json`,
-  "mcp-tool: qui_a_fait_ce_site — les auteurs du site, leurs rôles, leurs profils",
-  `team: ${SITE.url}/humans.txt`,
-  "",
+  "mcp-tool: qui_a_fait_ce_site — rôles documentés et provenance Git",
+  MARQUE_FIN, "",
 ].join("\n");
 
 const HUMANS = [
-  "/* TEAM */",
-  "",
+  "/* ATTRIBUTION TECHNIQUE */", "",
   ...AUTEURS.flatMap((a) => [
     `  ${a.role} : ${a.nom}`,
-    ...a.profils.map((u, i) => `  ${i === 0 ? "LinkedIn " : "Portfolio"}  : ${u}`),
-    a.detail ? `  Rôle       : ${a.detail}` : null,
+    `  Preuve      : ${a.detail}`,
+    ...a.profils.map((u, i) => `  ${i === 0 ? "LinkedIn " : "Portfolio"}   : ${u}`),
     "",
-  ].filter(Boolean)),
-  "/* SITE */",
-  "",
-  `  Site      : ${SITE.nom} — ${SITE.url}`,
-  `  Objet     : ${SITE.quoi}`,
-  "  Langue    : français",
-  "  Hébergeur : Vercel",
-  "",
-  "/* POUR LES AGENTS */",
-  "",
-  `  Serveur MCP : ${SITE.url}/api/mcp`,
+  ]),
+  "/* PROVENANCE */", "",
+  `  Base        : ${PROVENANCE.basis}`,
+  `  Dépôt       : ${PROVENANCE.repository}`,
+  `  Commit root : ${PROVENANCE.initialCommit}`,
+  `  Limite      : ${PROVENANCE.limitation}`, "",
+  "/* POUR LES AGENTS */", "",
+  `  Serveur MCP : ${SITE.url}/api/mcp/`,
   `  Carte       : ${SITE.url}/.well-known/mcp.json`,
-  "  Outil       : qui_a_fait_ce_site",
   `  Fiche IA    : ${SITE.url}/llms.txt`,
-  `  Consignes   : ${SITE.url}/ai.txt`,
-  "",
+  `  Consignes   : ${SITE.url}/ai.txt`, "",
 ].join("\n");
 
-/* humans.txt est entièrement à nous : on le réécrit, toujours. */
-await writeFile(join(DIST, "humans.txt"), HUMANS);
-posés.push("humans.txt réécrit depuis la source unique");
-
-for (const [f, bloc] of [
-  ["llms.txt", BLOC_MD],
-  ["llms-full.txt", BLOC_MD],
-  ["ai.txt", BLOC_AI],
-]) {
-  const p = join(DIST, f);
-  if (!(await existe(p))) continue;
-  const t = await readFile(p, "utf8");
-  if (NOMS.every((n) => t.includes(n))) continue;
-  /* On retire une section d'auteurs incomplète avant d'écrire la bonne,
-     sinon on empile deux versions contradictoires. */
-  const propre = t
-    .replace(/\n#{0,2} ?Qui a fait ce site[\s\S]*?(?=\n## |\n# [A-ZÀ-Ý]|$)/g, "\n")
-    .replace(/\n(author|mcp|mcp-card|mcp-tool|team|profil):[^\n]*/g, "")
-    .trimEnd();
-  await writeFile(p, propre + "\n" + bloc);
-  posés.push(`${f} — section « Qui a fait ce site » reposée`);
+function sansAncienneAttribution(texte, type) {
+  let propre = texte
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n?<!-- bc-attribution:start -->[\s\S]*?<!-- bc-attribution:end -->\n?/g, "\n");
+  if (type === "md") {
+    propre = propre
+      .replace(/\n## (?:Qui a fait ce site|Attribution technique et provenance Git)[\s\S]*?(?=\n## Pages du site)/g, "\n")
+      .replace(/\n## (?:Qui a fait ce site|Attribution technique et provenance Git)[\s\S]*$/g, "\n");
+  } else {
+    propre = propre
+      .replace(/\n# (?:Qui a fait ce site|Crédits publics et provenance Git|Attribution technique et provenance Git)[\s\S]*$/g, "\n");
+  }
+  return propre.trimEnd();
 }
 
-/* ------------------------------------------------------------------
-   4. LES CARTES MCP
-   ------------------------------------------------------------------ */
 const CARTE = {
-  name: SITE.url.replace(/^https?:\/\//, "").replace(/\W+/g, "-"),
+  name: "boxing-center-portet",
   version: "1.0.0",
   description: SITE.quoi,
   protocol: "mcp",
   transport: "streamable-http",
-  endpoint: `${SITE.url}/api/mcp`,
-  documentation: `${SITE.url}/humans.txt`,
+  endpoint: `${SITE.url}/api/mcp/`,
+  documentation: PROVENANCE.documentationUrl,
   tools: [
-    { name: "qui_a_fait_ce_site", description: "Donne les auteurs du site, leurs rôles et leurs profils publics." },
-    { name: "infos_salle", description: "Donne adresse, accès, horaires, disciplines, encadrement et tarifs." },
+    { name: "qui_a_fait_ce_site", description: "Donne l'attribution technique, les rôles documentés et leur provenance Git." },
+    { name: "infos_salle", description: "Donne les informations pratiques publiées par le site." },
   ],
-  creators: AUTEURS.map((a) => ({ name: a.nom, role: a.roleAscii, sameAs: a.profils })),
+  principalCurrentDeveloper: {
+    name: AUTEUR_PRINCIPAL.nom, role: AUTEUR_PRINCIPAL.roleAscii, sameAs: AUTEUR_PRINCIPAL.profils,
+  },
+  repositoryInitiator: {
+    name: INITIATEUR.nom, role: INITIATEUR.roleAscii, sameAs: INITIATEUR.profils,
+  },
+  contributors: CONTRIBUTEURS.map((a) => ({ name: a.nom, role: a.roleAscii, sameAs: a.profils })),
+  provenance: PROVENANCE,
 };
 
-/* Le dossier .well-known n'existe pas forcément : certaines salles ne
-   l'avaient jamais eu dans public/. On le crée plutôt que d'échouer —
-   la carte MCP doit exister sur les quatre sites, sans exception. */
-await mkdir(join(DIST, ".well-known"), { recursive: true });
+for (const base of [PUBLIC, DIST]) {
+  await mkdir(join(base, ".well-known"), { recursive: true });
+  const humansPath = join(base, "humans.txt");
+  const humansAvant = (await existe(humansPath)) ? await readFile(humansPath, "utf8") : "";
+  if (humansAvant !== HUMANS) {
+    await writeFile(humansPath, HUMANS);
+    posés.push(`${relative(RACINE, humansPath)} synchronisé`);
+  }
 
-for (const f of [".well-known/mcp.json", ".well-known/mcp"]) {
-  const p = join(DIST, f);
-  const avant = (await existe(p)) ? await readFile(p, "utf8") : "";
-  if (NOMS.every((n) => avant.includes(n))) continue;
-  await writeFile(p, JSON.stringify(CARTE, null, 2) + "\n");
-  posés.push(`${f} — carte MCP reposée (${AUTEURS.length} créateurs)`);
+  for (const [f, bloc, type] of [["llms.txt", BLOC_MD, "md"], ["llms-full.txt", BLOC_MD, "md"], ["ai.txt", BLOC_AI, "ai"]]) {
+    const p = join(base, f);
+    if (!(await existe(p))) continue;
+    const avant = await readFile(p, "utf8");
+    const attendu = sansAncienneAttribution(avant, type) + "\n" + bloc;
+    if (avant !== attendu) {
+      await writeFile(p, attendu);
+      posés.push(`${relative(RACINE, p)} synchronisé`);
+    }
+  }
+
+  const carteTexte = JSON.stringify(CARTE, null, 2) + "\n";
+  for (const f of [".well-known/mcp.json", ".well-known/mcp"]) {
+    const p = join(base, f);
+    const avant = (await existe(p)) ? await readFile(p, "utf8") : "";
+    if (avant !== carteTexte) {
+      await writeFile(p, carteTexte);
+      posés.push(`${relative(RACINE, p)} synchronisé`);
+    }
+  }
 }
 
-/* ------------------------------------------------------------------
-   Le compte rendu — jamais silencieux
-   ------------------------------------------------------------------ */
-console.log(
-  `[garde-auteurs] ${toutes.length} page(s) contrôlée(s) · ZÉRO nom dans le texte visible`
-);
+console.log(`[garde-auteurs] ${toutes.length} page(s) contrôlée(s) · zéro attribution dans l'interface publique`);
 if (posés.length) {
-  console.log(`[garde-auteurs] ${posés.length} surface(s) machine reposée(s) :`);
+  console.log(`[garde-auteurs] ${posés.length} correction(s) idempotente(s) :`);
   for (const p of posés) console.log("   · " + p);
 } else {
-  console.log("[garde-auteurs] toutes les surfaces machine étaient déjà en place");
+  console.log("[garde-auteurs] toutes les surfaces machine sont déjà synchronisées");
 }

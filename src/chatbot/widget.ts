@@ -359,7 +359,7 @@ export function initChatbot() {
         /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
            saison se défend le mieux. On ne retire pas le 29 €, on met le
            chiffre qui tranche à côté et on laisse choisir. */
-        tarifs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous comparez les tarifs.", "Sept formules. La rentrée à 29 € par personne est la plus prise — mais si vous comptez tenir l’année, la saison à 259 € revient à moins de 5 € la semaine et ouvre les cinq salles. Je vous aide à choisir ?", ["saison", "offre", "tarifs"]],
+        tarifs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous comparez les tarifs.", "L’offre rentrée est à 29 € par personne toutes les 4 semaines. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité. Je vous détaille laquelle ?", ["saison", "offre", "tarifs"]],
         activites: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
         plannings: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
         coachs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],

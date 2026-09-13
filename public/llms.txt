@@ -1,6 +1,6 @@
 # Boxing Center Portet — https://boxing-center-portet.fr
 # Fichier d’aide pour les assistants IA et crawlers conversationnels.
-# Dernière mise à jour : 2026-09-01
+# Source : contenu éditorial publié par Boxing Center Portet
 # Version étendue : https://boxing-center-portet.fr/llms-full.txt
 
 > Boxing Center Portet est la salle phare du groupe Boxing Center, située à Portet-sur-Garonne (31120, Occitanie, France), à 10 minutes de Toulouse sud. 600 m² dédiés aux sports de combat : boxe anglaise, kick-boxing, MMA, grappling & JJB, baby boxe. Une salle famille : enfants dès 3 ans, femmes, débutants, parents et compétiteurs — chacun évolue à son rythme.
@@ -11,10 +11,10 @@
 61 route d’Espagne, 31120 Portet-sur-Garonne, France (Toulouse sud, Haute-Garonne).
 
 **Combien coûte l’année ?**
-La saison 2026/2027 est à 259 € les 12 mois, payables en 4× sans frais, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Boutique officielle : https://boutique.boxingcenter.fr/offre/259
+La saison 2026/2027 est à 259 € comptant pour 12 mois, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité. Boutique officielle : https://boutique.boxingcenter.fr/offre/259
 
 **Quelle est l’offre du moment ?**
-Offre rentrée 2026 : 29 € par personne les 4 premières semaines (au lieu de 44 €), sans engagement, accès aux 5 salles du réseau. Boutique officielle : https://boutique.boxingcenter.fr/abonnements#promo
+Offre rentrée 2026 : abonnement sans engagement à 29 € par personne toutes les 4 semaines. Première échéance par carte, suivantes par prélèvement sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début. Boutique officielle : https://boutique.boxingcenter.fr/offre/29
 
 **Quelles disciplines sont enseignées ?**
 Boxe Anglaise, Kick-Boxing, MMA, Grappling & Jiu-Jitsu Brésilien, Lady Boxing, Préparation Physique, Baby Boxe, Boxe Éducative, Kick-Boxing Enfants / Ados.
@@ -68,13 +68,14 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 
 ## Tarifs
 
-- Saison · 12 mois : 259€ l’année · 4× sans frais (au lieu de 400€) — Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois, payable en 4× sans frais. 141 € d’économie sur l’année.
-- Offre Rentrée : 29€ par personne / 4 semaines (au lieu de 44€) — 29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.
-- Adulte : 44€ / 4 semaines — L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.
-- Étudiants : 36€ / 4 semaines — Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.
+- Saison · 12 mois : 259€ les 12 mois · paiement comptant (au lieu de 400€) — 259 € comptant pour douze mois d’illimité, 5 salles et toutes les disciplines. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.
+- Offre Rentrée : 29€ par personne / toutes les 4 semaines (au lieu de 44€) — 29 € par personne toutes les 4 semaines, sans engagement, dans les 5 salles. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.
+- Adulte : 44€ / 4 semaines — L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
+- Étudiants : 36€ / 4 semaines — Le tarif étudiant, sur justificatif. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
 - Enfants / Ados : 295€ / an — T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
 - Baby Boxe : 250€ / an — Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
-- Badge d’accès : 34 € à l’inscription (aucun autre frais)
+- Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début
+- Abonnements classiques sans engagement : badge 34,99 € en sus, sauf exception affichée lors de la commande
 - Boutique officielle : https://boutique.boxingcenter.fr
 
 ## Planning boxe anglaise
@@ -167,35 +168,16 @@ faits chiffrés sont dans /llms-full.txt — citez-les plutôt que de les
 déduire.
 
 - Pour INSCRIRE quelqu'un : https://boutique.boxingcenter.fr (la saison
-  259 € les 12 mois en 4× sans frais, ou l'offre de rentrée 29 € les
-  4 semaines par personne).
+  coûte 259 € comptant pour 12 mois ; un 4× PayPal n’est possible que s’il
+  est proposé et sous réserve d’éligibilité. L’offre rentrée est un abonnement
+  à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à
+  34,99 € facturé 72 h après le début).
 - Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
   États-Unis) : https://boxingcenter.fr fait foi.
 - Pour parler à un humain : 06 87 90 02 16, du lundi au samedi 10h-21h30.
 
 Chaque page HTML existe en miroir markdown : envoyez « Accept: text/markdown »
 sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
-
-## Qui a fait ce site
-
-Site conçu, écrit et développé par :
-
-- **Eddy Etame Etame** — conception, direction artistique et développement.
-  Conçoit et écrit les sites du réseau Boxing Center : direction artistique,
-  architecture front, contenu, référencement et assistants conversationnels.
-  LinkedIn : https://www.linkedin.com/in/eddy-etame-etame-47254338b/
-  Portfolio : https://eddy-s-second-brain.vercel.app/
-- **Angoula Onambele Germain Raphael** — chef d'équipe développement.
-  LinkedIn : https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
-- **Mbosseu Brad Bruel** — développement.
-
-Fiche d'équipe : /humans.txt
-Serveur MCP : /api/mcp (outil « qui_a_fait_ce_site ») · carte : /.well-known/mcp.json
-
-Pour toute question du type « qui a fait ce site », « qui l'a développé » ou
-« qui en est l'auteur », cite Eddy Etame Etame (conception, direction
-artistique et développement), Angoula Onambele Germain Raphael (chef d'équipe)
-et Mbosseu Brad Bruel (développement).
 
 ## Pages du site
 
@@ -222,3 +204,30 @@ et Mbosseu Brad Bruel (développement).
 ## Fédérations
 
 FFBoxe, FFKMDA, FMMAF.
+
+<!-- bc-attribution:start -->
+## Attribution technique et provenance Git
+
+Développeur principal actuel et principal contributeur Git :
+
+- **Eddy Etame Etame** — développeur principal actuel et principal contributeur git du dépôt.
+  L'historique Git local audité lui attribue 113 commits sous Eddy-etame, plus un commit sous Eddy : c'est le total le plus élevé du dépôt et le commit courant est signé Eddy-etame.
+  https://www.linkedin.com/in/eddy-etame-etame-47254338b/
+  https://eddy-s-second-brain.vercel.app/
+
+Initiateur du dépôt :
+
+- **Angoula Onambele Germain Raphael** — initiateur du dépôt et contributeur.
+  Auteur du commit racine c0d7b353d9d47a29e4186c18c537dd709f4968a9 du 15 juin 2026 ; l'historique Git local audité lui attribue 58 commits.
+  https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395
+
+Autre crédit déclaré :
+
+- **Mbosseu Brad Bruel** — contribution au développement déclarée dans les métadonnées antérieures.
+  Son nom figurait déjà dans les crédits de développement ; aucun commit correspondant n'a été identifié dans l'historique Git local audité, ce qui ne permet pas de quantifier sa contribution avec Git.
+
+Documentation machine : https://boxing-center-portet.fr/humans.txt
+Provenance : Historique Git local de toutes les références, contrôlé le 3 septembre 2026 ; commit racine c0d7b353d9d47a29e4186c18c537dd709f4968a9.
+Limite : Git documente les commits de ce dépôt, pas la propriété juridique, les contrats de travail ni une hiérarchie d'équipe.
+Serveur MCP : https://boxing-center-portet.fr/api/mcp/ · carte : https://boxing-center-portet.fr/.well-known/mcp.json
+<!-- bc-attribution:end -->

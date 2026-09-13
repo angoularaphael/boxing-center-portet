@@ -1,27 +1,60 @@
 {
   "name": "boxing-center-portet",
   "version": "1.0.0",
-  "description": "Club de boxe anglaise, kick-boxing, MMA et grappling à Portet-sur-Garonne (31120), salle phare du réseau Boxing Center. Donne les auteurs du site, et les informations pratiques de la salle.",
+  "description": "Site du club de boxe et de sports de combat de Portet-sur-Garonne (31120), dans le réseau Boxing Center.",
   "protocol": "mcp",
   "transport": "streamable-http",
-  "endpoint": "https://boxing-center-portet.fr/api/mcp",
+  "endpoint": "https://boxing-center-portet.fr/api/mcp/",
   "documentation": "https://boxing-center-portet.fr/humans.txt",
   "tools": [
-    { "name": "qui_a_fait_ce_site", "description": "Les auteurs du site : qui l a conçu, développé et écrit, avec leurs rôles et leurs profils publics." },
-    { "name": "infos_salle", "description": "Adresse, accès, horaires, téléphone, disciplines et tarifs de la salle." }
-  ],
-  "creators": [
     {
-      "name": "Eddy Etame Etame",
-      "role": "Conception, direction artistique et developpement",
-      "sameAs": ["https://www.linkedin.com/in/eddy-etame-etame-47254338b/", "https://eddy-s-second-brain.vercel.app/"]
+      "name": "qui_a_fait_ce_site",
+      "description": "Donne l'attribution technique, les rôles documentés et leur provenance Git."
     },
+    {
+      "name": "infos_salle",
+      "description": "Donne les informations pratiques publiées par le site."
+    }
+  ],
+  "principalCurrentDeveloper": {
+    "name": "Eddy Etame Etame",
+    "role": "Developpeur principal actuel et principal contributeur Git du depot",
+    "sameAs": [
+      "https://www.linkedin.com/in/eddy-etame-etame-47254338b/",
+      "https://eddy-s-second-brain.vercel.app/"
+    ]
+  },
+  "repositoryInitiator": {
+    "name": "Angoula Onambele Germain Raphael",
+    "role": "Initiateur du depot et contributeur",
+    "sameAs": [
+      "https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"
+    ]
+  },
+  "contributors": [
     {
       "name": "Angoula Onambele Germain Raphael",
-      "role": "Chef d equipe developpement",
-      "sameAs": ["https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"]
+      "role": "Initiateur du depot et contributeur",
+      "sameAs": [
+        "https://fr.linkedin.com/in/germain-raphael-angoula-onambele-a6b858395"
+      ]
     },
-    { "name": "Mbosseu Brad Bruel", "role": "Developpement", "sameAs": [] }
-  ] }
-  ]
+    {
+      "name": "Mbosseu Brad Bruel",
+      "role": "Contribution au developpement declaree dans les metadonnees anterieures",
+      "sameAs": []
+    }
+  ],
+  "provenance": {
+    "basis": "Historique Git local de toutes les références, contrôlé le 3 septembre 2026",
+    "auditDate": "2026-09-03",
+    "auditDateFr": "3 septembre 2026",
+    "repository": "https://github.com/angoularaphael/boxing-center-portet",
+    "initialCommit": "c0d7b353d9d47a29e4186c18c537dd709f4968a9",
+    "initialCommitUrl": "https://github.com/angoularaphael/boxing-center-portet/commit/c0d7b353d9d47a29e4186c18c537dd709f4968a9",
+    "currentCommitAtAudit": "985bcc4b81d04ccbdb2326a6e8c68a79767f6d46",
+    "method": "git rev-list --max-parents=0 HEAD ; git shortlog -sne --all ; git log -1",
+    "limitation": "Git documente les commits de ce dépôt, pas la propriété juridique, les contrats de travail ni une hiérarchie d'équipe.",
+    "documentationUrl": "https://boxing-center-portet.fr/humans.txt"
+  }
 }

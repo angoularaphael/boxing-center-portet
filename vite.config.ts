@@ -149,8 +149,9 @@ function seoBakePlugin() {
           }
         }
 
-        /* GEO : les crawlers IA (GPTBot, Perplexity, Claude) n'exécutent pas
-           le JS. On cuit NAP, liens llms.txt et schémas de page dans le HTML. */
+        /* GEO + MAILLAGE : les crawlers légers et les visiteurs sans JS doivent
+           recevoir la navigation et le pied de page, pas deux conteneurs vides.
+           mountLayout remplace ces replis à l'identique quand JavaScript démarre. */
         if (!html.includes('href="/llms.txt"')) {
           html = html.replace("</head>", `  <link rel="alternate" type="text/plain" href="/llms.txt" title="Informations pour assistants IA" />\n  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />\n</head>`);
         } else if (!html.includes('href="/llms-full.txt"')) {
@@ -159,17 +160,52 @@ function seoBakePlugin() {
         const site = content.site || {};
         const addr = site.address || {};
         const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33687900216">${site.phone || "06 87 90 02 16"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;
-        /* Les trois offres entrent dans le HTML. Elles ne vivaient que dans
-           layout.ts, peintes au chargement : invisibles pour un robot, et
-           donc sans valeur de maillage. L'ordre est celui de la vente —
-           rentrée, saison, essai — et chaque lien va DIRECTEMENT sur sa page
-           d'offre. layout.ts réécrit ce bloc à l'identique au montage. */
-        /* UNE seule offre dans le maillage : la saison. Le 29€ ne vit plus que
-           dans les tarifs (section d'accueil + page tarifs) et la séance d'essai
-           a sa page, atteinte par QR code — aucun autre système ne l'expose. */
-        const OFFRES = [["https://boutique.boxingcenter.fr/offre/259", "La saison — 259€ les 12 mois au lieu de 400€, 4× sans frais"]];
+        const NAV_PUBLIC = [
+          ["/", "Accueil", true],
+          ["/premiere-seance/", "1re séance", true],
+          ["/activites/", "Activités", true],
+          ["/salles/", "Le club", false],
+          ["/coachs/", "Coachs", true],
+          ["/boxeurs/", "Nos Boxeurs", false],
+          ["/partenaires/", "Partenaires", false],
+          ["/galerie/", "Galerie", false],
+          ["/plannings/", "Planning", true],
+          ["/tarifs/", "Tarifs", true],
+          ["/contact/", "Contact", true],
+        ] as const;
+        const chemin = key === "home" ? "/" : key ? `/${key}/` : "";
+        const lien = ([href, label]: readonly [string, string, boolean]) =>
+          `<a href="${href}"${href === chemin ? ' aria-current="page"' : ""}>${label}</a>`;
+        const liensHaut = NAV_PUBLIC.filter((n) => n[2]).map(lien).join("");
+        const liensTous = NAV_PUBLIC.map(lien).join("");
+        const navStatique = `<div id="site-nav">
+          <nav class="nav" aria-label="Navigation principale">
+            <div class="nav__inner">
+              <a class="brand" href="/" aria-label="Boxing Center Portet — accueil"><span class="dot"></span><img class="brand__logo" src="/logo-nav.png" alt="Boxing Center" width="150" height="71" /><span class="brand__loc">Portet</span></a>
+              <div class="nav__links">${liensHaut}</div>
+              <div class="nav__right"><a class="nav__ext" href="https://boxingcenter.fr/" rel="noopener">Le groupe</a><a class="nav__ext" href="https://boutique.boxingcenter.fr/" rel="noopener">Boutique</a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" rel="noopener" aria-label="Saison 12 mois à 259 euros comptant">L’année · 259€ comptant</a></div>
+            </div>
+          </nav>
+          <nav class="menu" aria-label="Toutes les pages du club"><div class="menu__nav">${liensTous}</div></nav>
+        </div>`;
+        html = html.replace('<div id="site-nav"></div>', navStatique);
+        /* La seule offre permanente du pied de page entre aussi dans le HTML
+           statique. Son prix comptant et la condition PayPal restent lisibles
+           avant que layout.ts remonte la version interactive. */
+        const OFFRES = [[
+          "https://boutique.boxingcenter.fr/offre/259",
+          "La saison — 259€ comptant pour 12 mois ; 4× PayPal seulement si disponible et sous réserve d’éligibilité",
+        ]];
         const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
-        html = html.replace('<div id="site-footer"></div>', `<div id="site-footer"><address class="sr-only geo-nap">${nap}</address><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>`);
+        const footerStatique = `<div id="site-footer"><footer class="footer"><div class="wrap">
+          <div class="footer__grid">
+            <div><div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>
+            <div><h4>Le club</h4>${NAV_PUBLIC.slice(1).map(lien).join("")}</div>
+            <div><h4>Contact</h4><address class="geo-nap">${nap}</address></div>
+          </div>
+          <div class="footer__bottom"><span>© ${new Date().getFullYear()} ${site.name || "Boxing Center Portet"}</span></div>
+        </div></footer></div>`;
+        html = html.replace('<div id="site-footer"></div>', footerStatique);
 
         const ORIGIN = "https://boxing-center-portet.fr";
         const PAGE: Record<string, [string, string]> = {

@@ -278,6 +278,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   font-size: clamp(1.1rem, 2.4vw, 1.7rem); max-width: 30ch; margin-inline: auto; color: var(--fg);
   text-wrap: balance; }
 .hero__hook .tint { color: var(--accent); }
+.hero__tagline { max-width: 48ch; margin-inline: auto; color: var(--muted); text-align: center; line-height: 1.55; }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
 .hero__scroll { position: relative; z-index: 2; justify-content: center; }
 
@@ -551,6 +552,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, #000 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, #000 40%, transparent 100%);
 }
+
 .page-head__embers canvas { display: block; width: 100%; height: 100%; }
 @media print { .page-head__embers { display: none; } }
 
@@ -1742,7 +1744,7 @@ html.forge-live #team-cards-section { display: none; }
    Mais sur un billet de 335 px de large, « 259 » s'affiche a 57,6 px pendant
    que tout ce qui justifie ce prix tient entre 10,2 et 10,9 px : l'ancrage
    « au lieu de 400 € », les trois mentions qui SONT le produit (12 mois,
-   5 salles, 4x sans frais), et ce qu'on achete. Neuf visiteurs sur dix lisent
+   5 salles, paiement comptant et éventuel 4x PayPal), et ce qu'on achète. Neuf visiteurs sur dix lisent
    ca sur un telephone.
 
    Un chiffre enorme sans ses raisons, c'est un prix. Avec ses raisons, c'est

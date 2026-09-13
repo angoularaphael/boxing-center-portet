@@ -241,10 +241,10 @@
     {
       "name": "Saison · 12 mois",
       "price": "259€",
-      "unit": "l’année · 4× sans frais",
+      "unit": "les 12 mois · paiement comptant",
       "old": "400€",
       "badge": "Promo saison 2026-2027",
-      "note": "Douze mois d’illimité, 5 salles, toutes les disciplines — moins de 22 € le mois, payable en 4× sans frais. 141 € d’économie sur l’année.",
+      "note": "259 € comptant pour douze mois d’illimité, 5 salles et toutes les disciplines. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.",
       "feature": true,
       "cta": "Je prends ma saison",
       "href": "https://boutique.boxingcenter.fr/offre/259"
@@ -252,10 +252,10 @@
     {
       "name": "Offre Rentrée",
       "price": "29€",
-      "unit": "par personne / 4 semaines",
+      "unit": "par personne / toutes les 4 semaines",
       "old": "44€",
       "badge": "Sans engagement",
-      "note": "29 € par personne, sans engagement, dans les 5 salles du réseau. Quatre semaines pour savoir si c’est fait pour toi — et tu peux venir accompagné.",
+      "note": "29 € par personne toutes les 4 semaines, sans engagement, dans les 5 salles. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.",
       "feature": false,
       "cta": "Je profite de l’offre",
       "href": "https://boutique.boxingcenter.fr/offre/29"
@@ -264,7 +264,7 @@
       "name": "Adulte",
       "price": "44€",
       "unit": "/ 4 semaines",
-      "note": "L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement.",
+      "note": "L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.",
       "feature": false,
       "cta": "Je choisis cette formule",
       "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
@@ -273,7 +273,7 @@
       "name": "Étudiants",
       "price": "36€",
       "unit": "/ 4 semaines",
-      "note": "Le tarif étudiant, sur justificatif. Mêmes salles, mêmes coachs, mêmes gants.",
+      "note": "Le tarif étudiant, sur justificatif. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.",
       "feature": false,
       "cta": "Je choisis cette formule",
       "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
@@ -650,48 +650,48 @@
   ],
   "seo": {
     "home": {
-      "title": "Boxing Center Portet | Club de boxe à Portet-sur-Garonne",
-      "description": "Club de boxe à Portet-sur-Garonne (31120), 10 min de Toulouse sud. 600 m², ring, cage MMA. Boxe, kick-boxing, MMA. Saison 259€ l’année. Offre rentrée 29€."
+      "title": "Club de boxe et MMA à Portet-sur-Garonne | Boxing Center",
+      "description": "Club de boxe et MMA à Portet-sur-Garonne, au sud de Toulouse : boxe anglaise, kick-boxing, grappling, JJB, cours femmes et enfants, planning et tarifs."
     },
     "premiere-seance": {
-      "title": "Ta première séance | Boxing Center Portet",
-      "description": "Ce qui se passe quand tu pousses la porte du Boxing Center Portet : l’accueil, les gants prêtés, l’échauffement, le sac. Pas de sparring imposé, pas de test."
+      "title": "Première séance de boxe à Portet | Boxing Center",
+      "description": "Préparez votre première séance de boxe à Portet-sur-Garonne : accueil, tenue, matériel prêté et déroulé du cours, étape par étape."
     },
     "activites": {
-      "title": "Boxe, MMA, kick-boxing | Activités Boxing Center Portet",
-      "description": "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing, préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados à Portet-sur-Garonne."
+      "title": "Cours de boxe et MMA à Portet-sur-Garonne | Boxing Center",
+      "description": "Cours de boxe anglaise, kick-boxing, MMA, grappling et jiu-jitsu brésilien à Portet-sur-Garonne, au sud de Toulouse, pour adultes et enfants."
     },
     "salles": {
-      "title": "Salle de boxe 600 m² | Boxing Center Portet-sur-Garonne",
-      "description": "600 m² dédiés aux sports de combat à Portet-sur-Garonne (31120) : salle de boxe anglaise avec ring, espace combat avec cage MMA, sacs de frappe et matériel de préparation physique."
+      "title": "Salle de boxe et MMA à Portet-sur-Garonne | Boxing Center",
+      "description": "Visitez la salle de boxe et MMA Boxing Center à Portet-sur-Garonne : ring, espace de combat, équipements et accès depuis le sud de Toulouse."
     },
     "coachs": {
-      "title": "Coachs diplômés | Boxing Center Portet",
-      "description": "Valentin Tapia (Head Coach, responsable sportif), Samuel Pinto, Enzo Pioppo, Nicolas Tramaçon, Mourad Berraho et Ingrid : coachs diplômés et champions, de la baby boxe au haut niveau, à Portet-sur-Garonne."
+      "title": "Coachs de boxe à Portet-sur-Garonne | Boxing Center",
+      "description": "Découvrez les coachs du Boxing Center Portet-sur-Garonne, leurs disciplines, leurs parcours et leur accompagnement des pratiquants."
     },
     "boxeurs": {
-      "title": "Nos Boxeurs | Team Tapia Boxing Center Portet",
-      "description": "Anna Boullez, Pauline Re, Loyna Cagniac, Mourad Berraho, Marama Mercier, Anakine Lemberger : les athlètes formés au Boxing Center Portet, de l’école de boxe à l’Équipe de France."
+      "title": "Équipe de boxe à Portet-sur-Garonne | Team Tapia",
+      "description": "Découvrez les boxeuses et boxeurs de la Team Tapia au Boxing Center Portet, leurs parcours sportifs et leurs résultats en compétition."
     },
     "galerie": {
-      "title": "Galerie photos | Boxing Center Portet",
-      "description": "Photos et vidéos du ring, des sacs, des galas et de l’entraînement à Boxing Center Portet, et le mur de la communauté."
+      "title": "Photos du club de boxe à Portet | Boxing Center",
+      "description": "Parcourez les photos et vidéos du Boxing Center Portet-sur-Garonne : entraînements, équipements, compétitions et vie du club."
     },
     "plannings": {
-      "title": "Planning des cours | Boxing Center Portet",
-      "description": "Le planning provisoire en vigueur au Boxing Center Portet : boxe anglaise, kick, boxe éducative dès 4 ans, préparation physique — 6j/7, 61 route d'Espagne. Téléchargeable en PDF."
+      "title": "Planning des cours de boxe à Portet | Boxing Center",
+      "description": "Consultez le planning en vigueur des cours du Boxing Center Portet-sur-Garonne, avec les jours, les horaires et les disciplines annoncées."
     },
     "tarifs": {
-      "title": "Tarifs boxe Portet | rentrée 29€, saison 259€",
-      "description": "Les offres Boxing Center à Portet-sur-Garonne : rentrée 29€ par personne (4 semaines), saison 259€ en 4× sans frais, adulte 44€, étudiants 36€, enfants/ados 295€/an (t-shirt inclus), baby boxe 250€/an."
+      "title": "Tarifs boxe et MMA à Portet-sur-Garonne | Boxing Center",
+      "description": "Consultez les tarifs et conditions des cours de boxe et MMA au Boxing Center Portet-sur-Garonne, puis accédez aux offres de la boutique officielle."
     },
     "contact": {
-      "title": "Contact et accès | Boxing Center Portet 31120",
-      "description": "Boxing Center Portet, club de boxe à Portet-sur-Garonne (31120), Toulouse sud — 61 route d’Espagne. Téléphone, horaires, accès. La saison à 259€, l’année complète."
+      "title": "Contact du club de boxe à Portet | Boxing Center",
+      "description": "Retrouvez l’adresse, l’accès, les horaires et les moyens de contact du Boxing Center Portet-sur-Garonne, au sud de Toulouse."
     },
     "partenaires": {
-      "title": "Partenaires | Boxing Center Portet",
-      "description": "Les partenaires qui font grandir le Boxing Center Portet : KFC, O2 Portet-sur-Garonne et Karting 2 Muret. Devenir partenaire, privatiser la salle ou monter un projet : contactez-nous."
+      "title": "Partenaires du club de boxe à Portet | Boxing Center",
+      "description": "Découvrez les partenaires du Boxing Center Portet-sur-Garonne et les possibilités de partenariat, de projet collectif ou de privatisation."
     }
   },
   "nouvellesSalles": false,
