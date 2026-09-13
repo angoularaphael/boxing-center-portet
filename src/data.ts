@@ -80,6 +80,8 @@ export const NAV = [
   { href: "/premiere-seance/", label: "1re séance" },
   { href: "/activites/", label: "Activités" },
   { href: "/salles/", label: "Le club", top: false },
+  /* Eddy, 13/09 : « Nos clubs » dans la navigation de chaque site — ici, la grille du réseau de /salles/, chaque carte vers le vrai site du club */
+  { href: "/salles/#network-grid", label: "Nos clubs", top: false },
   { href: "/coachs/", label: "Coachs" },
   { href: "/boxeurs/", label: "Nos Boxeurs", top: false },
   { href: "/partenaires/", label: "Partenaires", top: false },

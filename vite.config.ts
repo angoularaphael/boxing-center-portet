@@ -209,6 +209,7 @@ function seoBakePlugin() {
           ["/premiere-seance/", "1re séance", true],
           ["/activites/", "Activités", true],
           ["/salles/", "Le club", false],
+          ["/salles/#network-grid", "Nos clubs", false],
           ["/coachs/", "Coachs", true],
           ["/boxeurs/", "Nos Boxeurs", false],
           ["/partenaires/", "Partenaires", false],
