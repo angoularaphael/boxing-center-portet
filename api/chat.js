@@ -8,6 +8,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 import { allowCors, memoryLimit, ipOf } from "./_lib/util.js";
+import { planningEnVigueur, contexteDuMoment } from "./_lib/moment.js";
 
 /* Faits non éditables dans le backoffice (offres, inscription, réseau…).
    LES OFFRES (source : boutique.boxingcenter.fr, la boutique officielle) : */
@@ -61,8 +62,12 @@ export function liveInfo() {
       L.push("Disciplines : " + c.disciplines.map((d) => d.name).filter(Boolean).join(", ") + ".");
     if (Array.isArray(c.team) && c.team.length)
       L.push("Encadrement : " + c.team.map((m) => `${m.name}${m.role ? ` (${m.role})` : ""}`).join(", ") + ". Du débutant au compétiteur.");
-    if (Array.isArray(c.planning) && c.planning.length)
-      L.push("Planning Portet : " + c.planning
+    /* LE PLANNING AFFICHÉ, pas le planning caché : tant que nouvellesSalles
+       n’est pas vrai, la page Planning montre planningProvisoire — et le bot
+       récitait l’autre (audit du 13/09). */
+    const planning = planningEnVigueur(c);
+    if (planning.length)
+      L.push("Planning Portet (celui affiché sur le site) : " + planning
         .map((d) => `${d.day} ${(d.items || []).map((i) => `${i[0]} ${i[1]}`).join(" / ")}`.trim())
         .join(" ; ") + ".");
     return L.length >= 4 ? "- " + L.join("\n- ") : null; // contenu trop partiel → repli
@@ -181,7 +186,10 @@ ${NETWORK}`;
 /** Construit le prompt système, en injectant le contexte visiteur (prénom, salle) si fourni. */
 export function systemFor(context) {
   const c = String(context || "").slice(0, 300).trim();
-  return c ? `${SYSTEM}\n\nCONTEXTE VISITEUR (déjà connu, ne redemande pas) : ${c}` : SYSTEM;
+  /* les faits sont figés au chargement ; le MOMENT (date, cours du jour, table enfants) est recalculé à chaque message */
+  const moment = contexteDuMoment();
+  const base = moment ? `${SYSTEM}\n\n${moment}` : SYSTEM;
+  return c ? `${base}\n\nCONTEXTE VISITEUR (déjà connu, ne redemande pas) : ${c}` : base;
 }
 
 /* Une réponse coupée en plein mot est pire que pas de réponse : si le modèle
