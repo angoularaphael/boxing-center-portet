@@ -287,7 +287,7 @@ function corps(p, liste) {
         <div><dt>Ouverture</dt><dd>${e(site.hours || "Lun–Sam · 10h00 – 21h30")}</dd></div>
         <div><dt>Accès</dt><dd>Par l’A64, sortie Portet, puis la route d’Espagne. En bus, la ligne 117 Express s’arrête à « Jean Jaurès », sur la route d’Espagne.</dd></div>
         ${tarifs.length ? `<div><dt>Tarifs</dt><dd>${tarifs.map((t) => `${e(t.name)} : ${e(t.price)} ${e(t.unit)}`).join(" · ")}. <a href="/tarifs/">Le détail des formules →</a></dd></div>` : ""}
-        <div><dt>Contact</dt><dd><a href="tel:${e(site.phoneHref || "+33687900216")}">${e(site.phone || "06 87 90 02 16")}</a> · <a href="mailto:${e(site.email || "boxingcenterportet@gmail.com")}">${e(site.email || "boxingcenterportet@gmail.com")}</a></dd></div>
+        <div><dt>Contact</dt><dd><a href="tel:${e(site.phoneHref || "+33956653782")}">${e(site.phone || "09 56 65 37 82")}</a> · <a href="mailto:${e(site.email || "boxingcenterportet@gmail.com")}">${e(site.email || "boxingcenterportet@gmail.com")}</a></dd></div>
       </dl>
     </div>
   </section>`);

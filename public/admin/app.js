@@ -64,7 +64,7 @@ const SCHEMA = {
     {k:"baseline",label:"Accroche courte"},
     {k:"claim",label:"Phrase clé",ml:true},
     {k:"phone",label:"Téléphone (affiché)"},
-    {k:"phoneHref",label:"Téléphone (lien, ex +33562244682)"},
+    {k:"phoneHref",label:"Téléphone (lien, ex +33939036748)"},
     {k:"email",label:"Email"},
     {k:"hours",label:"Horaires (texte affiché)"},
     {k:"address",label:"Adresse",type:"object",fields:[{k:"street",label:"Rue"},{k:"zip",label:"Code postal"},{k:"city",label:"Ville"}]},

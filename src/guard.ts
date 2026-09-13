@@ -43,6 +43,6 @@ export function initGuard(): void {
   console.log(
     "%c🥊 Boxing Center Portet",
     "font-size:16px;font-weight:bold;color:#aebccf",
-    "\nCe site et son contenu sont protégés. Envie de construire le tien ? Viens plutôt taper le sac : 06 87 90 02 16."
+    "\nCe site et son contenu sont protégés. Envie de construire le tien ? Viens plutôt taper le sac : 09 56 65 37 82."
   );
 }

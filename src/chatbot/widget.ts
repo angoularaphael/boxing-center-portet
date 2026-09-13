@@ -365,7 +365,7 @@ export function initChatbot() {
         coachs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
         boxeurs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
         partenaires: ["Bonjour 👋 Moi c’est Gus. Je vois que vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
-        contact: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez à nous joindre.", "06 87 90 02 16 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
+        contact: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez à nous joindre.", "09 56 65 37 82 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
         "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Je vois que vous préparez votre première séance.", "Gants prêtés, aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
         galerie: ["Bonjour 👋 Moi c’est Gus. Je vois que vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
       };

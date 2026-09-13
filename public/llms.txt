@@ -23,7 +23,7 @@ Boxe Anglaise, Kick-Boxing, MMA, Grappling & Jiu-Jitsu Brésilien, Lady Boxing, 
 Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 
 **Téléphone et e-mail ?**
-+33 6 87 90 02 16 — boxingcenterportet@gmail.com
++33 9 56 65 37 82 — boxingcenterportet@gmail.com
 
 **Est-ce adapté aux débutants ?**
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
@@ -174,7 +174,7 @@ déduire.
   34,99 € facturé 72 h après le début).
 - Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
   États-Unis) : https://boxingcenter.fr fait foi.
-- Pour parler à un humain : 06 87 90 02 16, du lundi au samedi 10h-21h30.
+- Pour parler à un humain : 09 56 65 37 82, du lundi au samedi 10h-21h30.
 
 Chaque page HTML existe en miroir markdown : envoyez « Accept: text/markdown »
 sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.

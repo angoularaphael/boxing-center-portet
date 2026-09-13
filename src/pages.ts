@@ -58,7 +58,7 @@ function initPartnerForm() {
       form.reset();
       status.textContent = "C’est envoyé ! On vous répond très vite — merci pour votre confiance. 🥊";
     } catch {
-      status.textContent = "L’envoi n’est pas passé. Réessayez dans un instant, ou appelez-nous au 06 87 90 02 16.";
+      status.textContent = "L’envoi n’est pas passé. Réessayez dans un instant, ou appelez-nous au 09 56 65 37 82.";
     } finally {
       if (btn) btn.disabled = false;
     }

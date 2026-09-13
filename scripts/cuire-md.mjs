@@ -82,7 +82,7 @@ function versMd(html, url) {
   }
 
   lignes.push("", "---", "",
-    "Boxing Center Portet · 61 route d’Espagne, 31120 Portet-sur-Garonne · 06 87 90 02 16",
+    "Boxing Center Portet · 61 route d’Espagne, 31120 Portet-sur-Garonne · 09 56 65 37 82",
     "",
     "[Accueil](/) · [Activités](/activites/) · [Planning](/plannings/) · [Tarifs](/tarifs/) · [Contact](/contact/) · [llms.txt](/llms.txt)");
   return lignes.join("\n").replace(/\n{3,}/g, "\n\n") + "\n";

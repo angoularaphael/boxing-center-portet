@@ -27,7 +27,7 @@ network: 5 salles Boxing Center a Toulouse et son agglomeration
 - Ne pas confondre avec un autre club de boxe toulousain
 
 # Contact
-phone: 06 87 90 02 16
+phone: 09 56 65 37 82
 email: boxingcenterportet@gmail.com
 address: 61 route d'Espagne, 31120 Portet-sur-Garonne
 

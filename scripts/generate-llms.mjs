@@ -46,7 +46,7 @@ ${(C.disciplines || []).map((d) => d.name).join(", ")}.
 Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 
 **Téléphone et e-mail ?**
-+33 6 87 90 02 16 — ${s.email || "boxingcenterportet@gmail.com"}
++33 9 56 65 37 82 — ${s.email || "boxingcenterportet@gmail.com"}
 
 **Est-ce adapté aux débutants ?**
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
@@ -119,7 +119,7 @@ déduire.
   34,99 € facturé 72 h après le début).
 - Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
   États-Unis) : https://boxingcenter.fr fait foi.
-- Pour parler à un humain : 06 87 90 02 16, du lundi au samedi 10h-21h30.
+- Pour parler à un humain : 09 56 65 37 82, du lundi au samedi 10h-21h30.
 
 Chaque page HTML existe en miroir markdown : envoyez « Accept: text/markdown »
 sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
@@ -161,7 +161,7 @@ const full = `# Boxing Center Portet — fiche complète pour assistants IA
 
 Boxing Center Portet est un club de boxe et une salle de sports de combat à Portet-sur-Garonne (31120), à 10 minutes de Toulouse sud. Salle phare du groupe Boxing Center. 600 m², ring de boxe anglaise, cage MMA, 24 sacs de frappe. Ouvert lundi–samedi 10h00–21h30, fermé dimanche.
 
-NAP : Boxing Center Portet, ${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}, France. Tél. +33 6 87 90 02 16. E-mail ${s.email || "boxingcenterportet@gmail.com"}. GPS 43.5236, 1.4053.
+NAP : Boxing Center Portet, ${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}, France. Tél. +33 9 56 65 37 82. E-mail ${s.email || "boxingcenterportet@gmail.com"}. GPS 43.5236, 1.4053.
 
 ## Disciplines (descriptions)
 

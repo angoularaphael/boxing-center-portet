@@ -33,7 +33,7 @@ export const ACTIONS: Record<string, ActionDef> = {
   /* Le 10 € ne s’affiche que sur la page tarifs — et ici, parce que le bot a
      le droit de le proposer pour sauver une vente (ordre du 24/08/2026). */
   essai:       { label: "Je viens essayer · 10€", href: shop("/seance-essai") },
-  appeler:     { label: "Appeler le club", href: "tel:+33687900216" },
+  appeler:     { label: "Appeler le club", href: "tel:+33956653782" },
   abonnements: { label: "Voir les abonnements", href: shop("/abonnements") },
   enfants:     { label: "J’inscris mon enfant", href: shop("/abonnements", "#enfants") },
   boutique:    { label: "La boutique du club", href: shop("/") },
@@ -60,7 +60,7 @@ export const QUICKS: Quick[] = [
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche).",
     actions: ["planning"] },
   { label: "Adresse & accès", q: "Où êtes-vous situés ?",
-    a: "Boxing Center Portet : 61 route d’Espagne, 31120 Portet-sur-Garonne. 600 m² dédiés aux sports de combat — salle de boxe anglaise avec ring, espace combat avec cage MMA. Tél : 06 87 90 02 16.",
+    a: "Boxing Center Portet : 61 route d’Espagne, 31120 Portet-sur-Garonne. 600 m² dédiés aux sports de combat — salle de boxe anglaise avec ring, espace combat avec cage MMA. Tél : 09 56 65 37 82.",
     actions: ["contact", "club"] },
   { label: "Disciplines", q: "Quelles disciplines proposez-vous ?",
     a: "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados. Un seul pass, toutes disciplines, 5 salles.",
@@ -75,7 +75,7 @@ export const QUICKS: Quick[] = [
     a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille, te prête les gants et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité.",
     actions: ["premiere", "saison"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
-    a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 06 87 90 02 16.",
+    a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 09 56 65 37 82.",
     actions: ["partenaires"] },
   /* AJOUTES LE 24/08/2026. Vu en production : « est-ce qu'il y a la clim ? »
      recevait le message passe-partout, parce qu'aucune regle ne couvrait la
@@ -116,7 +116,7 @@ const RULES: [RegExp, number][] = [
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
-    text: "Je peux t’aider sur les offres (dont l’abonnement à 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 06 87 90 02 16.",
+    text: "Je peux t’aider sur les offres (dont l’abonnement à 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
     actions: ["saison", "tarifs"],
   };
 }

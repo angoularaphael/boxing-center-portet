@@ -36,7 +36,7 @@ async function infosSalleTexte() {
     const texte = liveInfo();
     if (texte && texte.length > 40) return texte;
   } catch { /* le repli reprend les données déjà publiées */ }
-  return `${SITE.nom} — 61 route d'Espagne, 31120 Portet-sur-Garonne. Du lundi au samedi, 10h00–21h30 ; fermé le dimanche. 06 87 90 02 16.`;
+  return `${SITE.nom} — 61 route d'Espagne, 31120 Portet-sur-Garonne. Du lundi au samedi, 10h00–21h30 ; fermé le dimanche. 09 56 65 37 82.`;
 }
 
 const ok = (id, result) => ({ jsonrpc: "2.0", id, result });
