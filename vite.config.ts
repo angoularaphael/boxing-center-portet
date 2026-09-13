@@ -17,6 +17,12 @@ const lienD = (nom: string) => {
   return p ? `/activites/${p.slug}/` : "";
 };
 
+/* Les pages de coach (/coachs/<slug>/) : écrites par scripts/generate-coachs.mjs.
+   Avant le tout premier build la table n'existe pas encore : elle vaut []. */
+let COACH_PAGES: { slug: string; nom: string }[] = [];
+try { COACH_PAGES = JSON.parse(readFileSync(page("src/coachs-liens.json"), "utf8")); } catch { COACH_PAGES = []; }
+const lienC = (nom: string) => { const p = COACH_PAGES.find((x) => x.nom === nom); return p ? `/coachs/${p.slug}/` : ""; };
+
 // Bake editable per-page SEO (from content.json) into each page's static HTML at
 // build time → fully crawlable + editable via /admin (publish triggers a rebuild).
 const escAttr = (s: string) => String(s).replace(/"/g, "&quot;");
@@ -78,7 +84,10 @@ function seoBakePlugin() {
              patron). Cuites ici : visibles meme sans un octet de JavaScript. */
           remplir("team-cards", "team-cards", (content.team || []).map((m: any) =>
             `<article class="tcard" data-reveal><img src="${e(m.img)}" alt="${e(m.name)} — ${e(m.role)}" loading="lazy" decoding="async" width="600" height="750" />`
-            + `<div class="tcard__body"><h3>${e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join(""));
+            + `<div class="tcard__body"><h3>${lienC(m.name) ? `<a href="${lienC(m.name)}">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p>`
+            /* Chaque carte mène à la page du coach. */
+            + (lienC(m.name) ? `<a class="tcard__page" href="${lienC(m.name)}">${/&/.test(m.name) ? "Leur page" : "Sa page"} <span aria-hidden="true">→</span></a>` : "")
+            + `</div></article>`).join(""));
           remplir("planning-provisoire-grid", "planning", (content.planningProvisoire || []).map((c: any) =>
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
             + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__a">${e(i[1])}</span></div>`).join("")
@@ -411,6 +420,7 @@ export default defineConfig({
         privacy: page("privacy/index.html"),
         404: page("404.html"),
         ...Object.fromEntries(DISC_PAGES.map((p) => [`disc-${p.slug}`, page(`activites/${p.slug}/index.html`)])),
+        ...Object.fromEntries(COACH_PAGES.map((p) => [`coach-${p.slug}`, page(`coachs/${p.slug}/index.html`)])),
       },
     },
   },

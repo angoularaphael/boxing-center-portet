@@ -21,6 +21,8 @@ import {
 const C = contenu();
 const PAGES = pagesDisciplines();
 const MANIFESTE = lireJSON("src/img-manifest.json");
+/* Le texte des pages de coach : le nom d'un coach mène à sa page. */
+const TC = lireJSON("src/coachs.json").pages;
 const GABARIT = readFileSync(join(ROOT, "activites", "index.html"), "utf8");
 
 const e = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -250,7 +252,7 @@ function corps(p, liste) {
         </div>
       </div>
       <div class="team-cards dp-coachs">
-        ${coachs.map((m) => `<article class="tcard" data-reveal>${img(m.img, `${m.name} — ${m.role}`, "(max-width: 760px) 90vw, 30vw")}<div class="tcard__body"><h3>${e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join("\n        ")}
+        ${coachs.map((m) => `<article class="tcard" data-reveal>${img(m.img, `${m.name} — ${m.role}`, "(max-width: 760px) 90vw, 30vw")}<div class="tcard__body"><h3>${TC[m.name] ? `<a href="/coachs/${TC[m.name].slug}/">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join("\n        ")}
       </div>
       <p class="dp-lien"><a href="/coachs/">Toute l’équipe du club →</a></p>
     </div>

@@ -77,6 +77,10 @@ const PAGES = [
   ...pagesDisciplines().map((p) => ({ url: `/activites/${p.slug}/`, freq: "monthly", prio: "0.8", images: [
       img(p.photo.src, `${p.nom} — ${LIEU}`, p.photo.alt),
       ...p.photos.map((ph) => img(ph.src, `${ph.legende} — ${LIEU}`, ph.alt))] })),
+  // Une page par coach, avec son portrait et ses photos.
+  ...Object.values(JSON.parse(readFileSync(join(ROOT, "src", "coachs.json"), "utf8")).pages).map((p) => ({ url: `/coachs/${p.slug}/`, freq: "monthly", prio: "0.7", images: [
+      img(p.photo.src, `${p.nom} — ${LIEU}`, p.photo.alt),
+      ...(p.photos || []).map((ph) => img(ph.src, `${ph.legende} — ${LIEU}`, ph.alt))] })),
   { url: "/salles/", freq: "monthly", prio: "0.8", images: [
       img("/img/gym-21.jpg", `Le ring — ${LIEU}`, "La salle de boxe anglaise et son ring."),
       img("/img/gym-24.jpg", `La cage MMA — ${LIEU}`, "L'espace combat et sa cage de MMA."),

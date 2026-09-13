@@ -283,6 +283,91 @@
     </image:image>
   </url>
   <url>
+    <loc>https://boxing-center-portet.fr/coachs/valentin-tapia/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-valentin-tapia-haut.jpg</image:loc>
+      <image:title>Valentin Tapia — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Valentin Tapia, head coach et responsable sportif du Boxing Center Portet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/team-tapia-pads.jpg</image:loc>
+      <image:title>Aux pattes d’ours, avec la Team Tapia. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Travail aux pattes d’ours avec la Team Tapia, au club de boxe de Portet-sur-Garonne</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/gala-trophee.jpg</image:loc>
+      <image:title>Soir de gala, le trophée au bout. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Soir de gala — une boxeuse du Boxing Center Portet et son trophée, aux côtés de son coach</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/coachs/samuel-pinto/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-samuel-pinto-haut.jpg</image:loc>
+      <image:title>Samuel Pinto — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Samuel Pinto, coach de kick-boxing, K1 et boxe française au Boxing Center Portet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/pinto-fight-02.jpg</image:loc>
+      <image:title>Samuel Pinto, en combat. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Samuel Pinto, coach de kick-boxing à Portet-sur-Garonne, en combat</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/gala-kick-01.jpg</image:loc>
+      <image:title>Un soir de gala de kick-boxing du club. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>High kick lors d’un gala de kick-boxing du club de Portet-sur-Garonne</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/coachs/enzo-pioppo/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-enzo-pioppo-haut.jpg</image:loc>
+      <image:title>Enzo Pioppo — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Enzo Pioppo, coach de grappling et de MMA au Boxing Center Portet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/enzo-pioppo2.jpeg</image:loc>
+      <image:title>Enzo Pioppo, champion du monde. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Enzo Pioppo, coach de grappling et de MMA, champion du monde</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/coachs/nicolas-tramacon/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-nicolas-tramacon-haut.jpg</image:loc>
+      <image:title>Nicolas Tramaçon — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Nicolas Tramaçon, coach de MMA et de grappling au Boxing Center Portet</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/coachs/mourad-ingrid/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/cards/card-mourad-ingrid-haut.jpg</image:loc>
+      <image:title>Mourad et Ingrid — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Mourad et Ingrid, coachs de boxe anglaise et de kick-boxing enfants et ados au Boxing Center Portet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/mourad-berraho.jpg</image:loc>
+      <image:title>Mourad Berraho, au sparring. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Mourad Berraho au sparring — Boxing Center Portet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/team/walkout-ecole.jpg</image:loc>
+      <image:title>L’entrée des jeunes boxeurs de l’école. — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Entrée des jeunes boxeurs de l’école de boxe de Portet-sur-Garonne</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://boxing-center-portet.fr/salles/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

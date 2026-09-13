@@ -1,0 +1,268 @@
+{
+  "_lisezmoi": "Le texte long des pages /coachs/<slug>/, clé = nom exact du coach dans content.json (team). Rien d'inventé : les faits viennent de content.json, de la page /boxeurs/ et, pour Valentin Tapia et Samuel Pinto, de leurs fiches sur boxingcenter.fr (relevées le 13/09/2026). Chaque fait est dit une fois sur la page visible ; la FAQ, repliée, le reformule pour les moteurs de réponse. Les textes alternatifs des photos sont ceux que le site emploie déjà. Écrit dans les pages par scripts/generate-coachs.mjs.",
+  "pages": {
+    "Valentin Tapia": {
+      "slug": "valentin-tapia",
+      "nom": "Valentin Tapia",
+      "avec": "Valentin",
+      "titre": "Valentin Tapia, head coach boxe à Portet | Boxing Center",
+      "description": "Valentin Tapia, head coach du Boxing Center Portet : BPJEPS et DEJEPS boxe, 9 champions de France formés, Anna Boullez n°1 française chez les pros.",
+      "poste": "Head coach et responsable sportif, boxe anglaise",
+      "h1": "Valentin Tapia,",
+      "h1Tint": "head coach.",
+      "eyebrow": "Head coach · Responsable sportif · Boxe anglaise",
+      "lead": "Valentin Tapia dirige la boxe du Boxing Center Portet. Il entraîne depuis plus de dix ans, des enfants de 3 ans jusqu’aux boxeurs de l’Équipe de France.",
+      "tarif": "Offre Rentrée",
+      "photo": { "src": "/img/team/cards/card-valentin-tapia-haut.jpg", "alt": "Valentin Tapia, head coach et responsable sportif du Boxing Center Portet" },
+      "diplomes": ["BPJEPS mention Boxe", "BPJEPS mention Sports de contact", "DEJEPS mention Boxe"],
+      "titres": [],
+      "devise": "Le talent te fait commencer. L’exigence te fait gagner.",
+      "faits": [
+        ["9", "champions de France formés avec le club"],
+        ["2", "boxeurs en Équipe de France jeunes"],
+        ["DEJEPS", "mention Boxe, en plus de deux BPJEPS"],
+        ["10 ans +", "d’expérience d’entraîneur"]
+      ],
+      "sections": [
+        {
+          "eyebrow": "Son parcours",
+          "titre": "Formé en France, aux États-Unis et à Cuba.",
+          "textes": [
+            "Il est diplômé du BPJEPS mention Boxe, du BPJEPS mention Sports de contact et du DEJEPS mention Boxe : peu d’entraîneurs de la région toulousaine ont ce niveau de formation.",
+            "Sa formation ne s’est pas arrêtée aux diplômes français. Il a passé plusieurs semaines aux États-Unis auprès de coachs de renommée mondiale, et il a suivi l’Équipe de France en stage à Cuba, l’une des grandes écoles de la boxe."
+          ]
+        },
+        {
+          "eyebrow": "Ce qu’il a construit",
+          "titre": "Des champions formés au club.",
+          "textes": [
+            "Avec le Boxing Center, il a contribué à former 9 champions de France, 2 boxeurs de l’Équipe de France jeunes et Anna Boullez, aujourd’hui boxeuse professionnelle classée n°1 française dans sa catégorie.",
+            "Il a aussi contribué à faire du Boxing Center le meilleur club de France en 2026 chez les jeunes, cadets et juniors, aux derniers Championnats de France."
+          ]
+        },
+        {
+          "eyebrow": "Sa méthode",
+          "titre": "La même exigence pour un débutant.",
+          "textes": [
+            "Le niveau du pratiquant ne change pas la qualité de l’attention : un débutant reçoit la même précision technique qu’un boxeur de l’Équipe de France. Il corrige, guide et suit chacun : enfants, loisirs, femmes et compétiteurs."
+          ]
+        }
+      ],
+      "boxeursTitre": "La Team Tapia.",
+      "boxeurs": [
+        { "nom": "Anna Boullez", "fait": "Boxeuse professionnelle · 2 victoires, 0 défaite", "src": "/img/team/anna-boullez.jpg", "alt": "Anna Boullez à l’entraînement, gants Rival — Boxing Center Portet" },
+        { "nom": "Mourad Berraho", "fait": "Triple champion de France · formé par Valentin Tapia", "src": "/img/team/mourad-berraho.jpg", "alt": "Mourad Berraho au sparring — Boxing Center Portet" },
+        { "nom": "Pauline Re", "fait": "Équipe de France · double championne de France", "src": "/img/team/pauline-re-victoire.jpg", "alt": "Pauline Re, bras levé par l’arbitre — victoire sous les couleurs du Boxing Center Portet" },
+        { "nom": "Marama Mercier", "fait": "Ancien membre de l’Équipe de France", "src": "/img/team/marama-mercier.jpg", "alt": "Marama Mercier au walk-out, soir de gala — Boxing Center Portet" },
+        { "nom": "Loyna Cagniac", "fait": "14 combats, 11 victoires", "src": "/img/team/loyna-cagniac.jpg", "alt": "Loyna Cagniac au coin du ring, avec Valentin Tapia — Boxing Center Portet" },
+        { "nom": "Anakine Lemberger", "fait": "Champion de France de boxe éducative", "src": "/img/team/anakine-lemberger.jpg", "alt": "Anakine Lemberger, trophée et diplôme de champion régional de boxe éducative" }
+      ],
+      "photos": [
+        { "src": "/img/team/team-tapia-pads.jpg", "alt": "Travail aux pattes d’ours avec la Team Tapia, au club de boxe de Portet-sur-Garonne", "legende": "Aux pattes d’ours, avec la Team Tapia." },
+        { "src": "/img/team/gala-trophee.jpg", "alt": "Soir de gala — une boxeuse du Boxing Center Portet et son trophée, aux côtés de son coach", "legende": "Soir de gala, le trophée au bout." }
+      ],
+      "faq": [
+        { "q": "Quels diplômes a Valentin Tapia ?", "r": "Le BPJEPS mention Boxe, le BPJEPS mention Sports de contact et le DEJEPS mention Boxe." },
+        { "q": "Quels boxeurs Valentin Tapia a-t-il formés ?", "r": "Avec le club, 9 champions de France, 2 boxeurs de l’Équipe de France jeunes et Anna Boullez, classée n°1 française chez les professionnelles dans sa catégorie. Mourad Berraho, triple champion de France, a été formé par lui." },
+        { "q": "Un débutant peut-il s’entraîner avec Valentin Tapia ?", "r": "Oui : il encadre aussi les loisirs, les femmes, les débutants et les enfants dès 3 ans, avec la même exigence technique que ses compétiteurs." }
+      ],
+      "og": { "titre": "Valentin Tapia", "puces": ["Head coach", "9 champions de France formés"] }
+    },
+    "Samuel Pinto": {
+      "slug": "samuel-pinto",
+      "nom": "Samuel Pinto",
+      "avec": "Samuel",
+      "titre": "Samuel Pinto, coach kick-boxing à Portet | Boxing Center",
+      "description": "Samuel Pinto, vice-champion du monde de boxe française, double licence STAPS, spécialiste Sport-Santé : kick-boxing, K1 et Lady Boxing à Portet.",
+      "poste": "Coach de kick-boxing, K1, boxe française et préparation physique",
+      "h1": "Samuel Pinto,",
+      "h1Tint": "vice-champion du monde.",
+      "eyebrow": "Kick-boxing · K1 · Boxe française · Lady Boxing",
+      "lead": "Vice-champion du monde et vice-champion d’Europe de boxe française, Samuel Pinto a connu le très haut niveau. Au Boxing Center Portet, il met cette expérience à la portée de tous.",
+      "tarif": "Offre Rentrée",
+      "photo": { "src": "/img/team/cards/card-samuel-pinto-haut.jpg", "alt": "Samuel Pinto, coach de kick-boxing, K1 et boxe française au Boxing Center Portet" },
+      "diplomes": ["Licence STAPS Entraînement sportif", "Licence STAPS Activité physique adaptée et santé (APA-S)"],
+      "titres": ["Vice-champion du monde de boxe française", "Vice-champion d’Europe de boxe française"],
+      "devise": "Ensemble, on va plus loin, on va plus haut.",
+      "faits": [
+        ["Vice-champion", "du monde de boxe française"],
+        ["2 licences", "STAPS : entraînement et APA-Santé"],
+        ["Semi-pro", "combattant en kick-boxing"]
+      ],
+      "sections": [
+        {
+          "eyebrow": "Son parcours",
+          "titre": "Le très haut niveau, vécu.",
+          "textes": [
+            "Combattant semi-professionnel en kick-boxing, il connaît la rigueur de la préparation et la réalité du combat : placement, déplacements, distance, précision, enchaînements, rythme.",
+            "Au club, il encadre le kick-boxing et le K1, la boxe française, le Lady Boxing, le kick-boxing enfants et ados, et la préparation physique."
+          ]
+        },
+        {
+          "eyebrow": "Sport-Santé",
+          "titre": "L’intensité, dosée.",
+          "textes": [
+            "Sa double licence STAPS, en Entraînement sportif et en Activité physique adaptée et santé, lui fait tenir compte de l’âge, du niveau, des capacités et des objectifs de chacun. L’intensité n’est jamais appliquée au hasard : elle est construite.",
+            "On peut donc s’entraîner sérieusement avec lui sans être traité comme un compétiteur dès le premier cours."
+          ]
+        }
+      ],
+      "photos": [
+        { "src": "/img/team/pinto-fight-02.jpg", "alt": "Samuel Pinto, coach de kick-boxing à Portet-sur-Garonne, en combat", "legende": "Samuel Pinto, en combat." },
+        { "src": "/img/team/gala-kick-01.jpg", "alt": "High kick lors d’un gala de kick-boxing du club de Portet-sur-Garonne", "legende": "Un soir de gala de kick-boxing du club." }
+      ],
+      "faq": [
+        { "q": "Quels titres a Samuel Pinto ?", "r": "Il est vice-champion du monde et vice-champion d’Europe de boxe française, et combattant semi-professionnel en kick-boxing." },
+        { "q": "Peut-on débuter avec Samuel sans jamais avoir combattu ?", "r": "Oui. Formé à l’Activité physique adaptée, il construit des séances progressives, adaptées à l’âge, au niveau et aux objectifs de chacun." },
+        { "q": "Quels cours Samuel encadre-t-il à Portet ?", "r": "Le kick-boxing et le K1, la boxe française, le Lady Boxing, le kick-boxing enfants et ados, et la préparation physique." }
+      ],
+      "og": { "titre": "Samuel Pinto", "puces": ["Vice-champion du monde", "Kick-boxing · K1"] }
+    },
+    "Enzo Pioppo": {
+      "slug": "enzo-pioppo",
+      "nom": "Enzo Pioppo",
+      "avec": "Enzo",
+      "titre": "Enzo Pioppo, coach grappling et MMA à Portet | Boxing Center",
+      "description": "Enzo Pioppo, ceinture noire de Luta Livre et champion du monde, encadre le grappling, le jiu-jitsu brésilien et le MMA au Boxing Center Portet.",
+      "poste": "Coach de grappling, jiu-jitsu brésilien et MMA",
+      "h1": "Enzo Pioppo,",
+      "h1Tint": "coach grappling et MMA.",
+      "eyebrow": "Grappling · Jiu-jitsu brésilien · MMA",
+      "lead": "Ceinture noire de Luta Livre, champion de France, vice-champion d’Europe et champion du monde : Enzo Pioppo encadre le grappling et le MMA au Boxing Center Portet.",
+      "tarif": "Offre Rentrée",
+      "photo": { "src": "/img/team/cards/card-enzo-pioppo-haut.jpg", "alt": "Enzo Pioppo, coach de grappling et de MMA au Boxing Center Portet" },
+      "diplomes": [],
+      "titres": ["Ceinture noire de Luta Livre", "Champion du monde", "Vice-champion d’Europe", "Champion de France"],
+      "devise": "",
+      "faits": [
+        ["Ceinture noire", "de Luta Livre"],
+        ["Monde · Europe · France", "ses trois podiums"],
+        ["Tatami et cage", "grappling, JJB et MMA"]
+      ],
+      "sections": [
+        {
+          "eyebrow": "Sa méthode",
+          "titre": "La force tranquille.",
+          "textes": [
+            "Au club, on l’appelle « la force tranquille » : calme, méthodique, toujours à l’écoute. Il te rend plus fort, plus complet, plus confiant."
+          ]
+        },
+        {
+          "eyebrow": "Au club",
+          "titre": "Du sol à la cage.",
+          "textes": [
+            "Il encadre le grappling et le jiu-jitsu brésilien, le travail au sol sans frappe, puis le MMA complet dans la cage du club. Il partage ces cours avec Nicolas Tramaçon."
+          ]
+        }
+      ],
+      "photos": [
+        { "src": "/img/team/enzo-pioppo2.jpeg", "alt": "Enzo Pioppo, coach de grappling et de MMA, champion du monde", "legende": "Enzo Pioppo, champion du monde." }
+      ],
+      "faq": [
+        { "q": "Quels titres a Enzo Pioppo ?", "r": "Ceinture noire de Luta Livre, il est champion de France, vice-champion d’Europe et champion du monde." },
+        { "q": "Peut-on faire du grappling avec Enzo sans expérience ?", "r": "Oui : le grappling se pratique sans frappe, et il avance au rythme de chacun." },
+        { "q": "Où Enzo enseigne-t-il le MMA ?", "r": "Dans la cage MMA du Boxing Center Portet, 61 route d’Espagne à Portet-sur-Garonne." }
+      ],
+      "og": { "titre": "Enzo Pioppo", "puces": ["Champion du monde", "Grappling · MMA"] }
+    },
+    "Nicolas Tramaçon": {
+      "slug": "nicolas-tramacon",
+      "nom": "Nicolas Tramaçon",
+      "avec": "Nicolas",
+      "titre": "Nicolas Tramaçon, coach MMA et grappling à Portet",
+      "description": "Nicolas Tramaçon, BPJEPS Sports de contact, encadre le MMA et le grappling au Boxing Center Portet : technicien rigoureux, compétiteur dans l’âme.",
+      "poste": "Coach de MMA et de grappling",
+      "h1": "Nicolas Tramaçon,",
+      "h1Tint": "coach MMA et grappling.",
+      "eyebrow": "MMA · Grappling",
+      "lead": "Diplômé du BPJEPS Sports de contact, Nicolas Tramaçon encadre le MMA et le grappling au Boxing Center Portet.",
+      "tarif": "Offre Rentrée",
+      "photo": { "src": "/img/team/cards/card-nicolas-tramacon-haut.jpg", "alt": "Nicolas Tramaçon, coach de MMA et de grappling au Boxing Center Portet" },
+      "diplomes": ["BPJEPS mention Sports de contact"],
+      "titres": [],
+      "devise": "",
+      "faits": [
+        ["BPJEPS", "Sports de contact"],
+        ["Tatami et cage", "grappling et MMA"],
+        ["Compétiteur", "l’expérience du haut niveau"]
+      ],
+      "sections": [
+        {
+          "eyebrow": "Au club",
+          "titre": "Deux disciplines, un binôme.",
+          "textes": [
+            "Il partage le grappling et le MMA avec Enzo Pioppo : le sol sans frappe sur le tatami, puis le MMA complet dans la cage du club."
+          ]
+        },
+        {
+          "eyebrow": "Sa méthode",
+          "titre": "La rigueur du compétiteur.",
+          "textes": [
+            "Technicien rigoureux, compétiteur dans l’âme : il met son expérience du haut niveau au service de chacun, sur le tatami comme dans la cage."
+          ]
+        }
+      ],
+      "photos": [],
+      "faq": [
+        { "q": "Quel diplôme a Nicolas Tramaçon ?", "r": "Le BPJEPS mention Sports de contact, le diplôme d’État des sports de combat." },
+        { "q": "Quels cours Nicolas encadre-t-il ?", "r": "Le MMA et le grappling, avec Enzo Pioppo, au Boxing Center Portet." },
+        { "q": "Faut-il être compétiteur pour s’entraîner avec lui ?", "r": "Non : il met son expérience du haut niveau au service de chacun, débutants compris." }
+      ],
+      "og": { "titre": "Nicolas Tramaçon", "puces": ["BPJEPS Sports de contact", "MMA · Grappling"] }
+    },
+    "Mourad & Ingrid": {
+      "slug": "mourad-ingrid",
+      "nom": "Mourad et Ingrid",
+      "avec": "Mourad et Ingrid",
+      "pluriel": true,
+      "titre": "Mourad et Ingrid, coachs enfants et ados à Portet",
+      "description": "Mourad et Ingrid encadrent la boxe anglaise et le kick-boxing des enfants et ados au Boxing Center Portet. Mourad : triple champion de France.",
+      "poste": "Coachs de boxe anglaise et de kick-boxing, enfants et ados",
+      "h1": "Mourad et Ingrid,",
+      "h1Tint": "les coachs des jeunes.",
+      "eyebrow": "Boxe anglaise · Kick-boxing · Enfants et ados",
+      "lead": "Aux côtés de Valentin Tapia et de Samuel Pinto, Mourad et Ingrid accompagnent les enfants et les ados du Boxing Center Portet, pour les aider à devenir meilleurs, dans le sport comme dans la vie.",
+      "tarif": "Enfants / Ados",
+      "photo": { "src": "/img/team/cards/card-mourad-ingrid-haut.jpg", "alt": "Mourad et Ingrid, coachs de boxe anglaise et de kick-boxing enfants et ados au Boxing Center Portet" },
+      "diplomes": [],
+      "titres": [],
+      "devise": "",
+      "personnes": [
+        { "nom": "Mourad Berraho", "poste": "Coach de boxe anglaise et de kick-boxing, enfants et ados", "titres": ["Triple champion de France", "Membre de l’Équipe de France"] },
+        { "nom": "Ingrid", "poste": "Coach de boxe anglaise et de kick-boxing, enfants et ados", "titres": [] }
+      ],
+      "faits": [
+        ["3 fois", "champion de France, pour Mourad"],
+        ["Équipe de France", "Mourad y a été sélectionné"],
+        ["Enfants et ados", "boxe anglaise et kick-boxing"]
+      ],
+      "sections": [
+        {
+          "eyebrow": "Mourad",
+          "titre": "Formé ici, il transmet ici.",
+          "textes": [
+            "Mourad Berraho a été formé au club par Valentin Tapia. Triple champion de France, sélectionné en Équipe de France, il a disputé les Championnats d’Europe et la Coupe du Monde.",
+            "En parallèle de sa carrière, il transmet son expérience aux plus jeunes du club."
+          ]
+        },
+        {
+          "eyebrow": "Ingrid",
+          "titre": "Aux côtés des jeunes.",
+          "textes": [
+            "Ingrid encadre avec Mourad les cours de boxe anglaise et de kick-boxing des enfants et des ados, en équipe avec Valentin Tapia et Samuel Pinto."
+          ]
+        }
+      ],
+      "photos": [
+        { "src": "/img/team/mourad-berraho.jpg", "alt": "Mourad Berraho au sparring — Boxing Center Portet", "legende": "Mourad Berraho, au sparring." },
+        { "src": "/img/team/walkout-ecole.jpg", "alt": "Entrée des jeunes boxeurs de l’école de boxe de Portet-sur-Garonne", "legende": "L’entrée des jeunes boxeurs de l’école." }
+      ],
+      "faq": [
+        { "q": "Qui est Mourad, coach des enfants à Portet ?", "r": "Mourad Berraho, formé au club par Valentin Tapia : triple champion de France et membre de l’Équipe de France, il encadre aujourd’hui les enfants et les ados." },
+        { "q": "À partir de quel âge les enfants peuvent-ils boxer à Portet ?", "r": "La Baby Boxe accueille les enfants dès 3 ans, la boxe éducative prend le relais dès 7 ans, et le kick-boxing est ouvert aux enfants et aux ados." },
+        { "q": "Combien coûte l’inscription des enfants ?", "r": "L’inscription Enfants / Ados est de 295 € par an, t-shirt officiel du club inclus. La Baby Boxe est à 250 € par an." }
+      ],
+      "og": { "titre": "Mourad et Ingrid", "puces": ["Enfants et ados", "Mourad : 3 fois champion de France"] }
+    }
+  }
+}

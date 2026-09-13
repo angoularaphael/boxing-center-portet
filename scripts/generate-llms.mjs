@@ -10,6 +10,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
 import { pagesDisciplines, creneaux, joursEnMots, remplir } from "./disciplines-lib.mjs";
 const PAGES_D = pagesDisciplines().map((p) => { const j = joursEnMots(creneaux(p, C)); return { ...p, jours: j, resume: remplir(p.description, j) }; });
+/* Une page par coach : son parcours, ses diplômes, ses disciplines, ses questions. */
+const PAGES_C = Object.values(JSON.parse(readFileSync(join(ROOT, "src/coachs.json"), "utf8")).pages);
 const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
 const s = C.site || {};
@@ -130,6 +132,7 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 ${PAGES_D.map((p) => `- ${p.nom} : ${SITE}/activites/${p.slug}/`).join("\n")}
 - Le club : ${SITE}/salles/
 - Coachs : ${SITE}/coachs/
+${PAGES_C.map((p) => `- ${p.nom}, ${p.poste.charAt(0).toLowerCase()}${p.poste.slice(1)} : ${SITE}/coachs/${p.slug}/`).join("\n")}
 - Nos Boxeurs : ${SITE}/boxeurs/
 - Galerie : ${SITE}/galerie/
 - Planning : ${SITE}/plannings/
@@ -167,6 +170,10 @@ ${(C.disciplines || []).map((d) => `### ${d.name} (${d.tag})\n${d.desc}`).join("
 ## Pages disciplines (une page par discipline)
 
 ${PAGES_D.map((p) => `### ${p.nom}\nPage : ${SITE}/activites/${p.slug}/\n${p.resume}\n${p.jours ? `Créneaux au planning en vigueur : ${p.jours}.` : "Créneaux : au retour du double planning, dès l’installation du nouveau matériel."}`).join("\n\n")}
+
+## Pages des coachs (une page par coach)
+
+${PAGES_C.map((p) => `### ${p.nom}\nPage : ${SITE}/coachs/${p.slug}/\n${p.description}`).join("\n\n")}
 
 ## Publics
 

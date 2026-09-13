@@ -195,6 +195,11 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 - Kick-boxing enfants et ados : https://boxing-center-portet.fr/activites/kick-boxing-enfants-ados/
 - Le club : https://boxing-center-portet.fr/salles/
 - Coachs : https://boxing-center-portet.fr/coachs/
+- Valentin Tapia, head coach et responsable sportif, boxe anglaise : https://boxing-center-portet.fr/coachs/valentin-tapia/
+- Samuel Pinto, coach de kick-boxing, K1, boxe française et préparation physique : https://boxing-center-portet.fr/coachs/samuel-pinto/
+- Enzo Pioppo, coach de grappling, jiu-jitsu brésilien et MMA : https://boxing-center-portet.fr/coachs/enzo-pioppo/
+- Nicolas Tramaçon, coach de MMA et de grappling : https://boxing-center-portet.fr/coachs/nicolas-tramacon/
+- Mourad et Ingrid, coachs de boxe anglaise et de kick-boxing, enfants et ados : https://boxing-center-portet.fr/coachs/mourad-ingrid/
 - Nos Boxeurs : https://boxing-center-portet.fr/boxeurs/
 - Galerie : https://boxing-center-portet.fr/galerie/
 - Planning : https://boxing-center-portet.fr/plannings/
