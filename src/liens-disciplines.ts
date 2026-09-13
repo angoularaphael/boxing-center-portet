@@ -31,3 +31,10 @@ export const ouvreCarte = (nom: string) => {
 export const fermeCarte = (nom: string) => (lienDiscipline(nom) ? "a" : "article");
 export const voirCarte = (nom: string, cls: string) =>
   lienDiscipline(nom) ? `<span class="${cls}">Voir la discipline <span aria-hidden="true">→</span></span>` : "";
+
+/**
+ * L'ancre d'une formule sur /tarifs/ : « Baby Boxe » → tarif-baby-boxe.
+ * Même règle dans vite.config.ts (cuisson) et scripts/generate-disciplines.mjs.
+ */
+export const ancreTarif = (nom: string) =>
+  "tarif-" + String(nom || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");

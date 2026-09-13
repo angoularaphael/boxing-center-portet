@@ -5,7 +5,7 @@
  * ambient <audio>) is never destroyed, so sound plays endlessly across pages.
  * Any failure falls back to a normal navigation, so links can never break.
  */
-import { teardownPageScroll, scrollToTop } from "./scroll";
+import { teardownPageScroll, scrollToTop, allerAncre } from "./scroll";
 import { thud, soundOn } from "./audio";
 import { applyTheme, systemTheme } from "./theme";
 import { PREVIEW } from "./data";
@@ -58,6 +58,10 @@ export function initRouter(renderPage: () => void) {
       e.preventDefault();
       
       if (url.pathname === cheminAffiche) {
+        if (url.hash && allerAncre(url.hash, true)) {
+          history.replaceState({}, "", url.href);
+          return;
+        }
         scrollToTop(true);
         return;
       }
@@ -110,7 +114,12 @@ async function go(url: URL, renderPage: () => void, push: boolean) {
        mesure restaure la position précédente. Deux passes suffisent : une après
        le rendu, une après la frame de mise en page. */
     scrollToTop(false);
-    requestAnimationFrame(() => scrollToTop(false));
+    requestAnimationFrame(() => {
+      scrollToTop(false);
+      /* Un lien vers une ancre (/tarifs/#tarif-baby-boxe) arrive sur SA
+         carte, pas en haut de la page. */
+      if (url.hash) requestAnimationFrame(() => allerAncre(url.hash, true));
+    });
 
     if (curtain && !reduced) {
       curtain.classList.remove("curtain--in");

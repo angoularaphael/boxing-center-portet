@@ -1,4 +1,4 @@
-import { ouvreCarte, fermeCarte, voirCarte } from "./liens-disciplines";
+import { ouvreCarte, fermeCarte, voirCarte, ancreTarif } from "./liens-disciplines";
 import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, PLANNING_PROVISOIRE, NOUVELLES_SALLES, SITE, NETWORK_SALLES } from "./data";
 import { submitLead } from "./chatbot/api";
 import { optUrl } from "./img";
@@ -83,7 +83,7 @@ export function renderPage(page: string | undefined) {
     if (g)
       g.innerHTML = TARIFS.map(
         (t: any) => `
-        <div class="tarif ${t.feature ? "tarif--feature" : ""}" data-reveal>
+        <div class="tarif ${t.feature ? "tarif--feature" : ""}" id="${ancreTarif(t.name)}" data-reveal>
           ${t.badge ? `<span class="tarif__badge">${t.badge}</span>` : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : ""}
           <span class="tarif__name">${t.name}</span>
           <span class="tarif__price">${t.old ? `<s class="tarif__old">${t.old}</s> ` : ""}${t.price}<small> ${t.unit}</small></span>

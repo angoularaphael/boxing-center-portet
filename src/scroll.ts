@@ -51,6 +51,46 @@ export function scrollToTop(smooth = false) {
   }
 }
 
+/**
+ * Va sur l'élément d'une ancre (#tarif-baby-boxe) et, si c'est une formule, la
+ * fait signe. Renvoie false quand l'ancre n'existe pas sur la page.
+ */
+export function allerAncre(hash: string, smooth = true): boolean {
+  let el: HTMLElement | null = null;
+  try { el = document.getElementById(decodeURIComponent(String(hash || "").replace(/^#/, ""))); } catch {}
+  if (!el) return false;
+  const offset = -Math.round(Math.min(150, Math.max(96, window.innerHeight * 0.16)));
+  /* Lenis garde en cache la hauteur de page : juste après le rideau (html.gated,
+     hauteur 100 %) elle vaut encore 0 et le défilement était ramené en haut. */
+  if (lenis) { (lenis as any).resize?.(); lenis.scrollTo(el, { offset, immediate: !smooth, duration: 1.1, force: true }); }
+  else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: smooth && !reduced ? "smooth" : "auto" });
+  if (el.classList.contains("tarif")) {
+    el.classList.remove("tarif--vise");
+    void el.offsetWidth;
+    el.classList.add("tarif--vise");
+  }
+  return true;
+}
+
+/**
+ * Arrivée directe sur une URL à ancre (un lien depuis un autre site, un
+ * favori) : on attend que le rideau d'entrée soit levé — html.gated bloque le
+ * défilement —, puis on y va.
+ */
+export function allerAncreAuChargement() {
+  const hash = location.hash;
+  if (!hash || hash.length < 2) return;
+  const debut = performance.now();
+  const essai = () => {
+    if (document.documentElement.classList.contains("gated") && performance.now() - debut < 12000) {
+      window.setTimeout(essai, 150);
+      return;
+    }
+    requestAnimationFrame(() => allerAncre(hash, true));
+  };
+  window.setTimeout(essai, 250);
+}
+
 /** Wire everything bound to the CURRENT page's DOM. Re-run after a soft swap. */
 export function initPageScroll() {
   initNav();

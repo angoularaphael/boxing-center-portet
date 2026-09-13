@@ -278,7 +278,6 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   font-size: clamp(1.1rem, 2.4vw, 1.7rem); max-width: 30ch; margin-inline: auto; color: var(--fg);
   text-wrap: balance; }
 .hero__hook .tint { color: var(--accent); }
-.hero__tagline { max-width: 48ch; margin-inline: auto; color: var(--muted); text-align: center; line-height: 1.55; }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
 .hero__scroll { position: relative; z-index: 2; justify-content: center; }
 
@@ -435,8 +434,8 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .disc__desc { color: var(--muted); font-size: 0.95rem; }
 .disc--img { padding: 0; min-height: 0; }
 .disc__media {
-  height: 168px;
-  background: var(--disc-img) center/cover no-repeat;
+  aspect-ratio: 1 / 1;
+  background: var(--disc-img) center 38% / cover no-repeat;
   filter: grayscale(0.3) brightness(0.75);
   transition: filter 0.45s ease, transform 0.5s ease;
 }
@@ -446,6 +445,28 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .disc--img .disc__top { padding-top: 1rem; }
 .disc--img > div:last-child { padding-bottom: clamp(1.4rem, 2.4vw, 2rem); }
 .disc--img .disc__name { margin-top: 0.8rem; }
+
+/* LA GRILLE DES NEUF (page Activités) — plus de case vide, plus de têtes
+   coupées. En auto-fill, neuf cartes laissaient une carte seule sur la
+   dernière rangée et un grand vide à côté. La première, la boxe anglaise — la
+   discipline mère du club —, prend toute la rangée, à l'horizontale ; les huit
+   autres tombent juste, en 4 colonnes comme en 2. Les photos sont des
+   portraits (4:5) : une bande de 168 px leur coupait la tête, le carré les
+   montre, et la carte large les montre entières. */
+#act-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#act-grid > :first-child { grid-column: 1 / -1; }
+@media (max-width: 1099px) { #act-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 619px) { #act-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 620px) {
+  #act-grid > .disc--img:first-child { display: grid; grid-template-columns: minmax(240px, 32%) minmax(0, 1fr);
+    grid-template-rows: auto 1fr; }
+  #act-grid > .disc--img:first-child .disc__media { grid-row: 1 / span 2; aspect-ratio: 4 / 5; background-position: center; }
+  #act-grid > .disc--img:first-child .disc__top { padding: clamp(1.4rem, 3vw, 2.6rem) clamp(1.6rem, 3.4vw, 3.2rem) 0; }
+  #act-grid > .disc--img:first-child > div:last-child { align-self: end;
+    padding: 1.4rem clamp(1.6rem, 3.4vw, 3.2rem) clamp(1.6rem, 3.4vw, 3rem); }
+  #act-grid > :first-child .disc__name { font-size: clamp(2.6rem, 5.4vw, 5rem); margin-bottom: 1rem; }
+  #act-grid > :first-child .disc__desc { font-size: 1.1rem; max-width: 46ch; }
+}
 
 /* ============================== AUDIENCES (pour qui) ============================== */
 .aud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
@@ -490,6 +511,12 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
   display: flex; flex-direction: column; gap: 0.6rem; position: relative; transition: transform var(--t-fast) var(--ease-out); }
 .tarif:hover { transform: translateY(-6px); }
 .tarif--feature { border-color: var(--accent); background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 12%, var(--bg-1)), var(--bg-1)); }
+/* Une formule se vise : /tarifs/#tarif-baby-boxe arrive sur SA carte, et la carte le montre. */
+.tarif { scroll-margin-top: clamp(96px, 16vh, 150px); }
+.tarif:target, .tarif--vise { border-color: var(--accent); animation: tarifVise 1.4s var(--ease-out) 0.35s 2; }
+@keyframes tarifVise { 0% { box-shadow: 0 0 0 0 var(--glow); } 60% { box-shadow: 0 0 0 14px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+a.tarif { color: inherit; text-decoration: none; }
+.dp-tarifs--seul { grid-template-columns: minmax(0, 520px); }
 .tarif__badge { position: absolute; top: -11px; left: 1.8rem; background: var(--accent); color: var(--accent-ink);
   font-size: 0.66rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.14em;
   padding: 0.35em 0.8em; border-radius: 999px; }
@@ -873,24 +900,19 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .gate {
   position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; text-align: center;
   background: radial-gradient(ellipse 120% 90% at 50% 55%, #141f38 0%, #0a1020 45%, #060a14 100%);
-  transition: opacity 1.1s var(--ease-io);
+  /* Le rideau se lève d'un seul tenant. Durée = DUREE_LEVER dans enter.ts. */
+  transition: transform 0.95s cubic-bezier(0.76, 0, 0.24, 1);
   overflow: hidden;
 }
-.gate--entering .gate__inner { animation: gateZoomIn 0.75s var(--ease-io) forwards; }
-.gate--entering .gate__spotlight { animation: spotlightBurst 0.75s var(--ease-out) forwards; }
-.gate--entering .gate__ring-host { animation: ringRush 0.75s var(--ease-io) forwards; }
-.gate--entering .gate__flash { animation: gateFlashBurst 0.75s var(--ease-out) forwards; }
-.gate--out { opacity: 0; pointer-events: none; }
-
-.gate__flash {
-  position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0;
-  background: radial-gradient(circle at 50% 42%, rgba(238, 241, 246, 0.95) 0%, rgba(174, 188, 207, 0.4) 35%, transparent 70%);
-}
-@keyframes gateFlashBurst {
-  0% { opacity: 0; transform: scale(0.6); }
-  35% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.8); }
-}
+/* Le bas du rideau : un fil d'accent, visible pendant qu'il monte. */
+.gate::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; z-index: 6; pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--accent) 18%, var(--accent) 82%, transparent);
+  box-shadow: 0 0 22px var(--glow); opacity: 0; transition: opacity 0.25s; }
+.gate--leve { transform: translateY(-100%); pointer-events: none; }
+.gate--leve::after { opacity: 1; }
+.gate--leve .gate__inner { animation: gateMonte 0.95s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+.gate--leve .gate__ring-host { animation: ringRush 0.95s var(--ease-io) forwards; }
+@keyframes gateMonte { to { opacity: 0; transform: translateY(-16vh); } }
 @keyframes ringRush {
   0% { opacity: 0.55; transform: scale(1); filter: blur(0); }
   100% { opacity: 0; transform: scale(2.2) translateY(-12%); filter: blur(6px); }
@@ -944,20 +966,6 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 
 .gate__kicker { font-family: var(--font-mono); letter-spacing: 0.32em; text-transform: uppercase;
   font-size: 0.68rem; color: var(--muted); }
-.gate__enter { display: inline-flex; align-items: center; gap: 0.7em; margin-top: 0.6rem; padding: 1.05em 2.1em;
-  border: 1px solid var(--accent); border-radius: 999px; color: var(--fg); font-family: var(--font-cond);
-  text-transform: uppercase; letter-spacing: 0.08em; font-size: 1.05rem; cursor: pointer;
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  transition: background 0.3s, color 0.3s, transform 0.3s var(--ease-out); }
-.gate__enter:hover { background: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
-.gate__hint { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
-/* 118 x 18 px, juste sous un bouton de 64 : c'est la SEULE porte de sortie de
-   l'intro pour quelqu'un qui ne veut pas de son, et elle faisait la moitie
-   d'une cible tactile. Un bouton qu'on rate trois fois, on l'abandonne. */
-.gate__silent { color: var(--fg-soft); text-decoration: underline;
-  text-underline-offset: 3px; cursor: pointer; background: none; border: 0;
-  font: inherit; display: inline-flex; align-items: center;
-  min-height: 44px; padding-inline: 12px; }
 .gate__loader { display: flex; align-items: center; gap: 0.7rem; width: min(300px, 72vw); margin-top: 0.5rem; }
 .gate__bar { flex: 1; height: 3px; background: var(--line-strong); overflow: hidden; border-radius: 2px; position: relative; }
 .gate__bar i { display: block; height: 100%; width: 0;
@@ -966,11 +974,6 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .gate__bar::after { content: ""; position: absolute; inset: 0; width: 38%; pointer-events: none;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent); animation: gateShine 1.4s var(--ease-io) infinite; }
 .gate__pct { font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); min-width: 3.4ch; text-align: right; }
-.gate__enter[disabled] { opacity: 0.45; cursor: progress; }
-.gate__enter[disabled]:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--fg); transform: none; }
-.gate--ready .gate__enter { animation: gatePulse 2.2s var(--ease-io) infinite; }
-@keyframes gatePulse { 0%, 100% { box-shadow: 0 0 0 0 var(--glow); } 50% { box-shadow: 0 0 0 9px transparent; } }
-.gate__silent[disabled] { opacity: 0.4; pointer-events: none; }
 .gate__phase { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--muted); min-height: 1.1em; transition: color 0.3s; }
 .gate--ready .gate__bar::after { display: none; }
@@ -978,8 +981,10 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 @keyframes gateShine { 0% { transform: translateX(-120%); } 100% { transform: translateX(340%); } }
 @media (prefers-reduced-motion: reduce) {
   .gate__bar::after, .gate__spotlight { animation: none !important; }
+  .gate { transition: opacity 0.3s ease; }
+  .gate--leve { transform: none; opacity: 0; }
+  .gate--leve .gate__inner, .gate--leve .gate__ring-host { animation: none; }
   .gate__ring-host { display: none; }
-  .gate__flash { display: none; }
 }
 
 /* ============================== PAGE CURTAIN ============================== */
@@ -1877,8 +1882,8 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
 .cta-block .dp-actions .btn { margin-top: 0; }
 .dp-photo { margin: 0; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden;
   border: 1px solid var(--line); background: var(--bg-2); }
-.dp-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.dp-valeurs, .dp-publics, .dp-planning, .dp-coachs, .dp-galerie, .dp-voisines { margin-top: 2.4rem; }
+.dp-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+.dp-valeurs, .dp-publics, .dp-planning, .dp-tarifs, .dp-coachs, .dp-galerie, .dp-voisines { margin-top: 2.4rem; }
 .dp-vide { margin-top: 2rem; max-width: 62ch; padding: 1.4rem 1.6rem; border: 1px dashed var(--line-strong, var(--line));
   border-radius: var(--radius-lg); color: var(--fg-soft, var(--muted)); }
 .dp-lien { margin-top: 1.4rem; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; }
@@ -1892,9 +1897,11 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
 .dp-coachs .tcard__body { padding: 1.2rem 1.3rem 1.4rem; display: grid; gap: 0.4rem; }
 .dp-coachs .tcard__role { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
 .dp-coachs .tcard__desc { color: var(--muted); font-size: 0.93rem; }
-.dp-galerie { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+/* Deux photos, deux formats : chaque colonne prend la largeur de SON ratio (--cols, écrit au build),
+   les deux images ont la même hauteur, et aucune n'est recadrée. */
+.dp-galerie { display: grid; grid-template-columns: var(--cols, repeat(2, minmax(0, 1fr))); gap: 1rem; align-items: start; }
 .dp-galerie__item { margin: 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
-.dp-galerie__item img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.dp-galerie__item img { display: block; width: 100%; height: auto; }
 .dp-galerie__item figcaption { padding: 0.8rem 1rem; font-family: var(--font-mono); font-size: 0.72rem;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .dp-infos { display: grid; gap: 1px; margin: 2.4rem 0 0; background: var(--line); border: 1px solid var(--line);
@@ -1906,7 +1913,7 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
 .dp-infos a { color: var(--accent); }
 @media (max-width: 1100px) {
   .dp-tete__grille { grid-template-columns: 1fr; }
-  .dp-photo { aspect-ratio: 16 / 10; max-width: 760px; }
+  .dp-photo { aspect-ratio: 1 / 1; max-width: 560px; }
 }
 @media (max-width: 640px) {
   .dp-galerie { grid-template-columns: 1fr; }

@@ -118,6 +118,8 @@ function seoBakePlugin() {
            (idempotent), et le visiteur sans JavaScript voit les prix. */
         if (Array.isArray(content.tarifs) && content.tarifs.length) {
           const esc = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          /* L'ancre de la formule (#tarif-baby-boxe) : les pages de discipline y renvoient. */
+          const ancre = (nom: string) => "tarif-" + String(nom || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
           const cartes = content.tarifs.map((t: any) => {
             const badge = t.badge ? `<span class="tarif__badge">${esc(t.badge)}</span>`
               : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : "";
@@ -125,7 +127,7 @@ function seoBakePlugin() {
             const cta = t.href
               ? `<a class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta" href="${esc(t.href)}" target="_blank" rel="noopener">${esc(t.cta || "Je choisis cette formule")}</a>`
               : "";
-            return `<div class="tarif ${t.feature ? "tarif--feature" : ""}" data-reveal>${badge}`
+            return `<div class="tarif ${t.feature ? "tarif--feature" : ""}" id="${ancre(t.name)}" data-reveal>${badge}`
               + `<span class="tarif__name">${esc(t.name)}</span>`
               + `<span class="tarif__price">${vieux}${esc(t.price)}<small> ${esc(t.unit || "")}</small></span>`
               + `<p class="tarif__note">${esc(t.note || "")}</p>${cta}</div>`;

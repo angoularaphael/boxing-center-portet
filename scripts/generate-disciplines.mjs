@@ -25,6 +25,16 @@ const GABARIT = readFileSync(join(ROOT, "activites", "index.html"), "utf8");
 
 const e = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/* L'ancre d'une formule sur /tarifs/ — même règle que src/liens-disciplines.ts. */
+const ancreTarif = (nom) => "tarif-" + String(nom || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const versTarif = (t) => `/tarifs/#${ancreTarif(t.name)}`;
+/* Le bouton dit ce qu'il ouvre : « Voir le tarif Baby Boxe », « Voir l’Offre Rentrée ». */
+const voirTarif = (t) => (/^offre\b/i.test(t.name) ? `Voir l’${t.name}`
+  : /^saison\b/i.test(t.name) ? `Voir l’offre ${t.name}` : `Voir le tarif ${t.name}`);
+const boutonTarif = (t, cls = "btn btn--primary") => (t
+  ? `<a class="${cls}" href="${versTarif(t)}">${e(voirTarif(t))}</a>`
+  : `<a class="${cls}" href="/tarifs/">Les tarifs</a>`);
+
 /** <img> avec ses variantes WebP quand le manifeste les connaît. */
 function img(src, alt, sizes, { eager = false, cls = "" } = {}) {
   const m = MANIFESTE[src];
@@ -132,6 +142,7 @@ function corps(p, liste) {
   const a = site.address || {};
   const coachs = (C.team || []).filter((m) => (p.coachs || []).some((n) => norm(m.name).startsWith(norm(n))));
   const tarifs = (C.tarifs || []).filter((t) => (p.tarifs || []).includes(t.name));
+  const premier = tarifs[0];
   const sections = [];
 
   sections.push(`
@@ -143,7 +154,8 @@ function corps(p, liste) {
         <h1 class="display"><span class="reveal-line"><span>${e(p.h1)}</span></span><span class="reveal-line"><span>à <span class="tint">Portet-sur-Garonne.</span></span></span></h1>
         <p class="lead">${e(p.leadFinal)}</p>
         <div class="dp-actions">
-          <a class="btn btn--primary" href="/premiere-seance/">Ta première séance</a>
+          ${boutonTarif(premier)}
+          <a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a>
           <a class="btn btn--ghost" href="/plannings/">Tout le planning</a>
         </div>
       </div>
@@ -201,6 +213,33 @@ function corps(p, liste) {
     </div>
   </section>`);
 
+  /* LES FORMULES DE LA DISCIPLINE — chaque carte mène à SA formule sur
+     /tarifs/ (ancre), où se trouve le bouton de paiement. La page tarifs
+     reste le seul endroit où l'on paie : on y envoie, on n'y double rien. */
+  if (tarifs.length) sections.push(`
+  <section class="section" id="formules">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div>
+          <span class="eyebrow">Les tarifs</span>
+          <h2 class="display" style="margin-top:1rem">${tarifs.length > 1 ? "Ta formule." : "L’inscription."}</h2>
+        </div>
+        <p class="lead">${tarifs.length > 1
+          ? "Chaque formule ouvre toutes les disciplines du club. Le détail et le paiement se font sur la page Tarifs."
+          : "L’inscription se fait pour la saison. Le détail et le paiement se font sur la page Tarifs."}</p>
+      </div>
+      <div class="tarifs dp-tarifs${tarifs.length === 1 ? " dp-tarifs--seul" : ""}" data-reveal-group>
+        ${tarifs.map((t) => `<a class="tarif${t.feature ? " tarif--feature" : ""}" href="${versTarif(t)}" data-reveal>`
+          + (t.badge ? `<span class="tarif__badge">${e(t.badge)}</span>` : "")
+          + `<span class="tarif__name">${e(t.name)}</span>`
+          + `<span class="tarif__price">${t.old ? `<s class="tarif__old">${e(t.old)}</s> ` : ""}${e(t.price)}<small> ${e(t.unit || "")}</small></span>`
+          + `<p class="tarif__note">${e(t.note || "")}</p>`
+          + `<span class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta">${e(voirTarif(t))} <span aria-hidden="true">→</span></span></a>`).join("\n        ")}
+      </div>
+      <p class="dp-lien"><a href="/tarifs/">Toutes les formules du club →</a></p>
+    </div>
+  </section>`);
+
   if (coachs.length) sections.push(`
   <section class="section">
     <div class="wrap">
@@ -226,7 +265,7 @@ function corps(p, liste) {
           <h2 class="display" style="margin-top:1rem">Au club.</h2>
         </div>
       </div>
-      <div class="dp-galerie">
+      <div class="dp-galerie" style="--cols: ${p.photos.map((ph) => `minmax(0, ${(MANIFESTE[ph.src]?.ar || 1.5).toFixed(3)}fr)`).join(" ")}">
         ${p.photos.map((ph) => `<figure class="dp-galerie__item" data-reveal>${img(ph.src, ph.alt, "(max-width: 760px) 100vw, 50vw")}<figcaption>${e(ph.legende)}</figcaption></figure>`).join("\n        ")}
       </div>
     </div>
@@ -287,7 +326,7 @@ function corps(p, liste) {
     <div class="wrap"><div class="cta-block" data-reveal>
       <h2 class="display" style="margin-bottom:.6rem">Le plus dur, <span class="tint">c’est de pousser la porte.</span></h2>
       <p class="lead" style="margin-inline:auto">La première séance est faite pour découvrir : tu viens avec une tenue de sport, le coach s’occupe du reste.</p>
-      <div class="dp-actions dp-actions--centre"><a class="btn btn--primary" href="/premiere-seance/">Ta première séance</a><a class="btn btn--ghost" href="/tarifs/">Les tarifs</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
+      <div class="dp-actions dp-actions--centre">${boutonTarif(premier)}<a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
     </div></div>
   </section>`);
 

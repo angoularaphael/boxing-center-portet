@@ -8,6 +8,7 @@ import { renderPage } from "./pages";
 import { ouvreCarte, fermeCarte, voirCarte } from "./liens-disciplines";
 import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
+import { allerAncreAuChargement } from "./scroll";
 import { initCommunity } from "./community";
 import { initPlaces } from "./places";
 import { mountEmbersOnPageHead } from "./three/embers";
@@ -405,6 +406,7 @@ function boot() {
   bootOnce();
   bootPage();
   initRouter(bootPage);
+  allerAncreAuChargement();
   if (import.meta.env.PROD) initGuard(); // anti-copie (jamais en dev)
 
   // offline / repeat-visit cache — registered after load so it never competes
