@@ -196,11 +196,10 @@ function seoBakePlugin() {
         /* GEO + MAILLAGE : les crawlers légers et les visiteurs sans JS doivent
            recevoir la navigation et le pied de page, pas deux conteneurs vides.
            mountLayout remplace ces replis à l'identique quand JavaScript démarre. */
-        if (!html.includes('href="/llms.txt"')) {
-          html = html.replace("</head>", `  <link rel="alternate" type="text/plain" href="/llms.txt" title="Informations pour assistants IA" />\n  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />\n</head>`);
-        } else if (!html.includes('href="/llms-full.txt"')) {
-          html = html.replace("</head>", `  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Fiche complète pour assistants IA" />\n</head>`);
-        }
+        /* Intentionnel : plus de rel=alternate vers llms.txt.
+           Google les crawlait comme des variantes de pages
+           (« Explorée, actuellement non indexée »). Les fichiers restent
+           servis pour les IA, avec X-Robots-Tag: noindex. */
         const site = content.site || {};
         const addr = site.address || {};
         const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33956653782">${site.phone || "09 56 65 37 82"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;

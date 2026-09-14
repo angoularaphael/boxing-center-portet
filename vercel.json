@@ -264,6 +264,26 @@
       ]
     },
     {
+      "source": "/plannings",
+      "has": [{ "type": "query", "key": "disc" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
+      "source": "/plannings/",
+      "has": [{ "type": "query", "key": "disc" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
+      "source": "/plannings",
+      "has": [{ "type": "query", "key": "jour" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
+      "source": "/plannings/",
+      "has": [{ "type": "query", "key": "jour" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]
+    },
+    {
       "source": "/ai.txt",
       "headers": [
         {
