@@ -24,6 +24,9 @@ const scrollY = () => (lenis ? (lenis as any).scroll : window.scrollY);
 export function initScroll() {
   if (started) return lenis;
   started = true;
+  /* le rideau parti, la page retrouve sa hauteur (overflow: hidden retiré) :
+     les déclencheurs mesurés pendant le rideau seraient faux */
+  window.addEventListener("bcp:rideau-parti", () => ScrollTrigger.refresh());
   if (!reduced) {
     lenis = new Lenis({ duration: 1.15, smoothWheel: true, lerp: 0.1 });
     lenis.on("scroll", (e: any) => {

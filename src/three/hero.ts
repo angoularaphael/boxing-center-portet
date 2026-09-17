@@ -215,6 +215,7 @@ export async function initHero(container: HTMLElement) {
   const posAttr = geo.getAttribute("position") as THREE.BufferAttribute;
 
   let raf = 0;
+  let verrouille = false;
   function frame() {
     if (!container.isConnected) {
       cancelAnimationFrame(raf);
@@ -237,9 +238,19 @@ export async function initHero(container: HTMLElement) {
        prise trop tôt faisait se former le mot-symbole DERRIÈRE le rideau —
        le visiteur ratait alors le seul moment qui accroche. html.gated est
        posé par initEnterGate et retiré à l'entrée : c'est la vérité. */
-    if (!clock.running && !document.documentElement.classList.contains("gated")) clock.start();
+    if (!clock.running && !document.documentElement.classList.contains("gated")) {
+      clock.start();
+      /* les particules partent : le whoosh (audio.ts), et la fenêtre du
+         mot-symbole s'ouvre (main.ts) */
+      try { window.dispatchEvent(new Event("bcp:crest-debut")); } catch {}
+    }
     if (!clock.running) return;   // rideau encore là : les particules restent éparpillées
     const t = clock.getElapsedTime();
+    if (!verrouille && t >= FORM) {
+      verrouille = true;
+      /* le mot se verrouille : le boom, et les scènes 3D peuvent se monter */
+      try { window.dispatchEvent(new Event("bcp:crest")); } catch {}
+    }
 
     // assemble
     const arr = posAttr.array as Float32Array;

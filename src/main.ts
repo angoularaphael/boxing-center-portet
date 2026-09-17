@@ -305,9 +305,52 @@ const hasWebGL = "WebGLRenderingContext" in window && !liteMode;
    Save-Data / 2G, c'est-a-dire le profil Android d'entree de gamme. */
 document.documentElement.classList.toggle("no-webgl", !hasWebGL);
 
+/* LA FENÊTRE DU MOT-SYMBOLE (Eddy, 17/09 : « le site lague »). Mesuré en
+   ligne : chaque scène 3D (vitrine, ring, portails, forge) compile ses
+   shaders en 150 à 400 ms d'un bloc, et les premières le faisaient PENDANT
+   les 2,6 s où le mot-symbole se forme — la formation bégayait. Règle :
+   tant que le mot-symbole n'est pas verrouillé (bcp:crest, ou 3,5 s après
+   la levée du rideau), aucune scène ne se monte ; ensuite elles se montent
+   UNE PAR UNE, chacune à un moment de repos du navigateur — jamais deux
+   compilations dans la même image. Sur ordinateur, les scènes restantes se
+   montent d'avance, dans l'ordre de la page : on ne compile plus rien
+   pendant un défilement. Sur téléphone, elles restent paresseuses (mémoire). */
+type Scene3D = { run: () => Promise<unknown>; faite: boolean };
+const scenes3D: Scene3D[] = [];
+const file3D: Scene3D[] = [];
+let fenetreMotSymbole = false;
+let pompe3D = false;
+const auRepos = (fn: () => void, timeout = 900) => {
+  const ric = (window as any).requestIdleCallback;
+  if (typeof ric === "function") ric(fn, { timeout }); else window.setTimeout(fn, 120);
+};
+function pomper3D() {
+  if (fenetreMotSymbole || pompe3D) return;
+  const s = file3D.shift();
+  if (!s) return;
+  if (s.faite) { pomper3D(); return; }
+  pompe3D = true;
+  s.faite = true;
+  auRepos(() => { Promise.resolve(s.run()).finally(() => auRepos(() => { pompe3D = false; pomper3D(); })); });
+}
+function ouvrirFenetre3D() {
+  if (!fenetreMotSymbole) return;
+  fenetreMotSymbole = false;
+  if (window.innerWidth >= 1024) scenes3D.forEach((s) => { if (!s.faite && !file3D.includes(s)) file3D.push(s); });
+  pomper3D();
+}
+function armerFenetre3D() {
+  fenetreMotSymbole = document.documentElement.classList.contains("gated");
+  if (!fenetreMotSymbole) return;
+  window.addEventListener("bcp:crest", ouvrirFenetre3D, { once: true });
+  window.addEventListener("bcp:entre", () => window.setTimeout(ouvrirFenetre3D, 3500), { once: true });
+}
+
 function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void) {
   if (!el) return;
-  const run = () => loader().then(init).catch(() => {});
+  const scene: Scene3D = { run: () => loader().then(init).catch(() => {}), faite: false };
+  scenes3D.push(scene);
+  const run = () => { if (!scene.faite && !file3D.includes(scene)) file3D.push(scene); pomper3D(); };
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
@@ -394,6 +437,7 @@ function bootPage() {
 /** Persistent shell — created once; survives soft navigation. */
 function bootOnce() {
   initEnterGate();
+  armerFenetre3D();   // juste après le rideau : c'est lui qui pose html.gated
   mountLayout();
   mountPiege();
   initThemeSwitch();

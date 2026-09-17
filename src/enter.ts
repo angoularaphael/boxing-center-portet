@@ -1,4 +1,4 @@
-import { resumeSound, prefMuted } from "./audio";
+import { resumeSound, prefMuted, preloadSound, tryAutoplay } from "./audio";
 
 /**
  * L'entrée — un rideau qui charge, puis se lève tout seul.
@@ -34,13 +34,18 @@ const TENUE_PLEINE = 520;
 const DUREE_LEVER = 950;
 
 export function initEnterGate() {
-  if (!prefMuted()) armGestureResume();
+  if (!prefMuted()) armGestureResume();   // un geste PENDANT le rideau débloque le son
 
   let entered = false;
   try {
     entered = sessionStorage.getItem(KEY) === "1";
   } catch {}
-  if (entered) return;
+  if (entered) {
+    /* pas de rideau dans la session : on essaie quand même de partir tout de
+       suite (une visite venue d'un clic y a droit) ; sinon le geste attend */
+    if (!prefMuted()) void tryAutoplay();
+    return;
+  }
 
   const reduit = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
@@ -79,8 +84,10 @@ export function initEnterGate() {
     "Réglage des lumières…",
   ];
 
-  /* +1 les polices, +1 la photo du hero. */
-  const total = PRELOAD.length + 2;
+  /* +1 les polices, +1 la photo du hero, +1 l'ambiance sonore (Eddy, 17/09 :
+     « give it time, the audio needs to load » — le son doit partir DANS LA
+     MÊME IMAGE que le mot-symbole, pas après). */
+  const total = PRELOAD.length + 3;
   let done = 0, isReady = false, pi = 0;
   const phaseTimer = window.setInterval(() => { if (!isReady) phaseEl.textContent = PHASES[++pi % PHASES.length]; }, 900);
   const bump = () => {
@@ -95,6 +102,10 @@ export function initEnterGate() {
   const lever = () => {
     try { sessionStorage.setItem(KEY, "1"); } catch {}
     gate.classList.add("gate--leve");
+    /* LE SON PART ICI, avec le mot-symbole — pas au premier clic. Refusé
+       par le navigateur (première visite, aucun geste) : le premier geste
+       le lancera, il est déjà armé. */
+    if (!prefMuted()) tryAutoplay().catch(() => false);
     /* Le site peut réchauffer la suite : le rideau ne dispute plus la bande
        passante. Mesuré : lancé PENDANT le chargement, le réchauffage
        repoussait l'ouverture de 7,4 à 8,1 s. */
@@ -107,6 +118,8 @@ export function initEnterGate() {
       document.documentElement.classList.remove("gated");
       disposeRing?.();
       gate.remove();
+      /* la page retrouve sa vraie hauteur : ScrollTrigger doit remesurer */
+      try { window.dispatchEvent(new Event("bcp:rideau-parti")); } catch {}
     };
     gate.addEventListener("transitionend", (ev) => {
       if (ev.target === gate) fin();
@@ -135,6 +148,11 @@ export function initEnterGate() {
     im.src = src;
   });
   (document.fonts?.ready || Promise.resolve()).then(bump).catch(bump);
+  /* L'AMBIANCE, en mémoire avant la levée. Son coupé par le visiteur : on ne
+     charge rien et la case est cochée d'office. Le plafond de 6 s protège
+     un réseau trop lent. */
+  if (prefMuted()) bump();
+  else preloadSound().then(bump, bump);
 
   /* LA PHOTO DU HERO. C'est la première chose que l'œil voit une fois le
      rideau levé ; elle ne doit pas arriver APRÈS. On écoute l'élément réel
