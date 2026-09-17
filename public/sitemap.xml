@@ -399,6 +399,16 @@
     </video:video>
   </url>
   <url>
+    <loc>https://boxing-center-portet.fr/club-de-boxe-portet/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/gym-21.jpg</image:loc>
+      <image:title>Le ring du club — Boxing Center Portet-sur-Garonne, Toulouse sud</image:title>
+      <image:caption>Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://boxing-center-portet.fr/coachs/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

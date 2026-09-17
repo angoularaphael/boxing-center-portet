@@ -161,6 +161,7 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 - Boxe éducative : https://boxing-center-portet.fr/activites/boxe-educative/
 - Kick-boxing enfants et ados : https://boxing-center-portet.fr/activites/kick-boxing-enfants-ados/
 - Le club : https://boxing-center-portet.fr/salles/
+- L’histoire du club de boxe de Portet-sur-Garonne (600 m², depuis 2016) : https://boxing-center-portet.fr/club-de-boxe-portet/
 - Coachs : https://boxing-center-portet.fr/coachs/
 - Valentin Tapia, head coach et responsable sportif, boxe anglaise : https://boxing-center-portet.fr/coachs/valentin-tapia/
 - Samuel Pinto, coach de kick-boxing, K1, boxe française et préparation physique : https://boxing-center-portet.fr/coachs/samuel-pinto/

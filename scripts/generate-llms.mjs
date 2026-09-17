@@ -142,6 +142,7 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 - Activités : ${SITE}/activites/
 ${PAGES_D.map((p) => `- ${p.nom} : ${SITE}/activites/${p.slug}/`).join("\n")}
 - Le club : ${SITE}/salles/
+- L’histoire du club de boxe de Portet-sur-Garonne (600 m², depuis 2016) : ${SITE}/club-de-boxe-portet/
 - Coachs : ${SITE}/coachs/
 ${PAGES_C.map((p) => `- ${p.nom}, ${p.poste.charAt(0).toLowerCase()}${p.poste.slice(1)} : ${SITE}/coachs/${p.slug}/`).join("\n")}
 - Nos Boxeurs : ${SITE}/boxeurs/

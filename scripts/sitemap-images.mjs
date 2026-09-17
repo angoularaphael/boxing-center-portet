@@ -96,6 +96,9 @@ const PAGES = [
         "/salles/#watch"
       ),
     ].filter(Boolean) },
+  // La page du club pour « club de boxe portet » : son histoire, et des liens vers tout le site.
+  { url: "/club-de-boxe-portet/", freq: "monthly", prio: "0.8", images: [
+      img("/img/gym-21.jpg", `Le ring du club — ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.")] },
   { url: "/coachs/", freq: "monthly", prio: "0.8", images: equipe },
   { url: "/boxeurs/", freq: "monthly", prio: "0.7", images: [
       img("/img/team/podium-ffboxe.jpg", `Champions de France — la Team Tapia du ${LIEU}`, "Les boxeurs formés au Boxing Center Portet sur le podium."),

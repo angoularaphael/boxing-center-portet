@@ -430,6 +430,7 @@ export default defineConfig({
         tarifs: page("tarifs/index.html"),
         contact: page("contact/index.html"),
         about: page("about/index.html"),
+        club: page("club-de-boxe-portet/index.html"),
         privacy: page("privacy/index.html"),
         404: page("404.html"),
         ...Object.fromEntries(DISC_PAGES.map((p) => [`disc-${p.slug}`, page(`activites/${p.slug}/index.html`)])),
