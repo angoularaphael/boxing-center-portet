@@ -39,6 +39,7 @@
   <link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/plannings/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Quels jours le club est-il ouvert ?", "acceptedAnswer": {"@type": "Answer", "text": "Du lundi au samedi, de 10h00 à 21h30, samedi compris. L’heure du dernier cours n’est pas l’heure de fermeture."}}, {"@type": "Question", "name": "Combien de temps dure un cours ?", "acceptedAnswer": {"@type": "Answer", "text": "Une heure. Les créneaux des amateurs et des pros durent une heure et demie."}}, {"@type": "Question", "name": "Y a-t-il des cours le midi et le soir ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, les deux. La grille donne l’horaire de chaque cours, et le cours en train de se dérouler y est signalé en direct."}}, {"@type": "Question", "name": "Quand ont lieu les cours pour les enfants ?", "acceptedAnswer": {"@type": "Answer", "text": "Le mercredi et le samedi. Chaque groupe figure dans la grille avec sa tranche d’âge."}}, {"@type": "Question", "name": "Peut-on garder le planning sur son téléphone ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : le bouton « Télécharger le planning », sous la grille, l’enregistre en image."}}]}</script>
 </head>
 <body data-page="plannings">
   <div class="curtain" id="curtain" aria-hidden="true"></div>
@@ -118,6 +119,25 @@
     </div>
   </section>
   </div>
+  <!-- LA FAQ DE LA PAGE (17/09) : ses propres questions, écrites en dur, reprises dans le script FAQPage de la tête. -->
+  <section class="section band">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div>
+          <span class="eyebrow">Questions</span>
+          <h2 class="display" style="margin-top:1rem">Les questions sur le planning.</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details><summary>Quels jours le club est-il ouvert ?</summary><p>Du lundi au samedi, de 10h00 à 21h30, samedi compris. L’heure du dernier cours n’est pas l’heure de fermeture.</p></details>
+        <details><summary>Combien de temps dure un cours ?</summary><p>Une heure. Les créneaux des amateurs et des pros durent une heure et demie.</p></details>
+        <details><summary>Y a-t-il des cours le midi et le soir ?</summary><p>Oui, les deux. La grille donne l’horaire de chaque cours, et le cours en train de se dérouler y est signalé en direct.</p></details>
+        <details><summary>Quand ont lieu les cours pour les enfants ?</summary><p>Le mercredi et le samedi. Chaque groupe figure dans la grille avec sa tranche d’âge.</p></details>
+        <details><summary>Peut-on garder le planning sur son téléphone ?</summary><p>Oui : le bouton « Télécharger le planning », sous la grille, l’enregistre en image.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="wrap"><div class="cta-block" data-reveal>
       <h2 class="display" style="margin-bottom:.6rem">Un créneau t’attend</h2>

@@ -39,6 +39,7 @@
   <link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/coachs/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Qui dirige l’équipe ?", "acceptedAnswer": {"@type": "Answer", "text": "Valentin Tapia, head coach et responsable sportif. Il encadre la boxe loisirs, la boxe éducative et les compétiteurs."}}, {"@type": "Question", "name": "Qui encadre le kick-boxing ?", "acceptedAnswer": {"@type": "Answer", "text": "Samuel Pinto : kick-boxing et K1, boxe française, Lady Boxing, kick enfants et ados, et préparation physique."}}, {"@type": "Question", "name": "Qui encadre le MMA et le grappling ?", "acceptedAnswer": {"@type": "Answer", "text": "Enzo Pioppo et Nicolas Tramaçon, dans la cage et sur les tatamis."}}, {"@type": "Question", "name": "Qui s’occupe des enfants et des ados ?", "acceptedAnswer": {"@type": "Answer", "text": "Mourad et Ingrid pour la boxe anglaise et le kick-boxing des enfants et des ados, avec Valentin Tapia pour la boxe éducative."}}, {"@type": "Question", "name": "Les coachs sont-ils diplômés ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. L’équipe est diplômée dans ses fédérations : FFBoxe, FFKMDA et FMMAF. Chaque coach a sa page, avec son parcours."}}]}</script>
 </head>
 <body data-page="coachs">
   <div class="curtain" id="curtain" aria-hidden="true"></div>
@@ -115,6 +116,25 @@
       <div class="team-cards" id="team-cards" data-reveal-group></div>
     </div>
   </section>
+  <!-- LA FAQ DE LA PAGE (17/09) : ses propres questions, écrites en dur, reprises dans le script FAQPage de la tête. -->
+  <section class="section band">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div>
+          <span class="eyebrow">Questions</span>
+          <h2 class="display" style="margin-top:1rem">Les questions sur les coachs.</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details><summary>Qui dirige l’équipe ?</summary><p>Valentin Tapia, head coach et responsable sportif. Il encadre la boxe loisirs, la boxe éducative et les compétiteurs.</p></details>
+        <details><summary>Qui encadre le kick-boxing ?</summary><p>Samuel Pinto : kick-boxing et K1, boxe française, Lady Boxing, kick enfants et ados, et préparation physique.</p></details>
+        <details><summary>Qui encadre le MMA et le grappling ?</summary><p>Enzo Pioppo et Nicolas Tramaçon, dans la cage et sur les tatamis.</p></details>
+        <details><summary>Qui s’occupe des enfants et des ados ?</summary><p>Mourad et Ingrid pour la boxe anglaise et le kick-boxing des enfants et des ados, avec Valentin Tapia pour la boxe éducative.</p></details>
+        <details><summary>Les coachs sont-ils diplômés ?</summary><p>Oui. L’équipe est diplômée dans ses fédérations : FFBoxe, FFKMDA et FMMAF. Chaque coach a sa page, avec son parcours.</p></details>
+      </div>
+    </div>
+  </section>
+
   </main>
   <div id="site-footer"></div>
   <script type="module" src="/src/main.ts"></script>
