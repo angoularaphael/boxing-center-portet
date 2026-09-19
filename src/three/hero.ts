@@ -174,6 +174,31 @@ export async function initHero(container: HTMLElement) {
         }
       }
     }
+    /* LA GARANTIE DU HAUT (19/09). Celle du bas existait ; rien ne tenait le
+       HAUT, et sur une fenêtre large et basse le mot-symbole passait sous la
+       barre (capture d'Eddy). Même méthode : on lit le bas réel de la barre
+       (offsetHeight : insensible à sa disparition au défilement), on réduit
+       si la bande entre la barre et le texte est trop courte, puis on cale. */
+    {
+      const barre = document.getElementById("nav");
+      const basBarre = (barre ? barre.offsetHeight : 72) + 14;
+      const limiteHaute = (0.5 - basBarre / h) * visH;
+      const accroche = document.querySelector(".hero__hook") as HTMLElement | null;
+      const hautAccroche = accroche ? accroche.getBoundingClientRect().top : 0;
+      const limiteBasse = hautAccroche > 0 ? (0.5 - (hautAccroche - 24) / h) * visH : -visH / 2;
+      const bande = limiteHaute - limiteBasse;
+      if (bande > 0 && crestH * s > bande) s = bande / crestH;
+      /* À L'ÉCRAN, le centre de la crête n'est pas à py mais à 0,6 × py : la
+         caméra regarde (0, py × 0,4, 0), ce qui descend toute la scène d'autant.
+         Sans ce facteur, « PORTET » passait sous l'accroche (capture 1000 × 470).
+         On cale donc le centre VU, puis on revient à la position du monde. Le
+         bas passe en dernier : le texte du hero doit toujours rester lisible. */
+      const VU = 0.6;
+      let centre = py * VU;
+      centre = Math.min(centre, limiteHaute - (crestH * s) / 2);
+      centre = Math.max(centre, limiteBasse + (crestH * s) / 2);
+      py = centre / VU;
+    }
     crest.scale.setScalar(s);
     crest.position.y = py;
     // KEY: point sprite size must track the crest scale, else a small crest packs

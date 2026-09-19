@@ -27,6 +27,22 @@ export function initScroll() {
   /* le rideau parti, la page retrouve sa hauteur (overflow: hidden retiré) :
      les déclencheurs mesurés pendant le rideau seraient faux */
   window.addEventListener("bcp:rideau-parti", () => ScrollTrigger.refresh());
+  /* LA PAGE CHANGE DE HAUTEUR → ON REMESURE (19/09). Une scène 3D qui se monte,
+     une image sans dimensions, une police qui arrive : tout ce qui déplace le
+     contenu APRÈS la mesure laisse des déclencheurs au mauvais endroit, et des
+     sections vides à l'écran (mesuré : 1 834 px d'écart sur l'accueil).
+     Temporisé, et seulement quand la hauteur a VRAIMENT bougé. */
+  if ("ResizeObserver" in window) {
+    let hauteur = document.documentElement.scrollHeight;
+    let minuteur = 0;
+    new ResizeObserver(() => {
+      const h = document.documentElement.scrollHeight;
+      if (Math.abs(h - hauteur) < 8) return;
+      hauteur = h;
+      window.clearTimeout(minuteur);
+      minuteur = window.setTimeout(() => ScrollTrigger.refresh(), 220);
+    }).observe(document.body);
+  }
   if (!reduced) {
     lenis = new Lenis({ duration: 1.15, smoothWheel: true, lerp: 0.1 });
     lenis.on("scroll", (e: any) => {
@@ -210,25 +226,47 @@ function initReveals() {
   const rejouer = (tw: gsap.core.Tween, trigger: Element) =>
     ScrollTrigger.create({ trigger, start: "top bottom", onLeaveBack: () => { tw.pause(0); } });
 
+  /* LE FILET DE GSAP (19/09). Depuis le 13/09 le filet général ne touche plus
+     ce que GSAP tient — et si un déclencheur est mal placé, plus rien ne
+     rattrape : la section reste vide sous les yeux du visiteur. Règle simple :
+     ce qui est dans les TROIS QUARTS HAUTS de l'écran et n'a pas commencé son
+     entrée la joue tout de suite. On joue le tween lui-même : l'animation
+     reste la même, et le réarmement par le bas continue de marcher. */
+  const filetGsap = "IntersectionObserver" in window
+    ? track(new IntersectionObserver((es) => {
+        for (const e of es) {
+          const tw = (e.target as any)._tw as gsap.core.Tween | undefined;
+          if (e.isIntersecting && tw && tw.progress() === 0 && !tw.isActive()) tw.play();
+        }
+      }, { rootMargin: "0px 0px -25% 0px" }))
+    : null;
+  const tenir = (els: Iterable<HTMLElement>, tw: gsap.core.Tween) => {
+    for (const el of els) { (el as any)._tw = tw; filetGsap?.observe(el); }
+  };
+
   // generic fade-up, with optional stagger via [data-reveal-group]
   gsap.utils.toArray<HTMLElement>("[data-reveal-group]").forEach((group) => {
     const kids = group.querySelectorAll<HTMLElement>("[data-reveal]");
     if (!kids.length) return;
     kids.forEach((k) => k.setAttribute("data-gsap", ""));
-    rejouer(gsap.fromTo(kids, { opacity: 0, y: 28 }, {
+    const tw = gsap.fromTo(kids, { opacity: 0, y: 28 }, {
       opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.08,
       scrollTrigger: { trigger: group, start: "top 82%" },
-    }), group);
+    });
+    tenir(kids, tw);
+    rejouer(tw, group);
   });
   gsap.utils
     .toArray<HTMLElement>("[data-reveal]:not([data-reveal-group] [data-reveal])")
     .filter((el) => !el.closest(".hero"))
     .forEach((el) => {
       el.setAttribute("data-gsap", "");
-      rejouer(gsap.fromTo(el, { opacity: 0, y: 28 }, {
+      const tw = gsap.fromTo(el, { opacity: 0, y: 28 }, {
         opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
         scrollTrigger: { trigger: el, start: "top 88%" },
-      }), el);
+      });
+      tenir([el], tw);
+      rejouer(tw, el);
     });
 
   // count-up stats

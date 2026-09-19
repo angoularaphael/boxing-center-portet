@@ -1,4 +1,5 @@
 import { NAV, SITE, PREVIEW } from "./data";
+import PROCHES from "./proches.json";
 import { PAGES_DISCIPLINES } from "./liens-disciplines";
 import { punch, tick, whoosh, setSound, soundOn } from "./audio";
 
@@ -92,6 +93,8 @@ function footerMarkup() {
           <p class="muted" style="margin-top:.6rem">${SITE.hours}</p>
         </div>
       </div>
+      <!-- LES SITES DE PROXIMITÉ (Eddy, 19/09 : oui) — le réseau, ville par ville. Liens suivis. -->
+      <p class="footer__proches">Boxing Center près de chez toi : ${PROCHES.map((p) => `<a href="${p.url}" target="_blank" rel="noopener">${p.ville}</a>`).join(" · ")}</p>
       <div class="footer__bottom">
         <span>© ${new Date().getFullYear()} ${SITE.name} · Groupe ${SITE.group} depuis ${SITE.since}</span>
         <span class="fed">${SITE.federations.map((f) => `<span>${f}</span>`).join("")}</span>

@@ -346,9 +346,9 @@ function armerFenetre3D() {
   window.addEventListener("bcp:entre", () => window.setTimeout(ouvrirFenetre3D, 3500), { once: true });
 }
 
-function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void) {
+function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) => void, echec?: () => void) {
   if (!el) return;
-  const scene: Scene3D = { run: () => loader().then(init).catch(() => {}), faite: false };
+  const scene: Scene3D = { run: () => loader().then(init).catch(() => { echec?.(); }), faite: false };
   scenes3D.push(scene);
   const run = () => { if (!scene.faite && !file3D.includes(scene)) file3D.push(scene); pomper3D(); };
   if ("IntersectionObserver" in window) {
@@ -378,6 +378,14 @@ function bootPage() {
   if (page === "home") renderHomeGrids();
   else renderPage(page);
   if (page === "galerie") renderMedia();
+
+  /* LA FORGE EST ATTENDUE : ses cartes de repli s'effacent TOUT DE SUITE (19/09).
+     Elles s'effaçaient au montage de la forge, des secondes plus tard : la page
+     perdait 1 834 px (3 725 sur téléphone) APRÈS que ScrollTrigger avait mesuré
+     ses déclencheurs, et tout ce qui suit les coachs — publics, tarifs, appel
+     final — restait invisible à l'écran. Si la forge échoue, la classe tombe
+     et les cartes reviennent (voir plus bas). */
+  if (hasWebGL && document.querySelector(".forge")) document.documentElement.classList.add("forge-live");
 
   initLazyBackgrounds();
   /* Le filet repasse APRES la peinture : les grilles, cartes et coachs
@@ -418,6 +426,9 @@ function bootPage() {
            restent affichées et personne ne voit un trou à la place des
            coachs. C'est exactement ce qui était arrivé. */
         document.documentElement.classList.add("forge-live");
+      }, () => {
+        /* la forge n'a pas pu se monter : les cartes de repli reviennent */
+        document.documentElement.classList.remove("forge-live");
       });
     });
   }

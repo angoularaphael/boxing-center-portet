@@ -242,6 +242,8 @@ function seoBakePlugin() {
           "La saison — 259€ comptant pour 12 mois ; 4× PayPal seulement si disponible et sous réserve d’éligibilité",
         ]];
         const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
+        /* les sites de proximité, dans le pied CUIT aussi : c'est lui que lisent les robots */
+        const PROCHES: { ville: string; url: string }[] = JSON.parse(readFileSync(page("src/proches.json"), "utf8"));
         const footerStatique = `<div id="site-footer"><footer class="footer"><div class="wrap">
           <div class="footer__grid">
             <div><div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>
@@ -249,6 +251,7 @@ function seoBakePlugin() {
             <div><h4>Disciplines</h4>${DISC_PAGES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}</div>
             <div><h4>Contact</h4><address class="geo-nap">${nap}</address></div>
           </div>
+          <p class="footer__proches">Boxing Center près de chez toi : ${PROCHES.map((p) => `<a href="${p.url}" rel="noopener">${p.ville}</a>`).join(" · ")}</p>
           <div class="footer__bottom"><span>© ${new Date().getFullYear()} ${site.name || "Boxing Center Portet"}</span></div>
         </div></footer></div>`;
         html = html.replace('<div id="site-footer"></div>', footerStatique);

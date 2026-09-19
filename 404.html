@@ -28,7 +28,7 @@
     .nf { max-width: 46rem; }
     .code { font-family: Oswald, sans-serif; font-size: clamp(5rem, 22vw, 11rem); line-height: .85;
       letter-spacing: -.02em; margin: 0; color: transparent; -webkit-text-stroke: 2px rgba(174,188,207,.35); }
-    .ko { display: block; margin-top: .4rem; font-family: Oswald, sans-serif; font-size: clamp(1rem, 3.4vw, 1.4rem);
+    /* 19/09 : sous les chiffres */ .code { line-height: 1; } .ko { display: block; margin-top: .9rem; line-height: 1.25; font-family: Oswald, sans-serif; font-size: clamp(1rem, 3.4vw, 1.4rem);
       letter-spacing: .5em; text-indent: .5em; color: #4a8fe8; }
     h1 { font-family: Oswald, sans-serif; text-transform: uppercase; font-size: clamp(1.7rem, 6vw, 3rem);
       line-height: 1.02; margin: 1.6rem 0 .9rem; }
@@ -46,6 +46,9 @@
     nav a { color: #8f9cb0; text-decoration: none; padding: .45rem .1rem; min-height: 44px; display: inline-flex; align-items: center; }
     nav a:hover { color: #fff; }
     .adr { margin-top: 2rem; font-size: .78rem; letter-spacing: .06em; color: #6f7c92; }
+      /* 19/09 : le lien « planning » du dernier paragraphe sortait en bleu brut du navigateur */
+    main p a { color: #8bb4ff; text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
+    main p a:hover { color: #fff; }
   </style>
 </head>
 <body>
