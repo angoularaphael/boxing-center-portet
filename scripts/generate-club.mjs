@@ -24,6 +24,14 @@ const C = contenu();
 const PAGES_D = pagesDisciplines();
 const TC = lireJSON("src/coachs.json").pages;
 const MANIFESTE = lireJSON("src/img-manifest.json");
+/* Les sites de proximité qui désignent Portet comme club : un lien dans le texte,
+   en plus de la ligne du pied de page. */
+const DEPUIS = [
+  ["Muret", "https://www.boxingcenter-muret.fr/"],
+  ["Cugnaux", "https://www.boxingcenter-cugnaux.fr/"],
+  ["Tournefeuille", "https://www.boxingcenter-tournefeuille.fr/"],
+  ["Colomiers", "https://www.boxingcenter-colomiers.fr/"],
+];
 const GABARIT = readFileSync(join(ROOT, "coachs", "index.html"), "utf8");
 
 const e = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -187,6 +195,7 @@ const corps = `
       <div class="cp-paras" data-reveal>
         <p>Le club est au ${e(adresse)}, au sud de Toulouse. Il est ouvert du lundi au samedi, de 10h00 à 21h30. <a href="/contact/">Adresse, plan et contact</a> · <a href="/plannings/">les horaires de chaque cours</a> · <a href="/premiere-seance/">comment se passe une première séance</a>.</p>
         <p>L’abonnement Saison ouvre aussi les quatre autres salles du groupe : ${RESEAU.map(([n, u]) => `<a href="${u}" rel="noopener">${e(n)}</a>`).join(", ")}. <a href="/salles/#network-grid">Les cinq clubs</a> · <a href="/partenaires/">les partenaires du club</a>.</p>
+        <p>Tu pars de Muret, de Cugnaux, de Tournefeuille ou de Colomiers ? Chaque commune a son site, avec le trajet jusqu’au club : ${DEPUIS.map(([v, u]) => `<a href="${u}">Boxing Center près de ${e(v)}</a>`).join(", ")}.</p>
       </div>
     </div>
   </section>
