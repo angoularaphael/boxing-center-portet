@@ -1,6 +1,7 @@
 import { defineConfig, type PluginOption } from "vite";
 import { resolve } from "path";
 import { readFileSync } from "fs";
+import { roleHtml } from "./src/role-liens.mjs";
 
 const page = (p: string) => resolve(__dirname, p);
 
@@ -83,10 +84,10 @@ function seoBakePlugin() {
           /* Les cartes coachs — le repli HTML de la forge 3D (plainte mobile du
              patron). Cuites ici : visibles meme sans un octet de JavaScript. */
           remplir("team-cards", "team-cards", (content.team || []).map((m: any) =>
-            `<article class="tcard" data-reveal><img src="${e(m.img)}" alt="${e(m.name)} — ${e(m.role)}" loading="lazy" decoding="async" width="600" height="750" />`
-            + `<div class="tcard__body"><h3>${lienC(m.name) ? `<a href="${lienC(m.name)}">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p>`
+            `<article class="tcard${lienC(m.name) ? " tcard--lien" : ""}" data-reveal><img src="${e(m.img)}" alt="${e(m.name)} — ${e(m.role)}" loading="lazy" decoding="async" width="600" height="750" />`
+            + `<div class="tcard__body"><h3>${lienC(m.name) ? `<a class="tcard__tout" href="${lienC(m.name)}">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${roleHtml(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p>`
             /* Chaque carte mène à la page du coach. */
-            + (lienC(m.name) ? `<a class="tcard__page" href="${lienC(m.name)}">${/&/.test(m.name) ? "Leur page" : "Sa page"} <span aria-hidden="true">→</span></a>` : "")
+            + (lienC(m.name) ? `<a class="tcard__page" href="${lienC(m.name)}" tabindex="-1" aria-hidden="true">${/&/.test(m.name) ? "Leur page" : "Sa page"} <span aria-hidden="true">→</span></a>` : "")
             + `</div></article>`).join(""));
           remplir("planning-provisoire-grid", "planning", (content.planningProvisoire || []).map((c: any) =>
             `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`

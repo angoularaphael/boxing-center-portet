@@ -1,5 +1,14 @@
 import * as THREE from "three";
 import { whoosh, soundOn } from "../audio";
+import COACHS from "../coachs-liens.json";
+import { morceauxRole, roleHtml } from "../role-liens.mjs";
+
+/* La page d'un coach (/coachs/<slug>/), ou "" s'il n'en a pas (les boxeurs). */
+const pageDe = (nom: string) => {
+  const c = (COACHS as { nom: string; slug: string }[]).find((x) => x.nom === nom);
+  return c ? `/coachs/${c.slug}/` : "";
+};
+const ech = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /**
  * « La Forge » — the team showcase. Each fighter/coach is a clean, background-
@@ -59,10 +68,37 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
   if (toggleEl) toggleEl.style.display = "none"; // no colour modes for real images
   if (dotsEl) dotsEl.innerHTML = members.map(() => `<li></li>`).join("");
 
+  /* Toute la scène mène à la page du coach affiché : une ancre transparente,
+     posée entre le canvas et le texte, dont l'adresse suit le visage. Le texte
+     laisse passer le clic (pointer-events en CSS), sauf ses propres liens. */
+  const sticky = section.querySelector<HTMLElement>(".forge__sticky");
+  let vers = sticky?.querySelector<HTMLAnchorElement>(".forge__vers") || null;
+  if (sticky && !vers) {
+    vers = document.createElement("a");
+    vers.className = "forge__vers";
+    vers.tabIndex = -1;
+    vers.setAttribute("aria-hidden", "true");
+    host.after(vers);
+  }
+
   const fillCard = (i: number) => {
     const m = members[i];
-    if (nameEl) nameEl.textContent = m.name;
-    if (roleEl) roleEl.textContent = m.role;
+    const href = pageDe(m.name);
+    if (nameEl) {
+      if (href) nameEl.innerHTML = `<a href="${href}">${ech(m.name)}</a>`;
+      else nameEl.textContent = m.name;
+    }
+    if (roleEl) {
+      roleEl.textContent = "";
+      for (const x of morceauxRole(m.role)) {
+        if (!x.href) { roleEl.append(x.t); continue; }
+        const a = document.createElement("a");
+        a.className = "role-lien"; a.href = x.href; a.textContent = x.t;
+        roleEl.append(a);
+      }
+    }
+    if (vers) { vers.hidden = !href; if (href) vers.href = href; else vers.removeAttribute("href"); }
+    section.classList.toggle("forge--lien", !!href);
     if (kindEl) kindEl.textContent = m.kind;
     if (descEl) descEl.textContent = m.desc || "";
     if (idxEl) idxEl.textContent = `${String(i + 1).padStart(2, "0")} / ${String(M).padStart(2, "0")}`;
@@ -72,7 +108,11 @@ function initForge(section: HTMLElement, members: ForgeMember[], crop: "face" | 
   // reduced-motion: clean static stack of cut-outs
   if (reduced) {
     host.innerHTML = members
-      .map((m) => `<figure class="forge__static"><img src="${cutoutUrl(m.img)}" onerror="this.src='${m.img}'" alt="${m.name}" loading="lazy"/><figcaption>${m.name} — ${m.role}</figcaption></figure>`)
+      .map((m) => {
+        const href = pageDe(m.name);
+        const im = `<img src="${cutoutUrl(m.img)}" onerror="this.src='${m.img}'" alt="${ech(m.name)}" loading="lazy"/>`;
+        return `<figure class="forge__static">${href ? `<a href="${href}">${im}</a>` : im}<figcaption>${href ? `<a href="${href}">${ech(m.name)}</a>` : ech(m.name)} — ${roleHtml(m.role)}</figcaption></figure>`;
+      })
       .join("");
     fillCard(0);
     return { dispose() {} };

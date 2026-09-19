@@ -13,6 +13,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { roleHtml } from "../src/role-liens.mjs";
 import {
   ROOT, ORIGIN, contenu, pagesDisciplines, lienDiscipline, creneaux, joursEnMots,
   remplir, bornes, JOUR_SCHEMA, lireJSON, norm,
@@ -71,7 +72,9 @@ function tete(p, url, og) {
   meta(/(<meta property="og:image:alt" content=")[^"]*(")/, e(`${p.nom} à Portet-sur-Garonne — Boxing Center`));
   meta(/(<meta name="twitter:image" content=")[^"]*(")/, og);
   meta(/(<link rel="image_src" href=")[^"]*(")/, og);
-  return h;
+  /* Les données structurées du gabarit (la FAQ de /activites/) ne suivent pas :
+     chaque fiche porte les siennes, et ses propres questions. */
+  return h.replace(/\s*<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/g, "") + "\n";
 }
 
 function donnees(p, url, og, liste) {
@@ -252,7 +255,7 @@ function corps(p, liste) {
         </div>
       </div>
       <div class="team-cards dp-coachs">
-        ${coachs.map((m) => `<article class="tcard" data-reveal>${img(m.img, `${m.name} — ${m.role}`, "(max-width: 760px) 90vw, 30vw")}<div class="tcard__body"><h3>${TC[m.name] ? `<a href="/coachs/${TC[m.name].slug}/">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${e(m.role)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join("\n        ")}
+        ${coachs.map((m) => `<article class="tcard${TC[m.name] ? " tcard--lien" : ""}" data-reveal>${img(m.img, `${m.name} — ${m.role}`, "(max-width: 760px) 90vw, 30vw")}<div class="tcard__body"><h3>${TC[m.name] ? `<a class="tcard__tout" href="/coachs/${TC[m.name].slug}/">${e(m.name)}</a>` : e(m.name)}</h3><p class="tcard__role">${roleHtml(m.role, `/activites/${p.slug}/`)}</p><p class="tcard__desc">${e(m.desc)}</p></div></article>`).join("\n        ")}
       </div>
       <p class="dp-lien"><a href="/coachs/">Toute l’équipe du club →</a></p>
     </div>

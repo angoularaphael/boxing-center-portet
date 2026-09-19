@@ -13,6 +13,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { roleHtml } from "../src/role-liens.mjs";
 import { ROOT, ORIGIN, contenu, pagesDisciplines, lienDiscipline, lireJSON, norm } from "./disciplines-lib.mjs";
 
 const C = contenu();
@@ -259,7 +260,7 @@ function corps(p, m, discs) {
         </div>
       </div>
       <div class="cp-equipe cp-cartes cp-cartes--${Math.min(autres.length, 4)}">
-        ${autres.map((x) => `<a class="tcard cp-coach" href="/coachs/${TC[x.name].slug}/" data-reveal>${img(x.img, `${x.name} — ${x.role}`, "(max-width: 760px) 92vw, 25vw")}<div class="tcard__body"><h3>${e(x.name)}</h3><p class="tcard__role">${e(x.role)}</p><span class="disc__go">${TC[x.name].pluriel ? "Voir leur page" : "Voir sa page"} <span aria-hidden="true">→</span></span></div></a>`).join("\n        ")}
+        ${autres.map((x) => `<article class="tcard tcard--lien cp-coach" data-reveal>${img(x.img, `${x.name} — ${x.role}`, "(max-width: 760px) 92vw, 25vw")}<div class="tcard__body"><h3><a class="tcard__tout" href="/coachs/${TC[x.name].slug}/">${e(x.name)}</a></h3><p class="tcard__role">${roleHtml(x.role)}</p><span class="disc__go" aria-hidden="true">${TC[x.name].pluriel ? "Voir leur page" : "Voir sa page"} <span aria-hidden="true">→</span></span></div></article>`).join("\n        ")}
       </div>
       <p class="dp-lien"><a href="/coachs/">Toute l’équipe →</a></p>
     </div>

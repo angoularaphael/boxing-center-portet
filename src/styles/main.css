@@ -1979,6 +1979,17 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
   .cp-cartes--3 > :first-child { grid-column: auto; }
 }
 .cp-equipe { gap: clamp(1rem, 2.5vw, 1.6rem); }
+/* Cinq cartes (l'équipe entière) : 3 + 2 en rangées pleines, jamais 4 + 1.
+   Vaut pour la page du club et pour les cartes de /coachs/ et de l'accueil,
+   dont le nombre suit l'admin — d'où le :has() qui compte. */
+.cp-cartes--5, .team-cards:has(> :last-child:nth-child(5)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.cp-cartes--5 > *, .team-cards:has(> :last-child:nth-child(5)) > * { grid-column: span 2; }
+.cp-cartes--5 > :nth-child(n+4), .team-cards:has(> :last-child:nth-child(5)) > :nth-child(n+4) { grid-column: span 3; }
+@media (max-width: 699px) {
+  .cp-cartes--5, .team-cards:has(> :last-child:nth-child(5)) { grid-template-columns: minmax(0, 1fr); }
+  .cp-cartes--5 > *, .team-cards:has(> :last-child:nth-child(5)) > *,
+  .cp-cartes--5 > :nth-child(n+4), .team-cards:has(> :last-child:nth-child(5)) > :nth-child(n+4) { grid-column: auto; }
+}
 .cp-coach { color: inherit; text-decoration: none; display: flex; flex-direction: column; }
 .cp-coach img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 22%; }
 .cp-coach .tcard__body { display: flex; flex-direction: column; flex: 1; }
@@ -2003,3 +2014,37 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
    quatrième colonne restait vide à côté d'elles sur un grand écran. */
 .dp-voisines { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 900px) { .dp-voisines { grid-template-columns: minmax(0, 1fr); } }
+
+/* ── Cartes coach : toute la carte mène à la page du coach, chaque discipline à la sienne (19/09) ──
+   Le lien du nom s'étire sur la carte entière (::after) ; les disciplines du
+   rôle passent au-dessus. Une ancre ne peut pas en contenir une autre : la
+   carte est donc un <article>, plus un <a>. */
+.tcard--lien { position: relative; cursor: pointer; transition: border-color .25s ease, transform .25s ease; }
+.tcard--lien .tcard__tout::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+/* .tcard__role est translucide (opacity) : il forme son propre plan, ses liens
+   ne peuvent pas passer seuls au-dessus du lien étiré. C'est donc la ligne
+   entière qui monte, et elle laisse passer le clic hors de ses liens. */
+.tcard--lien .tcard__role { position: relative; z-index: 2; pointer-events: none; }
+.tcard--lien .role-lien { pointer-events: auto; }
+.tcard--lien .tcard__page { position: relative; z-index: 2; }
+.tcard--lien:hover, .tcard--lien:focus-within { border-color: var(--accent); }
+.tcard--lien:hover .tcard__tout, .tcard--lien:hover .disc__go { color: var(--accent); }
+.tcard--lien .tcard__tout:focus-visible { outline: none; }
+.tcard--lien:has(.tcard__tout:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .tcard--lien:hover { transform: translateY(-3px); } }
+.role-lien { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 38%, transparent);
+  text-decoration-thickness: 1px; text-underline-offset: .28em; transition: color .2s ease, text-decoration-color .2s ease; }
+.role-lien:hover, .role-lien:focus-visible { color: var(--accent); text-decoration-color: currentColor; }
+/* zone de doigt : le rôle est petit, ses liens gagnent de la hauteur sans bouger la ligne */
+@media (pointer: coarse) { .role-lien { display: inline-block; padding-block: .45em; margin-block: -.45em; } }
+
+/* La forge 3D : la scène entière est le lien du coach affiché. */
+.forge__vers { position: absolute; inset: 0; z-index: 1; display: block; }
+.forge__vers[hidden] { display: none; }
+.forge--lien .forge__overlay { pointer-events: none; }
+.forge--lien .forge__overlay a, .forge--lien .forge__overlay button { pointer-events: auto; }
+.forge__name a { color: inherit; text-decoration: none; transition: color .2s ease; }
+.forge__name a:hover, .forge__name a:focus-visible,
+.forge__sticky:has(.forge__vers:hover) .forge__name a { color: var(--accent); }
+.forge__role .role-lien:hover, .forge__role .role-lien:focus-visible { color: #fff; }
+.forge__static a { color: inherit; }
