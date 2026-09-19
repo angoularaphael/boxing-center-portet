@@ -64,10 +64,10 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 +33 9 56 65 37 82 — ${s.email || "boxingcenterportet@gmail.com"}
 
 **Est-ce adapté aux débutants ?**
-Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, gants prêtés, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
+Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
 
 **Comment se passe une première séance ?**
-On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille, prête une paire de gants et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
+On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
 
 **Quels créneaux pour débuter ?**
 ${DEBUTER.join(". ")}. Le planning complet : ${SITE}/plannings/
@@ -211,7 +211,7 @@ ${plan(PLANNING)}
 
 ## Première séance
 
-Arriver au ${a.street || "61 route d’Espagne"}, dire que c’est une première fois. Accueil coach, gants prêtés, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : ${SITE}/premiere-seance/
+Arriver au ${a.street || "61 route d’Espagne"}, dire que c’est une première fois. Accueil coach, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : ${SITE}/premiere-seance/
 
 ## Réseau
 

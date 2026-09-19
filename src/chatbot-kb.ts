@@ -72,7 +72,7 @@ export const QUICKS: Quick[] = [
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
   { label: "Ma première séance", q: "Comment se passe une première séance ?",
-    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille, te prête les gants et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité.",
+    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité.",
     actions: ["premiere", "saison"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 09 56 65 37 82.",
@@ -87,7 +87,7 @@ export const QUICKS: Quick[] = [
     a: "Oui : douches individuelles, vestiaires hommes et femmes, et des casiers. Les sanitaires et les vestiaires sont rénovés chaque saison.",
     actions: ["premiere"] },
   { label: "Quoi apporter", q: "Je dois apporter quoi le premier jour ?",
-    a: "Une tenue de sport, une bouteille d’eau, une serviette. Les gants et les bandes sont prêtés pour la première séance — tu n’achètes rien avant de savoir si ça te plaît.",
+    a: "Une tenue de sport, une bouteille d’eau, une serviette. Tu n’as rien à acheter avant de savoir si ça te plaît — le coach te dira quoi prévoir.",
     actions: ["premiere", "tarifs"] },
 ];
 

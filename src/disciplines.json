@@ -23,7 +23,7 @@
         { "titre": "Le souffle", "texte": "Corde, rounds au sac, gainage : chaque cours fait travailler le cardio. Au bout de quelques semaines, un round de trois minutes se tient jusqu’au bout." }
       ],
       "pourQui": [
-        { "tag": "Premier gant", "titre": "Tu débutes", "texte": "Les créneaux Boxe Anglaise du midi et Anglaise Loisirs du soir accueillent les débutants. Les gants sont prêtés, et personne ne t’impose de sparring." },
+        { "tag": "Premier gant", "titre": "Tu débutes", "texte": "Les créneaux Boxe Anglaise du midi et Anglaise Loisirs du soir accueillent les débutants. Personne ne t’impose de sparring." },
         { "tag": "Deuxième saison", "titre": "Tu veux progresser", "texte": "Les créneaux Amateurs & Pros montent l’intensité, affinent la technique et préparent l’opposition, pour ceux qui ont déjà les bases." },
         { "tag": "Team Tapia", "titre": "Tu vises la compétition", "texte": "La Team Tapia prépare les combattants du club, du sparring au gala, quand ils sont prêts et seulement s’ils en ont envie." }
       ],
@@ -31,14 +31,14 @@
       "coachs": ["Valentin Tapia"],
       "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
       "faq": [
-        { "q": "Faut-il déjà savoir boxer pour venir ?", "r": "Tu peux commencer de zéro : le coach t’apprend la garde et les premiers coups dès la première séance, et les gants sont prêtés." },
+        { "q": "Faut-il déjà savoir boxer pour venir ?", "r": "Tu peux commencer de zéro : le coach t’apprend la garde et les premiers coups dès la première séance." },
         { "q": "Est-ce qu’on prend des coups dès le début ?", "r": "Le sparring arrive plus tard, encadré, et seulement si tu le demandes. Les premières semaines se passent aux pattes d’ours, au sac et en déplacements." },
         { "q": "Quelle différence entre Loisirs et Amateurs & Pros ?", "r": "Le Loisirs apprend et entretient, à ton rythme. Les créneaux Amateurs & Pros montent l’intensité et travaillent l’opposition, pour ceux qui ont déjà les bases." },
-        { "q": "Qu’est-ce qu’il faut apporter ?", "r": "Une tenue de sport, une bouteille d’eau et une serviette. Les gants sont prêtés pour commencer ; si tu continues, le coach te conseillera une paire et des bandes." },
+        { "q": "Qu’est-ce qu’il faut apporter ?", "r": "Une tenue de sport, une bouteille d’eau et une serviette. Si tu continues, le coach te conseillera une paire de gants et des bandes." },
         { "q": "Quand ont lieu les cours de boxe anglaise ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
       ],
       "voisines": ["kick-boxing", "preparation-physique", "boxe-educative"],
-      "og": { "titre": "Boxe anglaise", "puces": ["Gants prêtés", "Le ring du club"] }
+      "og": { "titre": "Boxe anglaise", "puces": ["Débutants bienvenus", "Le ring du club"] }
     },
     {
       "slug": "kick-boxing",
@@ -179,7 +179,7 @@
         { "titre": "La confiance", "texte": "Savoir se placer, tenir une garde, frapper juste : ce qui s’apprend sur le tapis se sent aussi en dehors." }
       ],
       "pourQui": [
-        { "tag": "Premier gant", "titre": "Tu n’as jamais boxé", "texte": "C’est le cas de beaucoup de celles qui arrivent. Les gants sont prêtés, et le coach commence par la garde." },
+        { "tag": "Premier gant", "titre": "Tu n’as jamais boxé", "texte": "C’est le cas de beaucoup de celles qui arrivent. Le coach commence par la garde." },
         { "tag": "Reprise", "titre": "Tu reprends le sport", "texte": "Les créneaux Lady se règlent sur le niveau de chacune : la même séance existe à plusieurs intensités." },
         { "tag": "Et après", "titre": "Tu veux aller plus loin", "texte": "Les cours mixtes de boxe anglaise et de kick-boxing restent ouverts : tu passes de l’un à l’autre quand tu veux." }
       ],
@@ -188,7 +188,7 @@
       "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
       "faq": [
         { "q": "Les cours sont-ils réservés aux femmes ?", "r": "Oui, les créneaux Lady Boxing et Lady Kick sont 100 % féminins. Les autres cours du club sont mixtes, et tu peux passer de l’un à l’autre." },
-        { "q": "Faut-il un niveau pour commencer ?", "r": "Tu peux commencer de zéro. Le coach montre la garde et la position des poings dès la première séance, et les gants sont prêtés." },
+        { "q": "Faut-il un niveau pour commencer ?", "r": "Tu peux commencer de zéro. Le coach montre la garde et la position des poings dès la première séance." },
         { "q": "Y a-t-il des combats ?", "r": "L’opposition reste un choix : les créneaux Lady se travaillent au sac, aux pattes d’ours et en exercices encadrés." },
         { "q": "Quelle différence entre Lady Boxing et Lady Kick ?", "r": "Le Lady Boxing travaille la boxe aux poings ; le Lady Kick ajoute les jambes. Les deux sont encadrés et ouverts à tous les niveaux." },
         { "q": "Quand ont lieu les créneaux Lady ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
@@ -267,12 +267,12 @@
       "faq": [
         { "q": "À partir de quel âge ?", "r": "Le créneau figure au planning avec sa tranche d’âge, plus haut sur cette page : c’est la référence à jour pour la saison." },
         { "q": "Mon enfant va-t-il recevoir des coups ?", "r": "La règle de l’école est simple : on touche, on ne frappe pas. Les exercices sont des jeux de distance et de réaction, en touché contrôlé." },
-        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau. Les gants sont prêtés pour découvrir." },
+        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau." },
         { "q": "Et après la baby boxe ?", "r": "La boxe éducative prend le relais, avec un groupe 7/11 ans et un groupe 12/16 ans." },
         { "q": "Quel jour a lieu la baby boxe ?", "r": "Au planning en vigueur : {jours}. L’horaire exact est plus haut sur cette page." }
       ],
       "voisines": ["boxe-educative", "kick-boxing-enfants-ados", "lady-boxing"],
-      "og": { "titre": "Baby boxe", "puces": ["On touche, on ne frappe pas", "Gants prêtés"] }
+      "og": { "titre": "Baby boxe", "puces": ["On touche, on ne frappe pas", "Encadré du début à la fin"] }
     },
     {
       "slug": "boxe-educative",
@@ -307,7 +307,7 @@
         { "q": "Mon enfant va-t-il prendre des coups ?", "r": "La boxe éducative se pratique en touché contrôlé : on vise, on touche, on retient. L’opposition libre n’en fait pas partie." },
         { "q": "Quelle différence avec la baby boxe ?", "r": "La baby boxe découvre par le jeu. La boxe éducative apprend la vraie technique de la boxe anglaise, adaptée à l’âge, avec les mêmes règles de contrôle." },
         { "q": "Mon enfant est timide, ça peut aller ?", "r": "Souvent très bien : on travaille à deux, sur une consigne précise, et le coach passe d’un binôme à l’autre." },
-        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau. Les gants sont prêtés pour découvrir ; le coach conseillera le matériel si l’enfant continue." },
+        { "q": "Que faut-il apporter ?", "r": "Une tenue de sport et une bouteille d’eau. Le coach conseillera le matériel si l’enfant continue." },
         { "q": "Quels jours ont lieu les cours ?", "r": "Au planning en vigueur : {jours}. Les horaires par groupe sont plus haut sur cette page." }
       ],
       "voisines": ["baby-boxe", "kick-boxing-enfants-ados", "boxe-anglaise"],
