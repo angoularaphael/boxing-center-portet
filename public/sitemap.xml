@@ -720,12 +720,12 @@
   </url>
   <url>
     <loc>https://boxing-center-portet.fr/about/</loc>
-    <changefreq>weekly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    </url>
+  </url>
   <url>
     <loc>https://boxing-center-portet.fr/privacy/</loc>
-    <changefreq>weekly</changefreq>
+    <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    </url>
+  </url>
 </urlset>

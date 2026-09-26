@@ -111,6 +111,11 @@ const PAGES = [
       img("/img/partners/o2.jpg", "O2 Portet-sur-Garonne — partenaire du club", "O2 Portet-sur-Garonne accompagne le Boxing Center."),
       img("/img/partners/karting-muret.png", "Karting 2 Muret — partenaire du club", "Karting 2 Muret, dont le logo est peint sur la toile du ring.")] },
   { url: "/contact/", freq: "monthly", prio: "0.7", images: [] },
+  // En production, une page de contenu se range dans Google (Eddy, 19/09). Ces deux
+  // pages étaient indexables mais absentes d'ici : le build effaçait l'ajout fait à la
+  // main dans public/sitemap.xml, qui est un fichier GÉNÉRÉ. La source, c'est ici.
+  { url: "/about/", freq: "yearly", prio: "0.3", images: [] },
+  { url: "/privacy/", freq: "yearly", prio: "0.3", images: [] },
 ];
 
 const xml =
