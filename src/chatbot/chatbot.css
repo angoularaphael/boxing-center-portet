@@ -108,7 +108,13 @@ html.gated .bcp-chat {
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--bcp-chat-blue, #2b6fd4);
+  /* Mesuré le 26/09 : --bcp-chat-blue (#182848) est un bleu de FOND, utilisé
+     dans six dégradés du panneau ; en couleur de texte sur le panneau, il
+     rendait « Discuter → » à 1,23:1 — invisible. Le texte du widget, souligné. */
+  color: var(--bcp-chat-text, #eef2f8);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
 }
 
 .bcp-chat__amorce-fermer {
