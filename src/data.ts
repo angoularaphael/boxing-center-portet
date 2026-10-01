@@ -84,6 +84,8 @@ export const NAV = [
   { href: "/salles/#network-grid", label: "Nos clubs", top: false },
   /* 17/09 : la page du club pour « club de boxe portet » — pied de page et tiroir, pas la barre */
   { href: "/club-de-boxe-portet/", label: "Le club, son histoire", top: false },
+  /* 1er/10 : les conseils du club (matériel) — pied de page et tiroir, pas la barre */
+  { href: "/conseils/", label: "Conseils matériel", top: false },
   { href: "/coachs/", label: "Coachs" },
   { href: "/boxeurs/", label: "Nos Boxeurs", top: false },
   { href: "/partenaires/", label: "Partenaires", top: false },

@@ -1,0 +1,146 @@
+{
+  "_note": "Les conseils du club (1er/10/2026) : des articles sur le matériel, écrits depuis ce que le club dit déjà (première séance sans rien acheter, disciplines de content.json), qui mènent aux pages du site et aux deux boutiques — Boutique de Boxe (le choix, les guides) et la boutique du club (retrait en salle). Une phrase écrite ici n'existe sur aucun autre site du réseau. Lu par scripts/generate-conseils.mjs ; les prix cités sont datés (« releve ») et se relèvent à la main.",
+  "releve": "2026-10-01",
+  "index": {
+    "titre": "Conseils matériel de boxe | Boxing Center Portet",
+    "desc": "Les conseils du Boxing Center Portet pour s’équiper sans se tromper : l’ordre des achats quand on débute, et l’équipement d’un enfant, étape par étape.",
+    "eyebrow": "Les conseils du club",
+    "h1": ["Bien s’équiper,", "sans acheter deux fois."],
+    "lead": "Ce que les coachs répètent au bord du ring, écrit une fois pour toutes : quoi acheter, quand, et à quelle taille. Chaque conseil part d’une règle du club — pour ta première séance, tu n’achètes rien."
+  },
+  "articles": [
+    {
+      "slug": "equipement-boxe-debutant",
+      "carte": "Débuter",
+      "titre": "Équipement de boxe pour débuter : quoi acheter d’abord",
+      "desc": "Rien à acheter pour la première séance à Portet. Ensuite, dans l’ordre : bandes, gants, protège-dents. Le sac d’un débutant, discipline par discipline.",
+      "eyebrow": "Conseil · quand on débute",
+      "h1": ["L’équipement pour débuter,", "dans le bon ordre."],
+      "lead": "Pour ta première séance au Boxing Center Portet, tu n’achètes rien : tu viens en tenue de sport. Le sac se construit ensuite, pièce par pièce, et l’ordre compte plus que la marque.",
+      "resume": "Bandes, gants, protège-dents : l’ordre des achats d’un débutant, et ce qui peut attendre.",
+      "photo": { "src": "/img/gym-20.jpg", "alt": "Deux boxeuses travaillent en gants face à face au Boxing Center Portet." },
+      "og": { "photo": "img/gym-20.jpg", "sur": "CONSEIL · BOXING CENTER PORTET", "titre": "Débuter : quoi acheter d’abord", "puces": ["Bandes", "Gants", "Protège-dents"] },
+      "sections": [
+        {
+          "sur": "Avant la première séance",
+          "h2": "Pour essayer, une tenue de sport suffit.",
+          "paras": [
+            "La première heure se vit en t-shirt, short ou legging et baskets propres, avec une bouteille d’eau. <a href=\"/premiere-seance/\">Le déroulé de la première séance</a> est raconté minute par minute, et aucun équipement n’y est demandé.",
+            "Acheter avant d’avoir essayé, c’est souvent acheter deux fois : le poids de tes gants dépend du cours que tu vas suivre, et tu ne le connais qu’après en avoir parlé avec le coach."
+          ]
+        },
+        {
+          "sur": "Premier achat",
+          "h2": "Les bandes : la seule pièce qui ne se prête jamais.",
+          "paras": [
+            "Les bandes maintiennent le poignet et les os de la main sous le gant, et elles boivent la transpiration. C’est pour ça qu’elles sont personnelles, et qu’elles passent en premier.",
+            "Pour une main d’adulte, prends-les en 4 m ou 4,50 m ; les 2,50 m conviennent aux petites mains. Les <a href=\"https://www.boutique-de-boxe.com/bandes-de-boxe/\" target=\"_blank\" rel=\"noopener\">bandes de boxe de Boutique de Boxe</a>, la boutique de matériel du groupe, indiquent la longueur de chaque modèle."
+          ]
+        },
+        {
+          "sur": "Deuxième achat",
+          "h2": "Les gants : un poids par usage, pas par niveau.",
+          "paras": [
+            "Les onces mesurent le rembourrage, pas la taille de ta main : 10 oz pour frapper au sac, 12 oz pour la technique, 14 à 16 oz dès que tu travailles avec un partenaire. Plus le gant est lourd, mieux il protège celui d’en face.",
+            "Trois questions suffisent pour trancher : <a href=\"https://www.boutique-de-boxe.com/outils/poids-de-gants/\" target=\"_blank\" rel=\"noopener\">le calculateur de poids de gants</a> y répond, et <a href=\"https://www.boutique-de-boxe.com/guides/choisir-gants-boxe/\" target=\"_blank\" rel=\"noopener\">le guide pour choisir ses gants de boxe</a> détaille la fermeture et la matière."
+          ]
+        },
+        {
+          "sur": "Troisième achat",
+          "h2": "Le protège-dents : dès que tu boxes à deux.",
+          "paras": [
+            "Tant que tu frappes le sac, il attend. Le jour où le cours passe au travail avec partenaire, il devient obligatoire dans ta bouche, pas dans ton sac.",
+            "Un modèle à mouler à l’eau chaude prend l’empreinte de tes dents en une minute : <a href=\"https://www.boutique-de-boxe.com/protege-dents/\" target=\"_blank\" rel=\"noopener\">les protège-dents</a> se choisissent à la taille adulte ou junior, rien de plus."
+          ]
+        },
+        {
+          "sur": "Ensuite",
+          "h2": "Ce qui peut attendre que le coach le demande.",
+          "paras": [
+            "Le casque arrive avec la mise de gants ; les protège-tibias avec le <a href=\"/activites/kick-boxing/\">kick-boxing</a> ; la coquille avec l’opposition. Rien de tout ça ne s’achète « au cas où » : <a href=\"https://www.boutique-de-boxe.com/guides/choisir-protections/\" target=\"_blank\" rel=\"noopener\">le guide des protections</a> dit laquelle sert à quoi.",
+            "Tu préfères repartir du club avec ton matériel ? <a href=\"https://boutique.boxingcenter.fr/materiel\" target=\"_blank\" rel=\"noopener\">La boutique du club</a> vend l’essentiel en ligne, avec retrait en salle."
+          ]
+        }
+      ],
+      "tableau": {
+        "sur": "Par discipline",
+        "h2": "Le premier sac, selon ton cours à Portet.",
+        "entetes": ["Discipline", "D’abord", "Ensuite"],
+        "lignes": [
+          ["<a href=\"/activites/boxe-anglaise/\">Boxe anglaise</a>", "Bandes, gants, protège-dents", "Casque, chaussures montantes"],
+          ["<a href=\"/activites/kick-boxing/\">Kick-boxing</a>", "Gants, protège-tibias et pieds, protège-dents", "Coquille, casque"],
+          ["<a href=\"/activites/mma/\">MMA</a>", "Gants MMA, short sans poche, protège-dents", "Protège-tibias, coquille"],
+          ["<a href=\"/activites/grappling-jiu-jitsu-bresilien/\">Grappling et jiu-jitsu brésilien</a>", "Rashguard, short ; kimono pour le JJB", "Ceinture"],
+          ["<a href=\"/activites/lady-boxing/\">Lady Boxing</a>", "Bandes, gants", "Protège-dents"],
+          ["<a href=\"/activites/preparation-physique/\">Préparation physique</a>", "Corde à sauter", "—"]
+        ],
+        "note": "Le coach de ton cours a le dernier mot : demande-lui avant d’acheter. Le détail par sport est dans <a href=\"https://www.boutique-de-boxe.com/materiel-sport-de-combat/\" target=\"_blank\" rel=\"noopener\">le tableau du matériel de sport de combat</a>."
+      },
+      "faq": [
+        ["Faut-il acheter des gants avant la première séance ?", "Non. Au Boxing Center Portet, la première séance se fait en tenue de sport, sans équipement à acheter. Les gants se choisissent ensuite, selon le cours retenu."],
+        ["Quel est le premier achat d’un débutant en boxe ?", "Les bandes, puis les gants, puis le protège-dents. Les bandes sont personnelles pour l’hygiène, les gants se choisissent au poids, et le protège-dents arrive avec le travail à deux."],
+        ["Quel poids de gants pour débuter ?", "10 oz pour le sac, 12 oz pour la technique, 14 à 16 oz dès qu’on boxe avec un partenaire. Les onces mesurent le rembourrage, pas la taille de la main."],
+        ["Combien coûte l’équipement de base ?", "À la boutique du club, au 1er octobre 2026 : des gants à 17,90 €, des bandes de 4 m à 6,90 € et un protège-dents adulte à 5,90 €, soit 30,70 € pour les trois premières pièces, à retirer en salle."]
+      ]
+    },
+    {
+      "slug": "equipement-boxe-enfant",
+      "carte": "Enfants",
+      "titre": "Boxe enfant : quel équipement, de la baby boxe aux ados",
+      "desc": "Baby boxe, boxe éducative dès 7 ans, kick-boxing enfants et ados à Portet : ce qu’il faut acheter, à quelle taille, et ce qui peut attendre.",
+      "eyebrow": "Conseil · parents",
+      "h1": ["L’équipement d’un enfant,", "étape par étape."],
+      "lead": "Un enfant qui commence la boxe à Portet vient en tenue de sport, comme les grands. Le reste s’achète par étapes, à sa taille du moment — jamais « pour qu’il grandisse dedans ».",
+      "resume": "Gants, bandes, protège-dents : les tailles d’un enfant, et ce qui s’achète plus tard.",
+      "photo": { "src": "/img/gym-12.jpg", "alt": "Deux jeunes boxeurs casqués en assaut sur le ring du Boxing Center Portet." },
+      "og": { "photo": "img/gym-12.jpg", "sur": "CONSEIL PARENTS · BOXING CENTER PORTET", "titre": "L’équipement d’un enfant", "puces": ["Baby boxe", "Éducative dès 7 ans", "Kick ados"] },
+      "sections": [
+        {
+          "sur": "Pour commencer",
+          "h2": "Une tenue de sport et une gourde à son nom.",
+          "paras": [
+            "Short ou jogging, t-shirt, baskets propres réservées à la salle : c’est tout ce qu’il faut pour un premier cours, en <a href=\"/activites/baby-boxe/\">baby boxe</a>, en <a href=\"/activites/boxe-educative/\">boxe éducative</a> comme en <a href=\"/activites/kick-boxing-enfants-ados/\">kick-boxing enfants et ados</a>.",
+            "Laisse passer quelques cours avant d’acheter : le coach voit vite ce qui convient à sa main et à son groupe, et les créneaux de chaque âge sont au <a href=\"/plannings/\">planning</a>."
+          ]
+        },
+        {
+          "sur": "Les gants",
+          "h2": "À sa main d’aujourd’hui, pas à celle de l’an prochain.",
+          "paras": [
+            "Un gant d’enfant se choisit au poids : 4 oz pour les plus petits, 6 oz ensuite, 8 oz vers la fin du primaire, 10 oz pour les ados. Ce sont des repères — c’est sa main qui décide. Trop grand, le gant tourne autour du poignet ; trop lourd, il fatigue l’épaule avant la fin du cours.",
+            "<a href=\"https://www.boutique-de-boxe.com/gants-de-boxe-enfant/\" target=\"_blank\" rel=\"noopener\">Les gants de boxe enfant de Boutique de Boxe</a> sont classés par poids, et <a href=\"https://www.boutique-de-boxe.com/guides/equipement-enfant/\" target=\"_blank\" rel=\"noopener\">le guide de l’équipement enfant</a> explique comment vérifier la taille sur sa main."
+          ]
+        },
+        {
+          "sur": "Bandes et protège-dents",
+          "h2": "Les deux pièces qu’on ne partage pas.",
+          "paras": [
+            "Des bandes de 2,50 m suffisent à une main d’enfant ; il apprend à les poser en deux cours. Le protège-dents devient nécessaire dès qu’il travaille avec un partenaire : un modèle junior, moulé à l’eau chaude sur ses dents, et remplacé quand la dentition change.",
+            "S’il porte un appareil dentaire, précise-le au moment de choisir : il existe des modèles prévus pour. Les <a href=\"https://www.boutique-de-boxe.com/protege-dents/\" target=\"_blank\" rel=\"noopener\">protège-dents</a> indiquent la taille junior sur chaque fiche."
+          ]
+        },
+        {
+          "sur": "Kick-boxing",
+          "h2": "En pieds-poings, les jambes se protègent aussi.",
+          "paras": [
+            "Dès que les coups de pied entrent dans le cours, il lui faut des <a href=\"https://www.boutique-de-boxe.com/protege-tibias/\" target=\"_blank\" rel=\"noopener\">protège-tibias avec protège-pied</a>, à sa taille : ils ne doivent ni glisser ni tourner quand il bouge.",
+            "Pour un assaut, demande la liste exacte au coach avant d’acheter un casque : elle dépend de la discipline et de la compétition."
+          ]
+        },
+        {
+          "sur": "Au club",
+          "h2": "Repartir équipé le jour même.",
+          "paras": [
+            "<a href=\"https://boutique.boxingcenter.fr/materiel\" target=\"_blank\" rel=\"noopener\">La boutique du club</a> vend un pack enfants et des gants à sa taille, commandés en ligne et retirés en salle. Pour comparer davantage de modèles, <a href=\"https://www.boutique-de-boxe.com/materiel-boxe-enfant/\" target=\"_blank\" rel=\"noopener\">le matériel de boxe enfant</a> réunit tout sur une page."
+          ]
+        }
+      ],
+      "faq": [
+        ["À quel âge un enfant peut-il commencer la boxe à Portet ?", "La boxe éducative commence à 7 ans ; la baby boxe accueille les plus petits, et le kick-boxing a ses créneaux enfants et ados. Les tranches d’âge de la saison sont au planning."],
+        ["Quelle taille de gants pour un enfant ?", "4 oz pour les plus petits, 6 oz ensuite, 8 oz vers la fin du primaire, 10 oz pour les ados. Ce sont des repères : le gant ne doit pas tourner autour du poignet."],
+        ["Faut-il acheter l’équipement avant le premier cours ?", "Non : une tenue de sport et une gourde suffisent. Les gants, les bandes et le protège-dents s’achètent après quelques cours, sur le conseil du coach."],
+        ["Un protège-dents est-il nécessaire pour un enfant ?", "Oui, dès qu’il travaille avec un partenaire. Il se moule à l’eau chaude sur ses dents et se remplace quand la dentition change."]
+      ]
+    }
+  ]
+}

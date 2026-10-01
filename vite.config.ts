@@ -22,6 +22,9 @@ const lienD = (nom: string) => {
    Avant le tout premier build la table n'existe pas encore : elle vaut []. */
 let COACH_PAGES: { slug: string; nom: string }[] = [];
 try { COACH_PAGES = JSON.parse(readFileSync(page("src/coachs-liens.json"), "utf8")); } catch { COACH_PAGES = []; }
+/* Les conseils du club (/conseils/<slug>/) : écrits par scripts/generate-conseils.mjs. */
+let CONSEIL_PAGES: { slug: string }[] = [];
+try { CONSEIL_PAGES = JSON.parse(readFileSync(page("src/conseils-liens.json"), "utf8")); } catch { CONSEIL_PAGES = []; }
 const lienC = (nom: string) => { const p = COACH_PAGES.find((x) => x.nom === nom); return p ? `/coachs/${p.slug}/` : ""; };
 
 // Bake editable per-page SEO (from content.json) into each page's static HTML at
@@ -435,6 +438,8 @@ export default defineConfig({
         contact: page("contact/index.html"),
         about: page("about/index.html"),
         club: page("club-de-boxe-portet/index.html"),
+        conseils: page("conseils/index.html"),
+        ...Object.fromEntries(CONSEIL_PAGES.map((p) => [`conseil-${p.slug}`, page(`conseils/${p.slug}/index.html`)])),
         privacy: page("privacy/index.html"),
         404: page("404.html"),
         ...Object.fromEntries(DISC_PAGES.map((p) => [`disc-${p.slug}`, page(`activites/${p.slug}/index.html`)])),

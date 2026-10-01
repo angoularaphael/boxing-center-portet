@@ -409,6 +409,31 @@
     </image:image>
   </url>
   <url>
+    <loc>https://boxing-center-portet.fr/conseils/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/conseils/equipement-boxe-debutant/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/gym-20.jpg</image:loc>
+      <image:title>Équipement de boxe pour débuter : quoi acheter d’abord</image:title>
+      <image:caption>Deux boxeuses travaillent en gants face à face au Boxing Center Portet.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://boxing-center-portet.fr/conseils/equipement-boxe-enfant/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://boxing-center-portet.fr/img/gym-12.jpg</image:loc>
+      <image:title>Boxe enfant : quel équipement, de la baby boxe aux ados</image:title>
+      <image:caption>Deux jeunes boxeurs casqués en assaut sur le ring du Boxing Center Portet.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://boxing-center-portet.fr/coachs/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

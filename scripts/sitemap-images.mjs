@@ -30,6 +30,9 @@ const img = (src, titre, legende) =>
   `    </image:image>`;
 
 const LIEU = "Boxing Center Portet-sur-Garonne, Toulouse sud";
+/* écrit par generate-conseils.mjs, qui tourne avant ce script */
+let CONSEILS = [];
+try { CONSEILS = JSON.parse(readFileSync(new URL("../src/conseils-liens.json", import.meta.url), "utf8")); } catch { CONSEILS = []; }
 
 // Les disciplines illustrées (page d'accueil + page activités)
 const disciplines = (C.disciplines || [])
@@ -99,6 +102,9 @@ const PAGES = [
   // La page du club pour « club de boxe portet » : son histoire, et des liens vers tout le site.
   { url: "/club-de-boxe-portet/", freq: "monthly", prio: "0.8", images: [
       img("/img/gym-21.jpg", `Le ring du club — ${LIEU}`, "Le ring de boxe anglaise du Boxing Center Portet, 600 m² dédiés aux sports de combat.")] },
+  // Les conseils du club : l'index et chaque article, avec sa photo.
+  { url: "/conseils/", freq: "monthly", prio: "0.7", images: [] },
+  ...CONSEILS.map((a) => ({ url: `/conseils/${a.slug}/`, freq: "monthly", prio: "0.7", images: [img(a.photo.src, a.titre, a.photo.alt)] })),
   { url: "/coachs/", freq: "monthly", prio: "0.8", images: equipe },
   { url: "/boxeurs/", freq: "monthly", prio: "0.7", images: [
       img("/img/team/podium-ffboxe.jpg", `Champions de France — la Team Tapia du ${LIEU}`, "Les boxeurs formés au Boxing Center Portet sur le podium."),

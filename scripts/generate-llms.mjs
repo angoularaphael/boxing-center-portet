@@ -27,6 +27,9 @@ if (COMBAT_ABSENTS.length) COMBAT.push(`${COMBAT_ABSENTS.join(", ")} : au retour
 const PAGES_D = pagesDisciplines().map((p) => { const j = joursEnMots(creneaux(p, C)); return { ...p, jours: j, resume: remplir(p.description, j) }; });
 /* Une page par coach : son parcours, ses diplômes, ses disciplines, ses questions. */
 const PAGES_C = Object.values(JSON.parse(readFileSync(join(ROOT, "src/coachs.json"), "utf8")).pages);
+/* écrit par generate-conseils.mjs, qui tourne avant ce script */
+let CONSEILS = [];
+try { CONSEILS = JSON.parse(readFileSync(join(ROOT, "src/conseils-liens.json"), "utf8")); } catch { CONSEILS = []; }
 const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
 const s = C.site || {};
@@ -143,6 +146,8 @@ sur l'URL de la page, ou lisez directement /md/<chemin>/index.md.
 ${PAGES_D.map((p) => `- ${p.nom} : ${SITE}/activites/${p.slug}/`).join("\n")}
 - Le club : ${SITE}/salles/
 - L’histoire du club de boxe de Portet-sur-Garonne (600 m², depuis 2016) : ${SITE}/club-de-boxe-portet/
+- Conseils matériel du club : ${SITE}/conseils/
+${CONSEILS.map((a) => `- ${a.titre} — ${a.resume} : ${SITE}/conseils/${a.slug}/`).join("\n")}
 - Coachs : ${SITE}/coachs/
 ${PAGES_C.map((p) => `- ${p.nom}, ${p.poste.charAt(0).toLowerCase()}${p.poste.slice(1)} : ${SITE}/coachs/${p.slug}/`).join("\n")}
 - Nos Boxeurs : ${SITE}/boxeurs/
