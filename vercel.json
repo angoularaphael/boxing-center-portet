@@ -8,7 +8,12 @@
   "redirects": [
     {
       "source": "/img/planning/provisoire-:file(1200\\.webp|1800\\.webp|2600\\.webp|1800\\.jpg)",
-      "destination": "/img/planning/provisoire-v2-:file",
+      "destination": "/img/planning/provisoire-v3-:file",
+      "permanent": false
+    },
+    {
+      "source": "/img/planning/provisoire-v2-:file(1200\\.webp|1800\\.webp|2600\\.webp|1800\\.jpg)",
+      "destination": "/img/planning/provisoire-v3-:file",
       "permanent": false
     },
     {
