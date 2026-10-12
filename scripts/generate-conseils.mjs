@@ -18,6 +18,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { ROOT, ORIGIN, lireJSON } from "./disciplines-lib.mjs";
+import { bandeauStage } from "./stage-vacances.mjs";
 
 const DATA = lireJSON("src/conseils.json");
 const MANIFESTE = lireJSON("src/img-manifest.json");
@@ -180,7 +181,7 @@ for (const a of DATA.articles) {
       </figure>
     </div>
   </section>
-${sections}${tableau}
+${sections}${tableau}${bandeauStage(`conseils/${a.slug}`)}
 
   <section class="section" id="questions">
     <div class="wrap">

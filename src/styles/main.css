@@ -2113,3 +2113,48 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
   .cs-table tbody td::before { content: attr(data-label) " · "; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 }
 @media (prefers-reduced-motion: reduce) { .cs-carte, .cs-carte__photo img { transition: none; } .cs-carte:hover { transform: none; } }
+
+/* ============================== LE STAGE ENFANTS DES VACANCES ==============================
+   Les Vacances des Boxeurs (26–31 octobre 2026, 8–16 ans) : un bandeau posé là où la page vient
+   de parler des enfants, jamais en haut par principe. Il ne rivalise pas avec le billet de la
+   saison : pas d'or, la lumière bleue des entrées du club, celle des photos du stage.
+   Il se retire tout seul après le samedi 31 octobre (layout.ts). */
+.stage-vacances {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background:
+    radial-gradient(55% 160% at 0% 50%, rgba(61, 107, 255, 0.3), transparent 62%),
+    radial-gradient(40% 120% at 100% 0%, rgba(61, 107, 255, 0.12), transparent 70%),
+    var(--bg-1);
+}
+.stage-vacances__in {
+  display: grid;
+  gap: 1.3rem;
+  padding-block: clamp(1.8rem, 4.5vw, 2.8rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .stage-vacances__in { grid-template-columns: minmax(0, 1fr) auto; gap: 2.4rem; }
+}
+.stage-vacances .eyebrow { color: #8aa6ff; }
+.stage-vacances .eyebrow::before { background: #3d6bff; }
+.stage-vacances__titre { font-size: clamp(2rem, 5vw, 3.4rem); margin-top: 0.7rem; line-height: 0.95; }
+.stage-vacances__ligne { color: var(--fg-soft); max-width: 62ch; margin-top: 0.7rem; line-height: 1.55; }
+.stage-vacances__faits { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; padding: 0; list-style: none; }
+.stage-vacances__faits li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+}
+.stage-vacances__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+[data-theme="light"] .stage-vacances .eyebrow { color: #2a4fd6; }
+[data-theme="light"] .stage-vacances {
+  background:
+    radial-gradient(55% 160% at 0% 50%, rgba(61, 107, 255, 0.16), transparent 62%),
+    var(--bg-1);
+}

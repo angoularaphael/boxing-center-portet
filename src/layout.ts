@@ -131,6 +131,10 @@ export function mountLayout() {
     b.innerHTML = `<strong>Aperçu</strong> — modifications non publiées. <span>Ferme cet onglet pour revenir au vrai site.</span>`;
     document.body.appendChild(b);
   }
+  // le bandeau du stage enfants des vacances se retire de lui-même une fois le stage passé
+  if (Date.now() > Date.parse("2026-10-31T18:00:00+01:00")) {
+    document.querySelectorAll("[data-stage-vacances]").forEach((el) => el.remove());
+  }
   // fight scorecard HUD (home only — it tracks rounds)
   if (document.body.dataset.page === "home" && !document.getElementById("hud")) {
     const hud = document.createElement("aside");

@@ -14,6 +14,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { roleHtml } from "../src/role-liens.mjs";
+import { bandeauStage } from "./stage-vacances.mjs";
 import {
   ROOT, ORIGIN, contenu, pagesDisciplines, lienDiscipline, creneaux, joursEnMots,
   remplir, bornes, JOUR_SCHEMA, lireJSON, norm,
@@ -169,6 +170,9 @@ function corps(p, liste) {
       </figure>
     </div>
   </section>`);
+  // le stage enfants des vacances, sur les pages qui parlent aux enfants (scripts/stage-vacances.mjs)
+  const stage = bandeauStage(`activites/${p.slug}`);
+  if (stage) sections.push(stage);
 
   sections.push(`
   <section class="section band">
