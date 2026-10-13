@@ -12,6 +12,7 @@
     {
       "slug": "equipement-boxe-debutant",
       "carte": "Débuter",
+      "pied": "Équipement de boxe pour débuter",
       "titre": "Équipement de boxe pour débuter : quoi acheter d’abord",
       "desc": "Rien à acheter pour la première séance à Portet. Ensuite, dans l’ordre : bandes, gants, protège-dents. Le sac d’un débutant, discipline par discipline.",
       "eyebrow": "Conseil · quand on débute",
@@ -26,7 +27,7 @@
           "h2": "Pour essayer, une tenue de sport suffit.",
           "paras": [
             "La première heure se vit en t-shirt, short ou legging et baskets propres, avec une bouteille d’eau. <a href=\"/premiere-seance/\">Le déroulé de la première séance</a> est raconté minute par minute, et aucun équipement n’y est demandé.",
-            "Acheter avant d’avoir essayé, c’est souvent acheter deux fois : le poids de tes gants dépend du cours que tu vas suivre, et tu ne le connais qu’après en avoir parlé avec le coach."
+            "Acheter avant d’avoir essayé, c’est souvent acheter deux fois : le poids de tes gants dépend du cours que tu vas suivre, et tu ne le connais qu’après en avoir parlé avec le coach. Les autres clubs de Toulouse, Boxing Center en tête, sont sur <a href=\"https://www.boutique-de-boxe.com/boutique-de-boxe-toulouse/\" target=\"_blank\" rel=\"noopener\">la page boutique de boxe Toulouse</a>."
           ]
         },
         {
@@ -86,6 +87,7 @@
     {
       "slug": "equipement-boxe-enfant",
       "carte": "Enfants",
+      "pied": "Équipement de boxe d’un enfant",
       "titre": "Boxe enfant : quel équipement, de la baby boxe aux ados",
       "desc": "Baby boxe, boxe éducative dès 7 ans, kick-boxing enfants et ados à Portet : ce qu’il faut acheter, à quelle taille, et ce qui peut attendre.",
       "eyebrow": "Conseil · parents",
