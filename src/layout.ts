@@ -1,5 +1,6 @@
-import { NAV, SITE, PREVIEW } from "./data";
+import { NAV, PIED_INFOS, SITE, PREVIEW } from "./data";
 import PROCHES from "./proches.json";
+import CONSEILS from "./conseils-liens.json";
 import { PAGES_DISCIPLINES } from "./liens-disciplines";
 import { punch, tick, whoosh, setSound, soundOn } from "./audio";
 
@@ -84,6 +85,9 @@ function footerMarkup() {
         <div>
           <h4>Disciplines</h4>
           ${PAGES_DISCIPLINES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}
+          <!-- Les conseils, un par un (12/10) : le même pied que celui cuit par vite.config.ts. -->
+          <h4 class="footer__suite">Conseils matériel</h4>
+          ${CONSEILS.map((c) => `<a href="/conseils/${c.slug}/">${c.pied}</a>`).join("")}
         </div>
         <div>
           <h4>Contact</h4>
@@ -97,6 +101,7 @@ function footerMarkup() {
       <p class="footer__proches">Boxing Center près de chez toi : ${PROCHES.map((p) => `<a href="${p.url}" target="_blank" rel="noopener">${p.ville}</a>`).join(" · ")}</p>
       <div class="footer__bottom">
         <span>© ${new Date().getFullYear()} ${SITE.name} · Groupe ${SITE.group} depuis ${SITE.since}</span>
+        <nav class="footer__infos" aria-label="Informations sur le site">${PIED_INFOS.map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}</nav>
         <span class="fed">${SITE.federations.map((f) => `<span>${f}</span>`).join("")}</span>
       </div>
     </div>

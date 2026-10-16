@@ -17,10 +17,12 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { ROOT, ORIGIN, lireJSON } from "./disciplines-lib.mjs";
+import { ROOT, ORIGIN, lireJSON, planningEnVigueur } from "./disciplines-lib.mjs";
 import { bandeauStage } from "./stage-vacances.mjs";
 
 const DATA = lireJSON("src/conseils.json");
+/* Le matériel à retirer au club (12/10) : un bloc de l'index, pas une page par article. */
+const MAT = lireJSON("src/materiel-retrait.json");
 const MANIFESTE = lireJSON("src/img-manifest.json");
 const GABARIT = readFileSync(join(ROOT, "coachs", "index.html"), "utf8");
 const RELEVE = DATA.releve;
@@ -53,6 +55,31 @@ function verifier(nom, html, titre, desc) {
 // Un prix sans sa date vieillit en silence : toute réponse qui cite un prix porte une date.
 for (const a of DATA.articles)
   for (const [q, r] of a.faq) if (/\d\s?€/.test(r) && !/\d{4}/.test(r)) fautes.push(`${a.slug} : la réponse « ${q} » cite un prix sans date`);
+/* Le bloc matériel : seulement des articles qui se retirent à Portet, des liens
+   vers une fiche de la boutique du club, et aucun prix — ils bougent sans que ce
+   site le sache (relevé de la boutique : rentrée 2026, prix barrés). */
+const PRODUITS = MAT.cours.flatMap((c) => c.produits);
+for (const p of PRODUITS) {
+  if (!p.salles.includes("Portet")) fautes.push(`matériel : « ${p.ancre} » ne se retire pas à Portet`);
+  if (!/^https:\/\/boutique\.boxingcenter\.fr\/materiel\/produit\/[a-z0-9-]+$/.test(p.url)) fautes.push(`matériel : « ${p.ancre} » ne mène pas à une fiche de la boutique du club (${p.url})`);
+}
+if (new Set(PRODUITS.map((p) => p.url)).size !== PRODUITS.length) fautes.push("matériel : un article apparaît deux fois");
+if (/€|\beuros?\b/i.test(JSON.stringify({ ...MAT, _note: "" }))) fautes.push("matériel : un prix est écrit dans le bloc");
+/* Les horaires que le bloc affirme (« le Kick / K1 du mardi… », « samedi à 11 h ») sont
+   contrôlés contre le planning EN VIGUEUR — le provisoire aujourd'hui, le double planning
+   quand nouvellesSalles passera à true. Un texte écrit sur un planning qui a changé
+   arrête le build au lieu de vieillir en ligne (16/10/2026). */
+const EN_VIGUEUR = planningEnVigueur();
+const debutDe = (plage) => String(plage).split(/\s*[–-]\s*/)[0].trim();
+for (const c of MAT.cours) {
+  if (!Array.isArray(c.verifs)) { fautes.push(`matériel : « ${c.titre} » n'a pas de \`verifs\` (les horaires du texte ne sont pas contrôlés)`); continue; }
+  for (const [jour, motif, heure] of c.verifs) {
+    const items = (EN_VIGUEUR.find((j) => j.day === jour) || {}).items || [];
+    const rx = new RegExp(motif, "i");
+    const ok = items.some(([plage, nom]) => rx.test(nom) && (!heure || debutDe(plage) === heure));
+    if (!ok) fautes.push(`matériel : « ${c.titre} » cite ${jour}${heure ? " " + heure : ""} ${motif}, absent du planning en vigueur`);
+  }
+}
 
 function tete({ titre, desc, url, og, ogAlt }) {
   let h = GABARIT.slice(GABARIT.indexOf("<head>"), GABARIT.indexOf("</head>"));
@@ -218,19 +245,69 @@ ${sections}${tableau}${bandeauStage(`conseils/${a.slug}`)}
   const I = DATA.index;
   const url = `${ORIGIN}/conseils/`;
   const og = `${ORIGIN}/og/conseils/index.jpg?v=1`;
+  /* {n} : le nombre d'articles de la liste, compté ici — jamais écrit à la main. */
+  const n = (s) => String(s).replace(/\{n\}/g, String(PRODUITS.length));
+  const faqMat = MAT.faq.map(([q, r]) => [n(q), n(r)]);
+  const majIndex = [RELEVE, MAT.maj].sort().pop();
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "CollectionPage", "@id": `${url}#webpage`, url, name: I.titre, description: I.desc, inLanguage: "fr-FR",
-        isPartOf: { "@id": `${ORIGIN}/#website` }, breadcrumb: { "@id": `${url}#breadcrumb` }, dateModified: RELEVE,
+        isPartOf: { "@id": `${ORIGIN}/#website` }, breadcrumb: { "@id": `${url}#breadcrumb` }, dateModified: majIndex,
         primaryImageOfPage: { "@type": "ImageObject", url: og.replace(/\?.*$/, ""), width: 1200, height: 630 },
         mainEntity: { "@type": "ItemList", numberOfItems: DATA.articles.length, itemListElement: DATA.articles.map((a, i) => ({ "@type": "ListItem", position: i + 1, name: a.titre, url: `${ORIGIN}/conseils/${a.slug}/` })) } },
       { "@type": "BreadcrumbList", "@id": `${url}#breadcrumb`, itemListElement: [
         { "@type": "ListItem", position: 1, name: "Accueil", item: `${ORIGIN}/` },
         { "@type": "ListItem", position: 2, name: "Conseils", item: url },
       ] },
+      /* les questions visibles du bloc matériel, et elles seules */
+      { "@type": "FAQPage", "@id": `${url}#faq`, isPartOf: { "@id": `${url}#webpage` },
+        mainEntity: faqMat.map(([q, r]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: r } })) },
     ],
   };
+  /* Le bloc matériel : un cours par carte (la page de la discipline en titre),
+     les articles en liens simples vers leur fiche. Pas de Product ni d'Offer :
+     on n'achète pas ici, et une liste de produits n'y a pas droit. */
+  const fleche = '<span class="mt-liste__ext" aria-hidden="true">↗</span>';
+  const carteCours = (c, i) => `<article class="disc mt-cours" data-reveal>
+          <div class="disc__top"><span class="disc__key">${String(i + 1).padStart(2, "0")}</span><span class="disc__tag">${e(c.tag)}</span></div>
+          <div>
+            <h3 class="disc__name">${c.page ? `<a href="${c.page}">${e(c.titre)}</a>` : e(c.titre)}</h3>
+            <p class="disc__desc cs-prose">${c.texte}</p>
+            <ul class="mt-liste">
+              ${c.produits.map((p) => `<li><a href="${e(p.url)}" target="_blank" rel="noopener">${e(p.ancre)} ${fleche}</a><span class="mt-liste__detail">${e(p.detail)}</span></li>`).join("\n              ")}
+            </ul>
+          </div>
+        </article>`;
+  const materiel = `
+
+  <section class="section band" id="materiel">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <div>
+          <span class="eyebrow">${e(MAT.eyebrow)}</span>
+          <h2 class="display" style="margin-top:1rem">${e(MAT.h2[0])} <span class="tint">${e(MAT.h2[1])}</span></h2>
+        </div>
+      </div>
+      <p class="lead mt-intro">${e(MAT.lead)}</p>
+      <dl class="cp-faits mt-faits" data-reveal-group>
+        ${MAT.faits.map(([dt, dd]) => `<div class="cp-fait" data-reveal><dt>${e(dt)}</dt><dd>${e(n(dd))}</dd></div>`).join("\n        ")}
+      </dl>
+      <div class="disc-grid cp-cartes cp-cartes--${MAT.cours.length} mt-grille">
+        ${MAT.cours.map(carteCours).join("\n        ")}
+      </div>
+      <p class="cs-note cs-prose">${MAT.note}</p>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="wrap">
+      ${tetiere("Questions", "Commander en ligne, retirer à Portet.")}
+      <div class="faq-list">
+        ${faqMat.map(([q, r]) => `<details><summary>${e(q)}</summary><p>${e(r)}</p></details>`).join("\n        ")}
+      </div>
+    </div>
+  </section>`;
   const corps = `
   <section class="page-head dp-tete cp-tete">
     <div class="wrap">
@@ -247,7 +324,7 @@ ${sections}${tableau}${bandeauStage(`conseils/${a.slug}`)}
         ${DATA.articles.map(carte).join("\n        ")}
       </div>
     </div>
-  </section>
+  </section>${materiel}
 
   <section class="section band">
     <div class="wrap"><div class="cta-block" data-reveal>
@@ -265,6 +342,7 @@ if (fautes.length) {
   process.exit(1);
 }
 /* La table des pages, lue par vite.config.ts (entrées), sitemap-images.mjs et generate-llms.mjs. */
-writeFileSync(join(ROOT, "src", "conseils-liens.json"), JSON.stringify(DATA.articles.map((a) => ({ slug: a.slug, titre: a.titre, desc: a.desc, photo: a.photo, resume: a.resume })), null, 2) + "\n");
+/* `pied` : l'ancre du pied de page (vite.config.ts et src/layout.ts), sur toutes les pages du site. */
+writeFileSync(join(ROOT, "src", "conseils-liens.json"), JSON.stringify(DATA.articles.map((a) => ({ slug: a.slug, titre: a.titre, desc: a.desc, photo: a.photo, resume: a.resume, pied: a.pied || nu(a.h1.join(" ")) })), null, 2) + "\n");
 const sortants = DATA.articles.map((a) => (JSON.stringify(a).match(/https:\/\/(www\.boutique-de-boxe\.com|boutique\.boxingcenter\.fr)/g) || []).length);
 console.log(`[conseils] /conseils/ + ${DATA.articles.length} articles · liens vers les boutiques : ${sortants.join(" + ")} · relevé du ${DATE_FR}`);

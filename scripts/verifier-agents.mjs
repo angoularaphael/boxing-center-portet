@@ -11,6 +11,7 @@ import { readFile, readdir, stat } from "fs/promises";
 import { existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { empreintePage } from "./empreinte-page.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
@@ -99,7 +100,22 @@ for (const f of [".well-known/mcp.json", ".well-known/mcp"]) {
 }
 const sitemap = await readFile(join(DIST, "sitemap.xml"), "utf8");
 dit(!sitemap.includes("/credits/"), "sitemap.xml — aucune page de crédits publique");
-dit(!/<lastmod>/.test(sitemap), "sitemap.xml — aucune fraîcheur quotidienne simulée");
+/* Le lastmod est revenu le 12/10, daté par le contenu : chaque date doit être celle
+   que l'état (scripts/sitemap-etat.json) associe à l'empreinte du <main> servi
+   aujourd'hui. Une date du build sur toutes les pages, ou une date qui ne
+   correspond plus au contenu, est une fraîcheur simulée. */
+{
+  const etat = JSON.parse(await readFile(join(ROOT, "scripts", "sitemap-etat.json"), "utf8"));
+  const blocs = [...sitemap.matchAll(/<loc>https:\/\/boxing-center-portet\.fr(\/[^<]*)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>)?/g)];
+  const fausses = [];
+  for (const [, url, lastmod] of blocs) {
+    const e = etat[url];
+    const html = await readFile(join(DIST, url, "index.html"), "utf8").catch(() => "");
+    if (!lastmod || !e || e.lastmod !== lastmod || e.empreinte !== empreintePage(html)) fausses.push(url);
+  }
+  dit(blocs.length > 0 && !fausses.length, `sitemap.xml — chaque lastmod suit le contenu servi (${blocs.length - fausses.length}/${blocs.length})${fausses.length ? " : " + fausses.join(", ") : ""}`);
+  dit(new Set(blocs.map((b) => b[2])).size > 1, "sitemap.xml — aucune fraîcheur quotidienne simulée (dates distinctes)");
+}
 
 /* 8. Un seul nœud WebSite par page et les CTA d'essai vont vers l'essai. */
 for (const p of pages) {

@@ -562,6 +562,12 @@ a.tarif { color: inherit; text-decoration: none; }
   margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
 .fed { display: inline-flex; gap: 0.5rem; flex-wrap: wrap; }
 .fed span { border: 1px solid var(--line); border-radius: 999px; padding: 0.2em 0.7em; font-family: var(--font-mono); font-size: 0.72rem; }
+/* 12/10 : les conseils sous les disciplines, et les deux pages de confiance au bas du pied */
+.footer h4.footer__suite { margin-top: 1.9rem; }
+.footer__infos { display: inline-flex; flex-wrap: wrap; gap: 0 1.4rem; }
+.footer .footer__infos a { display: inline-flex; padding: 0; color: var(--muted); text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.footer .footer__infos a:hover { color: var(--accent); }
 
 /* ============================== PAGE HEADER (subpages) ============================== */
 .page-head { padding-top: calc(var(--nav-h) + clamp(60px, 12vh, 140px)); padding-bottom: clamp(40px, 6vw, 70px);
@@ -2113,6 +2119,37 @@ a.reel__frame:hover .reel__go, a.disc:hover .disc__go { text-decoration: underli
   .cs-table tbody td::before { content: attr(data-label) " · "; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 }
 @media (prefers-reduced-motion: reduce) { .cs-carte, .cs-carte__photo img { transition: none; } .cs-carte:hover { transform: none; } }
+
+/* ── Le matériel à retirer au club (/conseils/, 12/10) ─────────────────────────
+   Un cours par carte (les cartes des disciplines), la page du cours en titre,
+   les articles en liens simples vers leur fiche : ni prix, ni photo de la boutique. */
+.mt-intro { max-width: 68ch; margin-top: 1.4rem; }
+.mt-faits { margin-top: 2.2rem; }
+.mt-faits .cp-fait dd { font-size: clamp(1.6rem, 2.8vw, 2.4rem); }
+.mt-grille { margin-top: 1.6rem; }
+.mt-cours { min-height: 0; justify-content: flex-start; gap: 0; }
+.mt-cours .disc__name a { color: inherit; text-decoration: none; transition: color .2s ease; }
+.mt-cours .disc__name a:hover, .mt-cours .disc__name a:focus-visible { color: var(--accent); }
+.mt-cours .disc__desc { color: var(--fg-soft); line-height: 1.6; }
+.mt-liste { list-style: none; margin: 1.3rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.mt-liste li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem 1rem;
+  padding: .45rem 0; border-bottom: 1px solid var(--line); }
+.mt-liste a { display: inline-flex; align-items: baseline; gap: .35em; padding-block: .35rem; color: var(--fg); font-weight: 600;
+  text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: .28em;
+  transition: color .2s ease; }
+.mt-liste a:hover, .mt-liste a:focus-visible { color: var(--accent); }
+.mt-liste__ext { font-size: .8em; color: var(--accent); }
+.mt-liste__detail { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+/* tablette : deux colonnes, et la carte des enfants (la plus longue) prend toute la rangée — jamais une carte seule */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .mt-grille.cp-cartes--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mt-grille.cp-cartes--5 > *, .mt-grille.cp-cartes--5 > :nth-child(n+4) { grid-column: auto; }
+  .mt-grille.cp-cartes--5 > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .mt-liste__detail, .mt-faits .cp-fait dt { font-size: 12px; }
+  .mt-liste a { min-height: 44px; align-items: center; padding-block: 0; }
+}
 
 /* ============================== LE STAGE ENFANTS DES VACANCES ==============================
    Les Vacances des Boxeurs (26–31 octobre 2026, 8–16 ans) : un bandeau posé là où la page vient

@@ -9,11 +9,29 @@
  *
  * Lancé avant chaque build (npm run build) : le jour où le patron ajoute une
  * photo au vestiaire, elle entre dans le sitemap toute seule.
+ *
+ * LE `lastmod`, DATÉ POUR DE VRAI (12/10). Le 13/09, la date du build avait
+ * été retirée : elle changeait tous les jours sur les trente pages, une
+ * fraîcheur simulée que Google apprend à ignorer. Le plan du site n'avait
+ * depuis plus aucune date. Il en porte une de nouveau, mais vraie :
+ *   · `node scripts/sitemap-images.mjs --dater` tourne APRÈS le build. Il prend
+ *     l'empreinte du <main> de chaque page servie (scripts/empreinte-page.mjs)
+ *     et la compare à celle de scripts/sitemap-etat.json ;
+ *   · empreinte identique → la date d'avant est gardée : reconstruire n'est
+ *     pas modifier ; empreinte différente → la page a changé, elle prend la
+ *     date du jour, et l'état retient la nouvelle empreinte ;
+ *   · l'état est versionné avec le dépôt : c'est lui qui porte la mémoire des
+ *     dates, pas l'horloge de la machine de build. Ses premières dates (12/10)
+ *     viennent de l'historique git de chaque page, pas du jour du relevé.
+ * Sans --dater (avant le build), le script écrit les dates déjà connues.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { pagesDisciplines } from "./disciplines-lib.mjs";
+import { empreintePage, jourParis } from "./empreinte-page.mjs";
+
+const DATER = process.argv.includes("--dater");
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://boxing-center-portet.fr";
@@ -124,6 +142,26 @@ const PAGES = [
   { url: "/privacy/", freq: "yearly", prio: "0.3", images: [] },
 ];
 
+/* Les dates : celles de l'état, recalculées sur le HTML servi quand --dater. */
+const ETAT = join(ROOT, "scripts", "sitemap-etat.json");
+const DIST = join(ROOT, "dist");
+const etat = existsSync(ETAT) ? JSON.parse(readFileSync(ETAT, "utf8")) : {};
+const neuf = {};
+let bouges = 0;
+const aujourdhui = jourParis();
+if (DATER) {
+  for (const p of PAGES) {
+    const f = join(DIST, p.url, "index.html");
+    if (!existsSync(f)) { console.error(`[sitemap] ${p.url} est dans le plan du site mais pas dans dist/`); process.exit(1); }
+    const empreinte = empreintePage(readFileSync(f, "utf8"));
+    const ancien = etat[p.url];
+    const change = !ancien || ancien.empreinte !== empreinte;
+    if (change) bouges++;
+    neuf[p.url] = { empreinte, lastmod: change ? aujourdhui : ancien.lastmod };
+  }
+}
+const dateDe = (url) => (DATER ? neuf[url] : etat[url])?.lastmod;
+
 const xml =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n` +
@@ -131,8 +169,10 @@ const xml =
   `        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n` +
   PAGES.map((p) => {
     if (!p.url) throw new Error("[sitemap] entrée sans url");
+    const lastmod = dateDe(p.url);
     return (
     `  <url>\n    <loc>${SITE}${p.url}</loc>\n` +
+    (lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : "") +
     `    <changefreq>${p.freq}</changefreq>\n    <priority>${p.prio}</priority>\n` +
     (p.images.length ? p.images.join("\n") + "\n" : "") +
     ((p.videos || []).length ? p.videos.join("\n") + "\n" : "") +
@@ -144,4 +184,13 @@ const xml =
 writeFileSync(join(ROOT, "public/sitemap.xml"), xml, "utf8");
 const total = PAGES.reduce((n, p) => n + p.images.length, 0);
 const vids = PAGES.reduce((n, p) => n + (p.videos || []).length, 0);
-console.log(`[sitemap] ${PAGES.length} pages · ${total} images · ${vids} vidéos`);
+if (DATER) {
+  /* le plan servi (dist/) et l'état versionné, écrits ensemble */
+  writeFileSync(join(DIST, "sitemap.xml"), xml, "utf8");
+  writeFileSync(ETAT, JSON.stringify(neuf, null, 2) + "\n", "utf8");
+  console.log(`[sitemap] dates : ${bouges} page(s) au contenu modifié depuis le dernier relevé` +
+    (bouges ? ` → lastmod ${aujourdhui}` : " → toutes les dates conservées"));
+} else {
+  const datees = PAGES.filter((p) => dateDe(p.url)).length;
+  console.log(`[sitemap] ${PAGES.length} pages · ${total} images · ${vids} vidéos · ${datees} date(s) connue(s), recalculées après le build`);
+}

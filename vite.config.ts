@@ -2,6 +2,7 @@ import { defineConfig, type PluginOption } from "vite";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 import { roleHtml } from "./src/role-liens.mjs";
+import { NAV, PIED_INFOS } from "./src/nav.mjs";
 
 const page = (p: string) => resolve(__dirname, p);
 
@@ -23,7 +24,7 @@ const lienD = (nom: string) => {
 let COACH_PAGES: { slug: string; nom: string }[] = [];
 try { COACH_PAGES = JSON.parse(readFileSync(page("src/coachs-liens.json"), "utf8")); } catch { COACH_PAGES = []; }
 /* Les conseils du club (/conseils/<slug>/) : écrits par scripts/generate-conseils.mjs. */
-let CONSEIL_PAGES: { slug: string }[] = [];
+let CONSEIL_PAGES: { slug: string; pied?: string; titre?: string }[] = [];
 try { CONSEIL_PAGES = JSON.parse(readFileSync(page("src/conseils-liens.json"), "utf8")); } catch { CONSEIL_PAGES = []; }
 const lienC = (nom: string) => { const p = COACH_PAGES.find((x) => x.nom === nom); return p ? `/coachs/${p.slug}/` : ""; };
 
@@ -208,20 +209,10 @@ function seoBakePlugin() {
         const site = content.site || {};
         const addr = site.address || {};
         const nap = `Boxing Center Portet — ${addr.street || "61 route d’Espagne"}, ${addr.zip || "31120"} ${addr.city || "Portet-sur-Garonne"} — <a href="tel:+33956653782">${site.phone || "09 56 65 37 82"}</a> — <a href="mailto:${site.email || "boxingcenterportet@gmail.com"}">${site.email || "boxingcenterportet@gmail.com"}</a> — Lun–Sam 10h00–21h30`;
-        const NAV_PUBLIC = [
-          ["/", "Accueil", true],
-          ["/premiere-seance/", "1re séance", true],
-          ["/activites/", "Activités", true],
-          ["/salles/", "Le club", false],
-          ["/salles/#network-grid", "Nos clubs", false],
-          ["/coachs/", "Coachs", true],
-          ["/boxeurs/", "Nos Boxeurs", false],
-          ["/partenaires/", "Partenaires", false],
-          ["/galerie/", "Galerie", false],
-          ["/plannings/", "Planning", true],
-          ["/tarifs/", "Tarifs", true],
-          ["/contact/", "Contact", true],
-        ] as const;
+        /* La table de src/nav.mjs, la même que celle du JavaScript (12/10) : la
+           copie tenue ici avait perdu /club-de-boxe-portet/ et /conseils/, que
+           le HTML sans JavaScript ne liait donc presque jamais. */
+        const NAV_PUBLIC = NAV.map((n) => [n.href, n.label, n.top !== false] as const);
         const chemin = key === "home" ? "/" : key ? `/${key}/` : "";
         const lien = ([href, label]: readonly [string, string, boolean]) =>
           `<a href="${href}"${href === chemin ? ' aria-current="page"' : ""}>${label}</a>`;
@@ -252,11 +243,11 @@ function seoBakePlugin() {
           <div class="footer__grid">
             <div><div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div><nav class="footer-offres" aria-label="Nos offres">${liensOffres}</nav></div>
             <div><h4>Le club</h4>${NAV_PUBLIC.slice(1).map(lien).join("")}</div>
-            <div><h4>Disciplines</h4>${DISC_PAGES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}</div>
+            <div><h4>Disciplines</h4>${DISC_PAGES.map((p) => `<a href="/activites/${p.slug}/">${p.nom}</a>`).join("")}<h4 class="footer__suite">Conseils matériel</h4>${CONSEIL_PAGES.map((p) => `<a href="/conseils/${p.slug}/">${p.pied || p.titre || p.slug}</a>`).join("")}</div>
             <div><h4>Contact</h4><address class="geo-nap">${nap}</address></div>
           </div>
           <p class="footer__proches">Boxing Center près de chez toi : ${PROCHES.map((p) => `<a href="${p.url}" rel="noopener">${p.ville}</a>`).join(" · ")}</p>
-          <div class="footer__bottom"><span>© ${new Date().getFullYear()} ${site.name || "Boxing Center Portet"}</span></div>
+          <div class="footer__bottom"><span>© ${new Date().getFullYear()} ${site.name || "Boxing Center Portet"}</span><nav class="footer__infos" aria-label="Informations sur le site">${PIED_INFOS.map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}</nav></div>
         </div></footer></div>`;
         html = html.replace('<div id="site-footer"></div>', footerStatique);
 

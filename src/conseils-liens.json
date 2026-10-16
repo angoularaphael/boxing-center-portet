@@ -7,7 +7,8 @@
       "src": "/img/gym-20.jpg",
       "alt": "Deux boxeuses travaillent en gants face à face au Boxing Center Portet."
     },
-    "resume": "Bandes, gants, protège-dents : l’ordre des achats d’un débutant, et ce qui peut attendre."
+    "resume": "Bandes, gants, protège-dents : l’ordre des achats d’un débutant, et ce qui peut attendre.",
+    "pied": "Équipement de boxe pour débuter"
   },
   {
     "slug": "equipement-boxe-enfant",
@@ -17,6 +18,7 @@
       "src": "/img/gym-12.jpg",
       "alt": "Deux jeunes boxeurs casqués en assaut sur le ring du Boxing Center Portet."
     },
-    "resume": "Gants, bandes, protège-dents : les tailles d’un enfant, et ce qui s’achète plus tard."
+    "resume": "Gants, bandes, protège-dents : les tailles d’un enfant, et ce qui s’achète plus tard.",
+    "pied": "Équipement de boxe d’un enfant"
   }
 ]

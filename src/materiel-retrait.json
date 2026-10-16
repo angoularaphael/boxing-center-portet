@@ -1,0 +1,317 @@
+{
+  "_note": "Le bloc « Le matériel du cours, à retirer à l’accueil de Portet » de /conseils/ (accord d’Eddy, 12/10/2026). Les douze articles de la boutique du club (boutique.boxingcenter.fr) dont la fiche donne Portet comme salle de retrait, relevés le 12/10/2026 (.research/boxplus/catalogue-2026-10-12.json). Règles : des liens simples vers la fiche, aucun prix (ils bougent sans que ce site le sache), aucune photo de la boutique, aucun balisage Product ni Offer, un texte écrit pour Portet — à quel cours sert l’article, sur quel créneau du planning. Lu par scripts/generate-conseils.mjs, qui refuse un article sans Portet dans ses salles de retrait, un lien qui ne mène pas à une fiche de la boutique, ou un prix. `verifs` : chaque jour, cours (motif, insensible à la casse) et heure de début cités dans `texte`, contrôlés au build contre le planning en vigueur (planningEnVigueur) — quand le planning change, le build s'arrête tant que le texte n'est pas relu.",
+  "releve": "2026-10-12",
+  "maj": "2026-10-13",
+  "source": "https://boutique.boxingcenter.fr/materiel",
+  "eyebrow": "Retrait au club",
+  "h2": [
+    "Le matériel du cours,",
+    "à retirer à l’accueil de Portet."
+  ],
+  "lead": "Ces articles de la boutique du club se commandent en ligne et se retirent au 61 route d’Espagne. Ils sont rangés ici par cours, avec le créneau du planning où chacun sert ; la taille en stock et le prix du jour restent sur la fiche de chaque article.",
+  "faits": [
+    [
+      "Articles à retirer à Portet",
+      "{n}"
+    ],
+    [
+      "Délai de retrait",
+      "48 h"
+    ],
+    [
+      "Le pack enfants",
+      "Le jour même"
+    ],
+    [
+      "Une seule marque",
+      "Metal Boxe"
+    ]
+  ],
+  "cours": [
+    {
+      "titre": "Boxe anglaise",
+      "page": "/activites/boxe-anglaise/",
+      "tag": "Poings",
+      "texte": "Le vendredi, à midi comme le soir, le Sparring Anglaise &amp; Kick se boxe à deux : place aux gants de 14 ou 16 oz, ceux qui ménagent le partenaire. Les bandes et le protège-dents, eux, servent dès les cours du midi et les Loisirs du mardi et du jeudi soir.",
+      "produits": [
+        {
+          "ancre": "Les gants de sparring",
+          "detail": "16 oz",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/gants-sparring-mbgan010n14-16oz",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "Les gants ERGO 90",
+          "detail": "14 oz",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/gants-ergo-90-mbg301k14",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "Les bandes de 4 m",
+          "detail": "La paire · main d’adulte",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/bandes-4m-mb120bt",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "Les bandes de 2,50 m",
+          "detail": "La paire · petites mains",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/bandes-2m50-mb120t",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "Le protège-dents adulte",
+          "detail": "À mouler · avec boîtier",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/protege-dents-adulte-mbpro458srt",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        }
+      ],
+      "verifs": [
+        [
+          "Vendredi",
+          "Sparring Anglaise",
+          "12:30"
+        ],
+        [
+          "Vendredi",
+          "Sparring Anglaise",
+          "19:00"
+        ],
+        [
+          "Mardi",
+          "Anglaise Loisirs",
+          "20:00"
+        ],
+        [
+          "Jeudi",
+          "Anglaise Loisirs",
+          "20:00"
+        ],
+        [
+          "Lundi",
+          "Boxe Anglaise",
+          "12:30"
+        ]
+      ]
+    },
+    {
+      "titre": "Kick-boxing et K1",
+      "page": "/activites/kick-boxing/",
+      "tag": "Pieds-poings",
+      "texte": "Les coups de pied entrent en jeu au Kick / K1 du mardi, du mercredi et du jeudi, et au Lady Kick du mardi et du jeudi à 18 h. C’est pour ces cours-là que tibias et cou-de-pied se protègent.",
+      "produits": [
+        {
+          "ancre": "Les protège-tibias et pieds",
+          "detail": "Coton · S à XL",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/protege-tibias-pieds-coton-mb153wm",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        }
+      ],
+      "verifs": [
+        [
+          "Mardi",
+          "Kick / K1"
+        ],
+        [
+          "Mercredi",
+          "Kick / K1"
+        ],
+        [
+          "Jeudi",
+          "Kick / K1"
+        ],
+        [
+          "Mardi",
+          "Lady Kick",
+          "18:00"
+        ],
+        [
+          "Jeudi",
+          "Lady Kick",
+          "18:00"
+        ]
+      ]
+    },
+    {
+      "titre": "MMA",
+      "page": "/activites/mma/",
+      "tag": "La cage",
+      "texte": "Des gants ouverts, doigts libres pour saisir et contrôler : ceux de la cage, où <a href=\"/coachs/enzo-pioppo/\">Enzo Pioppo</a> et <a href=\"/coachs/nicolas-tramacon/\">Nicolas Tramaçon</a> enseignent le MMA à ses trois distances, du combat debout jusqu’au sol.",
+      "produits": [
+        {
+          "ancre": "Les gants de MMA The Shell",
+          "detail": "S à XL",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/gants-mma-the-shell",
+          "salles": [
+            "Ramonville",
+            "États-Unis",
+            "Portet"
+          ],
+          "retrait": "48 h"
+        }
+      ],
+      "verifs": []
+    },
+    {
+      "titre": "Préparation physique",
+      "page": "/activites/preparation-physique/",
+      "tag": "Le moteur",
+      "texte": "Mardi à 12 h 30, mercredi à 19 h, samedi à 11 h : la préparation physique travaille la force, le cardio et l’explosivité, sans aucun coup à recevoir. Pour ces trois séances, un débardeur d’entraînement à coupe ample.",
+      "produits": [
+        {
+          "ancre": "Le débardeur Training Tank",
+          "detail": "S à XL",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/debardeur-entrainement-metal-boxe-training-tank",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        }
+      ],
+      "verifs": [
+        [
+          "Mardi",
+          "Préparation Physique",
+          "12:30"
+        ],
+        [
+          "Mercredi",
+          "Préparation Physique",
+          "19:00"
+        ],
+        [
+          "Samedi",
+          "Préparation Physique",
+          "11:00"
+        ]
+      ]
+    },
+    {
+      "titre": "Enfants et ados",
+      "tag": "4–16 ans",
+      "texte": "<a href=\"/activites/baby-boxe/\">Baby boxe</a> le samedi à 15 h, <a href=\"/activites/boxe-educative/\">boxe éducative</a> le lundi, le mercredi et le samedi, <a href=\"/activites/kick-boxing-enfants-ados/\">kick enfants et ados</a> le mercredi et le samedi : chaque groupe a son créneau. Le pack enfants réunit des gants, des mitaines sous-gants et un porte-clés sac de frappe ; c’est le seul article de la liste qui se retire le jour même.",
+      "produits": [
+        {
+          "ancre": "Le pack enfants",
+          "detail": "4–7 ou 8–15 ans · le jour même",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/pack-enfants-gants-mitaines-porte-cles",
+          "salles": [
+            "Minimes",
+            "Portet"
+          ],
+          "retrait": "jour même"
+        },
+        {
+          "ancre": "Les gants enfant ONE",
+          "detail": "4–7 ou 8–15 ans",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/gants-boxe-enfant-one",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "L’ensemble short et débardeur",
+          "detail": "De 6 à 12 ans",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/ensemble-enfants-short-debardeur",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        },
+        {
+          "ancre": "Le protège-dents enfant",
+          "detail": "Gel à mouler",
+          "url": "https://boutique.boxingcenter.fr/materiel/produit/protege-dents-enfants-mb459jrw",
+          "salles": [
+            "Minimes",
+            "Portet",
+            "Saint-Cyprien"
+          ],
+          "retrait": "48 h"
+        }
+      ],
+      "verifs": [
+        [
+          "Samedi",
+          "Baby Boxe",
+          "15:00"
+        ],
+        [
+          "Lundi",
+          "Boxe Éducative"
+        ],
+        [
+          "Mercredi",
+          "Boxe Éducative"
+        ],
+        [
+          "Samedi",
+          "Boxe Éducative"
+        ],
+        [
+          "Mercredi",
+          "Kick Enfants"
+        ],
+        [
+          "Mercredi",
+          "Kick Ados"
+        ],
+        [
+          "Samedi",
+          "Kick Enfants"
+        ],
+        [
+          "Samedi",
+          "Kick Ados"
+        ]
+      ]
+    }
+  ],
+  "note": "Liste relevée le 12 octobre 2026 sur <a href=\"https://boutique.boxingcenter.fr/materiel\" target=\"_blank\" rel=\"noopener\">la boutique du club</a>, qui fait foi pour le stock et les prix. Tous ces articles sont de la marque Metal Boxe, celle des sacs de frappe que montre <a href=\"/galerie/\">la galerie du club</a>.",
+  "faq": [
+    [
+      "Peut-on retirer à Portet ce qu’on commande sur la boutique du club ?",
+      "Oui, pour les {n} articles de cette liste : la fiche de chacun donne Portet parmi les salles de retrait. Tu passes ensuite le chercher au 61 route d’Espagne."
+    ],
+    [
+      "Combien de temps après la commande peut-on retirer son matériel ?",
+      "Compte 48 heures pour la plupart des articles. Le pack enfants peut se retirer le jour même, de 12 h à 14 h et de 17 h à 21 h 15 : ces délais ont été relevés sur la boutique du club le 12 octobre 2026."
+    ]
+  ]
+}
