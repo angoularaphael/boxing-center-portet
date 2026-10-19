@@ -47,7 +47,7 @@
       { "@type": "Question", "name": "Faut-il avoir un niveau ou une condition physique pour commencer ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Aucun niveau n’est demandé et il n’y a aucun test à passer : ni chrono, ni nombre de pompes, ni classement. On ne se remet pas en forme avant de venir — on vient pour ça." } },
       { "@type": "Question", "name": "Est-ce qu’on est obligé de faire du sparring ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Personne ne monte sur le ring sans en avoir envie : ça se demande, ça ne s’impose pas. À Portet, le sparring a même son propre créneau, l’Open Sparring du vendredi 20h – 21h30 : il n’est jamais dans le cours des autres." } },
       { "@type": "Question", "name": "Quelle tenue pour un premier cours de boxe ?", "acceptedAnswer": { "@type": "Answer", "text": "Un t-shirt à manches courtes, un short ou un legging, des baskets propres et une bouteille d’eau pleine. Il n’y a rien à acheter avant de venir." } },
-      { "@type": "Question", "name": "Combien coûte la première séance ?", "acceptedAnswer": { "@type": "Answer", "text": "La séance d’essai publiée sur la boutique coûte 10 €. L’offre rentrée distincte est un abonnement à 29 € par personne toutes les 4 semaines ; première échéance par carte, puis prélèvements sur IBAN, avec badge à 34,99 € facturé 72 h après le début." } },
+      { "@type": "Question", "name": "Combien coûte la première séance ?", "acceptedAnswer": { "@type": "Answer", "text": "La séance d’essai coûte 10 € sur la boutique. Pour continuer, l’abonnement sans engagement est à 36,99 € toutes les 4 semaines en étudiant, carte étudiante requise, ou à 44,99 € en adulte ; première échéance par carte, puis prélèvement sur IBAN." } },
       { "@type": "Question", "name": "Quel créneau choisir pour un premier cours ?", "acceptedAnswer": { "@type": "Answer", "text": "La Boxe Anglaise Loisirs — mardi 20h – 21h30, mercredi 19h – 20h ou jeudi 20h – 21h30 — et la séance de midi du lundi, jeudi, vendredi et samedi de 12h30 à 13h30. Lady Boxing, 100 % féminin, le mercredi de 18h à 19h." } }
     ]
   }
@@ -75,7 +75,7 @@
         <span class="eyebrow">Avant même d’entrer</span>
         <h2 class="display" style="margin:1rem 0 1.4rem">Tu ne peux pas<br>rater la <span class="tint">façade.</span></h2>
         <p class="lead">61 route d’Espagne, à Portet-sur-Garonne. <strong>BOXING CENTER</strong> en grandes lettres bleues sur le mur blanc, deux boxeurs peints de chaque côté de la porte vitrée, un palmier à droite, des places de parking juste devant. Tu te gares, tu marches dix mètres, tu pousses.</p>
-        <p class="muted" style="margin-top:1.2rem">Ouvert du lundi au samedi, 10h00 – 21h30. La séance d’essai est distincte d’un abonnement ; pour l’offre rentrée, le badge à 34,99 € est facturé 72 h après le début.</p>
+        <p class="muted" style="margin-top:1.2rem">Ouvert du lundi au samedi, 10h00 – 21h30. La séance d’essai ne t’abonne à rien ; si tu prends un abonnement ensuite, le badge d’accès, 34,99 €, suit de quelques jours.</p>
       </div>
       <figure data-reveal style="margin:0;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden">
         <img src="/img/opt/portet-exterior-960.webp"
@@ -91,24 +91,40 @@
   <!-- LE PIEGE. Il se pose la ou la page vient de donner une raison, pas
        en bas par principe. La phrase change a chaque page : on ne dit pas
        la meme chose a qui sort du planning et a qui sort de la galerie. -->
-  <section class="section piege" aria-label="L’offre de l’année">
+  <section class="section piege" aria-label="Nos deux abonnements">
     <div class="wrap">
-      <p class="amorce">Et après la première, il y a l’année.</p>
-      <a class="billet" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-        <span class="billet__corps">
-          <span class="billet__sur">L’année complète</span>
-          <span class="billet__prix"><b>259</b><i>€</i></span>
-          <span class="billet__barre">au lieu de 400€</span>
-          <span class="billet__txt">Douze mois à moins de cinq euros la semaine.</span>
-        </span>
-        <span class="billet__talon" aria-hidden="true">
-          <span class="billet__mention">12 mois</span>
-          <span class="billet__mention">5 salles</span>
-          <span class="billet__mention">Comptant · PayPal 4× sous conditions</span>
-          <span class="billet__serie">BCP · SAISON 26/27 · N° 259</span>
-          <span class="billet__go">Prendre ma place <i>→</i></span>
-        </span>
-      </a>
+      <p class="amorce">Et après la première, il y a toutes les autres.</p>
+      <div class="billets">
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Carte étudiante requise</span>
+            <span class="billet__txt">Toutes les séances suivantes, au tarif étudiant.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">Sans engagement</span>
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Cours illimités</span>
+            <span class="billet__serie">BCP · ÉTUDIANT · N° 3699</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Adulte · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Sans engagement · renouvelable</span>
+            <span class="billet__txt">Toutes les séances suivantes, sans engagement.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Accès libre 10 h – 21 h 30</span>
+            <span class="billet__serie">BCP · ADULTE · N° 4499</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -230,9 +246,8 @@
   <section class="section">
     <div class="wrap"><div class="cta-block" data-reveal>
       <h2 class="display" style="margin-bottom:.6rem">Il ne reste plus<br>qu’une <span class="tint">date.</span></h2>
-      <p class="lead" style="margin-inline:auto">L’offre rentrée est un abonnement à <strong>29 € par personne toutes les 4 semaines</strong>, sans engagement : première échéance par carte, puis prélèvements sur IBAN. Coordonnées d’un proche demandées ; badge 34,99 € facturé 72 h après le début.</p>
-      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a>
-      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener" style="margin-top:1.8rem">Je prends ma saison · 259€</a>
+      <p class="lead" style="margin-inline:auto">Après l’essai, l’abonnement se prend sans engagement : <strong>36,99 € toutes les 4 semaines</strong> en étudiant, carte à l’appui, <strong>44,99 €</strong> en adulte. Première échéance par carte, puis prélèvement sur IBAN ; le badge, 34,99 €, est débité dans les jours qui suivent.</p>
+      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
       <p class="muted" style="margin-top:1.8rem">Une question avant de venir ? Appelle le club, quelqu’un décroche : <a href="tel:+33956653782" style="color:var(--accent)">09 56 65 37 82</a>.</p>
     </div></div>
   </section>

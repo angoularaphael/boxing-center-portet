@@ -145,31 +145,27 @@ Grâce à leur expérience et leur passion, Mourad et Ingrid, aux côtés de Val
 
 ## Offres et prix
 
-### Saison · 12 mois — 259€ les 12 mois · paiement comptant
-Prix barré : 400€. 259 € comptant pour douze mois d’illimité, 5 salles et toutes les disciplines. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.
-Réserver : https://boutique.boxingcenter.fr/offre/259
+### Étudiants — 36,99 € / 4 semaines · carte étudiante requise
+Ta carte étudiante en main, tu as tout ce qu’a l’adulte : cours illimités, accès libre de 10 h à 21 h 30, les 5 salles du réseau. 1re échéance par carte, ensuite prélèvement. Badge 34,99 € à part.
+Réserver : https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines
 
-### Offre Rentrée — 29€ par personne / toutes les 4 semaines
-Prix barré : 44€. 29 € par personne toutes les 4 semaines, sans engagement, dans les 5 salles. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.
-Réserver : https://boutique.boxingcenter.fr/offre/29
+### Adulte — 44,99 € / 4 semaines · renouvelable
+Cours illimités et accès libre de 10 h à 21 h 30 dans les cinq salles, toutes disciplines. Carte bancaire pour la première échéance, IBAN pour la suite ; le badge d’accès (34,99 €) est débité quelques jours après ton inscription.
+Réserver : https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines
 
-### Adulte — 44€ / 4 semaines
-L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
-Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
+### Comptant — 150 € les 3 mois · 250 € les 6 mois · 400 € les 12 mois
+Tu règles d’avance, en une seule fois, sans prélèvement : trois, six ou douze mois dans les cinq salles.
+Réserver : https://boutique.boxingcenter.fr/abonnements#comptant
 
-### Étudiants — 36€ / 4 semaines
-Le tarif étudiant, sur justificatif. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.
-Réserver : https://boutique.boxingcenter.fr/abonnements#prelevement
-
-### Enfants / Ados — 295€ / an
+### Enfants / Ados — 295 € / an
 T-shirt officiel du club inclus. Encadrement diplômé, créneaux dédiés — ils repartent plus forts, dedans comme dehors.
 Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 
-### Baby Boxe — 250€ / an
+### Baby Boxe — 250 € / an
 Le premier gant, à hauteur d’enfant : motricité, confiance, respect.
 Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 
-Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
+Étudiant et adulte, sans engagement : le badge d’accès (34,99 €) s’ajoute, débité dans les jours suivant l’inscription. Les formules comptant (3, 6 ou 12 mois) se règlent en une fois, au tarif normal.
 
 ## Planning de la semaine (celui affiché sur https://boxing-center-portet.fr/plannings/)
 
@@ -226,9 +222,9 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « La saison est à 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. L’offre rentrée est un abonnement à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à 34,99 €. »
+- « Sans engagement : 36,99 € toutes les 4 semaines en étudiant (carte étudiante requise), 44,99 € en adulte ; les cinq salles du réseau et tous les cours. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
-- « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
+- « Note Google 4,4/5 sur 114 avis au 16 octobre 2026. Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
 
 <!-- bc-attribution:start -->
 ## Attribution technique et provenance Git

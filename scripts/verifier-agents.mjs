@@ -140,14 +140,16 @@ for (const p of ["activites", "boxeurs", "tarifs"]) {
 
 /* 9. Les conditions commerciales matérielles restent explicites partout. */
 const contenu = JSON.parse(await readFile(join(ROOT, "src", "content.json"), "utf8"));
-const offre29 = contenu.tarifs.find((t) => t.href?.endsWith("/offre/29"));
-const saison259 = contenu.tarifs.find((t) => t.href?.endsWith("/offre/259"));
-dit(/toutes les 4 semaines/i.test(offre29?.unit || "") && /IBAN/i.test(offre29?.note || "") && /34,99/.test(offre29?.note || ""), "offre 29€ — récurrence, IBAN et badge explicités");
-dit(/comptant/i.test(saison259?.unit || "") && /PayPal/i.test(saison259?.note || "") && /éligibil/i.test(saison259?.note || ""), "offre 259€ — comptant et 4× PayPal conditionnel");
-dit(/toutes les 4 semaines/i.test(llms) && /IBAN/.test(llms) && /34,99/.test(llms) && /PayPal/.test(llms) && /éligibil/i.test(llms), "llms.txt — conditions commerciales complètes");
+const etudiant = contenu.tarifs.find((t) => t.href?.endsWith("product=etudiants-4-semaines"));
+const adulte = contenu.tarifs.find((t) => t.href?.endsWith("product=44-99-4-semaines"));
+dit(etudiant?.price === "36,99€" && /carte étudiante requise/i.test(etudiant?.unit || "") && /34,99/.test(etudiant?.note || ""), "abonnement étudiant — 36,99 €, carte étudiante, badge explicités");
+dit(adulte?.price === "44,99€" && /IBAN/.test(adulte?.note || "") && /34,99/.test(adulte?.note || ""), "abonnement adulte — 44,99 €, IBAN et badge explicités");
+dit(contenu.tarifs.indexOf(etudiant) >= 0 && contenu.tarifs.indexOf(etudiant) < contenu.tarifs.indexOf(adulte), "tarifs — l'Étudiant passe avant l'Adulte");
+dit(!contenu.tarifs.some((t) => t.old || /\/offre\/|offres-speciales/.test(t.href || "")), "tarifs — aucun prix barré, aucune ancienne page d'offre");
+dit(/toutes les 4 semaines/i.test(llms) && /IBAN/.test(llms) && /34,99/.test(llms) && /36,99/.test(llms) && /44,99/.test(llms), "llms.txt — conditions commerciales complètes");
 const chatSource = await readFile(join(ROOT, "api", "chat.js"), "utf8");
-dit(/toutes les 4 semaines/i.test(chatSource) && /IBAN/.test(chatSource) && /34,99/.test(chatSource) && /PayPal/.test(chatSource), "assistant — conditions commerciales alignées");
-dit(!/4× sans frais/i.test(chatSource + llms + JSON.stringify(contenu.tarifs)), "offres — aucun 4× inconditionnel");
+dit(/toutes les 4 semaines/i.test(chatSource) && /IBAN/.test(chatSource) && /34,99/.test(chatSource) && /36,99/.test(chatSource) && /44,99/.test(chatSource), "assistant — conditions commerciales alignées");
+dit(!/\/offre\/29\b|\/offre\/259|offres-speciales/.test(chatSource + llms + JSON.stringify(contenu.tarifs)), "offres — aucun lien vers les anciennes pages d'offre");
 
 console.log(`\n  ${ok} passes / ${ok + ko}${ko ? `  —  ${ko} ECHECS` : "  —  tout passe"}`);
 process.exit(ko ? 1 : 0);

@@ -255,7 +255,7 @@ export function initChatbot() {
         /* On n'accepte un mot nu comme prénom que si la réponse EST un
            prénom : au plus trois mots. Sans cette borne, le premier mot
            d'une phrase entière devenait le prénom — constaté en test, le
-           bot a répondu « Salut Je ! » à « Je m'intéresse à la saison ». */
+           bot a répondu « Salut Je ! » à « Je m'intéresse à l'abonnement ». */
         const mots = text.trim().split(/\s+/);
         const w = mots[0];
         if (mots.length <= 3 && w && w.length >= 2 && !EMAIL_RE.test(w) && !/\d/.test(w) && !STOP_NAMES.test(w)) name = w;
@@ -291,7 +291,7 @@ export function initChatbot() {
     // remerciement discret quand on vient de récupérer un contact
     if (gotNew && (profile.email || profile.phone) && callbackAsked) {
       callbackAsked = false;
-      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["saison", "offre", "planning"]));
+      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["etudiant", "adulte", "planning"]));
     }
     // invitation douce (une seule fois) à laisser un contact
     else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
@@ -355,24 +355,24 @@ export function initChatbot() {
       const ACCUEILS: Record<string, [string, string, string[]]> = {
         home: ["Bonjour 👋 Moi c’est Gus. Je vois que vous découvrez la salle.",
           "600 m², un ring, une cage MMA, 24 sacs. Dites-moi ce qui vous attire, je vous dis quand venir.",
-          ["saison", "offre", "disciplines"]],
-        /* Sur cette page le visiteur COMPARE déjà : c'est l'endroit où la
-           saison se défend le mieux. On ne retire pas le 29 €, on met le
-           chiffre qui tranche à côté et on laisse choisir. */
-        tarifs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous comparez les tarifs.", "La saison est à 259 € comptant au lieu de 400 € — 12 mois, les 5 salles ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité. Sans engagement, l’offre rentrée est à 29 € par personne toutes les 4 semaines. Je vous détaille laquelle ?", ["saison", "offre", "tarifs"]],
-        activites: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "offre"]],
-        plannings: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["saison", "offre", "disciplines"]],
-        coachs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["offre", "boxeurs"]],
-        boxeurs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["saison", "offre", "coachs"]],
+          ["etudiant", "adulte", "disciplines"]],
+        /* Sur cette page le visiteur COMPARE déjà : on lui pose les deux
+           montants exacts, l'étudiant d'abord, et le comptant pour qui veut
+           payer en une fois. Les chiffres côte à côte, il choisit. */
+        tarifs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous comparez les tarifs.", "Sans engagement, l’étudiant est à 36,99 € toutes les 4 semaines, carte étudiante requise, et l’adulte à 44,99 € — les 5 salles, tous les cours. Pour régler en une fois, il y a aussi le comptant sur 3, 6 ou 12 mois. Laquelle vous parle ?", ["etudiant", "adulte", "comptant"]],
+        activites: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les disciplines.", "Neuf, du baby boxe au MMA. Dites-moi votre objectif, je vous oriente.", ["planning", "etudiant", "adulte"]],
+        plannings: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez un créneau.", "Ouvert du lundi au samedi, 10h–21h30. Donnez-moi vos dispos, je vous dis lequel prendre.", ["etudiant", "adulte", "disciplines"]],
+        coachs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez l’équipe.", "Cinq coachs, diplômés FFBoxe, FFKMDA et FMMAF. Une question sur l’un d’eux ?", ["etudiant", "adulte", "boxeurs"]],
+        boxeurs: ["Bonjour 👋 Moi c’est Gus. Je vois que vous regardez les compétiteurs.", "Six athlètes de la Team Tapia, tous formés ici. Envie de commencer ?", ["etudiant", "adulte", "coachs"]],
         partenaires: ["Bonjour 👋 Moi c’est Gus. Je vois que vous êtes sur la page partenaires.", "Privatisation, entreprise, sponsoring : décrivez votre projet, je le transmets au club.", ["appeler", "contact"]],
         contact: ["Bonjour 👋 Moi c’est Gus. Je vois que vous cherchez à nous joindre.", "09 56 65 37 82 — ou laissez-moi votre numéro, un coach rappelle dans la journée.", ["appeler", "rappel"]],
-        "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Je vois que vous préparez votre première séance.", "Aucun niveau demandé, pas de sparring imposé. Une question ?", ["saison", "offre", "essai"]],
-        galerie: ["Bonjour 👋 Moi c’est Gus. Je vois que vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["saison", "offre", "disciplines"]],
+        "premiere-seance": ["Bonjour 👋 Moi c’est Gus. Je vois que vous préparez votre première séance.", "Aucun niveau demandé, pas de sparring imposé. Une question ?", ["etudiant", "adulte", "essai"]],
+        galerie: ["Bonjour 👋 Moi c’est Gus. Je vois que vous parcourez la galerie.", "600 m², un ring, une cage MMA, 24 sacs. Envie de voir en vrai ?", ["etudiant", "adulte", "disciplines"]],
       };
       const [BONJOUR, suite, wKeys] = ACCUEILS[page] || [
         "Bonjour 👋 Moi c’est Gus. Je suis l’assistant du club.",
         "Horaires, disciplines, tarifs — posez votre question (FR/EN).",
-        ["saison", "offre", "tarifs"],
+        ["etudiant", "adulte", "tarifs"],
       ];
       /* Deux bulles plutôt qu'un pavé : on laisse le bonjour arriver seul,
          puis la proposition. C'est le rythme d'une conversation, et ça évite

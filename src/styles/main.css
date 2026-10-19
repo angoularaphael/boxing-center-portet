@@ -113,19 +113,19 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 .btn--primary::after { content: ""; position: absolute; inset: 0; background: var(--accent-2); opacity: 0;
   transition: opacity var(--t-fast); mix-blend-mode: overlay; }
 .btn--primary:hover::after { opacity: 0.4; }
-/* LA SAISON à 259€. Le site officiel du réseau code ses deux offres par la
-   couleur : rouge pour la rentrée à 29€, OR pour l'année complète. C'est
-   déjà dans l'œil des adhérents — on ne réinvente pas un code qui existe.
-   Le prix barré vit DANS le bouton (motif Minimes) : le visiteur voit
-   l'économie sans avoir à lire une ligne de plus. */
+/* LE BOUTON D'OR — celui qui mène à l'inscription. L'or est la couleur que
+   le réseau donne à ce qu'on achète : le billet, la plaque, ce bouton. Il
+   porte « Étudiant · 36€99 » ou « Adulte · 44€99 » : l'euro entier se lit
+   d'abord, les centimes suivent en petit, collés, et le nom accessible du
+   lien dit le montant exact. */
 .btn--saison { background: linear-gradient(135deg, #e8c04a, #d9a441); color: #17110a; border-color: #e8c04a; font-weight: 700; }
 .btn--saison:hover { border-color: #f2d071; box-shadow: 0 0 0 3px rgba(232,192,74,.18); }
-.btn--saison s { opacity: .55; font-weight: 600; margin-right: .5ch; text-decoration-thickness: 2px; }
+.btn--saison small { font-size: .68em; font-weight: 700; margin-left: .04em; vertical-align: .32em; letter-spacing: 0; }
 
 /* LE BOUTON PERMANENT DE LA BARRE. Mesuré : à 183 px il poussait le burger
    hors de l'écran sous 430 px. On le resserre, et sous 400 px le libellé se
-   réduit au chiffre — une pastille dorée qui dit 259€ à côté du sigle ne
-   demande aucune explication. La hauteur de cible reste à 44 px. */
+   réduit aux deux chiffres, sans flèche — « 36€99 / 44€99 » en or à côté
+   du sigle se comprend seul. La hauteur de cible reste à 44 px. */
 @media (max-width: 520px){
   .nav .btn--saison { font-size: .74rem; letter-spacing: .01em; padding-inline: .8rem; gap: .35em; min-height: 44px; }
   .nav__brand { min-width: 0; }
@@ -133,6 +133,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
 @media (max-width: 400px){
   .nav .btn--saison .long { display: none; }
   .nav .btn--saison { padding-inline: .7rem; }
+  .nav .btn--saison .arrow { display: none; }
 }
 .btn--ghost { color: var(--fg); }
 .btn--ghost:hover { border-color: var(--accent); }
@@ -525,8 +526,8 @@ a.tarif { color: inherit; text-decoration: none; }
   line-height: 1; text-transform: uppercase; }
 /* L'UNITE PASSE SOUS LE PRIX.
    En `inline`, le <small> prenait la fin de la ligne du chiffre puis
-   debordait : sur une carte de 335 px on lisait « 29€ PAR PERSONNE / 4 »
-   puis « SEMAINES » tout seul a la ligne, et « 4x SANS » / « FRAIS ».
+   debordait : sur une carte de 335 px l'unite se coupait mot a mot, un
+   morceau a cote du chiffre, le reste seul sur la ligne suivante.
    Mesure : 217x50 px, QUATRE lignes pour trois mots. Un chiffre de 35 px
    et une unite de 12 px n'ont rien a faire sur la meme ligne — c'est ce
    qui dit ce qu'on achete, et ca se lisait comme du texte casse.
@@ -539,6 +540,11 @@ a.tarif { color: inherit; text-decoration: none; }
   letter-spacing: .04em; text-wrap: balance;
 }
 .tarif__note { color: var(--muted); font-size: 0.9rem; margin-top: auto; }
+/* « €99 » à côté du 36 ou du 44 : petit, collé, en haut — le même dessin que
+   le billet. Le chiffre entier reste ce que l'œil attrape. */
+.tarif__cts { font-style: normal; font-size: .42em; vertical-align: .95em; margin-left: .04em; letter-spacing: 0; }
+/* les mêmes centimes dans un grand titre (le panneau du ring) */
+.cts { font-size: .42em; vertical-align: .95em; margin-left: .03em; letter-spacing: 0; }
 
 /* ============================== CTA BLOCK ============================== */
 .cta-block { text-align: center; border: 1px solid var(--line); border-radius: var(--radius-lg);
@@ -1105,7 +1111,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 /* ============================== RESPONSIVE ============================== */
 /* La barre est plafonnée à --maxw : ce qu'elle contient doit tenir dans 1320 px,
    quelle que soit la taille de l'écran. Avec la ligne complète, « Le groupe »,
-   « Boutique » et le bouton « Offre 29€ » débordaient et le bouton — la porte
+   « Boutique » et le bouton d'or débordaient et le bouton — la porte
    d'entrée de la vente — sortait de l'écran (masqué par overflow-x: clip).
    On resserre la ligne de liens et on bascule dans le menu tant qu'elle ne
    tient pas : rien n'est retiré, tout reste atteignable par le burger. */
@@ -1285,40 +1291,7 @@ html.gated, html.gated body { overflow: hidden; height: 100%; }
 .boxer__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 22%; display: block; ; height: auto; /* sans lui, l'attribut height=2048 gagne sur aspect-ratio : chaque portrait faisait 4 a 5 ecrans de haut sur telephone (mesure : 333x2048) */ }
 .boxer__tag { margin-top: 0.9rem; }
 
-/* offres : ancien prix barre + CTA par carte — le tunnel de vente sur place */
-.tarif__old { color: #7f8ca3; text-decoration: line-through; text-decoration-thickness: 2px; font-size: 0.62em; font-weight: 600; margin-right: 0.25em; vertical-align: 0.12em; }
-/* Le prix barré DANS UNE PHRASE — pas dans une carte de tarif. Même signal,
-   proportions différentes : au milieu d'un paragraphe, le 0.62em des cartes
-   devient illisible. Règle de la maison : partout où 29 € est écrit, le prix
-   qu'il remplace est écrit à côté, barré. Un prix sans repère n'est pas
-   une affaire, c'est juste un nombre. */
-.was { color: currentColor; opacity: .55; text-decoration: line-through; text-decoration-thickness: 2px; font-weight: 600; margin-right: .1em; }
 
-/* Le compteur de places encore libres. Discret par construction : c'est un
-   fait, pas une alarme. Il n'apparaît que si le chiffre est réel — l'élément
-   naît `hidden` et seul places.ts le découvre. */
-.places {
-  position: relative; z-index: 1;
-  display: inline-flex; align-items: center; gap: .5rem;
-  margin: 0 auto .9rem; padding: .42rem .85rem;
-  border: 1px solid color-mix(in srgb, var(--accent, #c8902f) 45%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent, #c8902f) 12%, transparent);
-  font: 700 .78rem/1 var(--f-mono, ui-monospace, monospace);
-  letter-spacing: .06em; text-transform: uppercase;
-}
-.places::before {
-  content: ""; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent, #c8902f);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent, #c8902f) 60%, transparent);
-  animation: places-battement 2.4s ease-out infinite;
-}
-@keyframes places-battement {
-  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent, #c8902f) 55%, transparent); }
-  70%  { box-shadow: 0 0 0 9px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
-}
-@media (prefers-reduced-motion: reduce) { .places::before { animation: none; } }
 .tarif { display: flex; flex-direction: column; gap: 0.55rem; }
 .tarif__cta { margin-top: auto; align-self: stretch; justify-content: center; text-align: center; white-space: normal; }
 
@@ -1596,8 +1569,8 @@ html.forge-live #team-cards-section { display: none; }
 .billet__prix { display: flex; align-items: flex-start; gap: .06em; line-height: .82; margin: .1rem 0 .05rem; }
 .billet__prix b { font-family: var(--font-display); font-size: clamp(3.6rem, 13vw, 5.6rem); letter-spacing: -.035em; }
 .billet__prix i { font-style: normal; font-family: var(--font-display); font-size: clamp(1.2rem, 4vw, 2rem); margin-top: .3em; }
-.billet__barre { font-family: var(--font-mono, monospace); font-size: .68rem; letter-spacing: .1em;
-  text-transform: uppercase; opacity: .58; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.billet__cond { font-family: var(--font-mono, monospace); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; opacity: .72; }
 .billet__txt { font-size: clamp(.86rem, 2.3vw, 1rem); line-height: 1.4; margin-top: .5rem; max-width: 34ch; opacity: .88; }
 /* LE TALON, séparé par une perforation — le détail qui fait le billet */
 .billet__talon { border-left: 2px dashed rgba(23,17,10,.34); padding: 1.25rem clamp(1rem,3vw,1.6rem);
@@ -1615,8 +1588,8 @@ html.forge-live #team-cards-section { display: none; }
   .billet__talon { border-left: 0; border-top: 2px dashed rgba(23,17,10,.34); text-align: left;
     display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; padding-block: .9rem; }
   .billet__go { margin: 0 0 0 auto; }
-  /* 19/09 : « COMPTANT · PAYPAL 4× SOUS CONDITIONS » tenait sur UNE ligne et
-     poussait « Prendre ma place » hors du billet (capture d'Eddy, 360 px).
+  /* 19/09 : une mention longue tenait sur UNE ligne et poussait
+     « Prendre ma place » hors du billet (capture d'Eddy, 360 px).
      Sur téléphone les mentions passent à la ligne, et rien ne dépasse. */
   .billet { min-width: 0; overflow: hidden; }
   .billet__talon > * { min-width: 0; }
@@ -1630,6 +1603,29 @@ html.forge-live #team-cards-section { display: none; }
 .piege { padding-block: clamp(2.2rem, 6vw, 3.6rem); }
 .piege .amorce { margin: 0 0 .1rem; }
 .piege .billet { margin-top: 1.1rem; }
+
+/* LA PAIRE DE BILLETS (19/10/2026). Le piège présente deux abonnements,
+   toujours dans cet ordre : Étudiant, puis Adulte. Deux billets côte à
+   côte, chacun son lien d'inscription. À deux, un billet n'a plus la
+   largeur de tenir son talon à droite : le talon passe dessous, détaché
+   par la même perforation que sur téléphone. Sous 720 px ils s'empilent. */
+.billets { flex: 0 0 100%; max-width: 980px; margin-top: 1.1rem; display: grid; gap: 1rem 1.2rem;
+  grid-template-columns: 1fr; }
+.piege .billets { margin-top: 1.1rem; }
+.billets .billet { margin-top: 0; max-width: none; min-width: 0; grid-template-columns: 1fr; }
+.billets .billet__talon { border-left: 0; border-top: 2px dashed rgba(23,17,10,.34); text-align: left;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; padding-block: .9rem; }
+.billets .billet__talon > * { min-width: 0; }
+.billets .billet__mention, .billets .billet__serie { white-space: normal; }
+.billets .billet__go { margin: 0 0 0 auto; }
+.billets .billet__talon::before { left: -7px; top: -7px; bottom: auto; }
+.billets .billet__talon::after { left: auto; right: -7px; top: -7px; bottom: auto; }
+@media (min-width: 720px) { .billets { grid-template-columns: 1fr 1fr; } }
+.billets--compact { max-width: 640px; margin-top: 1.4rem; }
+.billets--compact .billet__corps { padding-block: .85rem; }
+.billets--compact .billet__prix b { font-size: clamp(2.6rem, 9vw, 3.4rem); }
+.billets--compact .billet__talon { padding-block: .7rem; }
+.ring .billets, .ring__txt .billets { position: relative; z-index: 4; }
 
 /* LE NUMÉRO DE SÉRIE. C'est la mention qui fait qu'on lit un billet et non
    un rectangle doré : un vrai billet porte toujours un numéro. */
@@ -1726,10 +1722,10 @@ html.forge-live #team-cards-section { display: none; }
 /* =====================================================================
    LA PLAQUE — le piège permanent, empilé au-dessus du chat.
 
-   Pas une roulette : il n'y a plus qu'une offre à vendre, et faire
-   tourner une seule case, c'est une affiche qui clignote. La forme
-   juste pour un site de boxe, c'est la plaque qu'on grave sur une
-   ceinture — un chiffre, de l'or, et un reflet qui passe dessus.
+   Pas une roulette : deux abonnements, Étudiant puis Adulte, gravés
+   l'un sous l'autre sur la même plaque — celle qu'on grave sur une
+   ceinture. Deux chiffres, de l'or, un trait perforé entre les deux, et
+   un reflet qui passe dessus. Chaque ligne est un lien à elle.
 
    Elle se cale sur le MÊME coin que le chat (mêmes marges, au pixel)
    et juste au-dessus de son bouton de 58 px. Elle ne coupe jamais le
@@ -1739,11 +1735,11 @@ html.forge-live #team-cards-section { display: none; }
   position: fixed; z-index: 8990;
   right: clamp(16px, 3vw, 28px);
   bottom: calc(clamp(16px, 3vw, 28px) + 58px + 12px);
-  display: grid; place-items: center; gap: 0;
+  display: grid; grid-template-rows: 1fr 1fr; gap: 0;
   /* Un TALON de billet, pas une pastille ronde : même matière, même bord
      déchiré, même halo que le billet qu'elle rappelle — en miniature. Une
      pastille ronde ne disait rien et ne se rattachait à rien. */
-  width: 96px; height: 58px; padding-left: 8px;
+  width: 96px; height: 76px; padding-left: 8px;
   --dent: 8px;
   -webkit-mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent)*2.1);
   mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent)*2.1);
@@ -1758,17 +1754,22 @@ html.forge-live #team-cards-section { display: none; }
 .plaque.is-in { opacity: 1; transform: none; pointer-events: auto; }
 .plaque:hover { transform: translateY(-3px);
   box-shadow: 0 12px 34px rgba(232,192,74,.48), 0 0 100px rgba(232,192,74,.32); }
+.plaque__o { display: grid; place-items: center; align-content: center; color: inherit; text-decoration: none;
+  position: relative; z-index: 1; }
+.plaque__o + .plaque__o { border-top: 1.5px dashed rgba(23,17,10,.34); }
+.plaque__o:focus-visible { outline: 2px solid #17110a; outline-offset: -3px; }
 .plaque__l { font-family: var(--font-mono, monospace); font-size: 7.5px; letter-spacing: .16em;
   text-transform: uppercase; opacity: .66; line-height: 1; margin-bottom: 2px; }
-.plaque__p { font-family: var(--font-display); font-size: 21px; line-height: 1; letter-spacing: -.02em; }
+.plaque__p { font-family: var(--font-display); font-size: 18px; line-height: 1; letter-spacing: -.02em; }
+.plaque__p i { font-style: normal; font-size: .52em; vertical-align: .62em; margin-left: .03em; letter-spacing: 0; }
 /* le reflet : une bande claire qui traverse, comme la lumière sur le métal */
 .plaque__reflet { position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(105deg, transparent 34%, rgba(255,255,255,.75) 50%, transparent 66%);
   transform: translateX(-130%); }
 .plaque.brille .plaque__reflet { animation: plaqueReflet 1.3s var(--ease-out); }
 @keyframes plaqueReflet { to { transform: translateX(130%); } }
-@media (max-width: 420px) { .plaque { width: 84px; height: 54px; }
-  .plaque__p { font-size: 19px; } }
+@media (max-width: 420px) { .plaque { width: 84px; height: 70px; }
+  .plaque__p { font-size: 16px; } }
 @media (prefers-reduced-motion: reduce) {
   .plaque { transition: opacity .2s; transform: none; }
   .plaque.is-in { transform: none; }
@@ -1779,17 +1780,17 @@ html.forge-live #team-cards-section { display: none; }
    Le billet est un billet de banque : sa micro-typo est le dessin, et le
    numero de serie a 9,3 px est de la TEXTURE — il reste de la texture.
 
-   Mais sur un billet de 335 px de large, « 259 » s'affiche a 57,6 px pendant
-   que tout ce qui justifie ce prix tient entre 10,2 et 10,9 px : l'ancrage
-   « au lieu de 400 € », les trois mentions qui SONT le produit (12 mois,
-   5 salles, paiement comptant et éventuel 4x PayPal), et ce qu'on achète. Neuf visiteurs sur dix lisent
-   ca sur un telephone.
+   Mais sur un billet de 335 px de large, le prix s'affiche a 57,6 px pendant
+   que tout ce qui le justifie tenait entre 10,2 et 10,9 px : la condition
+   (carte etudiante, renouvellement), les mentions qui SONT le produit
+   (4 semaines, 5 salles, cours illimites), et ce qu'on achete. Neuf
+   visiteurs sur dix lisent ca sur un telephone.
 
    Un chiffre enorme sans ses raisons, c'est un prix. Avec ses raisons, c'est
    une affaire. On monte donc ces trois lignes-la, et elles seules. */
 @media (max-width: 600px) {
   .billet__sur     { font-size: .75rem; }   /* 10,2 -> 12   px */
-  .billet__barre   { font-size: .82rem; }   /* 10,9 -> 13,1 px */
+  .billet__cond    { font-size: .82rem; }   /* 10,9 -> 13,1 px */
   .billet__mention { font-size: .78rem; }   /* 10,6 -> 12,5 px */
 }
 
@@ -1804,7 +1805,7 @@ html.forge-live #team-cards-section { display: none; }
        .portal  185vh  ·  .ring  400vh  ·  .forge  420vh   =  1005vh
 
    Dix ecrans de fond uni, des titres restes a opacity 0, et le visiteur qui
-   ne rencontre JAMAIS « 259 € · L'annee entiere » ni « Prendre ma place ».
+   ne rencontre JAMAIS les deux abonnements ni « Prendre ma place ».
 
    Sous cette classe : hauteurs naturelles, collant desactive, et ce qui
    n'apparaissait que pendant l'animation devient simplement visible. Le

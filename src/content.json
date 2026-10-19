@@ -239,44 +239,33 @@
   ],
   "tarifs": [
     {
-      "name": "Saison · 12 mois",
-      "price": "259€",
-      "unit": "les 12 mois · paiement comptant",
-      "old": "400€",
-      "badge": "Promo saison 2026-2027",
-      "note": "259 € comptant pour douze mois d’illimité, 5 salles et toutes les disciplines. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.",
-      "feature": true,
-      "cta": "Je prends ma saison",
-      "href": "https://boutique.boxingcenter.fr/offre/259"
-    },
-    {
-      "name": "Offre Rentrée",
-      "price": "29€",
-      "unit": "par personne / toutes les 4 semaines",
-      "old": "44€",
+      "name": "Étudiants",
+      "price": "36,99€",
+      "unit": "/ 4 semaines · carte étudiante requise",
       "badge": "Sans engagement",
-      "note": "29 € par personne toutes les 4 semaines, sans engagement, dans les 5 salles. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.",
-      "feature": false,
-      "cta": "Je profite de l’offre",
-      "href": "https://boutique.boxingcenter.fr/offre/29"
+      "note": "Ta carte étudiante en main, tu as tout ce qu’a l’adulte : cours illimités, accès libre de 10 h à 21 h 30, les 5 salles du réseau. 1re échéance par carte, ensuite prélèvement. Badge 34,99 € à part.",
+      "feature": true,
+      "cta": "Je m’inscris en étudiant",
+      "href": "https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines"
     },
     {
       "name": "Adulte",
-      "price": "44€",
-      "unit": "/ 4 semaines",
-      "note": "L’abonnement classique : accès aux 5 salles, toutes disciplines, sans engagement. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.",
-      "feature": false,
-      "cta": "Je choisis cette formule",
-      "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
+      "price": "44,99€",
+      "unit": "/ 4 semaines · renouvelable",
+      "badge": "Sans engagement",
+      "note": "Cours illimités et accès libre de 10 h à 21 h 30 dans les cinq salles, toutes disciplines. Carte bancaire pour la première échéance, IBAN pour la suite ; le badge d’accès (34,99 €) est débité quelques jours après ton inscription.",
+      "feature": true,
+      "cta": "Je m’inscris",
+      "href": "https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines"
     },
     {
-      "name": "Étudiants",
-      "price": "36€",
-      "unit": "/ 4 semaines",
-      "note": "Le tarif étudiant, sur justificatif. Badge d’accès 34,99 € en sus, sauf exception affichée lors de la commande.",
+      "name": "Comptant",
+      "price": "150€",
+      "unit": "les 3 mois · 250 € les 6 mois · 400 € les 12 mois",
+      "note": "Tu règles d’avance, en une seule fois, sans prélèvement : trois, six ou douze mois dans les cinq salles.",
       "feature": false,
-      "cta": "Je choisis cette formule",
-      "href": "https://boutique.boxingcenter.fr/abonnements#prelevement"
+      "cta": "Voir les formules comptant",
+      "href": "https://boutique.boxingcenter.fr/abonnements#comptant"
     },
     {
       "name": "Enfants / Ados",

@@ -37,7 +37,9 @@ function img(src, alt, sizes, { eager = false } = {}) {
 
 /* L'ancre d'une formule sur /tarifs/ — même règle que src/liens-disciplines.ts. */
 const ancreTarif = (nom) => "tarif-" + String(nom || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const voirTarif = (t) => (/^offre\b/i.test(t.name) ? `Voir l’${t.name}` : /^saison\b/i.test(t.name) ? `Voir l’offre ${t.name}` : `Voir le tarif ${t.name}`);
+/* La carte Étudiants ouvre /tarifs/, l'Adulte est juste à côté : le bouton
+   qui mène à la première dit qu'il montre les deux. */
+const voirTarif = (t) => (/^[ée]tudiant/i.test(t.name) ? "Voir les tarifs étudiant et adulte" : `Voir le tarif ${t.name}`);
 const boutonTarif = (t) => (t
   ? `<a class="btn btn--primary" href="/tarifs/#${ancreTarif(t.name)}">${e(voirTarif(t))}</a>`
   : `<a class="btn btn--primary" href="/tarifs/">Les tarifs</a>`);
@@ -125,7 +127,7 @@ function donnees(p, m, url, og, discs) {
 function corps(p, m, discs) {
   const site = C.site || {};
   const a = site.address || {};
-  const tarif = (C.tarifs || []).find((t) => t.name === p.tarif) || (C.tarifs || []).find((t) => /rentr/i.test(t.name));
+  const tarif = (C.tarifs || []).find((t) => t.name === p.tarif) || (C.tarifs || []).find((t) => /^[ée]tudiant/i.test(t.name));
   const sections = [];
 
   sections.push(`

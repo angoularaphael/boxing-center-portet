@@ -6,13 +6,14 @@
    n'avait aucun rappel permanent : on pouvait descendre trente écrans
    sans jamais croiser un prix.
 
-   CE QUE C'EST, ET POURQUOI PAS UNE ROULETTE. Une roulette suppose
-   PLUSIEURS offres à faire tourner. Ici il n'y en a plus qu'une à
-   vendre — la saison. Faire tourner une seule case, c'est une affiche
-   qui clignote. La forme juste, pour un site qui parle de boxe, c'est
-   la PLAQUE : celle qu'on grave sur une ceinture. Un chiffre, de l'or,
-   et un reflet qui passe dessus de temps en temps — comme la lumière
-   sur le métal quand on bouge.
+   CE QUE C'EST, ET POURQUOI PAS UNE ROULETTE. Deux offres, pas dix :
+   l'abonnement Étudiant, puis l'Adulte. Une roue qui tourne sur deux
+   cases, c'est une pièce qu'on lance. La forme juste, pour un site qui
+   parle de boxe, c'est la PLAQUE : celle qu'on grave sur une ceinture.
+   Deux lignes gravées l'une sous l'autre, de l'or, et un reflet qui passe
+   dessus de temps en temps — comme la lumière sur le métal quand on bouge.
+   Chaque ligne est son propre lien : étudiant vers l'inscription
+   étudiante, adulte vers l'inscription adulte.
 
    OÙ. Empilée juste au-dessus du chat, dans le même coin : c'est là que
    l'œil revient déjà. Elle s'efface sur le hero (on ne coupe pas une
@@ -24,27 +25,35 @@
    ne passe pas du tout. Le prix vient de TARIFS : rien n'est recopié.
    ===================================================================== */
 import { TARIFS } from "./data";
+import { prixLu } from "./prix.mjs";
 
-type Tarif = { name?: string; price?: string; old?: string; href?: string };
+type Tarif = { name?: string; price?: string; href?: string };
+
+/* « 36,99€ » → 36 en grand, €99 en petit (le nom accessible garde le montant exact). */
+const grave = (prix: string) => {
+  const m = /^(\d+),(\d{2})/.exec(prix);
+  return m ? `${m[1]}<i>€${m[2]}</i>` : prix;
+};
 
 export function mountPiege(): void {
   if (document.querySelector(".plaque")) return;
-  const t = (Array.isArray(TARIFS) ? (TARIFS as Tarif[]) : []).find((x) =>
-    String(x?.name || "").startsWith("Saison")
-  );
-  if (!t?.price || !t?.href) return;
+  const liste = Array.isArray(TARIFS) ? (TARIFS as Tarif[]) : [];
+  const trouve = (rx: RegExp) => liste.find((x) => rx.test(String(x?.name || "")));
+  /* Toujours dans cet ordre : l'étudiant d'abord, l'adulte ensuite. */
+  const offres = [
+    { t: trouve(/^[ée]tudiant/i), l: "Étudiant", fin: ", carte étudiante requise" },
+    { t: trouve(/^adulte/i), l: "Adulte", fin: "" },
+  ].filter((o) => o.t?.price && o.t?.href)
+   .map((o) => ({ ...o, lu: `Abonnement ${o.l.toLowerCase()}, ${prixLu(o.t!.price)} toutes les 4 semaines${o.fin}` }));
+  if (offres.length !== 2) return;
 
-  const el = document.createElement("a");
+  const el = document.createElement("div");
   el.className = "plaque";
-  el.href = t.href;
-  el.target = "_blank";
-  el.rel = "noopener";
-  /* Le nom accessible dit le prix ET ce qu'on achète : « 259€ » seul ne
-     veut rien dire pour qui n'a pas l'or sous les yeux. */
-  el.setAttribute("aria-label", `L’année complète à ${t.price}${t.old ? ` au lieu de ${t.old}` : ""} — voir l’offre`);
-  el.innerHTML = `
-    <span class="plaque__l" aria-hidden="true">L’année</span>
-    <span class="plaque__p" aria-hidden="true">${t.price}</span>
+  el.innerHTML = offres.map(({ t, l, lu }) => `
+    <a class="plaque__o" href="${t!.href}" target="_blank" rel="noopener" aria-label="${lu}" title="${lu}">
+      <span class="plaque__l" aria-hidden="true">${l}</span>
+      <span class="plaque__p" aria-hidden="true">${grave(String(t!.price))}</span>
+    </a>`).join("") + `
     <span class="plaque__reflet" aria-hidden="true"></span>`;
   document.body.appendChild(el);
 

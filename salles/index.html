@@ -58,7 +58,7 @@
     "contentLocation": { "@type": "City", "name": "Portet-sur-Garonne" }
   }
   </script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/salles/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Quelle surface fait le club ?", "acceptedAnswer": {"@type": "Answer", "text": "600 m², tous dédiés aux sports de combat."}}, {"@type": "Question", "name": "Quels équipements trouve-t-on sur place ?", "acceptedAnswer": {"@type": "Answer", "text": "Un ring de boxe anglaise, une cage de MMA, des tatamis, 24 sacs de frappe et un espace de préparation physique."}}, {"@type": "Question", "name": "L’abonnement donne-t-il accès aux autres salles du groupe ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui avec la saison : elle ouvre les cinq salles Boxing Center — Portet-sur-Garonne, Minimes, Saint-Cyprien, Ramonville et États-Unis."}}, {"@type": "Question", "name": "Depuis quand la salle existe-t-elle ?", "acceptedAnswer": {"@type": "Answer", "text": "Depuis 2016. C’est la salle phare du groupe."}}, {"@type": "Question", "name": "Peut-on visiter avant de s’inscrire ?", "acceptedAnswer": {"@type": "Answer", "text": "Le club est ouvert du lundi au samedi, de 10h00 à 21h30 : tu peux passer, ou appeler avant de venir."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/salles/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Quelle surface fait le club ?", "acceptedAnswer": {"@type": "Answer", "text": "600 m², tous dédiés aux sports de combat."}}, {"@type": "Question", "name": "Quels équipements trouve-t-on sur place ?", "acceptedAnswer": {"@type": "Answer", "text": "Un ring de boxe anglaise, une cage de MMA, des tatamis, 24 sacs de frappe et un espace de préparation physique."}}, {"@type": "Question", "name": "L’abonnement donne-t-il accès aux autres salles du groupe ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : étudiant ou adulte, l’abonnement ouvre les cinq salles Boxing Center — Portet-sur-Garonne, Minimes, Saint-Cyprien, Ramonville et États-Unis."}}, {"@type": "Question", "name": "Depuis quand la salle existe-t-elle ?", "acceptedAnswer": {"@type": "Answer", "text": "Depuis 2016. C’est la salle phare du groupe."}}, {"@type": "Question", "name": "Peut-on visiter avant de s’inscrire ?", "acceptedAnswer": {"@type": "Answer", "text": "Le club est ouvert du lundi au samedi, de 10h00 à 21h30 : tu peux passer, ou appeler avant de venir."}}]}</script>
 </head>
 <body data-page="salles">
   <div class="curtain" id="curtain" aria-hidden="true"></div>
@@ -85,24 +85,40 @@
   <!-- LE PIEGE. Il se pose la ou la page vient de donner une raison, pas
        en bas par principe. La phrase change a chaque page : on ne dit pas
        la meme chose a qui sort du planning et a qui sort de la galerie. -->
-  <section class="section piege" aria-label="L’offre de l’année">
+  <section class="section piege" aria-label="Nos deux abonnements">
     <div class="wrap">
-      <p class="amorce">Ces 600 m² sont à toi toute l’année.</p>
-      <a class="billet" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-        <span class="billet__corps">
-          <span class="billet__sur">L’année complète</span>
-          <span class="billet__prix"><b>259</b><i>€</i></span>
-          <span class="billet__barre">au lieu de 400€</span>
-          <span class="billet__txt">Le ring, la cage, les 24 sacs. Sans limite de cours.</span>
-        </span>
-        <span class="billet__talon" aria-hidden="true">
-          <span class="billet__mention">12 mois</span>
-          <span class="billet__mention">5 salles</span>
-          <span class="billet__mention">Comptant · PayPal 4× sous conditions</span>
-          <span class="billet__serie">BCP · SAISON 26/27 · N° 259</span>
-          <span class="billet__go">Prendre ma place <i>→</i></span>
-        </span>
-      </a>
+      <p class="amorce">Ces 600 m² sont à toi dès ton inscription.</p>
+      <div class="billets">
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Carte étudiante requise</span>
+            <span class="billet__txt">Le ring, la cage, les 24 sacs, carte étudiante en main.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">Sans engagement</span>
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Cours illimités</span>
+            <span class="billet__serie">BCP · ÉTUDIANT · N° 3699</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Adulte · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Sans engagement · renouvelable</span>
+            <span class="billet__txt">Le ring, la cage et l’accès libre jusqu’à 21 h 30.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Accès libre 10 h – 21 h 30</span>
+            <span class="billet__serie">BCP · ADULTE · N° 4499</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -200,7 +216,7 @@
       <div class="faq-list">
         <details><summary>Quelle surface fait le club ?</summary><p>600 m², tous dédiés aux sports de combat.</p></details>
         <details><summary>Quels équipements trouve-t-on sur place ?</summary><p>Un ring de boxe anglaise, une cage de MMA, des tatamis, 24 sacs de frappe et un espace de préparation physique.</p></details>
-        <details><summary>L’abonnement donne-t-il accès aux autres salles du groupe ?</summary><p>Oui avec la saison : elle ouvre les cinq salles Boxing Center — Portet-sur-Garonne, Minimes, Saint-Cyprien, Ramonville et États-Unis.</p></details>
+        <details><summary>L’abonnement donne-t-il accès aux autres salles du groupe ?</summary><p>Oui : étudiant ou adulte, l’abonnement ouvre les cinq salles Boxing Center — Portet-sur-Garonne, Minimes, Saint-Cyprien, Ramonville et États-Unis.</p></details>
         <details><summary>Depuis quand la salle existe-t-elle ?</summary><p>Depuis 2016. C’est la salle phare du groupe.</p></details>
         <details><summary>Peut-on visiter avant de s’inscrire ?</summary><p>Le club est ouvert du lundi au samedi, de 10h00 à 21h30 : tu peux passer, ou appeler avant de venir.</p></details>
       </div>

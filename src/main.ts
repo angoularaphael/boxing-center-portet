@@ -5,12 +5,12 @@ import { initThemeSwitch } from "./theme";
 import { initScroll, initPageScroll, filetReveal } from "./scroll";
 import { initFxOnce, initFxPage } from "./fx";
 import { renderPage } from "./pages";
-import { ouvreCarte, fermeCarte, voirCarte } from "./liens-disciplines";
+import { ouvreCarte, fermeCarte, voirCarte, ancreTarif } from "./liens-disciplines";
 import { initEnterGate } from "./enter";
 import { initRouter } from "./router";
 import { allerAncreAuChargement } from "./scroll";
 import { initCommunity } from "./community";
-import { initPlaces } from "./places";
+import { prixHtml } from "./prix.mjs";
 import { mountEmbersOnPageHead } from "./three/embers";
 import { initChatbot } from "./chatbot/widget";
 import { injectSchema } from "./seo";
@@ -153,10 +153,10 @@ function renderHomeGrids() {
   if (tarifs) {
     tarifs.innerHTML = TARIFS.map(
       (t: any) => `
-      <div class="tarif ${t.feature ? "tarif--feature" : ""}" data-reveal>
+      <div class="tarif ${t.feature ? "tarif--feature" : ""}" id="${ancreTarif(t.name)}" data-reveal>
         ${t.badge ? `<span class="tarif__badge">${t.badge}</span>` : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : ""}
         <span class="tarif__name">${t.name}</span>
-        <span class="tarif__price">${t.old ? `<s class="tarif__old">${t.old}</s> ` : ""}${t.price}<small> ${t.unit}</small></span>
+        <span class="tarif__price">${prixHtml(t.price)}<small> ${t.unit}</small></span>
         <p class="tarif__note">${t.note}</p>
         ${t.href ? `<a class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta" href="${t.href}" target="_blank" rel="noopener">${t.cta || "Je choisis cette formule"}</a>` : ""}
       </div>`
@@ -438,10 +438,6 @@ function bootPage() {
      `#page`, donc l'ancienne couche part avec et une neuve la remplace. */
   if (hasWebGL) mountEmbersOnPageHead();
   initCommunity();
-  /* « Plus que N places » — relancé à chaque page parce que les emplacements
-     changent avec le contenu. Le module ne parle que s'il connaît le VRAI
-     nombre restant ; sinon il se tait (voir places.ts). */
-  void initPlaces();
   injectSchema(document.body.dataset.page);
 }
 

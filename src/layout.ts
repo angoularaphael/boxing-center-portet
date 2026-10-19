@@ -8,6 +8,14 @@ const svgArrow = `<svg class="arrow" width="16" height="16" viewBox="0 0 16 16" 
 const svgExt = `<svg class="ext" width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const SHOP = "https://boutique.boxingcenter.fr/";
 const GROUP = "https://boxingcenter.fr/";
+/* Les deux abonnements sans engagement — toujours dans cet ordre : Étudiant, puis Adulte. */
+const INSCRIPTION_ETUDIANT = "https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines";
+const INSCRIPTION_ADULTE = "https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines";
+const PRELEVEMENT = "https://boutique.boxingcenter.fr/abonnements#prelevement";
+/* 36 en grand, €99 en petit ; le nom accessible donne le montant exact. */
+const boutonsAbonnements = () =>
+  `<a class="btn btn--saison" href="${INSCRIPTION_ETUDIANT}" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small> ${svgArrow}</a>`
+  + `<a class="btn btn--saison" href="${INSCRIPTION_ADULTE}" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small> ${svgArrow}</a>`;
 
 function navMarkup(path: string) {
   const links = NAV.filter((n) => (n as any).top !== false).map((n) => {
@@ -30,10 +38,10 @@ function navMarkup(path: string) {
         <button class="icon-btn sound-toggle" id="sound" aria-label="Activer le son" title="Son">
           <span class="bars"><i></i><i></i><i></i></span>
         </button>
-        <!-- Le bouton TOUJOURS visible porte la saison, pas la rentrée : c'est
-             le seul clic permanent du site, il doit porter l'offre qu'on veut
-             vendre. -->
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener" aria-label="Saison 12 mois à 259 euros comptant"><span class="long">L’année · </span>259€ ${svgArrow}</a>
+        <!-- Le bouton TOUJOURS visible : un seul clic permanent pour deux
+             abonnements, il ouvre la liste des formules sans engagement de la
+             boutique, où l'étudiant et l'adulte se choisissent côte à côte. -->
+        <a class="btn btn--saison" href="${PRELEVEMENT}" target="_blank" rel="noopener" aria-label="Abonnements sans engagement : étudiant 36,99 €, adulte 44,99 € toutes les 4 semaines"><span class="long">Sans engagement · </span>36<small>€99</small> / 44<small>€99</small> ${svgArrow}</a>
         <button class="icon-btn nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
           <svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 6h14M3 14h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
@@ -54,9 +62,9 @@ function navMarkup(path: string) {
       <a class="menu__ext" href="${GROUP}" target="_blank" rel="noopener">Le groupe Boxing Center ${svgExt}</a>
       <a class="menu__ext" href="${SHOP}" target="_blank" rel="noopener">Boutique ${svgExt}</a>
       <!-- Le menu plein écran est le passage obligé du téléphone : qui cherche
-           une page l'ouvre. Il ne portait que la rentrée à 29€ ; la saison
-           entre juste en dessous, dans son or, et pointe direct sur sa page. -->
-      <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ comptant ${svgArrow}</a>
+           une page l'ouvre. Les deux abonnements y sont, dans leur or, chacun
+           sur sa page d'inscription. -->
+      ${boutonsAbonnements()}
     </div>
   </div>`;
 }
@@ -69,13 +77,12 @@ function footerMarkup() {
       <div class="footer__grid">
         <div>
           <div class="footer__big">Prêt à<br>monter sur<br>le ring ?</div>
-          <!-- Une seule offre permanente dans ce pied de page : la saison à
-               259 € comptant. Son lien mène directement à sa page ; la note
-               précise sans promesse que le 4× dépend de PayPal. -->
+          <!-- Les deux abonnements sans engagement, Étudiant d'abord, chacun
+               mène à sa page d'inscription sur la boutique. -->
           <div style="display:flex;flex-wrap:wrap;gap:.7rem">
-            <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>La saison · 259€ comptant ${svgArrow}</a>
+            ${boutonsAbonnements()}
           </div>
-          <p class="muted" style="margin-top:.7rem;font-size:.82rem">Le 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.</p>
+          <p class="muted" style="margin-top:.7rem;font-size:.82rem">Toutes les 4 semaines, tu arrêtes quand tu veux. Le tarif étudiant se prend avec ta carte étudiante.</p>
           <p class="muted" style="margin-top:1rem;font-size:.92rem">Jamais mis de gants ? <a href="/premiere-seance/" style="color:var(--accent)">Ce qui se passe la première fois.</a></p>
         </div>
         <div>

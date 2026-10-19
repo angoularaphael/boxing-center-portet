@@ -16,68 +16,74 @@
     {
       "id": "C2",
       "famille": "controle",
-      "titre": "Le prix de l'annee",
+      "titre": "Le prix de l'annee : le comptant 12 mois, au tarif normal",
       "tours": [
         "C'est combien l'abonnement a l'annee ?"
       ],
       "doit_contenir": [
-        "259",
-        "comptant"
+        "400"
+      ],
+      "doit_pas_contenir": [
+        "au lieu de|promo|remise|prix barr"
       ],
       "boutons_attendus": [
-        "saison"
+        "comptant"
       ],
       "boutons_valides": true
     },
     {
       "id": "C3",
       "famille": "controle",
-      "titre": "L'offre 29 EUR est recurrente et ses frais sont annonces",
+      "titre": "L'abonnement adulte est recurrent et ses frais sont annonces",
       "tours": [
-        "Expliquez-moi exactement l'offre a 29 euros"
+        "Expliquez-moi exactement l'abonnement adulte"
       ],
       "doit_contenir": [
+        "44[,.]99",
         "toutes les 4 semaines",
         "IBAN",
-        "34[,.]99",
-        "proche"
+        "34[,.]99"
       ],
       "boutons_attendus": [
-        "offre"
+        "adulte"
       ],
       "boutons_valides": true
     },
     {
       "id": "B1",
       "famille": "bord",
-      "titre": "Intention forte : il doit basculer sur la saison",
-      "_pourquoi": "Le patron : « the AI bot still shows Je profite de l'offre 29 euros instead of the 259 ». Le prompt lui ordonne encore d'ouvrir sur le 29.",
+      "titre": "Intention forte : l'etudiant puis l'adulte, montants exacts",
+      "_pourquoi": "Eddy, 19/10/2026 : l'offre Etudiant s'annonce d'abord, l'offre Adulte juste apres, avec les montants exacts 36,99 EUR et 44,99 EUR.",
       "tours": [
         "Je veux vraiment m'y mettre serieusement cette annee, qu'est-ce que vous me conseillez ?"
       ],
       "doit_contenir": [
-        "259"
+        "36[,.]99",
+        "44[,.]99"
+      ],
+      "doit_pas_contenir": [
+        "^(?:(?!36[,.]99)[\\s\\S])*44[,.]99"
       ],
       "boutons_attendus": [
-        "saison"
+        "etudiant",
+        "adulte"
       ],
       "boutons_valides": true
     },
     {
       "id": "B2",
       "famille": "bord",
-      "titre": "Le 4x est une option PayPal conditionnelle",
-      "_pourquoi": "Le prix normal est 259 EUR comptant. Le 4x ne peut etre propose que par PayPal, selon disponibilite et eligibilite.",
+      "titre": "Payer en plusieurs fois : aucun echelonnement invente",
+      "_pourquoi": "L'abonnement se regle deja toutes les 4 semaines (carte, puis prelevement) ; le comptant se paie en une fois. Le bot ne promet aucun autre echelonnement.",
       "tours": [
         "Je peux payer en plusieurs fois ?"
       ],
       "doit_pas_contenir": [
-        "64[,.]75.{0,18}(par mois|/mois|mensuel)",
-        "4.?x sans frais"
+        "(en|paiement en) [2-4] ?(x\\b|×|fois\\b)",
+        "sans frais"
       ],
       "doit_contenir": [
-        "PayPal",
-        "eligib|disponib|condition"
+        "4 semaines|pr[ée]l[èe]vement"
       ],
       "boutons_valides": true
     },
@@ -101,18 +107,20 @@
     {
       "id": "B4",
       "famille": "bord",
-      "titre": "Jamais une troisieme proposition de la saison",
-      "_pourquoi": "Un vendeur qui insiste trois fois perd la vente. La regle est ecrite dans le prompt : elle doit tenir sur trois tours.",
+      "titre": "Jamais une troisieme proposition d'abonnement",
+      "_pourquoi": "Un vendeur qui insiste trois fois perd la vente. La regle est ecrite dans le prompt (deux propositions au plus) : elle doit tenir sur trois tours.",
       "tours": [
         "Bonjour, je cherche un abonnement",
-        "259 c'est trop cher pour moi",
-        "Non vraiment, je ne veux pas prendre l'annee"
+        "44,99 c'est trop cher pour moi",
+        "Non vraiment, je ne veux pas d'abonnement"
       ],
       "doit_pas_contenir": [
-        "259"
+        "44[,.]99",
+        "36[,.]99"
       ],
       "boutons_interdits": [
-        "saison"
+        "etudiant",
+        "adulte"
       ],
       "boutons_valides": true
     },
@@ -121,10 +129,11 @@
       "famille": "bord",
       "titre": "Une question en anglais, une reponse entierement en anglais",
       "tours": [
-        "Hi, how much is the yearly membership?"
+        "Hi, how much is a membership at your gym?"
       ],
       "doit_contenir": [
-        "259"
+        "36[.,]99",
+        "44[.,]99"
       ],
       "langue": "en",
       "boutons_valides": true
@@ -175,7 +184,7 @@
       "_pourquoi": "« si le client il refuse, on lui propose la seance a 10 euros » — sinon on perd la vente.",
       "tours": [
         "Bonjour, je cherche a me remettre au sport",
-        "29 euros c'est encore trop pour moi la",
+        "Meme 36,99 euros c'est encore trop pour moi la",
         "Non, je ne veux prendre aucun abonnement pour l'instant"
       ],
       "doit_contenir": [
@@ -186,16 +195,64 @@
     {
       "id": "S1",
       "famille": "controle",
-      "titre": "Les tarifs : la saison a 259 € d'abord, puis le 29 €",
-      "_pourquoi": "Eddy, 13/09 : comme les boutons du site, la saison a 259 € (au lieu de 400 €) s'annonce EN PREMIER ; l'offre rentree a 29 € vient juste apres, comme alternative sans engagement.",
+      "titre": "Les tarifs : l'etudiant a 36,99 € d'abord, puis l'adulte a 44,99 €",
+      "_pourquoi": "Eddy, 19/10/2026 : partout, l'offre Etudiant (carte etudiante requise) s'annonce EN PREMIER et l'offre Adulte juste apres ; montants exacts, jamais 36 € ni 44 € seuls, aucune fausse promo.",
       "tours": [
         "Bonjour, c'est combien l'abonnement chez vous ?"
       ],
       "doit_contenir": [
-        "\\b259 ?€"
+        "\\b36[,.]99\\s?€",
+        "\\b44[,.]99\\s?€",
+        "carte [ée]tudiante",
+        "boutons?\\s*:\\s*etudiant\\s*,\\s*adulte"
       ],
       "doit_pas_contenir": [
-        "^(?:(?!259)[\\s\\S])*\\b29 ?€"
+        "^(?:(?!36[,.]99)[\\s\\S])*44[,.]99",
+        "\\b(36|44)\\s?€",
+        "au lieu de|promo|remise"
+      ],
+      "boutons_attendus": [
+        "etudiant",
+        "adulte"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "R1",
+      "famille": "bord",
+      "titre": "On lui demande une offre a 29 euros : il repond par ce qui existe, en positif",
+      "_pourquoi": "Consigne du 19/10/2026 : pas de vente negative. Un prix absent de ses infos, il ne le commente pas ; il presente l'etudiant puis l'adulte, sans parler de fin ni d'arret d'une offre.",
+      "tours": [
+        "Bonjour, elle marche toujours l'offre a 29 euros ?"
+      ],
+      "doit_contenir": [
+        "36[,.]99",
+        "44[,.]99"
+      ],
+      "doit_pas_contenir": [
+        "\\btermin|\\bexpir|\\bfinie?s?\\b|plus (disponible|valable|propos|d.actualit)|n.existe plus|fin de (la |l.)?(promo|offre)|(s.est|a [ée]t[ée]) arr[êe]t",
+        "\\b29\\s?(€|euros?)"
+      ],
+      "boutons_attendus": [
+        "etudiant",
+        "adulte"
+      ],
+      "boutons_valides": true
+    },
+    {
+      "id": "R2",
+      "famille": "bord",
+      "titre": "On lui demande « la saison » : le comptant au tarif normal, sans promo inventee",
+      "_pourquoi": "Le mot revient chez les visiteurs. Le bot repond par l'abonnement sans engagement ou le comptant 12 mois a 400 EUR, jamais par un prix barre ni une remise, et sans parler de fin d'offre.",
+      "tours": [
+        "Je voudrais prendre la saison complete, c'est combien ?"
+      ],
+      "doit_contenir": [
+        "400|36[,.]99"
+      ],
+      "doit_pas_contenir": [
+        "\\btermin|\\bexpir|\\bfinie?s?\\b|plus (disponible|valable|propos|d.actualit)|n.existe plus|fin de (la |l.)?(promo|offre)|(s.est|a [ée]t[ée]) arr[êe]t",
+        "au lieu de|promo|remise|prix barr"
       ],
       "boutons_valides": true
     }

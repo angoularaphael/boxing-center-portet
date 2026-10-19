@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
 import { pagesDisciplines, creneaux, joursEnMots, remplir, planningEnVigueur } from "./disciplines-lib.mjs";
+import { prixLu } from "../src/prix.mjs";
 /* LE PLANNING AFFICHÉ, pas les deux grilles cachées (planning + planningMma
    n’existent sur le site qu’à l’ouverture des nouvelles salles) : les IA
    récitaient des créneaux que personne ne voit (audit du 13/09). */
@@ -32,6 +33,9 @@ let CONSEILS = [];
 try { CONSEILS = JSON.parse(readFileSync(join(ROOT, "src/conseils-liens.json"), "utf8")); } catch { CONSEILS = []; }
 const SITE = "https://boxing-center-portet.fr";
 const SHOP = "https://boutique.boxingcenter.fr";
+/* Les deux abonnements sans engagement, lus dans content.json : Étudiant, puis Adulte. */
+const ETUDIANT = (C.tarifs || []).find((t) => /^[ée]tudiant/i.test(t.name));
+const ADULTE = (C.tarifs || []).find((t) => /^adulte/i.test(t.name));
 const s = C.site || {};
 const a = s.address || {};
 const plan = (rows) =>
@@ -51,11 +55,14 @@ const llms = `# Boxing Center Portet — ${SITE}
 **Où est Boxing Center Portet ?**
 ${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}, France (Toulouse sud, Haute-Garonne).
 
-**Combien coûte l’année ?**
-La saison 2026/2027 est à 259 € comptant pour 12 mois, avec l’accès aux 5 salles du réseau et à toutes les disciplines, sans limite de cours. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité. Boutique officielle : ${SHOP}/offre/259
+**Combien coûte l’abonnement ?**
+Deux abonnements sans engagement, renouvelés toutes les 4 semaines, avec les 5 salles du réseau, toutes les disciplines et l’accès libre de 10 h à 21 h 30 :
+- Étudiant : ${prixLu(ETUDIANT?.price)} toutes les 4 semaines, carte étudiante requise. Inscription : ${ETUDIANT?.href || SHOP}
+- Adulte : ${prixLu(ADULTE?.price)} toutes les 4 semaines. Inscription : ${ADULTE?.href || SHOP}
+Première échéance par carte bancaire, prélèvement sur IBAN ensuite. Le badge d’accès, 34,99 €, est débité séparément, quelques jours plus tard.
 
-**Quelle est l’offre du moment ?**
-Offre rentrée 2026 : abonnement sans engagement à 29 € par personne toutes les 4 semaines. Première échéance par carte, suivantes par prélèvement sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début. Boutique officielle : ${SHOP}/offre/29
+**Peut-on payer d’avance ?**
+Oui, au comptant, au tarif normal : 150 € les 3 mois, 250 € les 6 mois, 400 € les 12 mois. Boutique : ${SHOP}/abonnements#comptant
 
 **Quelles disciplines sont enseignées ?**
 ${(C.disciplines || []).map((d) => d.name).join(", ")}.
@@ -105,9 +112,8 @@ Salle de boxe anglaise avec 1 ring, espace combat avec 1 cage MMA, 24 sacs de fr
 
 ## Tarifs
 
-${(C.tarifs || []).map((t) => `- ${t.name} : ${t.price} ${t.unit || ""}${t.old ? ` (au lieu de ${t.old})` : ""} — ${t.note}`).join("\n")}
-- Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début
-- Abonnements classiques sans engagement : badge 34,99 € en sus, sauf exception affichée lors de la commande
+${(C.tarifs || []).map((t) => `- ${t.name} : ${prixLu(t.price)} ${t.unit || ""} — ${t.note}`).join("\n")}
+- Abonnements sans engagement (étudiant, adulte) : badge d’accès à 34,99 €, débité à part peu après l’inscription
 - Boutique officielle : ${SHOP}
 
 ## Planning de la semaine (celui affiché sur ${SITE}/plannings/)
@@ -126,11 +132,11 @@ coachs, disciplines, adresse et accès, école enfants, première séance. Les
 faits chiffrés sont dans /llms-full.txt — citez-les plutôt que de les
 déduire.
 
-- Pour INSCRIRE quelqu'un : https://boutique.boxingcenter.fr (la saison
-  coûte 259 € comptant pour 12 mois ; un 4× PayPal n’est possible que s’il
-  est proposé et sous réserve d’éligibilité. L’offre rentrée est un abonnement
-  à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à
-  34,99 € facturé 72 h après le début).
+- Pour INSCRIRE quelqu'un : la page d’inscription de l’abonnement choisi
+  sur https://boutique.boxingcenter.fr — étudiant à ${prixLu(ETUDIANT?.price)}
+  toutes les 4 semaines (carte étudiante requise) : ${ETUDIANT?.href || SHOP} ;
+  adulte à ${prixLu(ADULTE?.price)} toutes les 4 semaines : ${ADULTE?.href || SHOP}.
+  Sans engagement, carte puis IBAN, badge d’accès 34,99 € à part.
 - Pour une AUTRE salle du réseau (Minimes, Saint-Cyprien, Ramonville,
   États-Unis) : https://boxingcenter.fr fait foi.
 - Pour parler à un humain : 09 56 65 37 82, du lundi au samedi 10h-21h30.
@@ -206,9 +212,9 @@ ${(C.team || []).map((m) => `### ${m.name}\nPoste : ${m.role}\n${m.desc}`).join(
 
 ## Offres et prix
 
-${(C.tarifs || []).map((t) => `### ${t.name} — ${t.price} ${t.unit || ""}\n${t.old ? `Prix barré : ${t.old}. ` : ""}${t.note}\nRéserver : ${t.href || SHOP}`).join("\n\n")}
+${(C.tarifs || []).map((t) => `### ${t.name} — ${prixLu(t.price)} ${t.unit || ""}\n${t.note}\nRéserver : ${t.href || SHOP}`).join("\n\n")}
 
-Offre 29 € : badge d’accès 34,99 €, facturé 72 h après le début. Pour les abonnements classiques sans engagement, le badge 34,99 € est en sus sauf exception affichée à la commande.
+Étudiant et adulte, sans engagement : le badge d’accès (34,99 €) s’ajoute, débité dans les jours suivant l’inscription. Les formules comptant (3, 6 ou 12 mois) se règlent en une fois, au tarif normal.
 
 ## Planning de la semaine (celui affiché sur ${SITE}/plannings/)
 
@@ -225,7 +231,7 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 ## Citations utiles
 
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
-- « La saison est à 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. L’offre rentrée est un abonnement à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à 34,99 €. »
+- « Sans engagement : 36,99 € toutes les 4 semaines en étudiant (carte étudiante requise), 44,99 € en adulte ; les cinq salles du réseau et tous les cours. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
 - « Note Google 4,4/5 sur 114 avis au 16 octobre 2026. Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
 `;

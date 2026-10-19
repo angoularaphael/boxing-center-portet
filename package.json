@@ -8,7 +8,7 @@
     "_note_prepare": "npm install branche le crochet qui retire les signatures d'outil des messages de commit (voir .githooks/commit-msg)",
     "prepare": "git config core.hooksPath .githooks",
     "dev": "vite",
-    "build": "node scripts/generate-disciplines.mjs && node scripts/generate-coachs.mjs && node scripts/generate-club.mjs && node scripts/generate-conseils.mjs && node scripts/optimize-images.mjs && node scripts/sitemap-images.mjs && node scripts/generate-llms.mjs && vite build && node scripts/cuire-md.mjs && node scripts/garde-auteurs.mjs && node scripts/sitemap-images.mjs --dater",
+    "build": "node scripts/generate-disciplines.mjs && node scripts/generate-coachs.mjs && node scripts/generate-club.mjs && node scripts/generate-conseils.mjs && node scripts/optimize-images.mjs && node scripts/sitemap-images.mjs && node scripts/generate-llms.mjs && vite build && node scripts/cuire-md.mjs && node scripts/garde-auteurs.mjs && node scripts/garde-offres.mjs && node scripts/sitemap-images.mjs --dater",
     "generate:llms": "node scripts/generate-llms.mjs",
     "_note_sitemap": "sitemap-images.mjs --dater date chaque page du plan du site par l'empreinte de son <main> (scripts/sitemap-etat.json, versionné) : une page inchangée garde sa date",
     "preview": "vite preview --port 4173",

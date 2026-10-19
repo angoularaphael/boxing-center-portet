@@ -1,7 +1,7 @@
 /** Client-side knowledge for the chatbot: quick-button canned answers (instant,
  *  no API) + a keyword fallback used when the AI endpoint is unavailable. The
  *  full grounding for the LLM lives server-side in api/chat.js.
- *  L’ORDRE VEND : la saison à 259 € d’abord ; la séance d’essai à 10 € ne s’affiche
+ *  L’ORDRE VEND : l’étudiant à 36,99 € d’abord, puis l’adulte à 44,99 € ; la séance d’essai à 10 € ne s’affiche
  *  que sur la page tarifs ; le bot peut la proposer pour sauver une vente. */
 export type Quick = { label: string; q: string; a: string; actions?: string[] };
 
@@ -14,21 +14,24 @@ export type ActionDef = { label: string; href?: string; act?: "rappel" };
 
 /** MESURE — chaque lien boutique sortant de l’assistant est tracé, sinon on ne
  *  peut pas prouver que le bot vend. Les UTM se posent AVANT l’ancre : la
- *  boutique lit `#promo` (et `#bcp=` du préremplissage) sur le fragment, un
- *  `?utm…` collé après le `#` casserait l’onglet ouvert à l’arrivée. */
+ *  boutique lit `#comptant`, `#enfants` (et `#bcp=` du préremplissage) sur le
+ *  fragment, un `?utm…` collé après le `#` casserait l’onglet ouvert à l’arrivée.
+ *  Un lien qui porte déjà sa requête (`?product=…`) reçoit les UTM après un `&`. */
 const SHOP = "https://boutique.boxingcenter.fr";
 const UTM = "utm_source=chatbot&utm_medium=bouton&utm_campaign=portet";
-const shop = (path: string, hash = "") => `${SHOP}${path}?${UTM}${hash}`;
+const shop = (path: string, hash = "") => `${SHOP}${path}${path.includes("?") ? "&" : "?"}${UTM}${hash}`;
 /** Compare deux URL boutique sans leur traçage (voir parseReply). */
-export const sansUtm = (u: string) => u.replace(/\?[^#]*/, "").replace(/\/(?=#|$)/, "");
+export const sansUtm = (u: string) =>
+  u.replace(/[?&]utm_[^&#]*/g, "").replace(/^([^?#]*)&/, "$1?").replace(/\/(?=#|$)/, "");
 
 export const ACTIONS: Record<string, ActionDef> = {
-  /* Chaque offre va sur SA page, pas sur le hub. Les deux clés pointaient
-     sur /abonnements#promo : un visiteur convaincu par la saison arrivait
-     devant une grille de sept formules et devait retrouver celle dont on
-     venait de lui parler. Une vente se perd exactement là. */
-  saison:      { label: "Saison · 259€ comptant", href: shop("/offre/259") },
-  offre:       { label: "29€ · toutes les 4 semaines", href: shop("/offre/29") },
+  /* Chaque formule va sur SA page d’inscription, pas sur le hub : un
+     visiteur convaincu qui tombe sur une grille de formules doit retrouver
+     celle dont on venait de lui parler, et une vente se perd exactement là.
+     L’étudiant d’abord, l’adulte ensuite : l’ordre de tout le site. */
+  etudiant:    { label: "Étudiant · 36,99€ / 4 semaines · carte requise", href: shop("/inscription?product=etudiants-4-semaines") },
+  adulte:      { label: "Adulte · 44,99€ / 4 semaines", href: shop("/inscription?product=44-99-4-semaines") },
+  comptant:    { label: "Payer comptant · 3, 6 ou 12 mois", href: shop("/abonnements", "#comptant") },
   rappel:      { label: "Être rappelé par un coach", act: "rappel" },
   /* Le 10 € ne s’affiche que sur la page tarifs — et ici, parce que le bot a
      le droit de le proposer pour sauver une vente (ordre du 24/08/2026). */
@@ -50,12 +53,12 @@ export const ACTIONS: Record<string, ActionDef> = {
 };
 
 export const QUICKS: Quick[] = [
-  { label: "L’offre · 29€ / 4 semaines", q: "C’est quoi l’offre de la rentrée ?",
-    a: "C’est un abonnement sans engagement à 29 € par personne toutes les 4 semaines. La première échéance passe par carte, les suivantes par prélèvement sur IBAN ; les coordonnées d’un proche sont demandées et le badge à 34,99 € est facturé 72 h après le début.",
-    actions: ["offre", "tarifs"] },
+  { label: "Étudiant 36,99€ · Adulte 44,99€", q: "C’est quoi les abonnements sans engagement ?",
+    a: "Deux formules sans engagement, réglées toutes les 4 semaines. Étudiant : 36,99 €, carte étudiante requise. Adulte : 44,99 €. Les deux t’ouvrent les 5 salles, tous les cours et la salle en accès libre de 10 h à 21 h 30. La 1re échéance se paie par carte, la suite part en prélèvement sur IBAN, et le badge à 34,99 € est prélevé quelques jours après l’inscription.",
+    actions: ["etudiant", "adulte"] },
   { label: "Tarifs & offres", q: "Quels sont les tarifs ?",
-    a: "Saison : 259 € comptant au lieu de 400 €, 12 mois et les 5 salles ; PayPal peut proposer un 4× selon disponibilité et éligibilité. Sans engagement, l’offre rentrée : 29 € par personne toutes les 4 semaines au lieu de 44 €, carte puis IBAN, proche demandé et badge 34,99 € facturé après 72 h. Pour les abonnements classiques sans engagement, le badge à 34,99 € est en sus sauf exception affichée à la commande.",
-    actions: ["saison", "tarifs"] },
+    a: "Sans engagement, toutes les 4 semaines : étudiant 36,99 € (carte étudiante requise), adulte 44,99 € — les 5 salles et tous les cours, badge d’accès à 34,99 € prélevé quelques jours après l’inscription. Envie de payer en une fois ? Le comptant, au tarif normal : 3 mois 150 €, 6 mois 250 €, 12 mois 400 €. Enfants/ados 295 € l’année (t-shirt du club inclus), baby boxe 250 €.",
+    actions: ["etudiant", "adulte", "comptant"] },
   { label: "Horaires", q: "Quels sont les horaires ?",
     a: "La salle est ouverte du lundi au samedi, 10h00–21h30 (fermé le dimanche).",
     actions: ["planning"] },
@@ -66,14 +69,14 @@ export const QUICKS: Quick[] = [
     a: "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados. Un seul pass, toutes disciplines, 5 salles.",
     actions: ["disciplines"] },
   { label: "Inscription", q: "Comment s’inscrire ?",
-    a: "Il faut une fiche d’inscription, un certificat médical de non-contre-indication et un moyen de paiement. L’offre à 29 € demande aussi un IBAN et les coordonnées d’un proche ; son badge à 34,99 € est facturé 72 h après le début. Pour les abonnements classiques sans engagement, ce badge est en sus sauf exception affichée à la commande.",
-    actions: ["abonnements"] },
+    a: "Il faut une fiche d’inscription, un certificat médical de non-contre-indication et un moyen de paiement : la carte pour la 1re échéance, puis un IBAN pour les prélèvements. Au tarif étudiant, ta carte étudiante est requise. Le badge à 34,99 € est prélevé quelques jours après l’inscription.",
+    actions: ["etudiant", "adulte", "abonnements"] },
   { label: "Coachs", q: "Qui sont les coachs ?",
     a: "Six coachs, une même exigence : Valentin Tapia (Head Coach — loisirs, éducative, compétiteurs), Samuel Pinto (kick/K1, boxe française, Lady Boxing, prépa), Enzo Pioppo et Nicolas Tramaçon (grappling & MMA), Mourad (boxe anglaise enfants/ados) et Ingrid (kick enfants/ados).",
     actions: ["coachs"] },
   { label: "Ma première séance", q: "Comment se passe une première séance ?",
-    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. La saison est à 259 € comptant ; un 4× peut être proposé par PayPal selon disponibilité et éligibilité.",
-    actions: ["premiere", "saison"] },
+    a: "Tu arrives, tu dis que c’est ta première fois : un coach t’accueille et te fait le tour de la salle. Échauffement avec le groupe, deux gestes techniques à ton rythme, du sac pour finir. Pas de sparring imposé, pas de test. Pour la suite, sans engagement : 36,99 € toutes les 4 semaines si tu es étudiant (carte étudiante requise), 44,99 € sinon.",
+    actions: ["premiere", "etudiant", "adulte"] },
   { label: "Privatiser / partenariat", q: "Peut-on privatiser la salle ou devenir partenaire ?",
     a: "Oui ! Événement d’entreprise, team building, partenariat, collaboration : la salle (600 m²) s’ouvre à vos projets — comme pour nos partenaires KFC, O2 et Karting 2 Muret. Décrivez votre projet dans le formulaire dédié, ou appelez le 09 56 65 37 82.",
     actions: ["partenaires"] },
@@ -96,8 +99,8 @@ export const QUICKS: Quick[] = [
    générique. Idem : école/association/b2b routent vers les projets. */
 const RULES: [RegExp, number][] = [
   [/privatis|r[ée]serv.*salle|team ?building|partenar|sponsor|collab|entrepri|tournage|m[ée]dia|[ée]cole|associat|b2b|louer|location.*salle/i, 8],
-  [/offre|rentr[ée]e|promo|duo|bin[ôo]me|29/i, 0],
-  [/tarif|prix|co[ûu]te|combien|abonn|mensuel|annuel|saison|badge|259|paiement|payer/i, 1],
+  [/offre|rentr[ée]e|promo|duo|bin[ôo]me|29|sans engagement|[ée]tudiant|adulte/i, 0],
+  [/tarif|prix|co[ûu]te|combien|abonn|mensuel|annuel|saison|badge|comptant|paiement|payer/i, 1],
   [/horaire|ouvert|ferm|heure|dimanche|quand/i, 2],
   [/adresse|o[ùu]\b|situ|acc[èe]s|parking|venir|plan\b|route|m[ée]tro|bus/i, 3],
   [/discipline|mma|kick|jjb|jiu|prépa|prepa|cardio|lady|enfant|gamin|fil(le|s)\b|baby|grappling|cours|boxe|sport/i, 4],
@@ -116,7 +119,7 @@ const RULES: [RegExp, number][] = [
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
-    text: "Je peux t’aider sur les offres (la saison à 259 €, ou sans engagement 29 € par personne toutes les 4 semaines), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
-    actions: ["saison", "tarifs"],
+    text: "Je peux t’aider sur les abonnements (sans engagement, toutes les 4 semaines : 36,99 € pour un étudiant, carte étudiante requise, 44,99 € pour un adulte), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
+    actions: ["etudiant", "adulte", "tarifs"],
   };
 }

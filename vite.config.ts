@@ -3,6 +3,7 @@ import { resolve } from "path";
 import { readFileSync } from "fs";
 import { roleHtml } from "./src/role-liens.mjs";
 import { NAV, PIED_INFOS } from "./src/nav.mjs";
+import { prixHtml, prixSchema } from "./src/prix.mjs";
 
 const page = (p: string) => resolve(__dirname, p);
 
@@ -149,13 +150,12 @@ function seoBakePlugin() {
           const cartes = content.tarifs.map((t: any) => {
             const badge = t.badge ? `<span class="tarif__badge">${esc(t.badge)}</span>`
               : t.feature ? '<span class="tarif__badge">Le plus choisi</span>' : "";
-            const vieux = t.old ? `<s class="tarif__old">${esc(t.old)}</s> ` : "";
             const cta = t.href
               ? `<a class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta" href="${esc(t.href)}" target="_blank" rel="noopener">${esc(t.cta || "Je choisis cette formule")}</a>`
               : "";
             return `<div class="tarif ${t.feature ? "tarif--feature" : ""}" id="${ancre(t.name)}" data-reveal>${badge}`
               + `<span class="tarif__name">${esc(t.name)}</span>`
-              + `<span class="tarif__price">${vieux}${esc(t.price)}<small> ${esc(t.unit || "")}</small></span>`
+              + `<span class="tarif__price">${prixHtml(t.price, esc)}<small> ${esc(t.unit || "")}</small></span>`
               + `<p class="tarif__note">${esc(t.note || "")}</p>${cta}</div>`;
           }).join("");
           html = html.replace(/(<div class="tarifs" id="tarifs-grid"[^>]*>)\s*(<\/div>)/, `$1${cartes}$2`);
@@ -223,19 +223,19 @@ function seoBakePlugin() {
             <div class="nav__inner">
               <a class="brand" href="/" aria-label="Boxing Center Portet — accueil"><span class="dot"></span><img class="brand__logo" src="/logo-nav.png" alt="Boxing Center" width="150" height="71" /><span class="brand__loc">Portet</span></a>
               <div class="nav__links">${liensHaut}</div>
-              <div class="nav__right"><a class="nav__ext" href="https://boxingcenter.fr/" rel="noopener">Le groupe</a><a class="nav__ext" href="https://boutique.boxingcenter.fr/" rel="noopener">Boutique</a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" rel="noopener" aria-label="Saison 12 mois à 259 euros comptant">L’année · 259€ comptant</a></div>
+              <div class="nav__right"><a class="nav__ext" href="https://boxingcenter.fr/" rel="noopener">Le groupe</a><a class="nav__ext" href="https://boutique.boxingcenter.fr/" rel="noopener">Boutique</a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/abonnements#prelevement" rel="noopener" aria-label="Abonnements sans engagement : étudiant 36,99 €, adulte 44,99 € toutes les 4 semaines">Sans engagement · 36<small>€99</small> / 44<small>€99</small></a></div>
             </div>
           </nav>
           <nav class="menu" aria-label="Toutes les pages du club"><div class="menu__nav">${liensTous}</div></nav>
         </div>`;
         html = html.replace('<div id="site-nav"></div>', navStatique);
-        /* La seule offre permanente du pied de page entre aussi dans le HTML
-           statique. Son prix comptant et la condition PayPal restent lisibles
-           avant que layout.ts remonte la version interactive. */
-        const OFFRES = [[
-          "https://boutique.boxingcenter.fr/offre/259",
-          "La saison — 259€ comptant pour 12 mois ; 4× PayPal seulement si disponible et sous réserve d’éligibilité",
-        ]];
+        /* Les deux abonnements du pied de page entrent aussi dans le HTML
+           statique, Étudiants d'abord : un robot qui n'exécute rien lit le
+           montant exact avant que layout.ts remonte la version interactive. */
+        const OFFRES = [
+          ["https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines", "Étudiant — 36,99 € toutes les 4 semaines, sans engagement, carte étudiante requise"],
+          ["https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines", "Adulte — 44,99 € toutes les 4 semaines, sans engagement"],
+        ];
         const liensOffres = OFFRES.map(([h, t]) => `<a href="${h}" rel="noopener">${t}</a>`).join("");
         /* les sites de proximité, dans le pied CUIT aussi : c'est lui que lisent les robots */
         const PROCHES: { ville: string; url: string }[] = JSON.parse(readFileSync(page("src/proches.json"), "utf8"));
@@ -287,7 +287,7 @@ function seoBakePlugin() {
             itemListElement: (content.tarifs || []).map((t: any) => ({
               "@type": "Offer",
               name: t.name,
-              price: String(t.price || "").replace(/\D/g, "") || "0",
+              price: prixSchema(t.price),
               priceCurrency: "EUR",
               description: t.note,
               url: t.href || `${ORIGIN}/tarifs/`,

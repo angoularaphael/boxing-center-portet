@@ -18,6 +18,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { roleHtml } from "../src/role-liens.mjs";
+import { prixLu } from "../src/prix.mjs";
 import { ROOT, ORIGIN, contenu, pagesDisciplines, lienDiscipline, lireJSON } from "./disciplines-lib.mjs";
 
 const C = contenu();
@@ -56,9 +57,12 @@ const PHOTO = { src: "/img/gym-21.jpg", alt: "Le ring de boxe anglaise du Boxing
 const site = C.site || {};
 const a = site.address || {};
 const adresse = `${a.street || "61 route d’Espagne"}, ${a.zip || "31120"} ${a.city || "Portet-sur-Garonne"}`;
-const saison = (C.tarifs || []).find((t) => /^saison/i.test(t.name));
-const rentree = (C.tarifs || []).find((t) => /rentr/i.test(t.name));
-const prix = (t) => String(t?.price || "").replace(/\s*€/, " €");
+/* Les deux abonnements sans engagement, dans l'ordre du site : Étudiants, puis Adulte. */
+const etudiant = (C.tarifs || []).find((t) => /^[ée]tudiant/i.test(t.name));
+const adulte = (C.tarifs || []).find((t) => /^adulte/i.test(t.name));
+const comptant = (C.tarifs || []).find((t) => /^comptant/i.test(t.name));
+const prix = (t) => prixLu(t?.price);
+const versDeux = `/tarifs/#${ancreTarif(etudiant?.name || "Étudiants")}`;
 const disciplines = (C.disciplines || []).map((d) => ({ d, href: lienDiscipline(d.name, PAGES_D) })).filter((x) => x.href);
 const equipe = (C.team || []).filter((m) => TC[m.name]);
 /* les quatre autres salles et leur site — mêmes adresses que NETWORK_SALLES (src/data.ts) */
@@ -81,7 +85,7 @@ const FAQ = [
   ["Le club prend-il les enfants ?",
    "Oui : la baby boxe pour les petits, la boxe éducative dès 7 ans et le kick-boxing enfants et ados. Les tranches d’âge de la saison sont au planning."],
   ["Combien coûte l’inscription ?",
-   `La saison de 12 mois est à ${prix(saison)} au lieu de ${prix({ price: saison?.old })}, payée comptant, et ouvre les cinq salles. Sans engagement, l’offre rentrée est à ${prix(rentree)} par personne toutes les 4 semaines, au lieu de ${prix({ price: rentree?.old })}. Le détail est sur la page des tarifs.`],
+   `Sans engagement, toutes les 4 semaines : ${prix(etudiant)} pour un étudiant (carte étudiante requise), ${prix(adulte)} pour un adulte, avec les cinq salles du groupe. Qui préfère payer d’avance prend une formule comptant à partir de ${prix(comptant)} les 3 mois. Chaque formule est détaillée sur la page des tarifs.`],
 ];
 
 function tete() {
@@ -136,7 +140,7 @@ const corps = `
         <h1 class="display"><span class="reveal-line"><span>Le club de boxe</span></span><span class="reveal-line"><span><span class="tint">de Portet-sur-Garonne.</span></span></span></h1>
         <p class="lead">Boxing Center Portet : 600 m² dédiés aux sports de combat au sud de Toulouse, la salle phare du groupe, ouverte à celui qui débute comme à celle qui prépare un combat.</p>
         <div class="dp-actions">
-          <a class="btn btn--primary" href="/tarifs/#${ancreTarif(saison?.name || "Saison")}">Voir l’offre ${e(saison?.name || "Saison")}</a>
+          <a class="btn btn--primary" href="${versDeux}">Voir les tarifs étudiant et adulte</a>
           <a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a>
           <a class="btn btn--ghost" href="/plannings/">Tout le planning</a>
         </div>
@@ -194,7 +198,7 @@ const corps = `
       ${tetiere("Venir au club", "61 route d’Espagne, Portet-sur-Garonne.")}
       <div class="cp-paras" data-reveal>
         <p>Le club est au ${e(adresse)}, au sud de Toulouse. Il est ouvert du lundi au samedi, de 10h00 à 21h30. <a href="/contact/">Adresse, plan et contact</a> · <a href="/plannings/">les horaires de chaque cours</a> · <a href="/premiere-seance/">comment se passe une première séance</a>.</p>
-        <p>L’abonnement Saison ouvre aussi les quatre autres salles du groupe : ${RESEAU.map(([n, u]) => `<a href="${u}" rel="noopener">${e(n)}</a>`).join(", ")}. <a href="/salles/#network-grid">Les cinq clubs</a> · <a href="/partenaires/">les partenaires du club</a>.</p>
+        <p>L’abonnement ouvre aussi les quatre autres salles du groupe : ${RESEAU.map(([n, u]) => `<a href="${u}" rel="noopener">${e(n)}</a>`).join(", ")}. <a href="/salles/#network-grid">Les cinq clubs</a> · <a href="/partenaires/">les partenaires du club</a>.</p>
         <p>Tu pars de Muret, de Cugnaux, de Tournefeuille ou de Colomiers ? Chaque commune a son site, avec le trajet jusqu’au club : ${DEPUIS.map(([v, u]) => `<a href="${u}">Boxing Center près de ${e(v)}</a>`).join(", ")}.</p>
       </div>
     </div>
@@ -212,8 +216,8 @@ const corps = `
   <section class="section">
     <div class="wrap"><div class="cta-block" data-reveal>
       <h2 class="display" style="margin-bottom:.6rem">Pousse la porte <span class="tint">du club.</span></h2>
-      <p class="lead" style="margin-inline:auto">La saison complète est à ${e(prix(saison))} au lieu de ${e(prix({ price: saison?.old }))}. Tu viens avec une tenue de sport, l’équipe s’occupe du reste.</p>
-      <div class="dp-actions dp-actions--centre"><a class="btn btn--primary" href="/tarifs/#${ancreTarif(saison?.name || "Saison")}">Voir l’offre ${e(saison?.name || "Saison")}</a><a class="btn btn--ghost" href="/tarifs/">Tous les tarifs</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
+      <p class="lead" style="margin-inline:auto">${e(prix(etudiant))} en étudiant, ${e(prix(adulte))} en adulte, toutes les 4 semaines et sans engagement. Apporte une tenue de sport : le reste, l’équipe s’en charge.</p>
+      <div class="dp-actions dp-actions--centre"><a class="btn btn--primary" href="${versDeux}">Voir les tarifs étudiant et adulte</a><a class="btn btn--ghost" href="/tarifs/">Tous les tarifs</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
     </div></div>
   </section>`;
 

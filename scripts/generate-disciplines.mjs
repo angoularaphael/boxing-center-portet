@@ -14,6 +14,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { roleHtml } from "../src/role-liens.mjs";
+import { prixHtml, prixLu, prixSchema } from "../src/prix.mjs";
 import { bandeauStage } from "./stage-vacances.mjs";
 import {
   ROOT, ORIGIN, contenu, pagesDisciplines, lienDiscipline, creneaux, joursEnMots,
@@ -32,12 +33,14 @@ const e = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").re
 /* L'ancre d'une formule sur /tarifs/ — même règle que src/liens-disciplines.ts. */
 const ancreTarif = (nom) => "tarif-" + String(nom || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const versTarif = (t) => `/tarifs/#${ancreTarif(t.name)}`;
-/* Le bouton dit ce qu'il ouvre : « Voir le tarif Baby Boxe », « Voir l’Offre Rentrée ». */
-const voirTarif = (t) => (/^offre\b/i.test(t.name) ? `Voir l’${t.name}`
-  : /^saison\b/i.test(t.name) ? `Voir l’offre ${t.name}` : `Voir le tarif ${t.name}`);
-const boutonTarif = (t, cls = "btn btn--primary") => (t
-  ? `<a class="${cls}" href="${versTarif(t)}">${e(voirTarif(t))}</a>`
+/* Le bouton dit ce qu'il ouvre : « Voir le tarif Baby Boxe ». Quand la page
+   propose les deux abonnements sans engagement, le bouton de tête mène à la
+   carte Étudiants — l'Adulte est juste à côté — et le dit. */
+const voirTarif = (t) => `Voir le tarif ${t.name}`;
+const boutonTarif = (t, cls = "btn btn--primary", deux = false) => (t
+  ? `<a class="${cls}" href="${versTarif(t)}">${e(deux ? "Voir les tarifs étudiant et adulte" : voirTarif(t))}</a>`
   : `<a class="${cls}" href="/tarifs/">Les tarifs</a>`);
+const deuxAbonnements = (tarifs) => tarifs.some((t) => /^[ée]tudiant/i.test(t.name)) && tarifs.some((t) => /^adulte/i.test(t.name));
 
 /** <img> avec ses variantes WebP quand le manifeste les connaît. */
 function img(src, alt, sizes, { eager = false, cls = "" } = {}) {
@@ -104,9 +107,9 @@ function donnees(p, url, og, liste) {
   if (tarifs.length) service.offers = tarifs.map((t) => ({
     "@type": "Offer",
     name: t.name,
-    price: String(t.price || "").replace(/\D/g, "") || "0",
+    price: prixSchema(t.price),
     priceCurrency: "EUR",
-    description: `${t.price} ${t.unit}`.trim(),
+    description: `${prixLu(t.price)} ${t.unit}`.trim(),
     url: t.href || `${ORIGIN}/tarifs/`,
   }));
   return {
@@ -160,7 +163,7 @@ function corps(p, liste) {
         <h1 class="display"><span class="reveal-line"><span>${e(p.h1)}</span></span><span class="reveal-line"><span>à <span class="tint">Portet-sur-Garonne.</span></span></span></h1>
         <p class="lead">${e(p.leadFinal)}</p>
         <div class="dp-actions">
-          ${boutonTarif(premier)}
+          ${boutonTarif(premier, undefined, deuxAbonnements(tarifs))}
           <a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a>
           <a class="btn btn--ghost" href="/plannings/">Tout le planning</a>
         </div>
@@ -241,7 +244,7 @@ function corps(p, liste) {
         ${tarifs.map((t) => `<a class="tarif${t.feature ? " tarif--feature" : ""}" href="${versTarif(t)}" data-reveal>`
           + (t.badge ? `<span class="tarif__badge">${e(t.badge)}</span>` : "")
           + `<span class="tarif__name">${e(t.name)}</span>`
-          + `<span class="tarif__price">${t.old ? `<s class="tarif__old">${e(t.old)}</s> ` : ""}${e(t.price)}<small> ${e(t.unit || "")}</small></span>`
+          + `<span class="tarif__price">${prixHtml(t.price, e)}<small> ${e(t.unit || "")}</small></span>`
           + `<p class="tarif__note">${e(t.note || "")}</p>`
           + `<span class="btn ${t.feature ? "btn--primary" : "btn--ghost"} tarif__cta">${e(voirTarif(t))} <span aria-hidden="true">→</span></span></a>`).join("\n        ")}
       </div>
@@ -293,7 +296,7 @@ function corps(p, liste) {
         <div><dt>Adresse</dt><dd>${e(site.name || "Boxing Center Portet")}, ${e(a.street || "61 route d’Espagne")}, ${e(a.zip || "31120")} ${e(a.city || "Portet-sur-Garonne")}</dd></div>
         <div><dt>Ouverture</dt><dd>${e(site.hours || "Lun–Sam · 10h00 – 21h30")}</dd></div>
         <div><dt>Accès</dt><dd>Par l’A64, sortie Portet, puis la route d’Espagne. En bus, la ligne 117 Express s’arrête à « Jean Jaurès », sur la route d’Espagne.</dd></div>
-        ${tarifs.length ? `<div><dt>Tarifs</dt><dd>${tarifs.map((t) => `${e(t.name)} : ${e(t.price)} ${e(t.unit)}`).join(" · ")}. <a href="/tarifs/">Le détail des formules →</a></dd></div>` : ""}
+        ${tarifs.length ? `<div><dt>Tarifs</dt><dd>${tarifs.map((t) => `${e(t.name)} : ${e(prixLu(t.price))} ${e(t.unit)}`).join(" · ")}. <a href="/tarifs/">Le détail des formules →</a></dd></div>` : ""}
         <div><dt>Contact</dt><dd><a href="tel:${e(site.phoneHref || "+33956653782")}">${e(site.phone || "09 56 65 37 82")}</a> · <a href="mailto:${e(site.email || "boxingcenterportet@gmail.com")}">${e(site.email || "boxingcenterportet@gmail.com")}</a></dd></div>
       </dl>
     </div>
@@ -335,7 +338,7 @@ function corps(p, liste) {
     <div class="wrap"><div class="cta-block" data-reveal>
       <h2 class="display" style="margin-bottom:.6rem">Le plus dur, <span class="tint">c’est de pousser la porte.</span></h2>
       <p class="lead" style="margin-inline:auto">La première séance est faite pour découvrir : tu viens avec une tenue de sport, le coach s’occupe du reste.</p>
-      <div class="dp-actions dp-actions--centre">${boutonTarif(premier)}<a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
+      <div class="dp-actions dp-actions--centre">${boutonTarif(premier, undefined, deuxAbonnements(tarifs))}<a class="btn btn--ghost" href="/premiere-seance/">Ta première séance</a><a class="btn btn--ghost" href="/contact/">Nous écrire</a></div>
     </div></div>
   </section>`);
 

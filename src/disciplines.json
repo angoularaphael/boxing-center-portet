@@ -29,7 +29,7 @@
       ],
       "creneaux": { "motif": "anglaise|amateurs|pros", "exclure": "[ée]ducative" },
       "coachs": ["Valentin Tapia"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Faut-il déjà savoir boxer pour venir ?", "r": "Tu peux commencer de zéro : le coach t’apprend la garde et les premiers coups dès la première séance." },
         { "q": "Est-ce qu’on prend des coups dès le début ?", "r": "Le sparring arrive plus tard, encadré, et seulement si tu le demandes. Les premières semaines se passent aux pattes d’ours, au sac et en déplacements." },
@@ -68,7 +68,7 @@
       ],
       "creneaux": { "motif": "kick|k1", "exclure": "enfants|ados|lady" },
       "coachs": ["Samuel Pinto"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Faut-il être souple pour commencer ?", "r": "La souplesse vient avec les séances. Les premiers coups de pied visent bas, et les étirements de fin de cours font le reste." },
         { "q": "Kick-boxing ou K1, quelle différence ?", "r": "Le kick-boxing se boxe avec les poings et les pieds. Le K1 autorise en plus les genoux et un corps à corps bref. À l’entraînement, la base technique est la même." },
@@ -107,7 +107,7 @@
       ],
       "creneaux": { "motif": "\\bmma\\b", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de MMA reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
       "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Le MMA, c’est pour les débutants ?", "r": "Oui : le coach commence par les bases de chaque distance, et le contact arrive par étapes, toujours encadré." },
         { "q": "Quand ont lieu les cours de MMA ?", "r": "Pendant l’installation du nouveau matériel, la salle suit un planning provisoire commun, et le MMA revient avec le double planning, salle combat et salle MMA. Cette page affichera ses créneaux dès qu’il sera en vigueur." },
@@ -146,7 +146,7 @@
       ],
       "creneaux": { "motif": "grappling|jjb|jiu", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de grappling reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
       "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Grappling ou jiu-jitsu brésilien, quelle différence ?", "r": "Les deux se jouent au sol, sans frappe. Le jiu-jitsu brésilien se pratique en kimono, avec un système de ceintures ; le grappling se pratique en short et rashguard." },
         { "q": "Est-ce dangereux pour les articulations ?", "r": "La règle protège tout le monde : on tape pour abandonner, et le partenaire lâche aussitôt. Les soumissions s’apprennent lentement, en contrôle." },
@@ -185,7 +185,7 @@
       ],
       "creneaux": { "motif": "lady", "exclure": "" },
       "coachs": ["Samuel Pinto"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Les cours sont-ils réservés aux femmes ?", "r": "Oui, les créneaux Lady Boxing et Lady Kick sont 100 % féminins. Les autres cours du club sont mixtes, et tu peux passer de l’un à l’autre." },
         { "q": "Faut-il un niveau pour commencer ?", "r": "Tu peux commencer de zéro. Le coach montre la garde et la position des poings dès la première séance." },
@@ -224,7 +224,7 @@
       ],
       "creneaux": { "motif": "pr[ée]pa|physique", "exclure": "" },
       "coachs": ["Samuel Pinto"],
-      "tarifs": ["Offre Rentrée", "Adulte", "Étudiants", "Saison · 12 mois"],
+      "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Faut-il savoir boxer ?", "r": "La préparation physique se pratique sans gants ni adversaire. Tu viens avec une tenue de sport et une bouteille d’eau, et le coach s’occupe du reste." },
         { "q": "C’est adapté à un débutant ?", "r": "Oui : le coach règle la charge et l’intensité sur chacun, et chaque exercice a une variante." },

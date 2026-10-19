@@ -3,6 +3,7 @@
  *  rich types (Offers, SportsActivityLocation, ItemList) sourced from data.ts. */
 import { SITE, DISCIPLINES, TARIFS, TEAM } from "./data";
 import { lienDiscipline } from "./liens-disciplines";
+import { prixSchema } from "./prix.mjs";
 
 const ORIGIN = "https://boxing-center-portet.fr";
 const PAGE: Record<string, [string, string]> = {
@@ -51,7 +52,7 @@ export function injectSchema(page?: string) {
       itemListElement: TARIFS.map((t) => ({
         "@type": "Offer",
         name: t.name,
-        price: (t.price.match(/\d+/) || ["0"])[0],
+        price: prixSchema(t.price),
         priceCurrency: "EUR",
         description: t.note,
         url: `${ORIGIN}/tarifs/`,

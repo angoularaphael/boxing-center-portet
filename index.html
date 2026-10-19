@@ -167,18 +167,30 @@
         "areaServed": "Portet-sur-Garonne, Toulouse, Haute-Garonne, Occitanie",
         "serviceType": ["Boxe anglaise", "Kick-boxing", "MMA", "Grappling & Jiu-Jitsu Brésilien", "Lady Boxing", "Préparation physique", "Baby boxe", "Boxe éducative", "Kick-boxing enfants/ados"],
         "offers": [
-          { "@id": "https://boxing-center-portet.fr/#offre-rentree" }
+          { "@id": "https://boxing-center-portet.fr/#offre-etudiant" },
+          { "@id": "https://boxing-center-portet.fr/#offre-adulte" }
         ]
       },
       {
         "@type": "Offer",
-        "@id": "https://boxing-center-portet.fr/#offre-rentree",
-        "name": "Offre rentrée Boxing Center Portet",
-        "description": "29 € par personne toutes les 4 semaines, sans engagement. Première échéance par carte, puis prélèvements sur IBAN ; coordonnées d’un proche demandées. Badge d’accès 34,99 €, facturé 72 h après le début.",
-        "price": "29",
+        "@id": "https://boxing-center-portet.fr/#offre-etudiant",
+        "name": "Abonnement étudiant sans engagement — Boxing Center Portet",
+        "description": "Sur carte étudiante : 36,99 € toutes les 4 semaines, sans engagement, avec les cinq salles et tous les cours.",
+        "price": "36.99",
         "priceCurrency": "EUR",
         "availability": "https://schema.org/InStock",
-        "url": "https://boutique.boxingcenter.fr/offre/29",
+        "url": "https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines",
+        "seller": { "@id": "https://boxing-center-portet.fr/#organization" }
+      },
+      {
+        "@type": "Offer",
+        "@id": "https://boxing-center-portet.fr/#offre-adulte",
+        "name": "Abonnement adulte sans engagement — Boxing Center Portet",
+        "description": "44,99 € toutes les 4 semaines, renouvelable et sans engagement ; cours illimités, accès libre aux cinq salles de 10 h à 21 h 30.",
+        "price": "44.99",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines",
         "seller": { "@id": "https://boxing-center-portet.fr/#organization" }
       }
     ]
@@ -190,7 +202,7 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "Où se trouve Boxing Center Portet ?", "acceptedAnswer": { "@type": "Answer", "text": "Au 61 route d’Espagne, 31120 Portet-sur-Garonne — la salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat." } },
-      { "@type": "Question", "name": "Combien coûte l’offre de rentrée ?", "acceptedAnswer": { "@type": "Answer", "text": "L’offre de rentrée est un abonnement à 29 € par personne toutes les 4 semaines, sans engagement. La première échéance est réglée par carte, les suivantes par prélèvement sur IBAN ; les coordonnées d’un proche sont demandées. Le badge d’accès à 34,99 € est facturé 72 h après le début." } },
+      { "@type": "Question", "name": "Combien coûte l’abonnement ?", "acceptedAnswer": { "@type": "Answer", "text": "Sans engagement, il coûte 36,99 € toutes les 4 semaines pour un étudiant, carte étudiante requise, et 44,99 € pour un adulte. Tu règles la première échéance par carte bancaire ; la boutique prélève ensuite sur ton IBAN. Le badge d’accès (34,99 €) est débité à part, peu après l’inscription." } },
       { "@type": "Question", "name": "Quelles disciplines sont proposées ?", "acceptedAnswer": { "@type": "Answer", "text": "Boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing, préparation physique, baby boxe, boxe éducative et kick-boxing enfants/ados." } },
       { "@type": "Question", "name": "Quels sont les horaires d’ouverture ?", "acceptedAnswer": { "@type": "Answer", "text": "Du lundi au samedi, de 10h00 à 21h30 ; fermé le dimanche. L’abonnement ouvre les 5 salles du réseau." } },
       { "@type": "Question", "name": "Faut-il de l’expérience pour commencer la boxe ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Tous les niveaux sont accueillis, avec des créneaux débutants et des coachs diplômés FFBoxe, FFKMDA et FMMAF." } },
@@ -231,7 +243,7 @@
         <h1 class="sr-only">Boxing Center Portet-sur-Garonne — salle de boxe anglaise, kick-boxing, MMA et grappling au sud de Toulouse, cours tous niveaux dès 3 ans</h1>
       <p class="hero__hook" data-reveal>Ici, le sport devient une passion.<br>La passion devient un <span class="tint">mode de vie.</span></p>
       <div class="hero__cta" data-reveal>
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a>
+        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
         <a class="btn btn--ghost" href="/activites/">Découvrir les disciplines</a>
       </div>
     </div>
@@ -283,21 +295,37 @@
            juste, pour un site qui raconte un combat, c'est le billet :
            bord déchiré à gauche, talon perforé à droite, le prix à
            l'échelle du bloc. -->
-      <a class="billet" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-        <span class="billet__corps">
-          <span class="billet__sur">L’année complète</span>
-          <span class="billet__prix"><b>259</b><i>€</i></span>
-          <span class="billet__barre">au lieu de 400€</span>
-          <span class="billet__txt">Douze mois. Cinq salles. Toutes les disciplines.</span>
-        </span>
-        <span class="billet__talon" aria-hidden="true">
-          <span class="billet__mention">12 mois</span>
-          <span class="billet__mention">5 salles</span>
-          <span class="billet__mention">Comptant · PayPal 4× sous conditions</span>
-          <span class="billet__serie">BCP · SAISON 26/27 · N° 259</span>
-          <span class="billet__go">Prendre ma place <i>→</i></span>
-        </span>
-      </a>
+      <div class="billets">
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Carte étudiante requise</span>
+            <span class="billet__txt">Ta carte d’étudiant ouvre les cinq salles.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">Sans engagement</span>
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Cours illimités</span>
+            <span class="billet__serie">BCP · ÉTUDIANT · N° 3699</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Adulte · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Sans engagement · renouvelable</span>
+            <span class="billet__txt">Cinq salles, toutes les disciplines, et tu restes libre.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Accès libre 10 h – 21 h 30</span>
+            <span class="billet__serie">BCP · ADULTE · N° 4499</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
   <section class="section has-bg">
@@ -353,21 +381,37 @@
            juste, pour un site qui raconte un combat, c'est le billet :
            bord déchiré à gauche, talon perforé à droite, le prix à
            l'échelle du bloc. -->
-      <a class="billet" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-        <span class="billet__corps">
-          <span class="billet__sur">L’année complète</span>
-          <span class="billet__prix"><b>259</b><i>€</i></span>
-          <span class="billet__barre">au lieu de 400€</span>
-          <span class="billet__txt">Tout ce que tu viens de voir, sur un seul billet.</span>
-        </span>
-        <span class="billet__talon" aria-hidden="true">
-          <span class="billet__mention">12 mois</span>
-          <span class="billet__mention">5 salles</span>
-          <span class="billet__mention">Comptant · PayPal 4× sous conditions</span>
-          <span class="billet__serie">BCP · SAISON 26/27 · N° 259</span>
-          <span class="billet__go">Prendre ma place <i>→</i></span>
-        </span>
-      </a>
+      <div class="billets">
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Carte étudiante requise</span>
+            <span class="billet__txt">Le ring, la cage, les sacs : tout est compris.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">Sans engagement</span>
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Cours illimités</span>
+            <span class="billet__serie">BCP · ÉTUDIANT · N° 3699</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Adulte · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Sans engagement · renouvelable</span>
+            <span class="billet__txt">Tout ce que tu viens de voir, sans t’engager.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Accès libre 10 h – 21 h 30</span>
+            <span class="billet__serie">BCP · ADULTE · N° 4499</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
   <section class="ring" id="ring" aria-label="Le ring">
@@ -395,25 +439,39 @@
         </div>
         <div class="ring__txt wrap" data-r="3" style="opacity:0">
           <span class="eyebrow">03 · Ta place</span>
-          <!-- Ce panneau titrait << 29€. Par personne. >> pendant que le bouton
-               dessous mène à la saison : on lisait une chose et on cliquait sur
-               une autre. Il dit maintenant ce que le bouton fait. -->
-          <h2 class="display promo-blast" style="max-width:15ch">259€. <span class="tint">L’année entière.</span></h2>
-          <p class="lead" style="max-width:38ch;color:#cdd3df">Douze mois, les cinq salles du réseau, toutes les disciplines, sans limite de cours. 259 € comptant ; un 4× via PayPal peut être proposé s’il est disponible et si tu es éligible.</p>
+          <!-- Ce panneau dit ce que les billets dessous ouvrent : les deux
+               abonnements, l'étudiant puis l'adulte. On lit une chose, on
+               clique sur la même. Les chiffres en grand, les centimes en petit,
+               le montant exact pour le lecteur d'écran. -->
+          <h2 class="display promo-blast" style="max-width:15ch"><span aria-hidden="true">36<small class="cts">€99</small> ou 44<small class="cts">€99</small>.</span><span class="sr-only">36,99 € ou 44,99 €.</span> <span class="tint">Sans engagement.</span></h2>
+          <p class="lead" style="max-width:38ch;color:#cdd3df">Les cinq salles du réseau, toutes les disciplines, autant de cours que tu veux. L’étudiant paie 36,99 € sur présentation de sa carte, l’adulte 44,99 €, et chacun repart pour 4 semaines quand il le choisit.</p>
                 <!-- Le CTA de fin de sequence. Je l'avais perdu en reecrivant ce
                panneau ; il revient en BILLET, comme partout ailleurs sur le
                site, en version compacte pour tenir dans une superposition. -->
-          <a class="billet billet--compact" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-            <span class="billet__corps">
-              <span class="billet__sur">L’année complète</span>
-              <span class="billet__prix"><b>259</b><i>€</i></span>
-              <span class="billet__barre">au lieu de 400€</span>
-            </span>
-            <span class="billet__talon" aria-hidden="true">
-              <span class="billet__serie">BCP · SAISON 26/27</span>
-              <span class="billet__go">Prendre ma place <i>→</i></span>
-            </span>
-          </a>
+          <div class="billets billets--compact">
+            <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+              <span class="billet__corps">
+                <span class="billet__sur">Étudiant · 4 semaines</span>
+                <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+                <span class="billet__cond">Carte étudiante requise</span>
+              </span>
+              <span class="billet__talon" aria-hidden="true">
+                <span class="billet__serie">BCP · ÉTUDIANT</span>
+                <span class="billet__go">Prendre ma place <i>→</i></span>
+              </span>
+            </a>
+            <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+              <span class="billet__corps">
+                <span class="billet__sur">Adulte · 4 semaines</span>
+                <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+                <span class="billet__cond">Sans engagement</span>
+              </span>
+              <span class="billet__talon" aria-hidden="true">
+                <span class="billet__serie">BCP · ADULTE</span>
+                <span class="billet__go">Prendre ma place <i>→</i></span>
+              </span>
+            </a>
+          </div>
         </div>
     </div>
   </section>
@@ -505,21 +563,37 @@
            juste, pour un site qui raconte un combat, c'est le billet :
            bord déchiré à gauche, talon perforé à droite, le prix à
            l'échelle du bloc. -->
-      <a class="billet" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener">
-        <span class="billet__corps">
-          <span class="billet__sur">L’année complète</span>
-          <span class="billet__prix"><b>259</b><i>€</i></span>
-          <span class="billet__barre">au lieu de 400€</span>
-          <span class="billet__txt">Moins de 5€ la semaine. Ta place t’attend.</span>
-        </span>
-        <span class="billet__talon" aria-hidden="true">
-          <span class="billet__mention">12 mois</span>
-          <span class="billet__mention">5 salles</span>
-          <span class="billet__mention">Comptant · PayPal 4× sous conditions</span>
-          <span class="billet__serie">BCP · SAISON 26/27 · N° 259</span>
-          <span class="billet__go">Prendre ma place <i>→</i></span>
-        </span>
-      </a>
+      <div class="billets">
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">36,99 €</span><b aria-hidden="true">36</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Carte étudiante requise</span>
+            <span class="billet__txt">Les cours entre deux partiels, sans plafond.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">Sans engagement</span>
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Cours illimités</span>
+            <span class="billet__serie">BCP · ÉTUDIANT · N° 3699</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+        <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener">
+          <span class="billet__corps">
+            <span class="billet__sur">Adulte · toutes les 4 semaines</span>
+            <span class="billet__prix"><span class="sr-only">44,99 €</span><b aria-hidden="true">44</b><i aria-hidden="true">€99</i></span>
+            <span class="billet__cond">Sans engagement · renouvelable</span>
+            <span class="billet__txt">Viens quand tu veux, de 10 h à 21 h 30.</span>
+          </span>
+          <span class="billet__talon" aria-hidden="true">
+            <span class="billet__mention">5 salles</span>
+            <span class="billet__mention">Accès libre 10 h – 21 h 30</span>
+            <span class="billet__serie">BCP · ADULTE · N° 4499</span>
+            <span class="billet__go">Prendre ma place <i>→</i></span>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
   <section class="section has-bg">
@@ -581,7 +655,7 @@
       <h2 id="local-ref-title" class="display" style="font-size:clamp(1.9rem,4.5vw,3.2rem);margin-bottom:1rem">Une salle de boxe à Portet-sur-Garonne, à dix minutes de Toulouse</h2>
       <p class="lead">Boxing Center Portet est la salle phare du réseau : 600 m² au 61 route d’Espagne, à Portet-sur-Garonne (31120). On y pratique la boxe anglaise, le kick-boxing, le MMA, le grappling et le jiu-jitsu brésilien, avec un vrai ring, une cage et une ligne de sacs de frappe.</p>
       <p class="lead" style="margin-top:1rem">Personne ne passe un test à l’entrée. Le débutant qui n’a jamais mis un gant et le compétiteur qui prépare un gala s’entraînent sur le même plateau, avec les mêmes coachs. Les enfants ont leurs créneaux : baby boxe dès 3 ans, boxe éducative dès 7 ans.</p>
-      <p class="lead" style="margin-top:1rem">Première fois ? L’offre rentrée est un abonnement à <strong>29 € par personne toutes les 4 semaines</strong>, sans engagement. Première échéance par carte, puis prélèvement sur IBAN ; badge d’accès 34,99 € facturé 72 h après le début.</p>
+      <p class="lead" style="margin-top:1rem">Première fois ? Compte <strong>36,99 € en étudiant, 44,99 € en adulte</strong>, toutes les 4 semaines et sans engagement ; le tarif étudiant se prend avec la carte étudiante. Première échéance par carte, prélèvement ensuite, et un badge d’accès à 34,99 €, prélevé dans les jours qui suivent.</p>
     </div>
   </section>
 
@@ -618,8 +692,8 @@
           <p>Au 61 route d’Espagne, 31120 Portet-sur-Garonne — la salle phare du groupe Boxing Center, 600 m² dédiés aux sports de combat.</p>
         </details>
         <details>
-          <summary>Combien coûte l’offre de rentrée ?</summary>
-          <p>L’offre de rentrée est un abonnement à 29 € par personne toutes les 4 semaines, sans engagement. La première échéance est réglée par carte, les suivantes par prélèvement sur IBAN ; les coordonnées d’un proche sont demandées. Le badge d’accès à 34,99 € est facturé 72 h après le début.</p>
+          <summary>Combien coûte l’abonnement ?</summary>
+          <p>Sans engagement, il coûte 36,99 € toutes les 4 semaines pour un étudiant, carte étudiante requise, et 44,99 € pour un adulte. Tu règles la première échéance par carte bancaire ; la boutique prélève ensuite sur ton IBAN. Le badge d’accès (34,99 €) est débité à part, peu après l’inscription.</p>
         </details>
         <details>
           <summary>Quelles disciplines sont proposées ?</summary>
@@ -656,25 +730,14 @@
       <div class="cta-block has-cta-bg" data-reveal>
         <div class="sec-bg" data-bg="/img/gym-13.jpg"></div>
         <span class="eyebrow" style="justify-content:center;position:relative;z-index:1">Le gong final</span>
-        <!-- Le compteur de places. Il arrive VIDE et masqué : c'est le
-             JavaScript qui l'ouvre, et seulement s'il a obtenu le nombre
-             réel de places encore libres auprès de la boutique. Pas de
-             nombre en dur ici — un compteur qu'on écrirait à la main
-             serait un compteur qui ment. Voir src/places.ts. -->
-        <p class="places" data-places hidden></p>
         <h2 class="display" style="margin:.8rem 0">Toujours là ?<br><span class="tint">Alors prends ta place.</span></h2>
-        <!-- Le dernier bloc de la page disait l'inverse du bouton qu'il porte :
-             il vendait la séance d'essai pendant que le bouton principal mène à
-             l'offre à 29 €. Un visiteur qui lit une chose et clique sur une
-             autre n'achète ni l'une ni l'autre. Le texte dit désormais ce que
-             le bouton fait — et le prix barré donne à 29 € sa mesure. -->
-        <!-- Le dernier bloc ne pousse QUE la saison : c'est la seule chose
-             qu'on veut vendre ici. La rentrée à 29€ et l'essai restent dans
-             la grille de tarifs, plus haut — leur place est la, pas au moment
-             de conclure. Un dernier bloc qui propose trois choix ne conclut
-             rien. -->
-        <p class="lead" style="margin-inline:auto">Douze mois à <s class="was">400 €</s> <strong>259 € comptant</strong> : toutes les disciplines, les cinq salles du réseau, sans limite de cours. Un paiement en 4× peut être proposé par PayPal, uniquement s’il est disponible et sous réserve d’éligibilité.</p>
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/offre/259" target="_blank" rel="noopener"><s>400€</s>L’année · 259€</a>
+        <!-- Le dernier bloc conclut sur les deux abonnements, l'étudiant puis
+             l'adulte, chacun vers sa propre inscription. Le texte dit ce que
+             les boutons font. L'essai et les formules comptant restent dans
+             la grille des tarifs, plus haut : un dernier bloc qui propose cinq
+             choix ne conclut rien. -->
+        <p class="lead" style="margin-inline:auto">Toutes les disciplines, les cinq salles du réseau, aucun plafond de cours — et rien ne te retient au-delà de 4 semaines. <strong>36,99 €</strong> avec ta carte étudiante, <strong>44,99 €</strong> en adulte.</p>
+        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
       </div>
     </div>
   </section>

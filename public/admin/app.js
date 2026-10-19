@@ -94,7 +94,7 @@ const SCHEMA = {
     {k:"n",label:"N°"},{k:"title",label:"Titre"},{k:"desc",label:"Description",ml:true},
   ]},
   tarifs: { label:"Tarifs", intro:"Les offres affichées sur la page Tarifs (et le schéma SEO).", type:"list", singular:"tarif", item:[
-    {k:"name",label:"Nom"},{k:"price",label:"Prix"},{k:"old",label:"Ancien prix (affiché barré)"},{k:"unit",label:"Unité (ex. par personne / 4 semaines)"},{k:"badge",label:"Badge (ex. Promo rentrée 2026)"},{k:"note",label:"Note",ml:true},{k:"cta",label:"Texte du bouton"},{k:"href",label:"Lien du bouton (boutique box-plus)"},{k:"feature",label:"Mettre en avant",bool:true},
+    {k:"name",label:"Nom"},{k:"price",label:"Prix"},{k:"unit",label:"Unité (ex. / 4 semaines · carte étudiante requise)"},{k:"badge",label:"Badge (ex. Sans engagement)"},{k:"note",label:"Note",ml:true},{k:"cta",label:"Texte du bouton"},{k:"href",label:"Lien du bouton (boutique box-plus)"},{k:"feature",label:"Mettre en avant",bool:true},
   ]},
   planning: { label:"Planning", intro:"Le planning de la semaine. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
   gallery: { label:"Galerie", intro:"Les photos du site. Glisse une vignette pour changer l’ordre, dépose des images depuis ton ordinateur pour en ajouter. Aucune taille à respecter : chaque photo est compressée et recadrée automatiquement selon son format.", type:"gallery" },
