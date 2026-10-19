@@ -120,7 +120,7 @@ h2 .reveal-line:nth-of-type(2) > span { transition-delay: 0.1s; }
    lien dit le montant exact. */
 .btn--saison { background: linear-gradient(135deg, #e8c04a, #d9a441); color: #17110a; border-color: #e8c04a; font-weight: 700; }
 .btn--saison:hover { border-color: #f2d071; box-shadow: 0 0 0 3px rgba(232,192,74,.18); }
-.btn--saison small { font-size: .68em; font-weight: 700; margin-left: .04em; vertical-align: .32em; letter-spacing: 0; }
+.btn--saison small { font-size: .68em; font-weight: 700; margin-left: -.84em; vertical-align: .32em; letter-spacing: 0; } /* -.84em annule le gap de .6em du bouton flex : « 36€99 » reste collé */
 
 /* LE BOUTON PERMANENT DE LA BARRE. Mesuré : à 183 px il poussait le burger
    hors de l'écran sous 430 px. On le resserre, et sous 400 px le libellé se
