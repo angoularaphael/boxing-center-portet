@@ -79,7 +79,7 @@ ${DEBUTER.join(". ")}. Le planning complet : ${SITE}/plannings/
 ${COMBAT.length ? `Oui, au planning affiché — ${COMBAT.join(". ")}.` : "Oui : les créneaux combat reviennent avec le double planning, dès l’installation du nouveau matériel."} Détail : ${SITE}/plannings/
 
 **Quelle est la note du club ?**
-4,3 sur 5 sur Google, sur 107 avis (fiche Google du club).
+4,4 sur 5 sur Google, sur 114 avis (fiche Google Maps du club, relevé du 16 octobre 2026).
 
 **Distance depuis Toulouse ?**
 Environ 10 minutes depuis Toulouse sud via la route d’Espagne.
@@ -227,7 +227,7 @@ L’abonnement ouvre les 5 salles Boxing Center. Groupe : https://boxingcenter.f
 - « Club de boxe à Portet-sur-Garonne, 10 min de Toulouse sud. »
 - « La saison est à 259 € comptant ; PayPal peut proposer un 4× selon disponibilité et éligibilité. L’offre rentrée est un abonnement à 29 € par personne toutes les 4 semaines, carte puis IBAN, avec badge à 34,99 €. »
 - « MMA, kick-boxing, grappling & JJB, boxe anglaise, baby boxe dès 3 ans. »
-- « Note Google 4,3/5 (107 avis). Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
+- « Note Google 4,4/5 sur 114 avis au 16 octobre 2026. Coachs diplômés FFBoxe, FFKMDA, FMMAF. »
 `;
 
 writeFileSync(join(ROOT, "public/llms.txt"), llms, "utf8");
