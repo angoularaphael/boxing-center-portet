@@ -1,6 +1,6 @@
 import { ouvreCarte, fermeCarte, voirCarte, ancreTarif } from "./liens-disciplines";
 import { prixHtml } from "./prix.mjs";
-import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, PLANNING_PROVISOIRE, NOUVELLES_SALLES, SITE, NETWORK_SALLES } from "./data";
+import { DISCIPLINES, TARIFS, PLANNING, PLANNING_MMA, PLANNING_FITNESS, SITE, NETWORK_SALLES } from "./data";
 import { submitLead } from "./chatbot/api";
 import { optUrl } from "./img";
 
@@ -99,7 +99,7 @@ export function renderPage(page: string | undefined) {
        quel sport a lieu quel jour d'un coup d'oeil. */
     const famOf = (n: string) => {
       const s = n.toLowerCase();
-      if (/amateur|pros/.test(s)) return "pros";
+      if (/comp[ée]ti|amateur|pros/.test(s)) return "pros";
       if (/baby/.test(s)) return "baby";
       if (/[ée]ducative/.test(s)) return "edu";
       if (/lady/.test(s)) return "lady";
@@ -113,9 +113,9 @@ export function renderPage(page: string | undefined) {
       return "autre";
     };
     const FAM_LABELS: Record<string, string> = {
-      anglaise: "Boxe Anglaise", pros: "Amateurs & Pros", edu: "Boxe Éducative",
-      baby: "Baby Boxe", lady: "Lady Boxing", prepa: "Prépa Physique", sparring: "Open Sparring",
-      kick: "Kick-Boxing", mma: "MMA", grappling: "Grappling & JJB", francaise: "Boxe Française",
+      anglaise: "Boxe Anglaise", pros: "Compétition", edu: "Boxe Éducative",
+      baby: "Baby Boxe", lady: "Lady", prepa: "Prépa Physique", sparring: "Sparring",
+      kick: "Kick-Boxing", mma: "MMA", grappling: "Grappling", francaise: "Boxe Française",
     };
     const paint = (id: string, days: typeof PLANNING) => {
       const g = el(id);
@@ -130,7 +130,7 @@ export function renderPage(page: string | undefined) {
         .map((f) => `<span class="plan-legend__item plan--${f}"><i></i>${FAM_LABELS[f]}</span>`)
         .join("")}</div>` + days.map(
         (col) => `
-        <div class="plan-col" data-reveal>
+        <div class="plan-col">
           <h3 class="plan-col__day">${col.day}</h3>
           ${col.items
             .map(
@@ -141,15 +141,48 @@ export function renderPage(page: string | undefined) {
         </div>`
       ).join("");
     };
-    paint("planning-provisoire-grid", PLANNING_PROVISOIRE);
+    paint("planning-grid", PLANNING);
+    paint("planning-mma-grid", PLANNING_MMA);
+    paint("planning-fitness-grid", PLANNING_FITNESS);
     /* le planning en direct (maintenant.ts) — le module arrive après ce bloc, donc après TOUTES les grilles peintes */
     import("./maintenant").then((m) => m.demarrerPlanningVivant()).catch(() => {});
-    if (NOUVELLES_SALLES) {
-      const def = document.getElementById("plannings-definitifs");
-      if (def) def.hidden = false;
-      paint("planning-grid", PLANNING);
-      paint("planning-mma-grid", PLANNING_MMA);
-    }
+
+    /* TROIS SALLES, UNE À LA FOIS. Trois affiches et trois grilles empilées, c'est
+       un long défilement sur téléphone pour trouver la sienne. Les deux sélecteurs
+       (affiches, grilles) restent synchronisés et l'adresse garde la salle choisie
+       (#mma). Sans JavaScript, tout reste visible (noscript de la page). */
+    const SALLES = ["boxe", "mma", "fitness"];
+    const choisirSalle = (salle: string, garder = true) => {
+      document.querySelectorAll<HTMLElement>("[data-salle]").forEach((n) => {
+        const on = n.dataset.salle === salle;
+        n.classList.toggle("is-on", on);
+        if (n.getAttribute("role") === "tab") {
+          n.setAttribute("aria-selected", String(on));
+          n.tabIndex = on ? 0 : -1;
+        }
+      });
+      document.querySelectorAll<HTMLElement>(".salles-onglets").forEach((l) => l.style.setProperty("--salle-i", String(SALLES.indexOf(salle))));
+      if (garder) history.replaceState(history.state, "", `#${salle}`);
+      /* la page a changé de hauteur : les déclencheurs du défilement se recalent */
+      window.dispatchEvent(new Event("resize"));
+    };
+    document.querySelectorAll<HTMLElement>(".salles-onglet").forEach((b) => {
+      b.addEventListener("click", () => choisirSalle(b.dataset.salle as string));
+      b.addEventListener("keydown", (e) => {
+        const pas = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!pas) return;
+        e.preventDefault();
+        const voisine = SALLES[(SALLES.indexOf(b.dataset.salle as string) + pas + SALLES.length) % SALLES.length];
+        choisirSalle(voisine);
+        b.parentElement?.querySelector<HTMLElement>(`[data-salle="${voisine}"]`)?.focus();
+      });
+    });
+    const demandee = location.hash.slice(1);
+    if (SALLES.includes(demandee)) choisirSalle(demandee, false);
+    /* les deux autres affiches se chargent dès que la page a fini : le changement de salle est instantané */
+    const prechauffer = () => document.querySelectorAll<HTMLImageElement>(".planning-affiche img[loading=lazy]").forEach((i) => { i.loading = "eager"; });
+    if ("requestIdleCallback" in window) requestIdleCallback(prechauffer, { timeout: 2500 });
+    else window.setTimeout(prechauffer, 1500);
   }
 
   // /coachs/ is a WebGL "forge" sequence (see src/three/forge.ts) — no grid to render.

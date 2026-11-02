@@ -32,7 +32,7 @@
       "titre": "Boxe anglaise",
       "page": "/activites/boxe-anglaise/",
       "tag": "Poings",
-      "texte": "Le vendredi, à midi comme le soir, le Sparring Anglaise &amp; Kick se boxe à deux : place aux gants de 14 ou 16 oz, ceux qui ménagent le partenaire. Les bandes et le protège-dents, eux, servent dès les cours du midi et les Loisirs du mardi et du jeudi soir.",
+      "texte": "Le vendredi, à midi comme le soir, le Sparring Anglaise se boxe à deux : place aux gants de 14 ou 16 oz, ceux qui ménagent le partenaire. Les bandes et le protège-dents, eux, servent dès les cours du midi et les Loisirs du mardi et du jeudi soir.",
       "produits": [
         {
           "ancre": "Les gants de sparring",
@@ -113,7 +113,7 @@
         ],
         [
           "Lundi",
-          "Boxe Anglaise",
+          "Anglaise Loisirs",
           "12:30"
         ]
       ]
@@ -139,15 +139,15 @@
       "verifs": [
         [
           "Mardi",
-          "Kick / K1"
+          "K1"
         ],
         [
           "Mercredi",
-          "Kick / K1"
+          "K1"
         ],
         [
           "Jeudi",
-          "Kick / K1"
+          "K1"
         ],
         [
           "Mardi",
@@ -185,7 +185,7 @@
       "titre": "Préparation physique",
       "page": "/activites/preparation-physique/",
       "tag": "Le moteur",
-      "texte": "Mardi à 12 h 30, mercredi à 19 h, samedi à 11 h : la préparation physique travaille la force, le cardio et l’explosivité, sans aucun coup à recevoir. Pour ces trois séances, un débardeur d’entraînement à coupe ample.",
+      "texte": "Du mardi au jeudi à 12 h 30, le mardi à 19 h, le mercredi à 20 h et le samedi à 11 h : la préparation physique travaille la force, le cardio et l’explosivité, sans aucun coup à recevoir. Pour ces séances, un débardeur d’entraînement à coupe ample.",
       "produits": [
         {
           "ancre": "Le débardeur Training Tank",
@@ -208,7 +208,22 @@
         [
           "Mercredi",
           "Préparation Physique",
+          "12:30"
+        ],
+        [
+          "Jeudi",
+          "Préparation Physique",
+          "12:30"
+        ],
+        [
+          "Mardi",
+          "Préparation Physique",
           "19:00"
+        ],
+        [
+          "Mercredi",
+          "Préparation Physique",
+          "20:00"
         ],
         [
           "Samedi",
@@ -220,7 +235,7 @@
     {
       "titre": "Enfants et ados",
       "tag": "4–16 ans",
-      "texte": "<a href=\"/activites/baby-boxe/\">Baby boxe</a> le samedi à 15 h, <a href=\"/activites/boxe-educative/\">boxe éducative</a> le lundi, le mercredi et le samedi, <a href=\"/activites/kick-boxing-enfants-ados/\">kick enfants et ados</a> le mercredi et le samedi : chaque groupe a son créneau. Le pack enfants réunit des gants, des mitaines sous-gants et un porte-clés sac de frappe ; c’est le seul article de la liste qui se retire le jour même.",
+      "texte": "<a href=\"/activites/baby-boxe/\">Baby boxe</a> le samedi à 15 h 15, <a href=\"/activites/boxe-educative/\">boxe éducative</a> le lundi, le mercredi et le samedi, <a href=\"/activites/kick-boxing-enfants-ados/\">kick enfants et ados</a> le mercredi et le samedi : chaque groupe a son créneau. Le pack enfants réunit des gants, des mitaines sous-gants et un porte-clés sac de frappe ; c’est le seul article de la liste qui se retire le jour même.",
       "produits": [
         {
           "ancre": "Le pack enfants",
@@ -270,7 +285,7 @@
         [
           "Samedi",
           "Baby Boxe",
-          "15:00"
+          "15:15"
         ],
         [
           "Lundi",

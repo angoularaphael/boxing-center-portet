@@ -292,7 +292,7 @@
       "items": [
         [
           "12:30 – 13:30",
-          "Boxe Anglaise"
+          "Anglaise Loisirs"
         ],
         [
           "18:00 – 19:00",
@@ -300,7 +300,7 @@
         ],
         [
           "19:00 – 21:30",
-          "Boxe Amateurs & Pros"
+          "Boxe Compétiteurs NAP"
         ]
       ]
     },
@@ -309,19 +309,15 @@
       "items": [
         [
           "12:30 – 13:30",
-          "Préparation Physique"
+          "Anglaise Loisirs"
         ],
         [
-          "18:00 – 19:00",
-          "Boxe Amateurs & Pros"
-        ],
-        [
-          "19:00 – 20:00",
-          "Préparation Physique"
+          "18:00 – 20:00",
+          "Boxe Compétiteurs NAP"
         ],
         [
           "20:00 – 21:30",
-          "Boxe Anglaise Loisirs"
+          "Anglaise Loisirs"
         ]
       ]
     },
@@ -342,11 +338,11 @@
         ],
         [
           "19:00 – 20:00",
-          "Boxe Anglaise Loisirs"
+          "Anglaise Loisirs"
         ],
         [
           "20:00 – 21:30",
-          "Boxe Amateurs & Pros"
+          "Boxe Compétiteurs NAP"
         ]
       ]
     },
@@ -355,15 +351,15 @@
       "items": [
         [
           "12:30 – 13:30",
-          "Boxe Anglaise"
+          "Anglaise Loisirs"
         ],
         [
           "18:00 – 20:00",
-          "Boxe Amateurs & Pros"
+          "Boxe Compétiteurs NAP"
         ],
         [
           "20:00 – 21:30",
-          "Boxe Anglaise Loisirs"
+          "Anglaise Loisirs"
         ]
       ]
     },
@@ -372,15 +368,15 @@
       "items": [
         [
           "12:30 – 13:30",
-          "Boxe Anglaise"
+          "Sparring Anglaise"
         ],
         [
           "18:00 – 20:00",
-          "Boxe Amateurs & Pros"
+          "Boxe Compétiteurs NAP"
         ],
         [
           "20:00 – 21:30",
-          "Open Sparring"
+          "Sparring Anglaise"
         ]
       ]
     },
@@ -388,16 +384,20 @@
       "day": "Samedi",
       "items": [
         [
-          "10:00 – 12:00",
-          "Boxe Amateurs & Pros"
+          "10:00 – 11:00",
+          "Boxe Française"
+        ],
+        [
+          "11:00 – 12:30",
+          "Boxe Compétiteurs NAP"
         ],
         [
           "12:30 – 13:30",
-          "Boxe Anglaise"
+          "Anglaise Loisirs"
         ],
         [
           "15:15 – 16:00",
-          "Baby Boxe (3/6 ans)"
+          "Baby Boxe (4/6 ans)"
         ],
         [
           "16:00 – 17:00",
@@ -683,159 +683,6 @@
       "description": "Découvrez les partenaires du Boxing Center Portet-sur-Garonne et les possibilités de partenariat, de projet collectif ou de privatisation."
     }
   },
-  "nouvellesSalles": false,
-  "planningProvisoire": [
-    {
-      "day": "Lundi",
-      "items": [
-        [
-          "12:30 – 13:30",
-          "Boxe Anglaise"
-        ],
-        [
-          "18:00 – 19:00",
-          "Boxe Éducative Confirmés"
-        ],
-        [
-          "19:00 – 21:30",
-          "Boxe Amateurs & Pros"
-        ]
-      ]
-    },
-    {
-      "day": "Mardi",
-      "items": [
-        [
-          "12:30 – 13:30",
-          "Préparation Physique"
-        ],
-        [
-          "18:00 – 19:00",
-          "Lady Kick"
-        ],
-        [
-          "19:00 – 20:00",
-          "Kick / K1"
-        ],
-        [
-          "20:00 – 21:30",
-          "Anglaise Loisirs"
-        ]
-      ]
-    },
-    {
-      "day": "Mercredi",
-      "items": [
-        [
-          "12:30 – 13:30",
-          "Kick / K1"
-        ],
-        [
-          "14:00 – 15:00",
-          "Kick Enfants"
-        ],
-        [
-          "15:00 – 16:00",
-          "Kick Ados"
-        ],
-        [
-          "16:00 – 17:00",
-          "Boxe Éducative 7/11 ans"
-        ],
-        [
-          "17:00 – 18:00",
-          "Boxe Éducative 12/16 ans"
-        ],
-        [
-          "18:00 – 19:00",
-          "Boxing Lady"
-        ],
-        [
-          "19:00 – 20:00",
-          "Préparation Physique"
-        ],
-        [
-          "20:00 – 21:30",
-          "Kick / K1"
-        ]
-      ]
-    },
-    {
-      "day": "Jeudi",
-      "items": [
-        [
-          "12:30 – 13:30",
-          "Boxe Anglaise"
-        ],
-        [
-          "18:00 – 19:00",
-          "Lady Kick"
-        ],
-        [
-          "19:00 – 20:00",
-          "Kick / K1"
-        ],
-        [
-          "20:00 – 21:30",
-          "Anglaise Loisirs"
-        ]
-      ]
-    },
-    {
-      "day": "Vendredi",
-      "items": [
-        [
-          "12:30 – 13:30",
-          "Sparring Anglaise & Kick"
-        ],
-        [
-          "18:00 – 20:00",
-          "Boxe Amateurs & Pros"
-        ],
-        [
-          "20:00 – 21:30",
-          "Sparring Anglaise & Kick"
-        ]
-      ]
-    },
-    {
-      "day": "Samedi",
-      "items": [
-        [
-          "10:00 – 11:00",
-          "Boxe Française"
-        ],
-        [
-          "10:00 – 11:00",
-          "Kick Enfants"
-        ],
-        [
-          "11:00 – 12:00",
-          "Préparation Physique"
-        ],
-        [
-          "11:00 – 12:00",
-          "Kick Ados"
-        ],
-        [
-          "12:30 – 13:30",
-          "Boxe Anglaise"
-        ],
-        [
-          "15:00 – 16:00",
-          "Baby Boxe 4/6 ans"
-        ],
-        [
-          "16:00 – 17:00",
-          "Boxe Éducative 7/11 ans"
-        ],
-        [
-          "17:00 – 18:00",
-          "Boxe Éducative 12/16 ans"
-        ]
-      ]
-    }
-  ],
   "planningMma": [
     {
       "day": "Lundi",
@@ -855,15 +702,11 @@
       "items": [
         [
           "12:30 – 13:30",
-          "MMA"
+          "Grappling"
         ],
         [
           "18:00 – 19:00",
           "Lady Kick"
-        ],
-        [
-          "19:00 – 20:00",
-          "Préparation Physique"
         ],
         [
           "20:00 – 21:30",
@@ -879,16 +722,12 @@
           "Kick / K1"
         ],
         [
+          "14:00 – 15:00",
+          "Kick Enfants (7-11 ans)"
+        ],
+        [
           "15:00 – 16:00",
-          "Kick Enfants"
-        ],
-        [
-          "16:00 – 17:00",
-          "Kick Ados"
-        ],
-        [
-          "17:00 – 18:00",
-          "MMA Ados"
+          "Kick Ados (12-16 ans)"
         ],
         [
           "18:00 – 19:00",
@@ -930,7 +769,7 @@
       "items": [
         [
           "12:30 – 13:30",
-          "Kick / K1"
+          "Sparring Kick"
         ],
         [
           "18:00 – 19:00",
@@ -942,7 +781,7 @@
         ],
         [
           "20:00 – 21:30",
-          "Open Sparring"
+          "Sparring Kick"
         ]
       ]
     },
@@ -950,16 +789,12 @@
       "day": "Samedi",
       "items": [
         [
-          "10:00 – 11:30",
-          "Boxe Française + Kick Enfants"
+          "10:00 – 11:00",
+          "Kick Enfants (7-11 ans)"
         ],
         [
-          "11:30 – 12:30",
-          "Prépa Physique + Kick Ados"
-        ],
-        [
-          "12:30 – 13:30",
-          "MMA"
+          "11:00 – 12:00",
+          "Kick Ados (12-16 ans)"
         ],
         [
           "14:00 – 15:00",
@@ -967,7 +802,61 @@
         ],
         [
           "15:00 – 16:00",
-          "MMA Ados"
+          "MMA Sparring"
+        ]
+      ]
+    }
+  ],
+  "planningFitness": [
+    {
+      "day": "Mardi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Préparation Physique"
+        ],
+        [
+          "19:00 – 20:00",
+          "Préparation Physique"
+        ]
+      ]
+    },
+    {
+      "day": "Mercredi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Préparation Physique"
+        ],
+        [
+          "18:00 – 19:00",
+          "Réservé Boxe Compétition"
+        ],
+        [
+          "19:00 – 20:00",
+          "Réservé Boxe Compétition"
+        ],
+        [
+          "20:00 – 21:00",
+          "Préparation Physique"
+        ]
+      ]
+    },
+    {
+      "day": "Jeudi",
+      "items": [
+        [
+          "12:30 – 13:30",
+          "Préparation Physique"
+        ]
+      ]
+    },
+    {
+      "day": "Samedi",
+      "items": [
+        [
+          "11:00 – 12:00",
+          "Préparation Physique"
         ]
       ]
     }

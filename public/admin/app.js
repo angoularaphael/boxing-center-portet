@@ -96,7 +96,9 @@ const SCHEMA = {
   tarifs: { label:"Tarifs", intro:"Les offres affichées sur la page Tarifs (et le schéma SEO).", type:"list", singular:"tarif", item:[
     {k:"name",label:"Nom"},{k:"price",label:"Prix"},{k:"unit",label:"Unité (ex. / 4 semaines · carte étudiante requise)"},{k:"badge",label:"Badge (ex. Sans engagement)"},{k:"note",label:"Note",ml:true},{k:"cta",label:"Texte du bouton"},{k:"href",label:"Lien du bouton (boutique box-plus)"},{k:"feature",label:"Mettre en avant",bool:true},
   ]},
-  planning: { label:"Planning", intro:"Le planning de la semaine. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
+  planning: { label:"Planning — Salle Boxe", intro:"Le planning de la salle Boxe. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
+  planningMma: { label:"Planning — Salle MMA", intro:"Le planning de la salle MMA. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
+  planningFitness: { label:"Planning — Salle Fitness", intro:"Le planning de la salle Fitness. Glisse les créneaux avec la poignée ⠿ pour les réordonner — même d’un jour à l’autre.", type:"planning" },
   gallery: { label:"Galerie", intro:"Les photos du site. Glisse une vignette pour changer l’ordre, dépose des images depuis ton ordinateur pour en ajouter. Aucune taille à respecter : chaque photo est compressée et recadrée automatiquement selon son format.", type:"gallery" },
   seo: { label:"Référencement Google", intro:"Le titre et la petite description de chaque page telle qu’elle apparaît sur Google.", type:"seo" },
 };

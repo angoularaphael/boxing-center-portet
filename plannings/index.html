@@ -39,7 +39,8 @@
   <link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/plannings/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Quels jours le club est-il ouvert ?", "acceptedAnswer": {"@type": "Answer", "text": "Du lundi au samedi, de 10h00 à 21h30, samedi compris. L’heure du dernier cours n’est pas l’heure de fermeture."}}, {"@type": "Question", "name": "Combien de temps dure un cours ?", "acceptedAnswer": {"@type": "Answer", "text": "Une heure. Les créneaux des amateurs et des pros durent une heure et demie."}}, {"@type": "Question", "name": "Y a-t-il des cours le midi et le soir ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, les deux. La grille donne l’horaire de chaque cours, et le cours en train de se dérouler y est signalé en direct."}}, {"@type": "Question", "name": "Quand ont lieu les cours pour les enfants ?", "acceptedAnswer": {"@type": "Answer", "text": "Le mercredi et le samedi. Chaque groupe figure dans la grille avec sa tranche d’âge."}}, {"@type": "Question", "name": "Peut-on garder le planning sur son téléphone ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : le bouton « Télécharger le planning », sous la grille, l’enregistre en image."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://boxing-center-portet.fr/plannings/#faq", "inLanguage": "fr-FR", "mainEntity": [{"@type": "Question", "name": "Pourquoi trois plannings ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que le club a trois salles : la salle Boxe, la salle MMA et la salle Fitness. Chacune a sa grille, et plusieurs cours peuvent avoir lieu à la même heure."}}, {"@type": "Question", "name": "Que veut dire NAP sur le planning ?", "acceptedAnswer": {"@type": "Answer", "text": "NAP, c’est le Noble Art Portésien. Les créneaux « Boxe Compétiteurs NAP » sont ceux de ses compétiteurs, en salle Boxe."}}, {"@type": "Question", "name": "Quels jours le club est-il ouvert ?", "acceptedAnswer": {"@type": "Answer", "text": "Du lundi au samedi, de 10h00 à 21h30, samedi compris. L’heure du dernier cours n’est pas l’heure de fermeture."}}, {"@type": "Question", "name": "Combien de temps dure un cours ?", "acceptedAnswer": {"@type": "Answer", "text": "La plupart durent une heure, et les créneaux de 20h à 21h30 une heure et demie. La grille de chaque salle donne l’horaire exact de chaque cours."}}, {"@type": "Question", "name": "Y a-t-il des cours le midi et le soir ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, les deux. La grille donne l’horaire de chaque cours, et le cours en train de se dérouler y est signalé en direct."}}, {"@type": "Question", "name": "Quand ont lieu les cours pour les enfants ?", "acceptedAnswer": {"@type": "Answer", "text": "Le mercredi et le samedi. Chaque groupe figure dans la grille avec sa tranche d’âge."}}, {"@type": "Question", "name": "Peut-on garder le planning sur son téléphone ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : le bouton « Télécharger le planning », sous la grille de chaque salle, l’enregistre en image."}}]}</script>
+  <noscript><style>.salle-panneau{display:block!important}.salles-onglets{display:none!important}</style></noscript>
 </head>
 <body data-page="plannings">
   <div class="curtain" id="curtain" aria-hidden="true"></div>
@@ -49,25 +50,50 @@
     <div class="wrap">
       <span class="eyebrow">Planning</span>
       <h1 class="display"><span class="reveal-line"><span>Planning des cours de boxe</span></span><span class="reveal-line"><span>à <span class="tint">Portet-sur-Garonne.</span></span></span></h1>
-      <p class="lead">La salle vit 6j/7 : boxe anglaise, kick, boxe éducative dès 4 ans et préparation physique. C’est le planning provisoire, en vigueur jusqu’à l’arrivée du nouveau matériel.</p>
+      <p class="lead">Le club vit 6j/7 dans trois salles : la salle Boxe, la salle MMA et la salle Fitness. Choisis la tienne, voici ses cours de la semaine.</p>
     </div>
   </section>
-  <!-- L'AFFICHE OFFICIELLE, EN PREMIER. Ordre du patron (20/08) : c'est
-       elle que les gens reconnaissent — la meme qu'en salle et sur Instagram.
-       La grille en texte reste dessous : elle est lisible par Google, par un
-       lecteur d'ecran, et elle se copie. L'affiche se clique pour s'ouvrir en
-       grand (4800 px), et le PDF reste telechargeable. -->
-  <section class="section" aria-label="L’affiche du planning">
+  <!-- LES AFFICHES OFFICIELLES, EN PREMIER. Ordre du patron (20/08) : c'est
+       elles que les gens reconnaissent — les memes qu'en salle et sur Instagram.
+       Trois salles depuis le 02/11/2026 : une a la fois, au choix. Les grilles en
+       texte restent dessous : lisibles par Google, par un lecteur d'ecran, et
+       elles se copient. -->
+  <section class="section" aria-label="Les affiches du planning">
     <div class="wrap">
-      <figure class="planning-affiche" data-reveal>
-        <a href="/img/planning/provisoire-v4-2600.webp" target="_blank" rel="noopener" aria-label="Ouvrir l’affiche du planning en grand">
+    <div class="salles-affiches" data-reveal>
+      <div class="salles-onglets" role="tablist" aria-label="Choisir la salle">
+        <button class="salles-onglet is-on" type="button" role="tab" id="onglet-affiche-boxe" aria-controls="affiche-boxe" aria-selected="true" data-salle="boxe"><span class="salles-onglet__mot">Salle </span>Boxe</button>
+        <button class="salles-onglet" type="button" role="tab" id="onglet-affiche-mma" aria-controls="affiche-mma" aria-selected="false" tabindex="-1" data-salle="mma"><span class="salles-onglet__mot">Salle </span>MMA</button>
+        <button class="salles-onglet" type="button" role="tab" id="onglet-affiche-fitness" aria-controls="affiche-fitness" aria-selected="false" tabindex="-1" data-salle="fitness"><span class="salles-onglet__mot">Salle </span>Fitness</button>
+      </div>
+      <figure class="planning-affiche salle-panneau is-on" id="affiche-boxe" role="tabpanel" aria-labelledby="onglet-affiche-boxe" data-salle="boxe">
+        <a href="/img/planning/salle-boxe-2600.webp" target="_blank" rel="noopener" aria-label="Ouvrir en grand l’affiche du planning de la salle boxe">
           <picture>
-            <source type="image/webp" srcset="/img/planning/provisoire-v4-1200.webp 1200w, /img/planning/provisoire-v4-1800.webp 1800w, /img/planning/provisoire-v4-2600.webp 2600w" sizes="(min-width: 1100px) 1040px, 94vw" />
-            <img src="/img/planning/provisoire-v4-1800.jpg" alt="Planning provisoire du Boxing Center Portet-sur-Garonne : boxe anglaise, kick, boxe éducative et préparation physique, du lundi au samedi" width="1800" height="1662" decoding="async" fetchpriority="high" />
+            <source type="image/webp" srcset="/img/planning/salle-boxe-1200.webp 1200w, /img/planning/salle-boxe-1800.webp 1800w, /img/planning/salle-boxe-2600.webp 2600w" sizes="(min-width: 1100px) 1040px, 94vw" />
+            <img src="/img/planning/salle-boxe-1800.jpg" alt="Planning de la salle boxe du Boxing Center Portet-sur-Garonne : boxe anglaise, compétiteurs, boxe éducative, baby boxe, Lady Boxing et boxe française, du lundi au samedi" width="1800" height="1608" decoding="async" fetchpriority="high" />
           </picture>
         </a>
-        <figcaption>Le planning affiché en salle. Touchez l’image pour l’ouvrir en grand, ou téléchargez-la ci-dessous.</figcaption>
+        <figcaption>Le planning de la salle boxe. Touchez l’image pour l’ouvrir en grand.</figcaption>
       </figure>
+      <figure class="planning-affiche salle-panneau" id="affiche-mma" role="tabpanel" aria-labelledby="onglet-affiche-mma" data-salle="mma">
+        <a href="/img/planning/salle-mma-2600.webp" target="_blank" rel="noopener" aria-label="Ouvrir en grand l’affiche du planning de la salle MMA">
+          <picture>
+            <source type="image/webp" srcset="/img/planning/salle-mma-1200.webp 1200w, /img/planning/salle-mma-1800.webp 1800w, /img/planning/salle-mma-2600.webp 2600w" sizes="(min-width: 1100px) 1040px, 94vw" />
+            <img src="/img/planning/salle-mma-1800.jpg" alt="Planning de la salle MMA du Boxing Center Portet-sur-Garonne : MMA, grappling, kick boxing, Lady Kick, kick enfants et ados, boxe française, du lundi au samedi" width="1800" height="1608" decoding="async" loading="lazy" />
+          </picture>
+        </a>
+        <figcaption>Le planning de la salle MMA. Touchez l’image pour l’ouvrir en grand.</figcaption>
+      </figure>
+      <figure class="planning-affiche salle-panneau" id="affiche-fitness" role="tabpanel" aria-labelledby="onglet-affiche-fitness" data-salle="fitness">
+        <a href="/img/planning/salle-fitness-2600.webp" target="_blank" rel="noopener" aria-label="Ouvrir en grand l’affiche du planning de la salle fitness">
+          <picture>
+            <source type="image/webp" srcset="/img/planning/salle-fitness-1200.webp 1200w, /img/planning/salle-fitness-1800.webp 1800w, /img/planning/salle-fitness-2600.webp 2600w" sizes="(min-width: 1100px) 1040px, 94vw" />
+            <img src="/img/planning/salle-fitness-1800.jpg" alt="Planning de la salle fitness du Boxing Center Portet-sur-Garonne : préparation physique et créneaux réservés à la boxe de compétition, du lundi au samedi" width="1800" height="1608" decoding="async" loading="lazy" />
+          </picture>
+        </a>
+        <figcaption>Le planning de la salle fitness. Touchez l’image pour l’ouvrir en grand.</figcaption>
+      </figure>
+    </div>
     </div>
   </section>
   <!-- LE PIEGE. Il se pose la ou la page vient de donner une raison, pas
@@ -113,28 +139,30 @@
   <section class="section">
     <div class="wrap">
       <h2 class="display" style="margin-bottom:.6rem;font-size:clamp(1.6rem,3vw,2.2rem)">Le planning en vigueur</h2>
-      <p class="lead" style="margin-bottom:1.4rem;max-width:60ch">Un seul planning pour toute la salle, le temps que le nouveau matériel arrive. Le double planning — salle combat et salle MMA — prendra le relais dès son installation.</p>
-      <div class="planning" id="planning-provisoire-grid" data-reveal-group></div>
-      <p style="margin-top:1.6rem"><a class="btn btn--ghost" href="/img/planning/provisoire-v4-1800.jpg" download="planning-boxing-center-portet.jpg">Télécharger le planning</a></p>
+      <p class="lead" style="margin-bottom:1.4rem;max-width:60ch">Trois salles, trois plannings : plusieurs cours peuvent tourner à la même heure. Le cours en train de se dérouler est signalé en direct.</p>
+      <div id="plan-horloge-ici"></div>
+      <div class="salles-onglets" role="tablist" aria-label="Choisir la salle du planning">
+        <button class="salles-onglet is-on" type="button" role="tab" id="onglet-grille-boxe" aria-controls="grille-boxe" aria-selected="true" data-salle="boxe"><span class="salles-onglet__mot">Salle </span>Boxe</button>
+        <button class="salles-onglet" type="button" role="tab" id="onglet-grille-mma" aria-controls="grille-mma" aria-selected="false" tabindex="-1" data-salle="mma"><span class="salles-onglet__mot">Salle </span>MMA</button>
+        <button class="salles-onglet" type="button" role="tab" id="onglet-grille-fitness" aria-controls="grille-fitness" aria-selected="false" tabindex="-1" data-salle="fitness"><span class="salles-onglet__mot">Salle </span>Fitness</button>
+      </div>
+      <div class="salle-panneau is-on" id="grille-boxe" role="tabpanel" aria-labelledby="onglet-grille-boxe" data-salle="boxe">
+        <h3 class="salle-panneau__titre">Salle Boxe</h3>
+        <div class="planning" id="planning-grid" data-reveal-group></div>
+        <p style="margin-top:1.6rem"><a class="btn btn--ghost" href="/img/planning/salle-boxe-1800.jpg" download="planning-boxing-center-portet-salle-boxe.jpg">Télécharger le planning de la salle boxe</a></p>
+      </div>
+      <div class="salle-panneau" id="grille-mma" role="tabpanel" aria-labelledby="onglet-grille-mma" data-salle="mma">
+        <h3 class="salle-panneau__titre">Salle MMA</h3>
+        <div class="planning" id="planning-mma-grid" data-reveal-group></div>
+        <p style="margin-top:1.6rem"><a class="btn btn--ghost" href="/img/planning/salle-mma-1800.jpg" download="planning-boxing-center-portet-salle-mma.jpg">Télécharger le planning de la salle MMA</a></p>
+      </div>
+      <div class="salle-panneau" id="grille-fitness" role="tabpanel" aria-labelledby="onglet-grille-fitness" data-salle="fitness">
+        <h3 class="salle-panneau__titre">Salle Fitness</h3>
+        <div class="planning" id="planning-fitness-grid" data-reveal-group></div>
+        <p style="margin-top:1.6rem"><a class="btn btn--ghost" href="/img/planning/salle-fitness-1800.jpg" download="planning-boxing-center-portet-salle-fitness.jpg">Télécharger le planning de la salle fitness</a></p>
+      </div>
     </div>
   </section>
-  <!-- Les plannings définitifs (salle combat / salle MMA) attendent ici,
-       cachés, l'arrivée du matériel. Interrupteur : nouvellesSalles
-       (content.json). Ne PAS les montrer avant — règle du patron. -->
-  <div id="plannings-definitifs" hidden>
-  <section class="section">
-    <div class="wrap">
-      <h2 class="display" style="margin-bottom:1.2rem;font-size:clamp(1.6rem,3vw,2.2rem)">Boxe anglaise</h2>
-      <div class="planning" id="planning-grid" data-reveal-group></div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="wrap">
-      <h2 class="display" style="margin-bottom:1.2rem;font-size:clamp(1.6rem,3vw,2.2rem)">Combat · MMA, kick, grappling</h2>
-      <div class="planning" id="planning-mma-grid" data-reveal-group></div>
-    </div>
-  </section>
-  </div>
   <!-- LA FAQ DE LA PAGE (17/09) : ses propres questions, écrites en dur, reprises dans le script FAQPage de la tête. -->
   <section class="section band">
     <div class="wrap">
@@ -145,11 +173,13 @@
         </div>
       </div>
       <div class="faq-list">
+        <details><summary>Pourquoi trois plannings ?</summary><p>Parce que le club a trois salles : la salle Boxe, la salle MMA et la salle Fitness. Chacune a sa grille, et plusieurs cours peuvent avoir lieu à la même heure.</p></details>
+        <details><summary>Que veut dire NAP sur le planning ?</summary><p>NAP, c’est le Noble Art Portésien. Les créneaux « Boxe Compétiteurs NAP » sont ceux de ses compétiteurs, en salle Boxe.</p></details>
         <details><summary>Quels jours le club est-il ouvert ?</summary><p>Du lundi au samedi, de 10h00 à 21h30, samedi compris. L’heure du dernier cours n’est pas l’heure de fermeture.</p></details>
-        <details><summary>Combien de temps dure un cours ?</summary><p>Une heure. Les créneaux des amateurs et des pros durent une heure et demie.</p></details>
+        <details><summary>Combien de temps dure un cours ?</summary><p>La plupart durent une heure, et les créneaux de 20h à 21h30 une heure et demie. La grille de chaque salle donne l’horaire exact de chaque cours.</p></details>
         <details><summary>Y a-t-il des cours le midi et le soir ?</summary><p>Oui, les deux. La grille donne l’horaire de chaque cours, et le cours en train de se dérouler y est signalé en direct.</p></details>
         <details><summary>Quand ont lieu les cours pour les enfants ?</summary><p>Le mercredi et le samedi. Chaque groupe figure dans la grille avec sa tranche d’âge.</p></details>
-        <details><summary>Peut-on garder le planning sur son téléphone ?</summary><p>Oui : le bouton « Télécharger le planning », sous la grille, l’enregistre en image.</p></details>
+        <details><summary>Peut-on garder le planning sur son téléphone ?</summary><p>Oui : le bouton « Télécharger le planning », sous la grille de chaque salle, l’enregistre en image.</p></details>
       </div>
     </div>
   </section>

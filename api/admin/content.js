@@ -9,7 +9,7 @@ import { allowCors, isAdmin } from "../_lib/util.js";
 const REPO = process.env.GITHUB_REPO || "angoularaphael/boxing-center-portet";
 const BRANCH = process.env.GITHUB_BRANCH || "main";
 const PATH = "src/content.json";
-const TOP_KEYS = ["site", "hero", "stats", "disciplines", "audiences", "team", "values", "tarifs", "planning", "gallery", "seo"];
+const TOP_KEYS = ["site", "hero", "stats", "disciplines", "audiences", "team", "values", "tarifs", "planning", "planningMma", "planningFitness", "gallery", "seo"];
 
 function gh(path, init = {}) {
   return fetch(`https://api.github.com/repos/${REPO}/${path}`, {

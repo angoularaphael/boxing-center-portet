@@ -8,7 +8,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 import { allowCors, memoryLimit, ipOf } from "./_lib/util.js";
-import { planningEnVigueur, contexteDuMoment } from "./_lib/moment.js";
+import { planningParSalle, contexteDuMoment } from "./_lib/moment.js";
 
 /* Faits non éditables dans le backoffice (offres, inscription, réseau…).
    LES OFFRES (source : boutique.boxingcenter.fr, la boutique officielle) : */
@@ -40,7 +40,9 @@ const STATIC_INFO = `- Boxing Center Portet : salle phare du groupe Boxing Cente
   ATTENTION — L'HEURE DU DERNIER COURS N'EST PAS L'HEURE DE FERMETURE. La salle ferme à 21h30 TOUS les jours d'ouverture, samedi compris, même quand le dernier cours du planning commence à 17h. Ne déduis JAMAIS un horaire de fermeture depuis le planning : vu le 25/08, le bot annonçait « samedi 10h00–18h00 », soit trois heures et demie de moins que la réalité.
 - Disciplines : boxe anglaise, kick-boxing, MMA, grappling & jiu-jitsu brésilien, Lady Boxing (100% femmes), préparation physique, baby boxe, boxe éducative, kick-boxing enfants/ados.
 - Encadrement (saison 2026/2027) : Valentin Tapia (Head Coach, responsable sportif — boxe loisirs, éducative, compétiteurs), Samuel Pinto (kick boxing/K1, boxe française, Lady Boxing, kick enfants/ados, prépa physique — vice-champion d’Europe et du Monde en boxe française), Enzo Pioppo (grappling & MMA — champion du Monde), Nicolas Tramaçon (grappling & MMA), Mourad Berraho (boxe anglaise enfants/ados — triple champion de France), Ingrid (kick boxing enfants/ados).
-- Planning Portet (saison 2026/2027, salle de boxe) : Lun 12h30 Anglaise / 18h Éducative Confirmés / 19h-21h30 Amateurs & Pros ; Mar 12h30 Prépa physique / 18h Amateurs & Pros / 19h Prépa physique / 20h Anglaise Loisirs ; Mer 16h Éducative 7-11 / 17h Éducative 12-16 / 18h Lady Boxing / 19h Anglaise Loisirs / 20h Amateurs & Pros ; Jeu 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Anglaise Loisirs ; Ven 12h30 Anglaise / 18h-20h Amateurs & Pros / 20h Open Sparring ; Sam 10h-12h Amateurs & Pros / 12h30 Anglaise / 15h15 Baby Boxe / 16h Éducative 7-11 / 17h Éducative 12-16.`;
+- Planning Portet, salle Boxe : Lun 12h30 Anglaise Loisirs / 18h Éducative Confirmés / 19h-21h30 Compétiteurs NAP ; Mar 12h30 Anglaise Loisirs / 18h-20h Compétiteurs NAP / 20h Anglaise Loisirs ; Mer 16h Éducative 7-11 / 17h Éducative 12-16 / 18h Lady Boxing / 19h Anglaise Loisirs / 20h Compétiteurs NAP ; Jeu 12h30 Anglaise Loisirs / 18h-20h Compétiteurs NAP / 20h Anglaise Loisirs ; Ven 12h30 Sparring Anglaise / 18h-20h Compétiteurs NAP / 20h Sparring Anglaise ; Sam 10h Boxe Française / 11h-12h30 Compétiteurs NAP / 12h30 Anglaise Loisirs / 15h15 Baby Boxe 4-6 / 16h Éducative 7-11 / 17h Éducative 12-16.
+- Planning Portet, salle MMA : Lun 18h Grappling / 19h MMA ; Mar 12h30 Grappling / 18h Lady Kick / 20h Kick Boxing K1 ; Mer 12h30 Kick K1 / 14h Kick Enfants 7-11 / 15h Kick Ados 12-16 / 18h Grappling / 19h MMA / 20h Kick Boxing K1 ; Jeu 12h30 Grappling / 18h Lady Kick / 19h Boxe Française / 20h Kick Boxing K1 ; Ven 12h30 Sparring Kick / 18h Grappling / 19h MMA / 20h Sparring Kick ; Sam 10h Kick Enfants 7-11 / 11h Kick Ados 12-16 / 14h Grappling / 15h MMA Sparring.
+- Planning Portet, salle Fitness : Mar 12h30 Préparation Physique / 19h Préparation Physique ; Mer 12h30 Préparation Physique / 18h-20h réservé boxe compétition / 20h Préparation Physique ; Jeu 12h30 Préparation Physique ; Sam 11h Préparation Physique.`;
 
 /** Bloc d’infos construit depuis le contenu éditable du site (backoffice). */
 export function liveInfo() {
@@ -64,14 +66,15 @@ export function liveInfo() {
       L.push("Disciplines : " + c.disciplines.map((d) => d.name).filter(Boolean).join(", ") + ".");
     if (Array.isArray(c.team) && c.team.length)
       L.push("Encadrement : " + c.team.map((m) => `${m.name}${m.role ? ` (${m.role})` : ""}`).join(", ") + ". Du débutant au compétiteur.");
-    /* LE PLANNING AFFICHÉ, pas le planning caché : tant que nouvellesSalles
-       n’est pas vrai, la page Planning montre planningProvisoire — et le bot
-       récitait l’autre (audit du 13/09). */
-    const planning = planningEnVigueur(c);
-    if (planning.length)
-      L.push("Planning Portet (celui affiché sur le site) : " + planning
-        .map((d) => `${d.day} ${(d.items || []).map((i) => `${i[0]} ${i[1]}`).join(" / ")}`.trim())
-        .join(" ; ") + ".");
+    /* LE PLANNING AFFICHÉ, salle par salle : le club a trois salles, et plusieurs
+       cours peuvent tourner à la même heure. */
+    const salles = planningParSalle(c);
+    if (salles.length)
+      L.push("Planning Portet (celui affiché sur le site) — " + salles
+        .map((s) => s.salle + " : " + s.jours
+          .map((d) => `${d.day} ${(d.items || []).map((i) => `${i[0]} ${i[1]}`).join(" / ")}`.trim())
+          .join(" ; "))
+        .join(". ") + ".");
     return L.length >= 4 ? "- " + L.join("\n- ") : null; // contenu trop partiel → repli
   } catch { return null; }
 }

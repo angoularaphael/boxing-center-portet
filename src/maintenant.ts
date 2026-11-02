@@ -100,7 +100,10 @@ export function marquerPlanning() {
     h.id = "plan-horloge";
     h.className = "plan-horloge";
     h.setAttribute("aria-live", "polite");
-    premiere.parentElement?.insertBefore(h, premiere);
+    /* au-dessus du sélecteur de salle : l'horloge parle des trois salles, elle ne se cache pas avec l'une d'elles */
+    const ici = document.getElementById("plan-horloge-ici");
+    if (ici) ici.appendChild(h);
+    else premiere.parentElement?.insertBefore(h, premiere);
   }
   const morceaux = [`<b>${hh(n.mins)}</b> <span class="plan-horloge__jour">${n.jour}</span>`];
   if (enCours.length) morceaux.push(`<span class="plan-horloge__now">En cours : ${x(enCours.map((c) => c.nom).join(" · "))}</span>`);

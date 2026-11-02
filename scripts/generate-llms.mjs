@@ -10,7 +10,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const C = JSON.parse(readFileSync(join(ROOT, "src/content.json"), "utf8"));
 import { pagesDisciplines, creneaux, joursEnMots, remplir, planningEnVigueur } from "./disciplines-lib.mjs";
 import { prixLu } from "../src/prix.mjs";
-/* LE PLANNING AFFICHÉ, pas les deux grilles cachées (planning + planningMma
+/* LE PLANNING AFFICHÉ (les trois salles réunies), jamais une ancienne grille (planning + planningMma
    n’existent sur le site qu’à l’ouverture des nouvelles salles) : les IA
    récitaient des créneaux que personne ne voit (audit du 13/09). */
 const PLANNING = planningEnVigueur(C);
@@ -20,11 +20,9 @@ const PLANNING = planningEnVigueur(C);
 const hm = (t) => String(t).replace(/(\d{1,2}):(\d{2})/g, (_, h, m) => `${+h}h${m}`).replace(/\s*[–-]\s*/, "–");
 const quand = (re) => PLANNING.flatMap((d) => (d.items || []).filter(([, n]) => re.test(n)).map(([t]) => `${d.day.toLowerCase()} ${hm(t)}`)).join(", ");
 const avec = (liste) => liste.map(([nom, re]) => { const q = quand(re); return q ? `${nom} : ${q}` : null; }).filter(Boolean);
-const DEBUTER = avec([["Boxe Anglaise Loisirs", /anglaise loisirs/i], ["Boxe anglaise du midi", /^boxe anglaise$/i], ["Boxing Lady (100 % féminin)", /boxing lady|lady boxing/i], ["Baby Boxe", /baby/i]]);
-const COMBAT_COURS = [["MMA", /\bmma\b/i], ["Grappling", /grappling|jjb|jiu/i], ["Kick-Boxing / K1", /^kick\s*\/\s*k1$/i]];
+const DEBUTER = avec([["Boxe Anglaise Loisirs", /anglaise loisirs/i], ["Boxing Lady (100 % féminin)", /boxing lady|lady boxing/i], ["Baby Boxe", /baby/i]]);
+const COMBAT_COURS = [["MMA", /\bmma\b/i], ["Grappling", /grappling|jjb|jiu/i], ["Kick-Boxing / K1", /k1/i]];
 const COMBAT = avec(COMBAT_COURS);
-const COMBAT_ABSENTS = COMBAT_COURS.filter(([, re]) => !quand(re)).map(([nom]) => nom);
-if (COMBAT_ABSENTS.length) COMBAT.push(`${COMBAT_ABSENTS.join(", ")} : au retour du double planning, dès l’installation du nouveau matériel`);
 const PAGES_D = pagesDisciplines().map((p) => { const j = joursEnMots(creneaux(p, C)); return { ...p, jours: j, resume: remplir(p.description, j) }; });
 /* Une page par coach : son parcours, ses diplômes, ses disciplines, ses questions. */
 const PAGES_C = Object.values(JSON.parse(readFileSync(join(ROOT, "src/coachs.json"), "utf8")).pages);
@@ -77,13 +75,13 @@ Lundi à samedi, 10h00 – 21h30. Dimanche fermé. La salle vit 6j/7.
 Oui. Coachs diplômés FFBoxe, FFKMDA et FMMAF, aucun niveau demandé, pas de sparring imposé. Créneaux débutants dédiés, et un coach en salle à chaque cours.
 
 **Comment se passe une première séance ?**
-On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux amateurs et pros). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
+On arrive au ${a.street || "61 route d’Espagne"}, on dit que c’est sa première fois. Un coach accueille et fait le tour de la salle. Puis échauffement avec le groupe, deux gestes techniques à son rythme, et du sac pour finir. Les cours durent une heure (1h30 sur les créneaux de 20h). Pas de sparring imposé, pas de test, pas d’engagement. Tenue : t-shirt, short ou legging, baskets propres, bouteille d’eau. Le déroulé : ${SITE}/premiere-seance/
 
 **Quels créneaux pour débuter ?**
 ${DEBUTER.join(". ")}. Le planning complet : ${SITE}/plannings/
 
 **Y a-t-il des cours de MMA / kick-boxing / grappling ?**
-${COMBAT.length ? `Oui, au planning affiché — ${COMBAT.join(". ")}.` : "Oui : les créneaux combat reviennent avec le double planning, dès l’installation du nouveau matériel."} Détail : ${SITE}/plannings/
+Oui, en salle MMA — ${COMBAT.join(". ")}. Détail : ${SITE}/plannings/
 
 **Quelle est la note du club ?**
 4,4 sur 5 sur Google, sur 114 avis (fiche Google Maps du club, relevé du 16 octobre 2026).
@@ -192,7 +190,7 @@ ${(C.disciplines || []).map((d) => `### ${d.name} (${d.tag})\n${d.desc}`).join("
 
 ## Pages disciplines (une page par discipline)
 
-${PAGES_D.map((p) => `### ${p.nom}\nPage : ${SITE}/activites/${p.slug}/\n${p.resume}\n${p.jours ? `Créneaux au planning en vigueur : ${p.jours}.` : "Créneaux : au retour du double planning, dès l’installation du nouveau matériel."}`).join("\n\n")}
+${PAGES_D.map((p) => `### ${p.nom}\nPage : ${SITE}/activites/${p.slug}/\n${p.resume}\n${p.jours ? `Créneaux au planning en vigueur : ${p.jours}.` : `Créneaux : ${SITE}/plannings/`}`).join("\n\n")}
 
 ## Pages des coachs (une page par coach)
 
@@ -222,7 +220,7 @@ ${plan(PLANNING)}
 
 ## Première séance
 
-Arriver au ${a.street || "61 route d’Espagne"}, dire que c’est une première fois. Accueil coach, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : ${SITE}/premiere-seance/
+Arriver au ${a.street || "61 route d’Espagne"}, dire que c’est une première fois. Accueil coach, visite, échauffement, technique, sac. 1 h (1h30 sur les créneaux de 20h). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : ${SITE}/premiere-seance/
 
 ## Réseau
 

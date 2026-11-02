@@ -41,8 +41,8 @@ Pieds-poings pour la nouvelle génération : technique, cadre et dépassement �
 
 ### Boxe anglaise
 Page : https://boxing-center-portet.fr/activites/boxe-anglaise/
-Cours de boxe anglaise à Portet-sur-Garonne sur le ring du club : débutants, loisirs, amateurs et pros, avec Valentin Tapia.
-Créneaux au planning en vigueur : le lundi, le mardi, le jeudi, le vendredi et le samedi.
+Cours de boxe anglaise à Portet-sur-Garonne sur le ring du club : débutants, loisirs et compétiteurs, avec Valentin Tapia.
+Créneaux au planning en vigueur : le lundi, le mardi, le mercredi, le jeudi, le vendredi et le samedi.
 
 ### Kick-boxing
 Page : https://boxing-center-portet.fr/activites/kick-boxing/
@@ -52,12 +52,12 @@ Créneaux au planning en vigueur : le mardi, le mercredi, le jeudi et le vendred
 ### MMA
 Page : https://boxing-center-portet.fr/activites/mma/
 MMA à Portet-sur-Garonne, dans la cage du club : frappe, lutte et sol avec Enzo Pioppo, champion du monde, et Nicolas Tramaçon. Débutants bienvenus.
-Créneaux : au retour du double planning, dès l’installation du nouveau matériel.
+Créneaux au planning en vigueur : le lundi, le mercredi, le vendredi et le samedi.
 
 ### Grappling et jiu-jitsu brésilien
 Page : https://boxing-center-portet.fr/activites/grappling-jiu-jitsu-bresilien/
 Grappling et jiu-jitsu brésilien à Portet-sur-Garonne, sur les tatamis du club, avec Enzo Pioppo, ceinture noire de luta livre. Aucune frappe.
-Créneaux : au retour du double planning, dès l’installation du nouveau matériel.
+Créneaux au planning en vigueur : le lundi, le mardi, le mercredi, le jeudi, le vendredi et le samedi.
 
 ### Lady Boxing
 Page : https://boxing-center-portet.fr/activites/lady-boxing/
@@ -67,7 +67,7 @@ Créneaux au planning en vigueur : le mardi, le mercredi et le jeudi.
 ### Préparation physique
 Page : https://boxing-center-portet.fr/activites/preparation-physique/
 Préparation physique à Portet-sur-Garonne : force, cardio et explosivité, sans aucun coup à recevoir. Le moteur des boxeurs, pour tous les niveaux.
-Créneaux au planning en vigueur : le mardi, le mercredi et le samedi.
+Créneaux au planning en vigueur : le mardi, le mercredi, le jeudi et le samedi.
 
 ### Baby boxe
 Page : https://boxing-center-portet.fr/activites/baby-boxe/
@@ -170,50 +170,74 @@ Réserver : https://boutique.boxingcenter.fr/abonnements#enfants
 ## Planning de la semaine (celui affiché sur https://boxing-center-portet.fr/plannings/)
 
 ### Lundi
-- 12:30 – 13:30 — Boxe Anglaise
+- 12:30 – 13:30 — Anglaise Loisirs
 - 18:00 – 19:00 — Boxe Éducative Confirmés
-- 19:00 – 21:30 — Boxe Amateurs & Pros
+- 18:00 – 19:00 — Grappling
+- 19:00 – 20:00 — MMA
+- 19:00 – 21:30 — Boxe Compétiteurs NAP
 
 ### Mardi
+- 12:30 – 13:30 — Anglaise Loisirs
+- 12:30 – 13:30 — Grappling
 - 12:30 – 13:30 — Préparation Physique
 - 18:00 – 19:00 — Lady Kick
-- 19:00 – 20:00 — Kick / K1
+- 18:00 – 20:00 — Boxe Compétiteurs NAP
+- 19:00 – 20:00 — Préparation Physique
 - 20:00 – 21:30 — Anglaise Loisirs
+- 20:00 – 21:30 — Kick Boxing / K1
 
 ### Mercredi
 - 12:30 – 13:30 — Kick / K1
-- 14:00 – 15:00 — Kick Enfants
-- 15:00 – 16:00 — Kick Ados
+- 12:30 – 13:30 — Préparation Physique
+- 14:00 – 15:00 — Kick Enfants (7-11 ans)
+- 15:00 – 16:00 — Kick Ados (12-16 ans)
 - 16:00 – 17:00 — Boxe Éducative 7/11 ans
 - 17:00 – 18:00 — Boxe Éducative 12/16 ans
-- 18:00 – 19:00 — Boxing Lady
-- 19:00 – 20:00 — Préparation Physique
-- 20:00 – 21:30 — Kick / K1
+- 18:00 – 19:00 — Lady Boxing
+- 18:00 – 19:00 — Grappling
+- 18:00 – 19:00 — Réservé Boxe Compétition
+- 19:00 – 20:00 — Anglaise Loisirs
+- 19:00 – 20:00 — MMA
+- 19:00 – 20:00 — Réservé Boxe Compétition
+- 20:00 – 21:00 — Préparation Physique
+- 20:00 – 21:30 — Boxe Compétiteurs NAP
+- 20:00 – 21:30 — Kick Boxing / K1
 
 ### Jeudi
-- 12:30 – 13:30 — Boxe Anglaise
+- 12:30 – 13:30 — Anglaise Loisirs
+- 12:30 – 13:30 — Grappling
+- 12:30 – 13:30 — Préparation Physique
 - 18:00 – 19:00 — Lady Kick
-- 19:00 – 20:00 — Kick / K1
+- 18:00 – 20:00 — Boxe Compétiteurs NAP
+- 19:00 – 20:00 — Boxe Française
 - 20:00 – 21:30 — Anglaise Loisirs
+- 20:00 – 21:30 — Kick Boxing / K1
 
 ### Vendredi
-- 12:30 – 13:30 — Sparring Anglaise & Kick
-- 18:00 – 20:00 — Boxe Amateurs & Pros
-- 20:00 – 21:30 — Sparring Anglaise & Kick
+- 12:30 – 13:30 — Sparring Anglaise
+- 12:30 – 13:30 — Sparring Kick
+- 18:00 – 19:00 — Grappling
+- 18:00 – 20:00 — Boxe Compétiteurs NAP
+- 19:00 – 20:00 — MMA
+- 20:00 – 21:30 — Sparring Anglaise
+- 20:00 – 21:30 — Sparring Kick
 
 ### Samedi
 - 10:00 – 11:00 — Boxe Française
-- 10:00 – 11:00 — Kick Enfants
+- 10:00 – 11:00 — Kick Enfants (7-11 ans)
+- 11:00 – 12:00 — Kick Ados (12-16 ans)
 - 11:00 – 12:00 — Préparation Physique
-- 11:00 – 12:00 — Kick Ados
-- 12:30 – 13:30 — Boxe Anglaise
-- 15:00 – 16:00 — Baby Boxe 4/6 ans
+- 11:00 – 12:30 — Boxe Compétiteurs NAP
+- 12:30 – 13:30 — Anglaise Loisirs
+- 14:00 – 15:00 — Grappling
+- 15:00 – 16:00 — MMA Sparring
+- 15:15 – 16:00 — Baby Boxe (4/6 ans)
 - 16:00 – 17:00 — Boxe Éducative 7/11 ans
 - 17:00 – 18:00 — Boxe Éducative 12/16 ans
 
 ## Première séance
 
-Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil coach, visite, échauffement, technique, sac. 1 h (1h30 amateurs/pros). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : https://boxing-center-portet.fr/premiere-seance/
+Arriver au 61 route d’Espagne, dire que c’est une première fois. Accueil coach, visite, échauffement, technique, sac. 1 h (1h30 sur les créneaux de 20h). Pas de sparring imposé. Tenue : t-shirt, short ou legging, baskets propres, eau. Page : https://boxing-center-portet.fr/premiere-seance/
 
 ## Réseau
 

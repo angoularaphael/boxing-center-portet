@@ -33,19 +33,18 @@ export function lienDiscipline(nom, pages = pagesDisciplines()) {
   return p ? `/activites/${p.slug}/` : "";
 }
 
-/** Le planning que la page Planning affiche : le double planning seulement si les nouvelles salles sont ouvertes. */
+/** Tous les cours du club, salle Boxe, salle MMA et salle Fitness reunies, jour par jour. */
 export function planningEnVigueur(C = contenu()) {
-  if (C.nouvellesSalles === true) {
-    const jours = new Map();
-    for (const src of [C.planning || [], C.planningMma || []]) {
-      for (const j of src) {
-        if (!jours.has(j.day)) jours.set(j.day, []);
-        jours.get(j.day).push(...(j.items || []));
-      }
+  const jours = new Map();
+  for (const src of [C.planning || [], C.planningMma || [], C.planningFitness || []]) {
+    for (const j of src) {
+      if (!jours.has(j.day)) jours.set(j.day, []);
+      jours.get(j.day).push(...(j.items || []));
     }
-    return [...jours].map(([day, items]) => ({ day, items }));
   }
-  return C.planningProvisoire || [];
+  /* trois salles, une seule journee : les cours se lisent dans l'ordre de l'heure */
+  for (const items of jours.values()) items.sort((a, b) => String(a[0]).localeCompare(String(b[0])));
+  return [...jours].map(([day, items]) => ({ day, items }));
 }
 
 const ORDRE = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];

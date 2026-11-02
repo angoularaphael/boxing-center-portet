@@ -6,7 +6,7 @@
       "noms": ["Boxe Anglaise", "Boxe anglaise"],
       "nom": "Boxe anglaise",
       "titre": "Boxe anglaise à Portet-sur-Garonne | Boxing Center",
-      "description": "Cours de boxe anglaise à Portet-sur-Garonne sur le ring du club : débutants, loisirs, amateurs et pros, avec Valentin Tapia.",
+      "description": "Cours de boxe anglaise à Portet-sur-Garonne sur le ring du club : débutants, loisirs et compétiteurs, avec Valentin Tapia.",
       "h1": "Boxe anglaise",
       "eyebrow": "Discipline · Les poings",
       "lead": "Le noble art se travaille ici sur un vrai ring, au 61 route d’Espagne. Tu arrives sans rien savoir, tu repars avec une garde, un jab et l’envie de revenir. Les créneaux Loisirs sont faits pour apprendre, et la Team Tapia attend ceux qui veulent monter plus haut.",
@@ -24,16 +24,16 @@
       ],
       "pourQui": [
         { "tag": "Premier gant", "titre": "Tu débutes", "texte": "Les créneaux Boxe Anglaise du midi et Anglaise Loisirs du soir accueillent les débutants. Personne ne t’impose de sparring." },
-        { "tag": "Deuxième saison", "titre": "Tu veux progresser", "texte": "Les créneaux Amateurs & Pros montent l’intensité, affinent la technique et préparent l’opposition, pour ceux qui ont déjà les bases." },
+        { "tag": "Deuxième saison", "titre": "Tu veux progresser", "texte": "Les créneaux Compétiteurs montent l’intensité, affinent la technique et préparent l’opposition, pour ceux qui ont déjà les bases." },
         { "tag": "Team Tapia", "titre": "Tu vises la compétition", "texte": "La Team Tapia prépare les combattants du club, du sparring au gala, quand ils sont prêts et seulement s’ils en ont envie." }
       ],
-      "creneaux": { "motif": "anglaise|amateurs|pros", "exclure": "[ée]ducative" },
+      "creneaux": { "motif": "anglaise|comp[ée]titeurs", "exclure": "[ée]ducative" },
       "coachs": ["Valentin Tapia"],
       "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Faut-il déjà savoir boxer pour venir ?", "r": "Tu peux commencer de zéro : le coach t’apprend la garde et les premiers coups dès la première séance." },
         { "q": "Est-ce qu’on prend des coups dès le début ?", "r": "Le sparring arrive plus tard, encadré, et seulement si tu le demandes. Les premières semaines se passent aux pattes d’ours, au sac et en déplacements." },
-        { "q": "Quelle différence entre Loisirs et Amateurs & Pros ?", "r": "Le Loisirs apprend et entretient, à ton rythme. Les créneaux Amateurs & Pros montent l’intensité et travaillent l’opposition, pour ceux qui ont déjà les bases." },
+        { "q": "Quelle différence entre Loisirs et Compétiteurs ?", "r": "Le Loisirs apprend et entretient, à ton rythme. Les créneaux Compétiteurs montent l’intensité et travaillent l’opposition, pour ceux qui ont déjà les bases." },
         { "q": "Qu’est-ce qu’il faut apporter ?", "r": "Une tenue de sport, une bouteille d’eau et une serviette. Si tu continues, le coach te conseillera une paire de gants et des bandes." },
         { "q": "Quand ont lieu les cours de boxe anglaise ?", "r": "Au planning en vigueur : {jours}. Le détail heure par heure est plus haut sur cette page et sur le planning du club." }
       ],
@@ -105,12 +105,12 @@
         { "tag": "Déjà combattant", "titre": "Tu viens d’un autre sport de combat", "texte": "Boxeur, lutteur, judoka : tu gardes tes armes, et tu apprends à passer d’une distance à l’autre." },
         { "tag": "Sans les coups", "titre": "Tu veux le sol sans la frappe", "texte": "Le grappling et le jiu-jitsu brésilien travaillent le même sol, sans aucune frappe : ils ont leur propre page." }
       ],
-      "creneaux": { "motif": "\\bmma\\b", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de MMA reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
+      "creneaux": { "motif": "\\bmma\\b", "exclure": "" },
       "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
       "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Le MMA, c’est pour les débutants ?", "r": "Oui : le coach commence par les bases de chaque distance, et le contact arrive par étapes, toujours encadré." },
-        { "q": "Quand ont lieu les cours de MMA ?", "r": "Pendant l’installation du nouveau matériel, la salle suit un planning provisoire commun, et le MMA revient avec le double planning, salle combat et salle MMA. Cette page affichera ses créneaux dès qu’il sera en vigueur." },
+        { "q": "Quand ont lieu les cours de MMA ?", "r": "En salle MMA, le lundi, le mercredi et le vendredi de 19h à 20h, et le MMA Sparring du samedi de 15h à 16h." },
         { "q": "Faut-il déjà savoir boxer ou lutter ?", "r": "Partir de zéro fonctionne très bien : il n’y a rien à désapprendre. On apprend une zone après l’autre, et beaucoup commencent par le sol." },
         { "q": "Qui encadre le MMA ?", "r": "Enzo Pioppo, ceinture noire de luta livre et champion du monde, et Nicolas Tramaçon, BPJEPS sport de contact et compétiteur." },
         { "q": "Où se trouve la cage ?", "r": "Dans l’espace combat du club, l’un des deux espaces des 600 m², au 61 route d’Espagne à Portet-sur-Garonne." }
@@ -144,13 +144,13 @@
         { "tag": "MMA", "titre": "Tu fais du MMA", "texte": "Le sol décide une grande partie des combats de MMA. Le grappling t’y donne l’avance." },
         { "tag": "Judo, lutte", "titre": "Tu viens d’un sport de préhension", "texte": "Tes projections et ton sens de l’équilibre servent dès la première séance, et tu ajoutes le travail au sol." }
       ],
-      "creneaux": { "motif": "grappling|jjb|jiu", "exclure": "", "vide": "Le club suit un planning provisoire, commun à toute la salle, jusqu’à l’arrivée du nouveau matériel. Les créneaux de grappling reviennent avec le double planning, salle combat et salle MMA, dès son installation : ils s’afficheront ici d’eux-mêmes." },
+      "creneaux": { "motif": "grappling|jjb|jiu", "exclure": "" },
       "coachs": ["Enzo Pioppo", "Nicolas Tramaçon"],
       "tarifs": ["Étudiants", "Adulte", "Comptant"],
       "faq": [
         { "q": "Grappling ou jiu-jitsu brésilien, quelle différence ?", "r": "Les deux se jouent au sol, sans frappe. Le jiu-jitsu brésilien se pratique en kimono, avec un système de ceintures ; le grappling se pratique en short et rashguard." },
         { "q": "Est-ce dangereux pour les articulations ?", "r": "La règle protège tout le monde : on tape pour abandonner, et le partenaire lâche aussitôt. Les soumissions s’apprennent lentement, en contrôle." },
-        { "q": "Quand ont lieu les cours de grappling ?", "r": "Pendant l’installation du nouveau matériel, la salle suit un planning provisoire commun, et le grappling revient avec le double planning, salle combat et salle MMA. Cette page affichera ses créneaux dès qu’il sera en vigueur." },
+        { "q": "Quand ont lieu les cours de grappling ?", "r": "En salle MMA : le lundi, le mercredi et le vendredi de 18h à 19h, le mardi et le jeudi de 12h30 à 13h30, et le samedi de 14h à 15h." },
         { "q": "Qui encadre le grappling ?", "r": "Enzo Pioppo, ceinture noire de luta livre et champion du monde, et Nicolas Tramaçon, BPJEPS sport de contact." },
         { "q": "Que faut-il porter ?", "r": "Une tenue de sport près du corps, sans fermeture éclair ni bijou. Pour le jiu-jitsu brésilien, le coach te dira quand passer au kimono." }
       ],

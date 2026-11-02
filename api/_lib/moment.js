@@ -6,8 +6,7 @@
    se répondait avec une date devinée. Recalculé À CHAQUE MESSAGE, en heure
    de Paris (les serveurs Vercel tournent en UTC).
 
-   LE PLANNING EN VIGUEUR, pas le planning caché : tant que nouvellesSalles
-   n’est pas vrai, la page Planning affiche planningProvisoire. Même règle que
+   LE PLANNING EN VIGUEUR : les trois salles réunies. Même règle que
    scripts/disciplines-lib.mjs — copiée exprès : la fonction serverless ne
    charge pas les scripts du build.
    ===================================================================== */
@@ -19,17 +18,24 @@ const JOURS = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "S
 const OUVRE = 10 * 60, FERME = 21 * 60 + 30;
 
 export function planningEnVigueur(C) {
-  if (C.nouvellesSalles === true) {
-    const jours = new Map();
-    for (const src of [C.planning || [], C.planningMma || []]) {
-      for (const j of src) {
-        if (!jours.has(j.day)) jours.set(j.day, []);
-        jours.get(j.day).push(...(j.items || []));
-      }
+  const jours = new Map();
+  for (const src of [C.planning || [], C.planningMma || [], C.planningFitness || []]) {
+    for (const j of src) {
+      if (!jours.has(j.day)) jours.set(j.day, []);
+      jours.get(j.day).push(...(j.items || []));
     }
-    return [...jours].map(([day, items]) => ({ day, items }));
   }
-  return C.planningProvisoire || [];
+  /* trois salles, une seule journee : les cours se lisent dans l'ordre de l'heure */
+  for (const items of jours.values()) items.sort((a, b) => String(a[0]).localeCompare(String(b[0])));
+  return [...jours].map(([day, items]) => ({ day, items }));
+}
+
+/* Les memes cours, salle par salle : a 19h un mercredi, trois salles peuvent
+   tourner, et le bot doit pouvoir dire laquelle. */
+export function planningParSalle(C) {
+  return [["salle Boxe", C.planning], ["salle MMA", C.planningMma], ["salle Fitness", C.planningFitness]]
+    .map(([salle, jours]) => ({ salle, jours: jours || [] }))
+    .filter((s) => s.jours.length);
 }
 
 const mn = (h) => { const m = /(\d{1,2})\s*[:h]\s*(\d{2})?/.exec(h || ""); return m ? +m[1] * 60 + +(m[2] || 0) : null; };

@@ -66,8 +66,7 @@ for (const p of PRODUITS) {
 if (new Set(PRODUITS.map((p) => p.url)).size !== PRODUITS.length) fautes.push("matériel : un article apparaît deux fois");
 if (/€|\beuros?\b/i.test(JSON.stringify({ ...MAT, _note: "" }))) fautes.push("matériel : un prix est écrit dans le bloc");
 /* Les horaires que le bloc affirme (« le Kick / K1 du mardi… », « samedi à 11 h ») sont
-   contrôlés contre le planning EN VIGUEUR — le provisoire aujourd'hui, le double planning
-   quand nouvellesSalles passera à true. Un texte écrit sur un planning qui a changé
+   contrôlés contre le planning EN VIGUEUR, les trois salles réunies. Un texte écrit sur un planning qui a changé
    arrête le build au lieu de vieillir en ligne (16/10/2026). */
 const EN_VIGUEUR = planningEnVigueur();
 const debutDe = (plage) => String(plage).split(/\s*[–-]\s*/)[0].trim();

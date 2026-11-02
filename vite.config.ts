@@ -94,19 +94,10 @@ function seoBakePlugin() {
             /* Chaque carte mène à la page du coach. */
             + (lienC(m.name) ? `<a class="tcard__page" href="${lienC(m.name)}" tabindex="-1" aria-hidden="true">${/&/.test(m.name) ? "Leur page" : "Sa page"} <span aria-hidden="true">→</span></a>` : "")
             + `</div></article>`).join(""));
-          remplir("planning-provisoire-grid", "planning", (content.planningProvisoire || []).map((c: any) =>
-            `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
-            + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
-            + `</div>`).join(""));
-          /* Les grilles definitives ne cuisent que si le patron a ouvert les
-             nouvelles salles — sinon meme un crawler ne doit pas les lire. */
-          if (content.nouvellesSalles === true) {
-            remplir("planning-grid", "planning", (content.planning || []).map((c: any) =>
-              `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
-              + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
-              + `</div>`).join(""));
-            remplir("planning-mma-grid", "planning", (content.planningMma || []).map((c: any) =>
-              `<div class="plan-col" data-reveal><h3 class="plan-col__day">${e(c.day)}</h3>`
+          /* Les trois grilles, cuites : lisibles sans JavaScript, par un crawler comme par un lecteur d'écran. */
+          for (const [id, jours] of [["planning-grid", content.planning], ["planning-mma-grid", content.planningMma], ["planning-fitness-grid", content.planningFitness]] as [string, any[]][]) {
+            remplir(id, "planning", (jours || []).map((c: any) =>
+              `<div class="plan-col"><h3 class="plan-col__day">${e(c.day)}</h3>`
               + (c.items || []).map((i: any[]) => `<div class="plan-slot"><span class="plan-slot__t">${e(i[0])}</span><span class="plan-slot__n">${e(i[1])}</span></div>`).join("")
               + `</div>`).join(""));
           }
