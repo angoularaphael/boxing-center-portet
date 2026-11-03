@@ -26,6 +26,7 @@
    ===================================================================== */
 import { TARIFS } from "./data";
 import { prixLu } from "./prix.mjs";
+import { TROPHEE, tropheeActif, compteTrophee } from "./trophee.mjs";
 
 type Tarif = { name?: string; price?: string; href?: string };
 
@@ -35,26 +36,48 @@ const grave = (prix: string) => {
   return m ? `${m[1]}<i>€${m[2]}</i>` : prix;
 };
 
+/* LE TALON DU GALA (3/11 → minuit après le 13/11, src/trophee.mjs).
+   Eddy : jusqu'au Boxing Trophy 19, le Trophy prend la place des offres
+   dans ce coin. Même place, même taille, mêmes règles d'apparition ; la
+   matière change — noir de ring et cuivre, le « 19 » en italique du site
+   du gala — et le talon compte les jours. Un seul lien : le site du gala.
+   Après la date, la plaque redevient d'elle-même la plaque d'or. */
+function talonTrophee(el: HTMLElement): void {
+  const lu = "Boxing Trophy 19, vendredi 13 novembre 2026 à 19 h au Boxing Center de Portet-sur-Garonne : "
+    + "le gala d’inauguration de la nouvelle salle, entrée 10 €. Ouvre le site du gala.";
+  el.className = "plaque plaque--trophee";
+  el.innerHTML = `
+    <a class="plaque__t" href="${TROPHEE.url}" target="_blank" rel="noopener" aria-label="${lu}" title="Boxing Trophy 19 · ven. 13 nov. · 19 h">
+      <span class="plaque__tmot" aria-hidden="true">Trophy</span>
+      <span class="plaque__tn" aria-hidden="true">19</span>
+      <span class="plaque__tj" aria-hidden="true">${compteTrophee()}</span>
+      <span class="plaque__reflet" aria-hidden="true"></span>
+    </a>`;
+}
+
 export function mountPiege(): void {
   if (document.querySelector(".plaque")) return;
-  const liste = Array.isArray(TARIFS) ? (TARIFS as Tarif[]) : [];
-  const trouve = (rx: RegExp) => liste.find((x) => rx.test(String(x?.name || "")));
-  /* Toujours dans cet ordre : l'étudiant d'abord, l'adulte ensuite. */
-  const offres = [
-    { t: trouve(/^[ée]tudiant/i), l: "Étudiant", fin: ", carte étudiante requise" },
-    { t: trouve(/^adulte/i), l: "Adulte", fin: "" },
-  ].filter((o) => o.t?.price && o.t?.href)
-   .map((o) => ({ ...o, lu: `Abonnement ${o.l.toLowerCase()}, ${prixLu(o.t!.price)} toutes les 4 semaines${o.fin}` }));
-  if (offres.length !== 2) return;
-
   const el = document.createElement("div");
-  el.className = "plaque";
-  el.innerHTML = offres.map(({ t, l, lu }) => `
-    <a class="plaque__o" href="${t!.href}" target="_blank" rel="noopener" aria-label="${lu}" title="${lu}">
-      <span class="plaque__l" aria-hidden="true">${l}</span>
-      <span class="plaque__p" aria-hidden="true">${grave(String(t!.price))}</span>
-    </a>`).join("") + `
-    <span class="plaque__reflet" aria-hidden="true"></span>`;
+  if (tropheeActif()) talonTrophee(el);
+  else {
+    const liste = Array.isArray(TARIFS) ? (TARIFS as Tarif[]) : [];
+    const trouve = (rx: RegExp) => liste.find((x) => rx.test(String(x?.name || "")));
+    /* Toujours dans cet ordre : l'étudiant d'abord, l'adulte ensuite. */
+    const offres = [
+      { t: trouve(/^[ée]tudiant/i), l: "Étudiant", fin: ", carte étudiante requise" },
+      { t: trouve(/^adulte/i), l: "Adulte", fin: "" },
+    ].filter((o) => o.t?.price && o.t?.href)
+     .map((o) => ({ ...o, lu: `Abonnement ${o.l.toLowerCase()}, ${prixLu(o.t!.price)} toutes les 4 semaines${o.fin}` }));
+    if (offres.length !== 2) return;
+
+    el.className = "plaque";
+    el.innerHTML = offres.map(({ t, l, lu }) => `
+      <a class="plaque__o" href="${t!.href}" target="_blank" rel="noopener" aria-label="${lu}" title="${lu}">
+        <span class="plaque__l" aria-hidden="true">${l}</span>
+        <span class="plaque__p" aria-hidden="true">${grave(String(t!.price))}</span>
+      </a>`).join("") + `
+      <span class="plaque__reflet" aria-hidden="true"></span>`;
+  }
   document.body.appendChild(el);
 
   /* Le reflet : un passage lent, espacé. Souvent, ça devient un clignotant

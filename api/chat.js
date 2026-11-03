@@ -186,12 +186,26 @@ ${STATIC_TAIL}
 
 ${NETWORK}`;
 
+/* BOXING TROPHY 19 (jusqu'à minuit après le gala du 13/11/2026). Les faits
+   viennent du site du gala ; la date de fin est celle de src/trophee.mjs, et
+   scripts/garde-trophee.mjs vérifie au build qu'elles n'ont pas divergé — pas
+   d'import ici : la fonction Vercel n'embarque que ce qu'on lui déclare. */
+const TROPHEE_FIN = "2026-11-14T00:00:00+01:00";
+const TROPHEE_INFO = `L’ÉVÉNEMENT DU MOMENT — BOXING TROPHY 19 :
+- Le gala qui inaugure la nouvelle salle du Boxing Center à Portet-sur-Garonne : vendredi 13 novembre 2026, ouverture des portes à 19 h.
+- Combats de boxe anglaise et, première au Trophy, de pied-poing. Combattants débutants et intermédiaires, appariés par sexe, poids et niveau ; licence FFB ou FFKMDA, ou engagement à prendre une licence loisir. Les combattants s’inscrivent sur le site du gala.
+- Entrée public : 10 € — c’est le prix du gala, à ne pas confondre avec la séance d’essai.
+- Tu ne connais ni la carte des combats, ni l’heure de fin, ni aucun autre détail : si on te les demande, renvoie vers le site du gala.
+- Clé de bouton supplémentaire, valable jusqu’au gala : trophee (le site du gala : infos et inscription des combattants). Dès qu’on te parle du Trophy, d’un gala, d’une compétition, d’un combat à venir, de la nouvelle salle ou d’une soirée au club, réponds avec ces faits et termine par [boutons: trophee].`;
+
 /** Construit le prompt système, en injectant le contexte visiteur (prénom, salle) si fourni. */
 export function systemFor(context) {
   const c = String(context || "").slice(0, 300).trim();
   /* les faits sont figés au chargement ; le MOMENT (date, cours du jour, table enfants) est recalculé à chaque message */
   const moment = contexteDuMoment();
-  const base = moment ? `${SYSTEM}\n\n${moment}` : SYSTEM;
+  const socle = moment ? `${SYSTEM}\n\n${moment}` : SYSTEM;
+  /* le Trophy ne parle que tant qu'il est à venir : après minuit le 13/11, il se tait de lui-même */
+  const base = Date.now() < Date.parse(TROPHEE_FIN) ? `${socle}\n\n${TROPHEE_INFO}` : socle;
   return c ? `${base}\n\nCONTEXTE VISITEUR (déjà connu, ne redemande pas) : ${c}` : base;
 }
 

@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import "./styles/trophee.css";
 import { mountPiege } from "./piege";
 import { mountLayout } from "./layout";
 import { initThemeSwitch } from "./theme";

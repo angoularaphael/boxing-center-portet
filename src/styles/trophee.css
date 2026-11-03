@@ -1,0 +1,201 @@
+/* =====================================================================
+   BOXING TROPHY 19 — le billet du gala, son talon, le bouton du chat.
+   (3 novembre 2026, jusqu'au gala du vendredi 13 : src/trophee.mjs)
+
+   LES MATIÈRES viennent du site du Trophy, pas de celui de Portet : un
+   lien qui mène au gala doit déjà RESSEMBLER au gala. Noir de ring
+   #0b0a09, ivoire #f4ede2, cuivre #cf9563 → #e8b688 ; le mot en Big
+   Shoulders Display, le « 19 » en Instrument Serif italique — le même
+   mot-symbole que la tête de boxing-trophy-19.vercel.app. Les deux polices
+   sont des sous-ensembles servis d'ici (majuscules et chiffres : 7,5 Ko ;
+   chiffres seuls : 4 Ko), sans appel à Google.
+
+   LA FORME vient de Portet : le billet à talon perforé de la grille
+   tarifaire et la plaque au-dessus du chat. Même objet, autre soirée :
+   on reconnaît le site, et on reconnaît déjà le gala.
+
+   Un masque rogne aussi les ombres : le halo se pose donc sur le parent
+   (filter: drop-shadow suit la découpe), la forme sur l'enfant.
+   ===================================================================== */
+@font-face{font-family:"Trophy Display";font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/trophy-shoulders-800.woff2) format("woff2");}
+@font-face{font-family:"Trophy Serif";font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/trophy-serif-italic.woff2) format("woff2");unicode-range:U+0030-0039;}
+
+:root {
+  --tr-noir: #0b0a09;
+  --tr-ivoire: #f4ede2;
+  --tr-ivoire-2: rgba(244, 237, 226, .74);
+  --tr-cuivre: #cf9563;
+  --tr-cuivre-hi: #e8b688;
+  --tr-mot: "Trophy Display", "Oswald", "Arial Narrow", sans-serif;
+  --tr-chiffre: "Trophy Serif", Georgia, "Times New Roman", serif;
+  --tr-cuivre-texte: linear-gradient(172deg, #f8dbb9 0%, #e8b688 32%, #cf9563 62%, #a46d40 100%);
+}
+
+/* ---------- le mot-symbole : BOXING / TROPHY, et le 19 en italique ---------- */
+.trophee-logo { display: inline-flex; align-items: flex-end; gap: .1em; line-height: 1; }
+.trophee-logo__mot { font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: 16px; line-height: .84; letter-spacing: .015em; color: var(--tr-ivoire); }
+.trophee-logo__n, .trophee-billet__j, .plaque__tn {
+  background: var(--tr-cuivre-texte); -webkit-background-clip: text; background-clip: text;
+  color: transparent; }
+.trophee-logo__n { font-family: var(--tr-chiffre); font-style: italic; font-weight: 400;
+  font-size: 46px; line-height: .72; padding: 0 .07em 0 .02em; margin-bottom: -2px; }
+
+/* =====================================================================
+   1. LE BILLET DU HÉROS (accueil). Il n'existe que pendant la fenêtre du
+   Trophy : html[data-trophee] est posé en tête d'index.html, avant le
+   premier rendu — pas d'éclair d'offre, pas de saut de mise en page.
+   ===================================================================== */
+.trophee-billet { display: none; }
+html[data-trophee] .hero__cta { align-items: center; }
+html[data-trophee] .hero__cta .btn--saison { display: none; }
+html[data-trophee] .trophee-billet { display: inline-flex; }
+
+.trophee-billet {
+  position: relative; color: var(--tr-ivoire); text-decoration: none; border-radius: 12px;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .5)) drop-shadow(0 0 20px rgba(207, 149, 99, .24));
+  transition: transform .35s var(--ease-out), filter .35s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.trophee-billet:hover { transform: translateY(-2px);
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .55)) drop-shadow(0 0 32px rgba(207, 149, 99, .44)); }
+.trophee-billet:focus-visible { outline: 2px solid var(--tr-cuivre-hi); outline-offset: 5px; }
+
+.trophee-billet__forme {
+  --talon: 88px; --dent: 7px;
+  position: relative; display: grid; grid-template-columns: 1fr var(--talon); align-items: stretch;
+  min-height: 64px; border-radius: 12px; overflow: hidden;
+  background:
+    radial-gradient(90% 150% at 0% 0%, rgba(207, 149, 99, .24), transparent 58%),
+    radial-gradient(70% 130% at 100% 100%, rgba(207, 149, 99, .14), transparent 62%),
+    linear-gradient(180deg, #221d18 0%, var(--tr-noir) 100%);
+  /* le liseré cuivre, tracé DANS la forme : une ombre portée serait rognée par le masque */
+  box-shadow: inset 0 0 0 1px rgba(232, 182, 136, .52), inset 0 1px 0 rgba(255, 232, 206, .2);
+  /* deux encoches, en haut et en bas de la ligne perforée : le talon se détache */
+  -webkit-mask:
+    radial-gradient(circle var(--dent) at calc(100% - var(--talon)) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--dent) at calc(100% - var(--talon)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle var(--dent) at calc(100% - var(--talon)) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--dent) at calc(100% - var(--talon)) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+}
+/* la lumière sur le billet : le même passage que l'or des billets (refletOr, main.css), en cuivre, sous le texte */
+.trophee-billet__forme::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 36%, rgba(255, 226, 192, .26) 50%, transparent 64%);
+  transform: translateX(-130%); animation: refletOr 7s var(--ease-out) 2.2s infinite; }
+.trophee-billet__corps, .trophee-billet__talon { position: relative; z-index: 1; }
+
+.trophee-billet__corps { display: flex; align-items: center; gap: 15px; padding: 11px 18px;
+  text-align: left; min-width: 0; }
+.trophee-billet__info { display: flex; flex-direction: column; gap: 4px; padding-left: 15px;
+  border-left: 1px solid rgba(244, 237, 226, .15); min-width: 0; }
+.trophee-billet__date { font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: 18px; line-height: 1; letter-spacing: .03em; color: var(--tr-ivoire); white-space: nowrap; }
+.trophee-billet__quoi { font-family: var(--font-body); font-size: 12px; line-height: 1.2;
+  color: var(--tr-ivoire-2); white-space: nowrap; }
+.trophee-billet__court { display: none; }
+
+.trophee-billet__talon { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; border-left: 1.5px dashed rgba(232, 182, 136, .44);
+  background: linear-gradient(180deg, rgba(207, 149, 99, .12), rgba(207, 149, 99, .03)); }
+.trophee-billet__j { font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: 26px; line-height: .9; letter-spacing: .01em; white-space: nowrap; }
+.trophee-billet__j.is-mot { font-size: 19px; letter-spacing: .03em; }
+.trophee-billet__go { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--tr-ivoire-2); }
+.trophee-billet__go svg { transition: transform .3s var(--ease-out); }
+.trophee-billet:hover .trophee-billet__go { color: var(--tr-ivoire); }
+.trophee-billet:hover .trophee-billet__go svg { transform: translate(1px, -1px); }
+
+@media (max-width: 760px) {
+  html[data-trophee] .hero__cta .trophee-billet { display: flex; width: 100%; }
+  .trophee-billet__forme { width: 100%; --talon: 76px; min-height: 66px; }
+  .trophee-billet__corps { gap: 11px; padding: 10px 10px 10px 14px; }
+  .trophee-logo__mot { font-size: 14px; }
+  .trophee-logo__n { font-size: 39px; }
+  .trophee-billet__info { padding-left: 11px; }
+  .trophee-billet__date { font-size: 16px; }
+  .trophee-billet__quoi { font-size: 11.5px; }
+  .trophee-billet__long { display: none; }
+  .trophee-billet__court { display: inline; }
+  .trophee-billet__j { font-size: 23px; }
+  .trophee-billet__j.is-mot { font-size: 16px; }
+}
+
+/* =====================================================================
+   2. LE TALON DU GALA — la plaque au-dessus du chat, le temps du Trophy.
+   Même place, même taille, mêmes règles d'apparition (piege.ts) ; la
+   forme dentelée passe au lien pour que le halo cuivre suive la découpe.
+   ===================================================================== */
+.plaque.plaque--trophee {
+  -webkit-mask: none; mask: none; background: none; box-shadow: none; padding: 0;
+  display: block; overflow: visible; color: var(--tr-ivoire);
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .45)) drop-shadow(0 0 16px rgba(207, 149, 99, .34));
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out), filter .35s;
+}
+.plaque.plaque--trophee:hover { box-shadow: none;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, .5)) drop-shadow(0 0 26px rgba(207, 149, 99, .52)); }
+.plaque__t {
+  --dent: 8px;
+  position: relative; display: grid; place-items: center; align-content: center; gap: 3px;
+  width: 100%; height: 100%; padding-left: 8px; overflow: hidden; color: inherit; text-decoration: none;
+  -webkit-mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent) * 2.1);
+  mask: radial-gradient(var(--dent) at 0 50%, transparent 98%, #000) 0 0/100% calc(var(--dent) * 2.1);
+  background:
+    radial-gradient(120% 90% at 22% 0%, rgba(207, 149, 99, .34), transparent 62%),
+    linear-gradient(170deg, #251f19 0%, var(--tr-noir) 74%);
+  box-shadow: inset 0 0 0 1px rgba(232, 182, 136, .5);
+}
+.plaque__t:focus-visible { outline: 2px solid var(--tr-cuivre-hi); outline-offset: -4px; }
+.plaque__tmot { position: relative; z-index: 1; font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: 9px; letter-spacing: .24em; margin-right: -.24em; line-height: 1; color: var(--tr-ivoire-2); }
+.plaque__tn { position: relative; z-index: 1; font-family: var(--tr-chiffre); font-style: italic; font-size: 32px;
+  line-height: .8; padding: 0 .06em; }
+.plaque__tj { position: relative; z-index: 1; font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: 10.5px; letter-spacing: .1em; margin-right: -.1em; line-height: 1; color: var(--tr-cuivre-hi); }
+.plaque--trophee .plaque__reflet {
+  background: linear-gradient(105deg, transparent 34%, rgba(255, 226, 192, .42) 50%, transparent 66%); }
+@media (max-width: 420px) { .plaque__tn { font-size: 28px; } }
+
+/* =====================================================================
+   3. L'ASSISTANT — le bouton du gala et sa puce, dans le fil bleu.
+   ===================================================================== */
+.bcp-chat__action.bcp-chat__action--trophee,
+.bcp-chat__action.bcp-chat__action--trophee:hover {
+  background:
+    radial-gradient(110% 130% at 0% 0%, rgba(207, 149, 99, .28), transparent 60%),
+    linear-gradient(170deg, #241e18, var(--tr-noir));
+  color: var(--tr-ivoire);
+}
+.bcp-chat__action.bcp-chat__action--trophee { gap: 10px; padding: 8px 14px 8px 12px;
+  border-color: rgba(232, 182, 136, .56); }
+.bcp-chat__action.bcp-chat__action--trophee:hover { border-color: var(--tr-cuivre-hi);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .38), 0 0 30px rgba(207, 149, 99, .3); }
+.bcp-chat__action--trophee .trophee-logo__mot { font-size: 12px; }
+.bcp-chat__action--trophee .trophee-logo__n { font-size: 28px; }
+.bcp-trophee__d { display: flex; flex-direction: column; gap: 2px; padding-left: 10px;
+  border-left: 1px solid rgba(244, 237, 226, .16); font-family: var(--tr-mot); font-weight: 800;
+  text-transform: uppercase; font-size: 13px; line-height: 1.05; letter-spacing: .04em; text-align: left; }
+.bcp-trophee__d small { font-family: var(--font-body); font-weight: 500; text-transform: none; font-size: 11px;
+  letter-spacing: 0; color: var(--tr-ivoire-2); }
+.bcp-chat__action--trophee svg { color: var(--tr-cuivre-hi); opacity: .9; }
+
+.bcp-chat__suggestions button.bcp-chip--trophee {
+  border-color: rgba(232, 182, 136, .55);
+  background: linear-gradient(170deg, rgba(207, 149, 99, .24), rgba(207, 149, 99, .08));
+  color: var(--tr-ivoire); }
+.bcp-chat__suggestions button.bcp-chip--trophee:hover {
+  border-color: var(--tr-cuivre-hi); background: rgba(207, 149, 99, .3); color: #fff; }
+.bcp-chip--trophee i { font-family: var(--tr-chiffre); font-style: italic; font-size: 1.3em; line-height: 0;
+  color: var(--tr-cuivre-hi); padding-right: .04em; }
+
+/* ---------- mouvement réduit, contraste forcé ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .trophee-billet, .trophee-billet__go svg, .plaque.plaque--trophee { transition: opacity .2s; }
+  .trophee-billet:hover { transform: none; }
+  .trophee-billet__forme::after { animation: none; display: none; }
+}
+@media (forced-colors: active) {
+  .trophee-logo__n, .trophee-billet__j, .plaque__tn { background: none; color: CanvasText; }
+  .trophee-billet__forme, .plaque__t { border: 1px solid CanvasText; }
+}

@@ -46,6 +46,12 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preload" href="/fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- BOXING TROPHY 19 (src/trophee.mjs) — jusqu'à minuit après le gala du
+       13/11, le billet du Trophy prend la place des deux boutons d'offre du
+       héros et ses deux polices se préchargent. Après la date, rien ne se
+       charge et les offres reviennent seules, sans déploiement. Même date que
+       src/trophee.mjs : contrôlé au build par scripts/garde-trophee.mjs. -->
+  <script>(function(){try{if(Date.now()>=Date.parse("2026-11-14T00:00:00+01:00"))return;document.documentElement.setAttribute("data-trophee","");["trophy-shoulders-800","trophy-serif-italic"].forEach(function(n){var l=document.createElement("link");l.rel="preload";l.as="font";l.type="font/woff2";l.crossOrigin="anonymous";l.href="/fonts/"+n+".woff2";document.head.appendChild(l)})}catch(e){}})();</script>
 
   <!-- GEO / local SEO structured data -->
   <script type="application/ld+json">
@@ -212,6 +218,45 @@
     ]
   }
   </script>
+  <!-- Le Boxing Trophy 19 se tient au club : l'événement est décrit pour les
+       moteurs (résultats « événements », assistants). Faits du site du gala. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "@id": "https://boxing-center-portet.fr/#boxing-trophy-19",
+    "name": "Boxing Trophy 19",
+    "description": "Gala d’inauguration de la nouvelle salle du Boxing Center à Portet-sur-Garonne : combats de boxe anglaise et de pied-poing, débutants et intermédiaires. Entrée public 10 €.",
+    "startDate": "2026-11-13T19:00:00+01:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "sport": ["Boxe anglaise", "Pied-poing"],
+    "location": {
+      "@type": "SportsActivityLocation",
+      "@id": "https://boxing-center-portet.fr/#localbusiness",
+      "name": "Boxing Center Portet",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "61 route d’Espagne",
+        "postalCode": "31120",
+        "addressLocality": "Portet-sur-Garonne",
+        "addressRegion": "Occitanie",
+        "addressCountry": "FR"
+      }
+    },
+    "organizer": { "@id": "https://boxing-center-portet.fr/#organization" },
+    "image": "https://boxing-trophy-19.vercel.app/image/gala/affiche-trophy-19.jpg",
+    "url": "https://boxing-trophy-19.vercel.app/",
+    "offers": {
+      "@type": "Offer",
+      "name": "Place public",
+      "price": "10",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": "https://boxing-trophy-19.vercel.app/"
+    }
+  }
+  </script>
   <script>(function(){try{var q=window.matchMedia('(prefers-color-scheme: dark)');var a=function(){document.documentElement.setAttribute('data-theme',q.matches?'dark':'light');};a();q.addEventListener('change',a);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 </head>
 
@@ -243,6 +288,15 @@
         <h1 class="sr-only">Boxing Center Portet-sur-Garonne — salle de boxe anglaise, kick-boxing, MMA et grappling au sud de Toulouse, cours tous niveaux dès 3 ans</h1>
       <p class="hero__hook" data-reveal>Ici, le sport devient une passion.<br>La passion devient un <span class="tint">mode de vie.</span></p>
       <div class="hero__cta" data-reveal>
+        <!-- LE BILLET DU GALA (jusqu'au 13/11, src/trophee.mjs). Pas un bouton
+             de plus : un objet. Le billet de la soirée, dans les matières du
+             Trophy — noir de ring, ivoire, cuivre, le mot en Big Shoulders et le
+             « 19 » en italique comme sur le site du gala — avec son talon
+             perforé, comme les billets et la plaque du site. Le talon compte
+             les jours. Les deux boutons d'offre restent dans la page, cachés :
+             ils reprennent leur place seuls à minuit après le gala. -->
+        <a class="trophee-billet" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener" aria-label="Boxing Trophy 19 : gala de boxe anglaise et de pied-poing, vendredi 13 novembre 2026 à 19 h au Boxing Center de Portet-sur-Garonne, pour l’inauguration de la nouvelle salle, entrée 10 €. Ouvre le site du gala."><span class="trophee-billet__forme" aria-hidden="true"><span class="trophee-billet__corps"><span class="trophee-logo"><span class="trophee-logo__mot">Boxing<br>Trophy</span><span class="trophee-logo__n">19</span></span><span class="trophee-billet__info"><span class="trophee-billet__date">Ven. 13 nov. · 19h</span><span class="trophee-billet__quoi"><span class="trophee-billet__long">Inauguration de la nouvelle salle</span><span class="trophee-billet__court">Nouvelle salle</span> · 10&nbsp;€</span></span></span><span class="trophee-billet__talon"><span class="trophee-billet__j" data-trophee-j>13.11</span><span class="trophee-billet__go">Le gala<svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></span></a>
+        <script>(function(){try{var e=document.querySelector("[data-trophee-j]");if(!e)return;var a=new Intl.DateTimeFormat("fr-CA",{timeZone:"Europe/Paris"}).format(new Date()),j=Math.round((Date.parse("2026-11-13")-Date.parse(a))/864e5);e.textContent=j>1?"J-"+j:j===1?"Demain":"Ce soir";if(j<2)e.classList.add("is-mot")}catch(x){}})();</script>
         <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
         <a class="btn btn--ghost" href="/activites/">Découvrir les disciplines</a>
       </div>

@@ -9,7 +9,8 @@
  * CRM (submitLead) pour nourrir la liste de contacts.
  */
 import { submitLead, askAi } from "./api";
-import { QUICKS, fallbackAnswer, ACTIONS, sansUtm, type ActionDef } from "../chatbot-kb";
+import { QUICKS, fallbackAnswer, ACTIONS, sansUtm, clesDuMoment, type ActionDef } from "../chatbot-kb";
+import { tropheeActif, compteTrophee, REPONSE_TROPHEE } from "../trophee.mjs";
 import { BOXING_CENTER_SALLES } from "../data";
 import "./chatbot.css";
 
@@ -173,6 +174,13 @@ export function initChatbot() {
               .map((a) => {
                 if (a.act)
                   return `<button type="button" class="bcp-chat__action bcp-chat__action--act" data-act="${escapeAttr(a.act)}"><span>${escapeHtml(a.label)}</span></button>`;
+                if (a.variant === "trophee") {
+                  /* Libellé traduit par l'IA (autre langue) : on l'affiche tel quel ; sinon la date du gala. */
+                  const date = a.label === ACTIONS.trophee.label
+                    ? `Ven. 13 nov. · 19h<small>Le site du gala</small>`
+                    : escapeHtml(a.label);
+                  return `<a class="bcp-chat__action bcp-chat__action--ext bcp-chat__action--trophee" href="${escapeAttr(a.href || "")}" target="_blank" rel="noopener" aria-label="${escapeAttr(a.label)}"><span class="trophee-logo" aria-hidden="true"><span class="trophee-logo__mot">Boxing<br>Trophy</span><span class="trophee-logo__n">19</span></span><span class="bcp-trophee__d" aria-hidden="true">${date}</span><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`;
+                }
                 const href = withPrefill(a.href || "");
                 const ext = /^https?:/i.test(href);
                 const tel = href.startsWith("tel:");
@@ -207,7 +215,11 @@ export function initChatbot() {
 
   // ---------- suggestions (chips) ----------
   function showChips() {
-    const qs = QUICKS.slice(0, 5)
+    /* Jusqu'au gala, la première puce (les deux offres) cède sa place au Trophy. */
+    const trophee = tropheeActif();
+    const qs = (trophee
+      ? `<button type="button" class="bcp-chip--trophee" data-trophee>Boxing Trophy <i>19</i> · ${compteTrophee() === "Ce soir" ? "ce soir" : "13 nov."}</button>`
+      : "") + (trophee ? QUICKS.slice(1, 5) : QUICKS.slice(0, 5))
       .map((f) => `<button type="button" data-q="${escapeAttr(f.q)}">${escapeHtml(f.label)}</button>`)
       .join("");
     const callback = `<button type="button" class="bcp-chat__suggestion--escalation" data-callback>📞 Être rappelé</button>`;
@@ -291,7 +303,7 @@ export function initChatbot() {
     // remerciement discret quand on vient de récupérer un contact
     if (gotNew && (profile.email || profile.phone) && callbackAsked) {
       callbackAsked = false;
-      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(["etudiant", "adulte", "planning"]));
+      await botSay(`C’est noté${profile.prenom ? `, ${profile.prenom}` : ""} — un coach te recontacte très vite. 💪`, 500, resolveActions(clesDuMoment(["etudiant", "adulte", "planning"])));
     }
     // invitation douce (une seule fois) à laisser un contact
     else if (!nudged && exchanges >= 2 && !profile.email && !profile.phone) {
@@ -378,7 +390,7 @@ export function initChatbot() {
          puis la proposition. C'est le rythme d'une conversation, et ça évite
          le mur de texte qui tombe d'un bloc. */
       await botSay(BONJOUR, 500);
-      await botSay(suite, 650, resolveActions(wKeys));
+      await botSay(suite, 650, resolveActions(clesDuMoment(wKeys)));
       /* Le prénom en TROISIÈME bulle, jamais avant : après deux messages qui
          ont déjà rendu service, ce n'est plus une exigence posée à l'entrée,
          c'est une conversation qui commence. Et on ne le redemande jamais à
@@ -426,6 +438,17 @@ export function initChatbot() {
   suggestionsEl.addEventListener("click", async (e) => {
     const target = e.target as HTMLElement;
     if (target.closest("button[data-callback]")) { await startCallback(); return; }
+    if (target.closest("button[data-trophee]")) {
+      /* Réponse posée ici, pas demandée à l'IA : la date, l'heure et le prix
+         d'un gala ne s'improvisent pas. L'IA garde le fil pour la suite. */
+      const q = "C’est quoi le Boxing Trophy 19 ?";
+      userSay(q);
+      hideChips();
+      aiHistory.push({ role: "user", content: q }, { role: "assistant", content: REPONSE_TROPHEE });
+      await botSay(REPONSE_TROPHEE, 600, resolveActions(["trophee"]));
+      showChips();
+      return;
+    }
     const q = target.closest<HTMLButtonElement>("button[data-q]");
     if (q) { const text = q.dataset.q || ""; userSay(text); await answer(text); }
   });
@@ -525,7 +548,9 @@ export function initChatbot() {
       setTimeout(() => {
         if (opened || root.classList.contains("bcp-chat--open")) return;
         if (window.matchMedia("(max-width: 480px)").matches) {
-          poserAmorce("Une question sur les offres ou les horaires ? Je réponds tout de suite.");
+          poserAmorce(tropheeActif()
+            ? "Le Boxing Trophy 19, c’est ici le 13 novembre. Une question ? Je réponds tout de suite."
+            : "Une question sur les offres ou les horaires ? Je réponds tout de suite.");
         } else {
           void openPanel();
         }

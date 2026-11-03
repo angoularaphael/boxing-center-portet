@@ -3,6 +3,8 @@
  *  full grounding for the LLM lives server-side in api/chat.js.
  *  L’ORDRE VEND : l’étudiant à 36,99 € d’abord, puis l’adulte à 44,99 € ; la séance d’essai à 10 € ne s’affiche
  *  que sur la page tarifs ; le bot peut la proposer pour sauver une vente. */
+import { TROPHEE, tropheeActif, REPONSE_TROPHEE } from "./trophee.mjs";
+
 export type Quick = { label: string; q: string; a: string; actions?: string[] };
 
 /** Destinations et ACTIONS que le bot propose en BOUTONS sous ses messages.
@@ -10,7 +12,7 @@ export type Quick = { label: string; q: string; a: string; actions?: string[] };
  *  une clé inconnue est ignorée, un lien halluciné est impossible.
  *  `act` = le bot FAIT la tâche dans le chat (rappel d’un coach)
  *  au lieu de renvoyer vers un formulaire — zéro re-saisie pour le visiteur. */
-export type ActionDef = { label: string; href?: string; act?: "rappel" };
+export type ActionDef = { label: string; href?: string; act?: "rappel"; variant?: "trophee" };
 
 /** MESURE — chaque lien boutique sortant de l’assistant est tracé, sinon on ne
  *  peut pas prouver que le bot vend. Les UTM se posent AVANT l’ancre : la
@@ -50,7 +52,19 @@ export const ACTIONS: Record<string, ActionDef> = {
   boxeurs:     { label: "Nos boxeurs", href: "/boxeurs/" },
   partenaires: { label: "Présenter mon projet", href: "/partenaires/" },
   contact:     { label: "Adresse & contact", href: "/contact/" },
+  /* Le Boxing Trophy 19 (src/trophee.mjs) : un bouton à part, aux couleurs du
+     gala — c'est un autre objet que l'inscription, il ne prend pas son or. */
+  trophee:     { label: "Boxing Trophy 19 · vendredi 13 novembre, 19 h — le site du gala", href: TROPHEE.url, variant: "trophee" },
 };
+
+/* JUSQU'AU GALA (Eddy, 3/11) : dans ce que l'assistant dit DE LUI-MÊME —
+   l'accueil, le remerciement — le Trophy prend la place des deux boutons
+   d'offre. Les réponses aux questions de prix gardent leurs boutons : on
+   ne retire pas l'offre à qui la demande. Après la date, rien ne change. */
+export function clesDuMoment(cles: string[]): string[] {
+  if (!tropheeActif()) return cles;
+  return ["trophee", ...cles.filter((k) => k !== "etudiant" && k !== "adulte" && k !== "trophee")];
+}
 
 export const QUICKS: Quick[] = [
   { label: "Étudiant 36,99€ · Adulte 44,99€", q: "C’est quoi les abonnements sans engagement ?",
@@ -117,6 +131,8 @@ const RULES: [RegExp, number][] = [
 ];
 
 export function fallbackAnswer(msg: string): { text: string; actions: string[] } {
+  if (tropheeActif() && /troph|gala|inaugur|nouvelle salle|pied[- ]?poing|13 novembre/i.test(msg))
+    return { text: REPONSE_TROPHEE, actions: ["trophee"] };
   for (const [re, i] of RULES) if (re.test(msg)) return { text: QUICKS[i].a, actions: QUICKS[i].actions || [] };
   return {
     text: "Je peux t’aider sur les abonnements (sans engagement, toutes les 4 semaines : 36,99 € pour un étudiant, carte étudiante requise, 44,99 € pour un adulte), les horaires, les disciplines ou l’inscription. Pose ta question, ou appelle le 09 56 65 37 82.",
