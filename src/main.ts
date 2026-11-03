@@ -1,6 +1,6 @@
 import "./styles/main.css";
 import "./styles/trophee.css";
-import { mountPiege } from "./piege";
+import { mountPiege, compteursTrophee, animerAffiches, observerBlocsTrophee } from "./piege";
 import { mountLayout } from "./layout";
 import { initThemeSwitch } from "./theme";
 import { initScroll, initPageScroll, filetReveal } from "./scroll";
@@ -376,6 +376,10 @@ function lazy3D<T>(el: Element | null, loader: () => Promise<T>, init: (m: T) =>
 /** Everything bound to the current page’s DOM. Re-run after a soft swap. */
 function bootPage() {
   const page = document.body.dataset.page;
+  /* Boxing Trophy 19 (jusqu’au 13/11) : les comptes des billets, la lumière des affiches. */
+  compteursTrophee();
+  animerAffiches();
+  observerBlocsTrophee();
   if (page === "home") renderHomeGrids();
   else renderPage(page);
   if (page === "galerie") renderMedia();

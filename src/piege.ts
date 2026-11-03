@@ -55,6 +55,30 @@ function talonTrophee(el: HTMLElement): void {
     </a>`;
 }
 
+/* LE TALON S'EFFACE DEVANT LE GALA. Quand l'affiche, le panneau du ring ou le billet
+   du dernier bloc sont à l'écran, la plaque redirait la même chose juste à côté —
+   deux objets du Trophy qui se touchent. Elle se retire le temps de les croiser.
+   Les blocs changent à chaque page (navigation douce) : observerBlocsTrophee()
+   est rejouée par bootPage. */
+let surBlocTrophee = false;
+let resynchroniser: () => void = () => {};
+let veilleBlocs: IntersectionObserver | null = null;
+const blocsVus = new Set<Element>();
+export function observerBlocsTrophee(): void {
+  if (!("IntersectionObserver" in window)) return;
+  veilleBlocs?.disconnect();
+  blocsVus.clear();
+  surBlocTrophee = false;
+  veilleBlocs = new IntersectionObserver((entrees) => {
+    for (const e of entrees) e.isIntersecting ? blocsVus.add(e.target) : blocsVus.delete(e.target);
+    surBlocTrophee = blocsVus.size > 0;
+    resynchroniser();
+  }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
+  document.querySelectorAll(".trophee-affiche, .ring-trophee, .cta-block .trophee-billet")
+    .forEach((b) => veilleBlocs!.observe(b));
+  resynchroniser();
+}
+
 export function mountPiege(): void {
   if (document.querySelector(".plaque")) return;
   const el = document.createElement("div");
@@ -99,7 +123,8 @@ export function mountPiege(): void {
   const hero = document.querySelector(".hero, .page-head, .phero");
   const pied = document.querySelector(".footer, #site-footer");
   let passeHero = !hero, surPied = false, chatOuvert = false;
-  const sync = () => el.classList.toggle("is-in", passeHero && !surPied && !chatOuvert);
+  const sync = () => el.classList.toggle("is-in", passeHero && !surPied && !chatOuvert && !surBlocTrophee);
+  resynchroniser = sync;
 
   if ("IntersectionObserver" in window) {
     if (hero) new IntersectionObserver(([e]) => { passeHero = !e.isIntersecting; sync(); },
@@ -118,4 +143,48 @@ export function mountPiege(): void {
     maj();
   }
   sync();
+}
+
+/* LES COMPTES À REBOURS DES BILLETS DU GALA. Celui du héros est posé par
+   le script en ligne d'index.html, avant le premier rendu ; les autres
+   (Round 01, ring, dernier bloc) et ceux d'une page arrivée par la
+   navigation douce — dont les scripts en ligne ne jouent pas — le sont
+   ici, à chaque page. */
+export function compteursTrophee(): void {
+  if (!tropheeActif()) return;
+  const txt = compteTrophee();
+  document.querySelectorAll<HTMLElement>("[data-trophee-j]").forEach((e) => {
+    e.textContent = txt;
+    e.classList.toggle("is-mot", !txt.startsWith("J-"));
+  });
+}
+
+/* L'AFFICHE QUI ACCROCHE LA LUMIÈRE. À la souris seulement, l'affiche
+   s'incline de quelques degrés vers le pointeur et un éclat la traverse
+   là où il se pose : c'est un objet qu'on tient, pas une image collée.
+   Rien au doigt, rien en mouvement réduit ; une seule écoute par affiche. */
+export function animerAffiches(): void {
+  const souris = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!souris || reduit) return;
+  document.querySelectorAll<HTMLElement>(".trophee-affiche__cadre:not([data-anime])").forEach((el) => {
+    el.dataset.anime = "";
+    let image = 0;
+    el.addEventListener("pointermove", (ev) => {
+      const r = el.getBoundingClientRect();
+      const x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+      cancelAnimationFrame(image);
+      image = requestAnimationFrame(() => {
+        el.style.setProperty("--ry", `${((x - 0.5) * 7).toFixed(2)}deg`);
+        el.style.setProperty("--rx", `${((0.5 - y) * 6).toFixed(2)}deg`);
+        el.style.setProperty("--gx", `${(x * 100).toFixed(1)}%`);
+        el.style.setProperty("--gy", `${(y * 100).toFixed(1)}%`);
+      });
+    });
+    el.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(image);
+      el.style.removeProperty("--rx");
+      el.style.removeProperty("--ry");
+    });
+  });
 }

@@ -31,6 +31,16 @@ for (const [nom, t] of [["index.html", source], ["dist/index.html", sortie]]) {
 }
 if (!chat.includes(`const TROPHEE_FIN = "${TROPHEE.fin}"`)) fautes.push(`api/chat.js : TROPHEE_FIN diffère de ${TROPHEE.fin}`);
 
+/* Les affiches du gala (Round 01, ring, Round 05) : chaque fichier cité par l'accueil cuit doit exister dans
+   dist — l'optimiseur d'images les produit à partir de public/img/trophee/ ; une affiche absente serait un
+   cadre noir au milieu de la page. */
+const { access } = await import("node:fs/promises");
+const affiches = [...new Set([...sortie.matchAll(/\/img\/(?:opt\/)?trophee\/[a-z0-9-]+\.(?:jpg|webp)/g)].map((m) => m[0]))];
+if (affiches.length < 2) fautes.push(`dist/index.html : les affiches du gala ne sont pas citées (${affiches.length} fichier)`);
+for (const f of affiches) {
+  try { await access(join(RACINE, "dist", f)); } catch { fautes.push(`dist${f} : fichier absent`); }
+}
+
 if (fautes.length) {
   console.error(`\n[garde-trophee] ${fautes.length} faute(s) :\n  - ${fautes.join("\n  - ")}\n`);
   process.exit(1);

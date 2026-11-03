@@ -349,7 +349,19 @@
            juste, pour un site qui raconte un combat, c'est le billet :
            bord déchiré à gauche, talon perforé à droite, le prix à
            l'échelle du bloc. -->
-      <div class="billets">
+      <!-- BOXING TROPHY 19 (jusqu’au 13/11, src/trophee.mjs) — à la place de la paire de billets : l’affiche
+           du gala, telle qu’elle est, jamais recadrée ni étirée, et ce qu’elle annonce. Les billets restent
+           dessous, cachés : ils reviennent seuls à minuit après le gala. -->
+      <div class="trophee-affiche">
+        <a class="trophee-affiche__cadre" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener"><img src="/img/trophee/affiche-trophy-19.jpg" srcset="/img/opt/trophee/affiche-trophy-19-480.webp 480w, /img/opt/trophee/affiche-trophy-19-960.webp 960w, /img/opt/trophee/affiche-trophy-19-1440.webp 1440w" sizes="(max-width: 760px) 86vw, 360px" width="1792" height="2240" loading="lazy" decoding="async" alt="Affiche du Boxing Trophy 19 : vendredi 13 novembre 2026 dès 19 h au Boxing Center Portet-sur-Garonne, boxe anglaise et boxe pieds-poings, débutants et intermédiaires, inauguration de la nouvelle salle"></a>
+        <div class="trophee-affiche__texte">
+          <span class="trophee-affiche__sur">Vendredi 13 novembre · 19 h</span>
+          <p class="trophee-affiche__titre">La nouvelle salle ouvre sur un gala.</p>
+          <p class="trophee-affiche__txt">Le Boxing Trophy 19 l’inaugure : des combats de boxe anglaise et de pied-poing, sous les projecteurs, à Portet. Entrée public 10 €.</p>
+          <a class="trophee-billet" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener" aria-label="Boxing Trophy 19, vendredi 13 novembre 2026 à 19 h : le gala d’inauguration de la nouvelle salle, entrée 10 €. Ouvre le site du gala."><span class="trophee-billet__forme" aria-hidden="true"><span class="trophee-billet__corps"><span class="trophee-logo"><span class="trophee-logo__mot">Boxing<br>Trophy</span><span class="trophee-logo__n">19</span></span><span class="trophee-billet__info"><span class="trophee-billet__date">Ven. 13 nov. · 19h</span><span class="trophee-billet__quoi"><span class="trophee-billet__long">Inauguration de la nouvelle salle</span><span class="trophee-billet__court">Nouvelle salle</span> · 10&nbsp;€</span></span></span><span class="trophee-billet__talon"><span class="trophee-billet__j" data-trophee-j>13.11</span><span class="trophee-billet__go">Le gala<svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></span></a>
+        </div>
+      </div>
+      <div class="billets" data-trophee-remplace>
         <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
           <span class="billet__corps">
             <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
@@ -492,6 +504,19 @@
           <p class="lead" style="max-width:42ch;color:#cdd3df">Boxeurs professionnels et coachs diplômés FFBoxe, FFKMDA, FMMAF. Tu progresses vite, et bien.</p>
         </div>
         <div class="ring__txt wrap" data-r="3" style="opacity:0">
+          <!-- BOXING TROPHY 19 (jusqu’au 13/11) : le dernier panneau du ring annonce le gala, avec l’affiche
+               carrée (elle tient dans la hauteur de l’écran, à côté du texte). Le panneau des offres reste
+               dessous, caché, et revient seul à minuit après le gala. -->
+          <div class="ring-trophee">
+            <div class="ring-trophee__texte">
+              <span class="eyebrow">03 · Le 13 novembre</span>
+              <h2 class="display" style="max-width:14ch">Le ring s’allume.<br><span class="tint">Le Trophy arrive.</span></h2>
+              <p class="lead" style="max-width:36ch;color:#cdd3df">Vendredi à 19 h, le Boxing Trophy 19 inaugure la nouvelle salle du club : un vrai gala, deux disciplines, une entrée à 10 €.</p>
+              <a class="trophee-billet" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener" aria-label="Boxing Trophy 19, vendredi 13 novembre 2026 à 19 h : le gala qui inaugure la nouvelle salle. Ouvre le site du gala."><span class="trophee-billet__forme" aria-hidden="true"><span class="trophee-billet__corps"><span class="trophee-logo"><span class="trophee-logo__mot">Boxing<br>Trophy</span><span class="trophee-logo__n">19</span></span><span class="trophee-billet__info"><span class="trophee-billet__date">Ven. 13 nov. · 19h</span><span class="trophee-billet__quoi"><span class="trophee-billet__long">Inauguration de la nouvelle salle</span><span class="trophee-billet__court">Nouvelle salle</span> · 10&nbsp;€</span></span></span><span class="trophee-billet__talon"><span class="trophee-billet__j" data-trophee-j>13.11</span><span class="trophee-billet__go">Le gala<svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></span></a>
+            </div>
+            <a class="trophee-affiche__cadre trophee-affiche__cadre--carre" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener"><img src="/img/trophee/affiche-trophy-19-carre.jpg" srcset="/img/opt/trophee/affiche-trophy-19-carre-480.webp 480w, /img/opt/trophee/affiche-trophy-19-carre-960.webp 960w, /img/opt/trophee/affiche-trophy-19-carre-1440.webp 1440w" sizes="(max-width: 760px) 82vw, 440px" width="2048" height="2048" loading="lazy" decoding="async" alt="Affiche du Boxing Trophy 19 : vendredi 13 novembre 2026 dès 19 h au Boxing Center Portet-sur-Garonne, boxe anglaise et boxe pieds-poings, débutants et intermédiaires, inauguration de la nouvelle salle"></a>
+          </div>
+          <div class="ring-offre" data-trophee-remplace>
           <span class="eyebrow">03 · Ta place</span>
           <!-- Ce panneau dit ce que les billets dessous ouvrent : les deux
                abonnements, l'étudiant puis l'adulte. On lit une chose, on
@@ -525,6 +550,7 @@
                 <span class="billet__go">Prendre ma place <i>→</i></span>
               </span>
             </a>
+          </div>
           </div>
         </div>
     </div>
@@ -617,7 +643,19 @@
            juste, pour un site qui raconte un combat, c'est le billet :
            bord déchiré à gauche, talon perforé à droite, le prix à
            l'échelle du bloc. -->
-      <div class="billets">
+      <!-- BOXING TROPHY 19 (jusqu’au 13/11, src/trophee.mjs) — à la place de la paire de billets : l’affiche
+           du gala, telle qu’elle est, jamais recadrée ni étirée, et ce qu’elle annonce. Les billets restent
+           dessous, cachés : ils reviennent seuls à minuit après le gala. -->
+      <div class="trophee-affiche trophee-affiche--miroir">
+        <a class="trophee-affiche__cadre" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener"><img src="/img/trophee/affiche-trophy-19.jpg" srcset="/img/opt/trophee/affiche-trophy-19-480.webp 480w, /img/opt/trophee/affiche-trophy-19-960.webp 960w, /img/opt/trophee/affiche-trophy-19-1440.webp 1440w" sizes="(max-width: 760px) 86vw, 360px" width="1792" height="2240" loading="lazy" decoding="async" alt="Affiche du Boxing Trophy 19 : vendredi 13 novembre 2026 dès 19 h au Boxing Center Portet-sur-Garonne, boxe anglaise et boxe pieds-poings, débutants et intermédiaires, inauguration de la nouvelle salle"></a>
+        <div class="trophee-affiche__texte">
+          <span class="trophee-affiche__sur">Inscriptions ouvertes</span>
+          <p class="trophee-affiche__titre">Ta place est aussi sur le ring.</p>
+          <p class="trophee-affiche__txt">Débutant ou intermédiaire, en boxe anglaise ou en pied-poing : le Trophy t’apparie par sexe, par poids et par niveau. Une licence FFB ou FFKMDA suffit, ou l’engagement d’en prendre une en loisir.</p>
+          <a class="trophee-bouton" href="https://boxing-trophy-19.vercel.app/#inscription" target="_blank" rel="noopener">S’inscrire au combat<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <div class="billets" data-trophee-remplace>
         <a class="billet" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener">
           <span class="billet__corps">
             <span class="billet__sur">Étudiant · toutes les 4 semaines</span>
@@ -790,8 +828,12 @@
              les boutons font. L'essai et les formules comptant restent dans
              la grille des tarifs, plus haut : un dernier bloc qui propose cinq
              choix ne conclut rien. -->
-        <p class="lead" style="margin-inline:auto">Toutes les disciplines, les cinq salles du réseau, aucun plafond de cours — et rien ne te retient au-delà de 4 semaines. <strong>36,99 €</strong> avec ta carte étudiante, <strong>44,99 €</strong> en adulte.</p>
-        <a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
+        <!-- BOXING TROPHY 19 (jusqu’au 13/11) : le dernier bloc conclut sur le gala, avec le même billet que
+             le héros ; la phrase et les deux boutons d’offre reviennent seuls à minuit après le gala. -->
+        <p class="lead trophee-montre" style="margin-inline:auto">Le vendredi 13 novembre à 19 h, le club inaugure sa nouvelle salle avec le Boxing Trophy 19. Viens voir les combats, ou monte sur le ring.</p>
+        <p class="lead" style="margin-inline:auto" data-trophee-remplace>Toutes les disciplines, les cinq salles du réseau, aucun plafond de cours — et rien ne te retient au-delà de 4 semaines. <strong>36,99 €</strong> avec ta carte étudiante, <strong>44,99 €</strong> en adulte.</p>
+        <a class="trophee-billet" href="https://boxing-trophy-19.vercel.app/" target="_blank" rel="noopener" aria-label="Boxing Trophy 19, vendredi 13 novembre 2026 à 19 h, entrée 10 € : ouvre le site du gala."><span class="trophee-billet__forme" aria-hidden="true"><span class="trophee-billet__corps"><span class="trophee-logo"><span class="trophee-logo__mot">Boxing<br>Trophy</span><span class="trophee-logo__n">19</span></span><span class="trophee-billet__info"><span class="trophee-billet__date">Ven. 13 nov. · 19h</span><span class="trophee-billet__quoi"><span class="trophee-billet__long">Inauguration de la nouvelle salle</span><span class="trophee-billet__court">Nouvelle salle</span> · 10&nbsp;€</span></span></span><span class="trophee-billet__talon"><span class="trophee-billet__j" data-trophee-j>13.11</span><span class="trophee-billet__go">Le gala<svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4.5 3H9v4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></span></a>
+        <a class="btn btn--saison" data-trophee-remplace href="https://boutique.boxingcenter.fr/inscription?product=etudiants-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement étudiant, 36,99 € toutes les 4 semaines, carte étudiante requise">Étudiant · 36<small>€99</small></a><a class="btn btn--saison" data-trophee-remplace href="https://boutique.boxingcenter.fr/inscription?product=44-99-4-semaines" target="_blank" rel="noopener" aria-label="Abonnement adulte, 44,99 € toutes les 4 semaines">Adulte · 44<small>€99</small></a>
       </div>
     </div>
   </section>

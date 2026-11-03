@@ -189,11 +189,102 @@ html[data-trophee] .trophee-billet { display: inline-flex; }
 .bcp-chip--trophee i { font-family: var(--tr-chiffre); font-style: italic; font-size: 1.3em; line-height: 0;
   color: var(--tr-cuivre-hi); padding-right: .04em; }
 
+/* =====================================================================
+   4. L'AFFICHE DU GALA (3/11, demande d'Eddy) — à la place de la paire de
+   billets du Round 01 et du Round 05, et dans le dernier panneau du ring.
+   L'image est montrée TELLE QU'ELLE EST : la boîte porte le rapport exact
+   du fichier (4:5 ou 1:1), l'image la remplit sans recadrage ni étirement.
+   Deux fichiers, chacun à sa place : le portrait 4:5 (l'affiche d'origine,
+   1792 × 2240) dans les rounds, à côté du texte ; le carré (2048 × 2048)
+   dans le ring, parce qu'il tient dans la hauteur de l'écran à côté du
+   message. Sous chaque affiche, l'élément d'offre reste caché
+   ([data-trophee-remplace]) et revient seul à minuit après le gala.
+   ===================================================================== */
+html[data-trophee] [data-trophee-remplace] { display: none !important; }
+.trophee-affiche, .ring-trophee, .trophee-montre { display: none; }
+html[data-trophee] .trophee-affiche, html[data-trophee] .ring-trophee { display: grid; }
+html[data-trophee] .trophee-montre { display: block; }
+.ring-offre { display: contents; }
+
+.trophee-affiche { flex: 0 0 100%; max-width: 980px; margin-top: 1.4rem; align-items: center;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(1.6rem, 4.5vw, 3.6rem); }
+.trophee-affiche--miroir { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+.trophee-affiche--miroir .trophee-affiche__cadre { order: 2; }
+
+/* le cadre : la forme exacte du fichier, un liseré cuivre, un halo, la lumière qui suit la souris */
+.trophee-affiche__cadre {
+  --rx: 0deg; --ry: 0deg; --gx: 50%; --gy: 0%;
+  position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden;
+  isolation: isolate; background: var(--tr-noir); text-decoration: none;
+  box-shadow: 0 0 0 1px rgba(232, 182, 136, .42), 0 26px 60px rgba(0, 0, 0, .5), 0 0 90px rgba(207, 149, 99, .18);
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .55s var(--ease-out), box-shadow .55s var(--ease-out);
+}
+.trophee-affiche__cadre--carre { aspect-ratio: 1 / 1; }
+.trophee-affiche__cadre img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.trophee-affiche__cadre::before { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(55% 45% at var(--gx) var(--gy), rgba(255, 236, 214, .2), transparent 62%);
+  opacity: 0; transition: opacity .4s var(--ease-out); }
+.trophee-affiche__cadre::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 228, 196, .2) 50%, transparent 62%);
+  transform: translateX(-130%); animation: refletOr 8s var(--ease-out) 3s infinite; }
+.trophee-affiche__cadre:hover { box-shadow: 0 0 0 1px rgba(232, 182, 136, .7), 0 32px 70px rgba(0, 0, 0, .55), 0 0 120px rgba(207, 149, 99, .3); }
+.trophee-affiche__cadre:hover::before { opacity: 1; }
+.trophee-affiche__cadre:focus-visible { outline: 2px solid var(--tr-cuivre-hi); outline-offset: 6px; }
+
+.trophee-affiche__texte { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; min-width: 0; }
+.trophee-affiche__sur { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--tr-cuivre-hi); display: inline-flex; align-items: center; gap: .7em; }
+.trophee-affiche__sur::before { content: ""; width: 1.8em; height: 1px; background: currentColor; opacity: .7; }
+.trophee-affiche__titre { margin: 0; max-width: 13ch; font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(2.1rem, 4.4vw, 3.5rem); line-height: .94; letter-spacing: .005em; color: var(--fg); text-wrap: balance; }
+.trophee-affiche__txt { margin: 0; max-width: 44ch; font-size: 1rem; line-height: 1.6; color: var(--fg-soft); }
+.trophee-affiche__texte .trophee-billet { margin-top: .4rem; }
+[data-theme="light"] .trophee-affiche__sur { color: #93582a; }
+
+/* le bouton du combattant : la pilule cuivre du site du gala (« S'inscrire au combat ») */
+.trophee-bouton { display: inline-flex; align-items: center; gap: .65em; margin-top: .4rem; padding: 1em 1.6em; border-radius: 999px;
+  background: linear-gradient(160deg, #eec39a 0%, var(--tr-cuivre) 55%, #ad7646 100%); color: #17120b; text-decoration: none;
+  font-family: var(--tr-mot); font-weight: 800; text-transform: uppercase; font-size: 16px; letter-spacing: .08em; line-height: 1;
+  box-shadow: 0 10px 28px rgba(207, 149, 99, .3), inset 0 1px 0 rgba(255, 240, 222, .5);
+  transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out); }
+.trophee-bouton:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(207, 149, 99, .46), inset 0 1px 0 rgba(255, 240, 222, .5); }
+.trophee-bouton:focus-visible { outline: 2px solid var(--tr-cuivre-hi); outline-offset: 4px; }
+.trophee-bouton svg { transition: transform .3s var(--ease-out); }
+.trophee-bouton:hover svg { transform: translate(1px, -1px); }
+
+/* le dernier panneau du ring : le message à gauche, l'affiche carrée à droite, à la hauteur de l'écran */
+.ring-trophee { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(1.4rem, 4vw, 4rem); }
+.ring-trophee__texte { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; min-width: 0; }
+.ring-trophee .tint { color: var(--tr-cuivre-hi); }
+.ring-trophee .eyebrow::before { background: var(--tr-cuivre); }
+.ring-trophee .trophee-affiche__cadre { width: min(440px, 32vw, calc(100svh - 300px)); position: relative; z-index: 4; }
+.ring-trophee .trophee-billet { position: relative; z-index: 4; }
+
+/* le dernier bloc : le billet centré, à la place des deux boutons */
+.cta-block .trophee-billet { margin-top: 1.8rem; }
+
+@media (max-width: 760px) {
+  html[data-trophee] .trophee-affiche { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+  .trophee-affiche--miroir .trophee-affiche__cadre { order: 0; }
+  .trophee-affiche__cadre { width: 100%; max-width: 420px; }
+  html[data-trophee] .trophee-affiche .trophee-billet,
+  html[data-trophee] .ring-trophee .trophee-billet,
+  html[data-trophee] .cta-block .trophee-billet { display: flex; width: 100%; }
+  html[data-trophee] .ring-trophee { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+  .ring-trophee .trophee-affiche__cadre { width: min(100%, 38svh); order: -1; }
+  .ring-trophee .lead { display: none; }
+}
+
 /* ---------- mouvement réduit, contraste forcé ---------- */
 @media (prefers-reduced-motion: reduce) {
   .trophee-billet, .trophee-billet__go svg, .plaque.plaque--trophee { transition: opacity .2s; }
   .trophee-billet:hover { transform: none; }
   .trophee-billet__forme::after { animation: none; display: none; }
+  .trophee-affiche__cadre { transform: none; transition: box-shadow .2s; }
+  .trophee-affiche__cadre::after { animation: none; display: none; }
+  .trophee-bouton, .trophee-bouton svg { transition: none; }
+  .trophee-bouton:hover { transform: none; }
 }
 @media (forced-colors: active) {
   .trophee-logo__n, .trophee-billet__j, .plaque__tn { background: none; color: CanvasText; }

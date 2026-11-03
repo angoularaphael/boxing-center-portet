@@ -924,5 +924,21 @@
    960
   ],
   "ar": 0.667
+ },
+ "/img/trophee/affiche-trophy-19-carre.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 1
+ },
+ "/img/trophee/affiche-trophy-19.jpg": {
+  "w": [
+   480,
+   960,
+   1440
+  ],
+  "ar": 0.8
  }
 }
