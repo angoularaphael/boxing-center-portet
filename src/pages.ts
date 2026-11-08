@@ -7,11 +7,11 @@ import { optUrl } from "./img";
 const el = (id: string) => document.getElementById(id);
 
 /* ---------- Formulaire partenaires (Inlett) ----------
-   Contrat du service (inlett.vercel.app/docs) : GET /api/challenge →
+   Contrat du service (eam-inlet.vercel.app/docs) : GET /api/challenge →
    résoudre la preuve de travail (sha256("challenge:nonce") commençant par
    N zéros) → POST /api/submit/{FORM_ID} avec les champs + pow_* + _gotcha
    (pot de miel, vide pour un humain). Coût humain : un clignement d'œil. */
-const INLETT_URL = "https://inlett.vercel.app";
+const INLETT_URL = "https://eam-inlet.vercel.app";
 const INLETT_FORM_ID = "01fbfbdc-2eef-4a06-81b9-cbf38f4650c1";
 
 async function sha256Hex(s: string): Promise<string> {
